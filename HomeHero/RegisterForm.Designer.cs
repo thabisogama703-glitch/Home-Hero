@@ -41,6 +41,9 @@
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.ValidationError = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnBack = new System.Windows.Forms.Button();
+            this.btnShowPassword = new System.Windows.Forms.Button();
+            this.btnShowConfirmPassword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ValidationError)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,11 +143,44 @@
             // 
             this.ValidationError.ContainerControl = this;
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(40, 320);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // btnShowPassword
+            // 
+            this.btnShowPassword.Location = new System.Drawing.Point(290, 214);
+            this.btnShowPassword.Name = "btnShowPassword";
+            this.btnShowPassword.Size = new System.Drawing.Size(75, 23);
+            this.btnShowPassword.TabIndex = 12;
+            this.btnShowPassword.Text = "👁";
+            this.btnShowPassword.UseVisualStyleBackColor = true;
+            this.btnShowPassword.Click += new System.EventHandler(this.btnShowPassword_Click);
+            // 
+            // btnShowConfirmPassword
+            // 
+            this.btnShowConfirmPassword.Location = new System.Drawing.Point(290, 259);
+            this.btnShowConfirmPassword.Name = "btnShowConfirmPassword";
+            this.btnShowConfirmPassword.Size = new System.Drawing.Size(75, 23);
+            this.btnShowConfirmPassword.TabIndex = 13;
+            this.btnShowConfirmPassword.Text = "👁";
+            this.btnShowConfirmPassword.UseVisualStyleBackColor = true;
+            this.btnShowConfirmPassword.Click += new System.EventHandler(this.btnShowConfirmPassword_Click);
+            // 
             // frmHomeHeroRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(503, 658);
+            this.Controls.Add(this.btnShowConfirmPassword);
+            this.Controls.Add(this.btnShowPassword);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.txtPassword);
@@ -179,5 +215,8 @@
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.ErrorProvider ValidationError;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnShowPassword;
+        private System.Windows.Forms.Button btnShowConfirmPassword;
     }
 }

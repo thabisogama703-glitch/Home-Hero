@@ -25,18 +25,20 @@ namespace HomeHero
         private void btnRegister_Click(object sender, EventArgs e)
         {
             bool isValid = true;
+            bool hasEmptyFields = false;
 
-            string name = txtName.Text;
-            string email = txtEmail.Text;
-            string phoneNumber = txtPhoneNumber.Text;
-            string password = txtPassword.Text;
-            string confirmPassword = txtConfirmPassword.Text;
+            string name = txtName.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string phoneNumber = txtPhoneNumber.Text.Trim();
+            string password = txtPassword.Text.Trim();
+            string confirmPassword = txtConfirmPassword.Text.Trim();
             
 
             if (string.IsNullOrEmpty(name))
             {
                 ValidationError.SetError(txtName, "Name is required");
                 isValid = false;
+                hasEmptyFields = true;
             }
             else
             {
@@ -47,6 +49,7 @@ namespace HomeHero
             {
                 ValidationError.SetError(txtEmail, "Email is required ");
                 isValid = false;
+                hasEmptyFields = true;
 
             }
             else if (!email.Contains("@") || !email.Contains("."))
@@ -64,6 +67,7 @@ namespace HomeHero
             {
                 ValidationError.SetError(txtPhoneNumber, "Phone number is required.");
                 isValid = false;
+                hasEmptyFields = true;
             }
             else if (phoneNumber.Length != 10)
             {
@@ -85,6 +89,7 @@ namespace HomeHero
             {
                 ValidationError.SetError(txtPassword, "Password is required.");
                 isValid = false;
+                hasEmptyFields = true;
             }
             else
             {
@@ -95,6 +100,7 @@ namespace HomeHero
             {
                 ValidationError.SetError(txtConfirmPassword, "Please confirm your password.");
                 isValid = false;
+                hasEmptyFields = true;
             }
             else if (string.IsNullOrEmpty(password))
             {
@@ -112,6 +118,17 @@ namespace HomeHero
 
             if (!isValid)
             {
+                if (hasEmptyFields)
+                {
+                    MessageBox.Show("Please fill in all required fields.");
+
+                }
+                else
+                {
+                    MessageBox.Show("Registration unsuccessful. Please try again. ");
+                    
+                }
+                 
                 return;
             }
 
@@ -127,6 +144,49 @@ namespace HomeHero
 
             
             MessageBox.Show("Registration successful !");
+            ClearFields();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+          
+            this.Close();
+
+             
+           
+        }
+
+        private void ClearFields()
+        {
+            txtName.Clear();
+            txtEmail.Clear();
+            txtPhoneNumber.Clear();
+            txtPassword.Clear();
+            txtConfirmPassword.Clear();
+        }
+
+        private void btnShowPassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.UseSystemPasswordChar)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowConfirmPassword_Click(object sender, EventArgs e)
+        {
+            if (txtConfirmPassword.UseSystemPasswordChar)
+            {
+                txtConfirmPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtConfirmPassword.UseSystemPasswordChar = true;
+            }
         }
     }
 }

@@ -36,6 +36,7 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.validationError = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnShowPassword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.validationError)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,11 +99,22 @@
             // 
             this.validationError.ContainerControl = this;
             // 
+            // btnShowPassword
+            // 
+            this.btnShowPassword.Location = new System.Drawing.Point(348, 107);
+            this.btnShowPassword.Name = "btnShowPassword";
+            this.btnShowPassword.Size = new System.Drawing.Size(75, 23);
+            this.btnShowPassword.TabIndex = 6;
+            this.btnShowPassword.Text = "👁";
+            this.btnShowPassword.UseVisualStyleBackColor = true;
+            this.btnShowPassword.Click += new System.EventHandler(this.btnShowPassword_Click);
+            // 
             // frmHomeHeroLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 648);
+            this.ClientSize = new System.Drawing.Size(435, 659);
+            this.Controls.Add(this.btnShowPassword);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.ErrorProvider validationError;
+        private System.Windows.Forms.Button btnShowPassword;
     }
 }
 
