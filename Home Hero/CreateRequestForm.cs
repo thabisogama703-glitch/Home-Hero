@@ -39,7 +39,7 @@ namespace Home_Hero
 
         private void btnSubmitRequest_Click(object sender, EventArgs e)
         {
-            if (cmbCategory.SelectedIndex != -1)
+            if (cmbCategory.SelectedIndex != -1) 
             {
                 MessageBox.Show("Please select a valid service category.");
                 return;
