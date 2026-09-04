@@ -10,7 +10,7 @@ namespace Home_Hero
 
     public class MaintenanceRequest
     {
-        public string RequestNumber {  get; private set; }
+        public string RequestNumber { get; private set; }
         public string CustomerId { get; set; }
         public string ServiceCategory { get; set; }
         public string ProblemDescription { get; set; }
@@ -48,7 +48,9 @@ namespace Home_Hero
                 "Electrical" => 500.00m,
                 "Plumbing" => 400.00m,
                 "Appliance Repair" => 350.00m,
-                "Painting" => 200.00m
+                "Painting" => 200.00m,
+                "General Maintenance" => 300.00m,
+                _ => 0.00m
 
 
             };
@@ -68,20 +70,22 @@ namespace Home_Hero
                 Status = RequestStatus.Cancelled;
                 return true;
             }
-            if(newStatus == Status + 1)
+            if ((int)newStatus == (int)Status + 1)
             {
                 Status = newStatus;
                 return true;
             }
             errorMessage = $"Invalid status transition from {Status} to {newStatus}";
             return false;
-
-
-
-
         }
+
+
 
 
 
     }
 }
+
+
+    
+
