@@ -1,4 +1,4 @@
-namespace Home_Maintenance__Service_Platform
+namespace Home_Hero
 {
     internal static class Program
     {
@@ -11,7 +11,7 @@ namespace Home_Maintenance__Service_Platform
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmHomeMaintenanceServicePlatform());
+            Application.Run(new frmHomeHeroHomepage());
         }
     }
 }
