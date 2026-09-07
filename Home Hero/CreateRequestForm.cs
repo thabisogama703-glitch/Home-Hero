@@ -59,7 +59,9 @@ namespace Home_Hero
                 MessageBox.Show("Please select a preferred time slot.");
                 return;
             }
-                string CurrentCustomerId = "11";
+                
+
+            string CurrentCustomerId = "11";
                 MaintenanceRequest newRequest = new MaintenanceRequest(
                     CurrentCustomerId,
                     cmbCategory.SelectedItem.ToString(),
@@ -70,7 +72,11 @@ namespace Home_Hero
                     );
                 MessageBox.Show($"Request submitted Successfully");
 
-                ClearForm();
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "requests.txt");
+            string line = $"{newRequest.RequestNumber},{newRequest.CustomerId},{newRequest.ServiceCategory},{newRequest.ProblemDescription},{newRequest.PropertyAddress},{newRequest.PreferredDate.ToShortDateString()},{newRequest.PreferredTime},{newRequest.Status},{newRequest.AssignedProviderId},{newRequest.EstimatedCost},{newRequest.FinalCost}";
+
+            File.AppendAllText(filePath, line + Environment.NewLine);
+            ClearForm();
         }
         private void ClearForm()
         {

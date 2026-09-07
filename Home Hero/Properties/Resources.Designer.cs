@@ -63,6 +63,16 @@ namespace Home_Hero.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2026_09_05_151619 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2026-09-05 151619", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2026_09_05_180629 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2026-09-05 180629", resourceCulture);
