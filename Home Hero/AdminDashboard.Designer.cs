@@ -309,9 +309,9 @@
             // 
             panel8.BackColor = Color.WhiteSmoke;
             panel8.Controls.Add(label14);
-            panel8.Location = new Point(556, 342);
+            panel8.Location = new Point(540, 342);
             panel8.Name = "panel8";
-            panel8.Size = new Size(470, 205);
+            panel8.Size = new Size(486, 205);
             panel8.TabIndex = 12;
             // 
             // label14
