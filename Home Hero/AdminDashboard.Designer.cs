@@ -52,8 +52,8 @@
             label12 = new Label();
             label11 = new Label();
             panel7 = new Panel();
-            panel8 = new Panel();
             label13 = new Label();
+            panel8 = new Panel();
             label14 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -296,15 +296,6 @@
             panel7.Size = new Size(508, 205);
             panel7.TabIndex = 11;
             // 
-            // panel8
-            // 
-            panel8.BackColor = Color.WhiteSmoke;
-            panel8.Controls.Add(label14);
-            panel8.Location = new Point(561, 342);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(465, 205);
-            panel8.TabIndex = 12;
-            // 
             // label13
             // 
             label13.AutoSize = true;
@@ -313,6 +304,15 @@
             label13.Size = new Size(184, 20);
             label13.TabIndex = 0;
             label13.Text = "Request Status Breakdown";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.WhiteSmoke;
+            panel8.Controls.Add(label14);
+            panel8.Location = new Point(556, 342);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(470, 205);
+            panel8.TabIndex = 12;
             // 
             // label14
             // 
