@@ -1,0 +1,54 @@
+[
+  {
+    "RequestNumber": null,
+    "CustomerId": "11",
+    "ServiceCategory": "Plumbing",
+    "ProblemDescription": "jhakhajhahkafhkhkf",
+    "PropertyAddress": "ajhkafhafhaaf",
+    "PreferredDate": "2026-09-07T00:00:00+02:00",
+    "PreferredTime": "10:00 AM - 12:00 PM",
+    "Status": 0,
+    "AssignedProviderId": "Unassigned",
+    "EstimatedCost": 650.00,
+    "FinalCost": 0.00
+  },
+  {
+    "RequestNumber": null,
+    "CustomerId": "11",
+    "ServiceCategory": "Painting",
+    "ProblemDescription": "jhhgfkfhks",
+    "PropertyAddress": "jhbakhafhahka",
+    "PreferredDate": "2026-09-07T00:00:00+02:00",
+    "PreferredTime": "10:00 AM - 12:00 PM",
+    "Status": 0,
+    "AssignedProviderId": "Unassigned",
+    "EstimatedCost": 450.00,
+    "FinalCost": 0.00
+  },
+  {
+    "RequestNumber": null,
+    "CustomerId": "11",
+    "ServiceCategory": "Painting",
+    "ProblemDescription": "jhgkghkjh",
+    "PropertyAddress": "jhvgmmg",
+    "PreferredDate": "2026-09-07T00:00:00+02:00",
+    "PreferredTime": "10:00 AM - 12:00 PM",
+    "Status": 0,
+    "AssignedProviderId": "Unassigned",
+    "EstimatedCost": 450.00,
+    "FinalCost": 0.00
+  },
+  {
+    "RequestNumber": "REQ-20260907-151733",
+    "CustomerId": "11",
+    "ServiceCategory": "Painting",
+    "ProblemDescription": "akkadshasbhad",
+    "PropertyAddress": "hgadsjhadhjad",
+    "PreferredDate": "2026-09-07T00:00:00+02:00",
+    "PreferredTime": "12:00 PM - 02:00 PM",
+    "Status": 0,
+    "AssignedProviderId": "Unassigned",
+    "EstimatedCost": 450.00,
+    "FinalCost": 0.00
+  }
+]
