@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero_2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,10 @@ namespace Home_Hero
 
     public class MaintenanceRequest
     {
+        private Customer customer;
+        private Service service;
+        private string requestDescription;
+
         public string RequestNumber { get; private set; }
         public string CustomerId { get; set; }
         public string ServiceCategory { get; set; }
@@ -21,6 +26,7 @@ namespace Home_Hero
         public string AssignedProviderId { get; set; }
         public decimal EstimatedCost { get; set; }
         public decimal FinalCost { get; set; }
+        public object ServiceRequest { get; internal set; }
 
         public MaintenanceRequest() { }
         public MaintenanceRequest(string customerId, string category, string description, string address, DateTime preferredDate, string preferredTime)
@@ -38,6 +44,13 @@ namespace Home_Hero
             FinalCost = 0.00m;
 
 
+        }
+
+        public MaintenanceRequest(Customer customer, Service service, string requestDescription)
+        {
+            this.customer = customer;
+            this.service = service;
+            this.requestDescription = requestDescription;
         }
 
         public decimal CalculateEstimatedCost(string category)
