@@ -1,3 +1,6 @@
+using HomeHero;
+using HomeHero_2;
+
 namespace Home_Hero
 {
     public partial class frmHomeHeroHomepage : Form
@@ -8,7 +11,7 @@ namespace Home_Hero
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            frmLogin LoginPage = new frmLogin();
+            frmHomeHeroLogin LoginPage = new frmHomeHeroLogin();
             this.Hide();
             LoginPage.Show();
         }
@@ -32,6 +35,11 @@ namespace Home_Hero
             frmAdministrator adminPage = new frmAdministrator();
             this.Hide();
             adminPage.Show();
+        }
+
+        private void frmHomeHeroHomepage_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
