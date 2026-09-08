@@ -54,9 +54,10 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(32, 53);
             label1.Name = "label1";
-            label1.Size = new Size(120, 20);
+            label1.Size = new Size(144, 25);
             label1.TabIndex = 1;
             label1.Text = "Service Category";
             // 
@@ -65,32 +66,34 @@
             txtAddress.Location = new Point(575, 44);
             txtAddress.Multiline = true;
             txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(210, 34);
+            txtAddress.Size = new Size(273, 69);
             txtAddress.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(415, 53);
             label2.Name = "label2";
-            label2.Size = new Size(122, 20);
+            label2.Size = new Size(150, 25);
             label2.TabIndex = 3;
             label2.Text = "Property Address";
             // 
             // txtProblemDescription
             // 
-            txtProblemDescription.Location = new Point(201, 129);
+            txtProblemDescription.Location = new Point(32, 138);
             txtProblemDescription.Multiline = true;
             txtProblemDescription.Name = "txtProblemDescription";
-            txtProblemDescription.Size = new Size(163, 34);
+            txtProblemDescription.Size = new Size(354, 182);
             txtProblemDescription.TabIndex = 4;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(32, 143);
+            label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(32, 103);
             label3.Name = "label3";
-            label3.Size = new Size(145, 20);
+            label3.Size = new Size(174, 25);
             label3.TabIndex = 5;
             label3.Text = "Problem Description";
             // 
@@ -106,17 +109,19 @@
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
-            lblEstimatedCost.Location = new Point(32, 222);
+            lblEstimatedCost.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblEstimatedCost.Location = new Point(415, 295);
             lblEstimatedCost.Name = "lblEstimatedCost";
-            lblEstimatedCost.Size = new Size(151, 20);
+            lblEstimatedCost.Size = new Size(185, 25);
             lblEstimatedCost.TabIndex = 7;
             lblEstimatedCost.Text = "Estimated Cost: R0.00";
             // 
             // btnSubmitRequest
             // 
-            btnSubmitRequest.Location = new Point(32, 300);
+            btnSubmitRequest.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSubmitRequest.Location = new Point(403, 404);
             btnSubmitRequest.Name = "btnSubmitRequest";
-            btnSubmitRequest.Size = new Size(151, 40);
+            btnSubmitRequest.Size = new Size(207, 40);
             btnSubmitRequest.TabIndex = 8;
             btnSubmitRequest.Text = "Submit Request";
             btnSubmitRequest.UseVisualStyleBackColor = true;
@@ -125,9 +130,10 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.Location = new Point(415, 143);
             label4.Name = "label4";
-            label4.Size = new Size(106, 20);
+            label4.Size = new Size(126, 25);
             label4.TabIndex = 9;
             label4.Text = "Preferred Date";
             // 
@@ -142,9 +148,10 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.Location = new Point(415, 222);
             label5.Name = "label5";
-            label5.Size = new Size(72, 20);
+            label5.Size = new Size(86, 25);
             label5.TabIndex = 11;
             label5.Text = "Time Slot";
             // 
@@ -152,7 +159,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1058, 511);
             Controls.Add(label5);
             Controls.Add(cmbTimeSlot);
             Controls.Add(label4);
@@ -166,7 +173,9 @@
             Controls.Add(label1);
             Controls.Add(cmbCategory);
             Name = "CreateRequestForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "CreateRequestForm";
+            Load += CreateRequestForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -43,10 +43,10 @@
             // dgvRequests
             // 
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(402, 45);
+            dgvRequests.Location = new Point(61, 196);
             dgvRequests.Name = "dgvRequests";
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(300, 188);
+            dgvRequests.Size = new Size(1135, 188);
             dgvRequests.TabIndex = 0;
             // 
             // lblRequestNum
@@ -61,7 +61,7 @@
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(61, 88);
+            lblCategory.Location = new Point(306, 45);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(94, 20);
             lblCategory.TabIndex = 2;
@@ -70,7 +70,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(61, 131);
+            lblStatus.Location = new Point(522, 45);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(116, 20);
             lblStatus.TabIndex = 3;
@@ -79,7 +79,7 @@
             // lblAssignedProvider
             // 
             lblAssignedProvider.AutoSize = true;
-            lblAssignedProvider.Location = new Point(61, 169);
+            lblAssignedProvider.Location = new Point(61, 106);
             lblAssignedProvider.Name = "lblAssignedProvider";
             lblAssignedProvider.Size = new Size(131, 20);
             lblAssignedProvider.TabIndex = 4;
@@ -88,7 +88,7 @@
             // lblAppointment
             // 
             lblAppointment.AutoSize = true;
-            lblAppointment.Location = new Point(61, 209);
+            lblAppointment.Location = new Point(306, 106);
             lblAppointment.Name = "lblAppointment";
             lblAppointment.Size = new Size(85, 20);
             lblAppointment.TabIndex = 5;
@@ -97,7 +97,7 @@
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
-            lblEstimatedCost.Location = new Point(61, 251);
+            lblEstimatedCost.Location = new Point(522, 106);
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(111, 20);
             lblEstimatedCost.TabIndex = 6;
@@ -106,7 +106,7 @@
             // lblFinalCost
             // 
             lblFinalCost.AutoSize = true;
-            lblFinalCost.Location = new Point(61, 293);
+            lblFinalCost.Location = new Point(61, 169);
             lblFinalCost.Name = "lblFinalCost";
             lblFinalCost.Size = new Size(76, 20);
             lblFinalCost.TabIndex = 7;
@@ -114,7 +114,7 @@
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(61, 351);
+            btnRefresh.Location = new Point(61, 390);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(111, 29);
             btnRefresh.TabIndex = 8;
@@ -126,7 +126,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1208, 450);
             Controls.Add(btnRefresh);
             Controls.Add(lblFinalCost);
             Controls.Add(lblEstimatedCost);

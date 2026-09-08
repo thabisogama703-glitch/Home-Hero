@@ -21,5 +21,10 @@ namespace Home_Hero
         {
 
         }
+
+        private void ProviderManagement_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
