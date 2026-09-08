@@ -43,6 +43,7 @@ namespace Home_Hero
         {
 
         }
+<<<<<<< HEAD
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -53,5 +54,7 @@ namespace Home_Hero
         {
 
         }
+=======
+>>>>>>> 0a21678 (Fix issues in Home Hero)
     }
 }

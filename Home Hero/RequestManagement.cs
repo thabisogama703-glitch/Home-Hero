@@ -103,5 +103,10 @@ namespace Home_Hero
             AdminDashboard adminDashboard = new AdminDashboard();
             adminDashboard.Show();
         }
+
+        private void RequestManagement_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

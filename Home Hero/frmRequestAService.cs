@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,8 +23,25 @@ namespace Home_Hero
             frmHomeHeroHomepage homePage = new frmHomeHeroHomepage();
             this.Close();
             homePage.Show();
-            
-            
+
+
+        }
+
+        private void btnCustomerDashboard_Click(object sender, EventArgs e)
+        {
+            frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
+            this.Hide();
+            Customerdashboard.Show();
+        }
+
+        private void frmRequestAService_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlServiceRequest_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

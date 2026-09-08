@@ -182,9 +182,14 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "RequestManagement";
             Text = "RequestManagement";
+<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+=======
+            Load += RequestManagement_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+>>>>>>> 0a21678 (Fix issues in Home Hero)
             ResumeLayout(false);
             PerformLayout();
         }

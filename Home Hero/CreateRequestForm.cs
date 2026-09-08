@@ -34,31 +34,55 @@ namespace Home_Hero
             cmbTimeSlot.Items.Add("12:00 PM - 02:00 PM");
             cmbTimeSlot.Items.Add("02:00 PM - 04:00 PM");
 
+            cmbCategory.SelectedIndex = -1;
+            cmbTimeSlot.SelectedIndex = -1;
+
+            dtpDatePreferred.MinDate = DateTime.Today;
+
+            lblEstimatedCost.Text = "Estimated Cost: R0.00";
+
         }
 
 
         private void btnSubmitRequest_Click(object sender, EventArgs e)
         {
-            if (cmbCategory.SelectedIndex != -1) 
+            if (cmbCategory.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select a valid service category.");
+                MessageBox.Show(
+                    "Please select a service category.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtProblemDescription.Text))
             {
-                MessageBox.Show("Please provide a detailed description.");
+                MessageBox.Show(
+                    "Please provide a detailed description of the problem.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
             {
-                MessageBox.Show("Please enter property address.");
+                MessageBox.Show(
+                    "Please enter the property address.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
-                if (cmbTimeSlot.SelectedIndex != -1)
+            if (dtpDatePreferred.Value.Date < DateTime.Today)
             {
-                MessageBox.Show("Please select a preferred time slot.");
+                MessageBox.Show(
+                    "Please select a date that is today or later.",
+                    "Invalid Date",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
+<<<<<<< HEAD
                 
 
             string CurrentCustomerId = "11";
@@ -76,6 +100,38 @@ namespace Home_Hero
             string line = $"{newRequest.RequestNumber},{newRequest.CustomerId},{newRequest.ServiceCategory},{newRequest.ProblemDescription},{newRequest.PropertyAddress},{newRequest.PreferredDate.ToShortDateString()},{newRequest.PreferredTime},{newRequest.Status},{newRequest.AssignedProviderId},{newRequest.EstimatedCost},{newRequest.FinalCost}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
+=======
+            if (cmbTimeSlot.SelectedIndex == -1)
+            {
+                MessageBox.Show(
+                    "Please select a preferred time slot.",
+                    "Missing Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+            string CurrentCustomerId = "11";
+            MaintenanceRequest newRequest = new MaintenanceRequest(
+                CurrentCustomerId,
+                cmbCategory.SelectedItem.ToString(),
+                txtProblemDescription.Text.Trim(),
+                txtAddress.Text.Trim(),
+                dtpDatePreferred.Value.Date,
+                cmbTimeSlot.SelectedItem.ToString()
+                );
+            DataManager.AddRequest(newRequest);
+
+            MessageBox.Show(
+            "Request submitted successfully!\n\n" +
+            "Request Number: " + newRequest.RequestNumber + "\n" +
+            "Estimated Cost: R" +
+            newRequest.EstimatedCost.ToString("F2") + "\n" +
+            "Status: " + newRequest.Status,
+            "Request Submitted",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
+
+>>>>>>> 0a21678 (Fix issues in Home Hero)
             ClearForm();
         }
         private void ClearForm()
@@ -90,14 +146,22 @@ namespace Home_Hero
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCategory.SelectedIndex != null)
+            if (cmbCategory.SelectedIndex == -1)
             {
-                string category = cmbCategory.SelectedIndex.ToString();
-                MaintenanceRequest temp = new MaintenanceRequest();
-                decimal estimate = temp.CalculateEstimatedCost(category);
-                lblEstimatedCost.Text = $"Estimated Cost: R{estimate:F2}";
- 
+                lblEstimatedCost.Text =
+                    "Estimated Cost: R0.00";
+                return;
             }
+
+            string category = cmbCategory.SelectedItem.ToString();
+            MaintenanceRequest temp = new MaintenanceRequest();
+            decimal estimate = temp.CalculateEstimatedCost(category);
+            lblEstimatedCost.Text = $"Estimated Cost: R{estimate:F2}";
+        }
+
+        private void CreateRequestForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
