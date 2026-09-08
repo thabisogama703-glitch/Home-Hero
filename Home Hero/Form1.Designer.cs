@@ -618,6 +618,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home Hero";
             WindowState = FormWindowState.Maximized;
+            Load += frmHomeHeroHomepage_Load;
             pnlHomeHero.ResumeLayout(false);
             pnlHomeHero.PerformLayout();
             tblpHomeHeroPanel.ResumeLayout(false);
