@@ -1,4 +1,4 @@
-namespace HomeHero_2
+namespace Home_Hero
 {
     internal static class Program
     {
@@ -11,7 +11,7 @@ namespace HomeHero_2
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmHomeHeroLogin());
+            Application.Run(new frmHomeHeroHomepage());
         }
     }
 }
