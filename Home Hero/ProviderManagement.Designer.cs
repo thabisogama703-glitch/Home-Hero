@@ -65,7 +65,7 @@
             // 
             // btnAddProvider_
             // 
-            btnAddProvider_.Location = new Point(602, 419);
+            btnAddProvider_.Location = new Point(597, 399);
             btnAddProvider_.Name = "btnAddProvider_";
             btnAddProvider_.Size = new Size(186, 29);
             btnAddProvider_.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             // btnAddProvider
             // 
-            btnAddProvider.Location = new Point(34, 419);
+            btnAddProvider.Location = new Point(12, 409);
             btnAddProvider.Name = "btnAddProvider";
             btnAddProvider.Size = new Size(186, 29);
             btnAddProvider.TabIndex = 3;
