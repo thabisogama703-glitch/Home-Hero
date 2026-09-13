@@ -33,21 +33,22 @@
             btnBack = new Button();
             btnApproveRequests = new Button();
             btnCancelRequests = new Button();
-            comboBox1 = new ComboBox();
-            dataGridView1 = new DataGridView();
-            requestNumber = new DataGridViewTextBoxColumn();
-            customerId = new DataGridViewTextBoxColumn();
-            serviceCategory = new DataGridViewTextBoxColumn();
-            problemDescription = new DataGridViewTextBoxColumn();
-            propertyAddress = new DataGridViewTextBoxColumn();
-            prefferredTime = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dgvRequests = new DataGridView();
+            panel1 = new Panel();
+            pictureBox1 = new PictureBox();
+            label3 = new Label();
+            label2 = new Label();
+            comboBox2 = new ComboBox();
+            comboBox3 = new ComboBox();
+            ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(18, 20);
+            label1.Location = new Point(34, 119);
             label1.Name = "label1";
             label1.Size = new Size(110, 20);
             label1.TabIndex = 0;
@@ -55,14 +56,17 @@
             // 
             // txtSearchRequests
             // 
-            txtSearchRequests.Location = new Point(170, 19);
+            txtSearchRequests.Location = new Point(167, 116);
             txtSearchRequests.Name = "txtSearchRequests";
-            txtSearchRequests.Size = new Size(352, 27);
+            txtSearchRequests.Size = new Size(387, 27);
             txtSearchRequests.TabIndex = 1;
+            txtSearchRequests.Text = "Search by ID, Customer or title";
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(694, 20);
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.ForeColor = SystemColors.ActiveBorder;
+            btnBack.Location = new Point(1051, 34);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(94, 29);
             btnBack.TabIndex = 2;
@@ -72,7 +76,7 @@
             // 
             // btnApproveRequests
             // 
-            btnApproveRequests.Location = new Point(286, 409);
+            btnApproveRequests.Location = new Point(374, 496);
             btnApproveRequests.Name = "btnApproveRequests";
             btnApproveRequests.Size = new Size(199, 29);
             btnApproveRequests.TabIndex = 3;
@@ -82,7 +86,7 @@
             // 
             // btnCancelRequests
             // 
-            btnCancelRequests.Location = new Point(34, 409);
+            btnCancelRequests.Location = new Point(22, 497);
             btnCancelRequests.Name = "btnCancelRequests";
             btnCancelRequests.Size = new Size(177, 29);
             btnCancelRequests.TabIndex = 4;
@@ -90,77 +94,100 @@
             btnCancelRequests.UseVisualStyleBackColor = true;
             btnCancelRequests.Click += btnCancelRequests_Click;
             // 
-            // comboBox1
+            // dgvRequests
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(545, 411);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(211, 28);
-            comboBox1.TabIndex = 5;
-            comboBox1.Text = "Assign Provider";
+            dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRequests.Location = new Point(22, 157);
+            dgvRequests.Name = "dgvRequests";
+            dgvRequests.RowHeadersWidth = 51;
+            dgvRequests.Size = new Size(1109, 334);
+            dgvRequests.TabIndex = 6;
             // 
-            // dataGridView1
+            // panel1
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { requestNumber, customerId, serviceCategory, problemDescription, propertyAddress, prefferredTime });
-            dataGridView1.Location = new Point(24, 57);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(764, 346);
-            dataGridView1.TabIndex = 6;
+            panel1.BackColor = Color.MidnightBlue;
+            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(btnBack);
+            panel1.Location = new Point(-7, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1176, 106);
+            panel1.TabIndex = 7;
             // 
-            // requestNumber
+            // pictureBox1
             // 
-            requestNumber.HeaderText = "Request Number";
-            requestNumber.MinimumWidth = 6;
-            requestNumber.Name = "requestNumber";
+            pictureBox1.BackgroundImage = Properties.Resources.Screenshot_2026_09_13_1713341;
+            pictureBox1.Location = new Point(50, 33);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(50, 42);
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
             // 
-            // customerId
+            // label3
             // 
-            customerId.HeaderText = "Customer ID";
-            customerId.MinimumWidth = 6;
-            customerId.Name = "customerId";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(106, 25);
+            label3.Name = "label3";
+            label3.Size = new Size(127, 50);
+            label3.TabIndex = 4;
+            label3.Text = "Home";
             // 
-            // serviceCategory
+            // label2
             // 
-            serviceCategory.HeaderText = "Service Category";
-            serviceCategory.MinimumWidth = 6;
-            serviceCategory.Name = "serviceCategory";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Tomato;
+            label2.Location = new Point(219, 25);
+            label2.Name = "label2";
+            label2.Size = new Size(108, 50);
+            label2.TabIndex = 3;
+            label2.Text = "Hero";
             // 
-            // problemDescription
+            // comboBox2
             // 
-            problemDescription.HeaderText = "Problem Description";
-            problemDescription.MinimumWidth = 6;
-            problemDescription.Name = "problemDescription";
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Status : Submitted", "Status : Assigned", "Status : Scheduled", "Status : In Progrss", "Status : Completed" });
+            comboBox2.Location = new Point(639, 119);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(198, 28);
+            comboBox2.TabIndex = 8;
+            comboBox2.Text = "Status : All";
             // 
-            // propertyAddress
+            // comboBox3
             // 
-            propertyAddress.HeaderText = "Property Address";
-            propertyAddress.MinimumWidth = 6;
-            propertyAddress.Name = "propertyAddress";
-            // 
-            // prefferredTime
-            // 
-            prefferredTime.HeaderText = "Preferred  Time";
-            prefferredTime.MinimumWidth = 6;
-            prefferredTime.Name = "prefferredTime";
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "Category : Plumbing ", "Category : Electrical", "Category : HVAC", "Category : Landscaping", "Category : Roofing", "Category : Painting" });
+            comboBox3.Location = new Point(912, 119);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(219, 28);
+            comboBox3.TabIndex = 9;
+            comboBox3.Text = "Category : All";
             // 
             // RequestManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
-            Controls.Add(comboBox1);
+            ClientSize = new Size(1164, 537);
+            Controls.Add(comboBox3);
+            Controls.Add(comboBox2);
+            Controls.Add(panel1);
+            Controls.Add(dgvRequests);
             Controls.Add(btnCancelRequests);
             Controls.Add(btnApproveRequests);
-            Controls.Add(btnBack);
             Controls.Add(txtSearchRequests);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "RequestManagement";
             Text = "RequestManagement";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += RequestManagement_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -172,13 +199,12 @@
         private Button btnBack;
         private Button btnApproveRequests;
         private Button btnCancelRequests;
-        private ComboBox comboBox1;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn requestNumber;
-        private DataGridViewTextBoxColumn customerId;
-        private DataGridViewTextBoxColumn serviceCategory;
-        private DataGridViewTextBoxColumn problemDescription;
-        private DataGridViewTextBoxColumn propertyAddress;
-        private DataGridViewTextBoxColumn prefferredTime;
+        private DataGridView dgvRequests;
+        private Panel panel1;
+        private PictureBox pictureBox1;
+        private Label label3;
+        private Label label2;
+        private ComboBox comboBox2;
+        private ComboBox comboBox3;
     }
 }

@@ -38,5 +38,23 @@ namespace Home_Hero
         {
 
         }
+
+        private void AdminDashboard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            AdminDashboard adminDashboard = new AdminDashboard();
+            adminDashboard.Show();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
+
 }

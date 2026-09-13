@@ -19,12 +19,20 @@ namespace Home_Hero
 
         private void btnCancelRequests_Click(object sender, EventArgs e)
         {
-
+            if (dgvRequests.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Select a request to cancel.,");
+                return;
+            }
         }
 
         private void btnApproveRequests_Click(object sender, EventArgs e)
         {
-
+            if(dgvRequests.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a request to approve.");
+                return;
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -32,6 +40,11 @@ namespace Home_Hero
             this.Close();
             AdminDashboard adminDashboard = new AdminDashboard();
             adminDashboard.Show();
+        }
+
+        private void RequestManagement_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
