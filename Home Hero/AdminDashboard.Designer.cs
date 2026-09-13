@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label1 = new Label();
             panel2 = new Panel();
+            label2 = new Label();
             panel3 = new Panel();
+            label3 = new Label();
             panel4 = new Panel();
+            label4 = new Label();
             btnViewRequests = new Button();
             btnManageProviders = new Button();
             button3 = new Button();
             button4 = new Button();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -49,37 +49,73 @@
             // panel1
             // 
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(12, 12);
+            panel1.Location = new Point(12, 118);
             panel1.Name = "panel1";
-            panel1.Size = new Size(207, 292);
+            panel1.Size = new Size(207, 186);
             panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(3, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(68, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Requests";
             // 
             // panel2
             // 
             panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(495, 12);
+            panel2.Location = new Point(495, 118);
             panel2.Name = "panel2";
-            panel2.Size = new Size(221, 292);
+            panel2.Size = new Size(221, 186);
             panel2.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(15, 15);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 20);
+            label2.TabIndex = 1;
+            label2.Text = "Services";
             // 
             // panel3
             // 
             panel3.BackColor = Color.WhiteSmoke;
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(263, 12);
+            panel3.Location = new Point(263, 118);
             panel3.Name = "panel3";
-            panel3.Size = new Size(209, 292);
+            panel3.Size = new Size(209, 186);
             panel3.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 15);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 20);
+            label3.TabIndex = 2;
+            label3.Text = "Providers";
             // 
             // panel4
             // 
             panel4.BackColor = Color.WhiteSmoke;
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(741, 12);
+            panel4.Location = new Point(741, 118);
             panel4.Name = "panel4";
-            panel4.Size = new Size(245, 292);
+            panel4.Size = new Size(245, 186);
             panel4.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 15);
+            label4.Name = "label4";
+            label4.Size = new Size(103, 20);
+            label4.TabIndex = 2;
+            label4.Text = "Appointments";
             // 
             // btnViewRequests
             // 
@@ -118,42 +154,6 @@
             button4.TabIndex = 7;
             button4.Text = "Manage Appointments";
             button4.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(68, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Requests";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(15, 15);
-            label2.Name = "label2";
-            label2.Size = new Size(62, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Services";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 15);
-            label3.Name = "label3";
-            label3.Size = new Size(70, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Providers";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(12, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(103, 20);
-            label4.TabIndex = 2;
-            label4.Text = "Appointments";
             // 
             // AdminDashboard
             // 
