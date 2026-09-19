@@ -85,9 +85,9 @@
             // 
             panel3.BackColor = Color.WhiteSmoke;
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(263, 12);
+            panel3.Location = new Point(263, 66);
             panel3.Name = "panel3";
-            panel3.Size = new Size(209, 292);
+            panel3.Size = new Size(209, 238);
             panel3.TabIndex = 2;
             // 
             // label3
@@ -129,7 +129,7 @@
             // 
             // btnManageProviders
             // 
-            btnManageProviders.Location = new Point(263, 321);
+            btnManageProviders.Location = new Point(263, 18);
             btnManageProviders.Name = "btnManageProviders";
             btnManageProviders.Size = new Size(206, 29);
             btnManageProviders.TabIndex = 5;
