@@ -67,9 +67,9 @@
             // 
             panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(495, 12);
+            panel2.Location = new Point(495, 81);
             panel2.Name = "panel2";
-            panel2.Size = new Size(221, 292);
+            panel2.Size = new Size(221, 223);
             panel2.TabIndex = 1;
             // 
             // label2
@@ -139,7 +139,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(495, 321);
+            button3.Location = new Point(495, 12);
             button3.Name = "button3";
             button3.Size = new Size(206, 29);
             button3.TabIndex = 6;
