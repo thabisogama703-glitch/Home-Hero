@@ -235,7 +235,7 @@
             // 
             btnOverview.Location = new Point(15, 92);
             btnOverview.Name = "btnOverview";
-            btnOverview.Size = new Size(149, 29);
+            btnOverview.Size = new Size(136, 29);
             btnOverview.TabIndex = 4;
             btnOverview.Text = "Overview";
             btnOverview.UseVisualStyleBackColor = true;
