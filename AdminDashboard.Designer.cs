@@ -49,9 +49,9 @@
             // panel1
             // 
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(12, 12);
+            panel1.Location = new Point(12, 94);
             panel1.Name = "panel1";
-            panel1.Size = new Size(207, 292);
+            panel1.Size = new Size(207, 210);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -119,7 +119,7 @@
             // 
             // btnViewRequests
             // 
-            btnViewRequests.Location = new Point(13, 321);
+            btnViewRequests.Location = new Point(15, 18);
             btnViewRequests.Name = "btnViewRequests";
             btnViewRequests.Size = new Size(206, 29);
             btnViewRequests.TabIndex = 4;
