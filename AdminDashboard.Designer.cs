@@ -67,9 +67,9 @@
             // 
             panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(495, 81);
+            panel2.Location = new Point(495, 94);
             panel2.Name = "panel2";
-            panel2.Size = new Size(221, 223);
+            panel2.Size = new Size(221, 210);
             panel2.TabIndex = 1;
             // 
             // label2
@@ -85,9 +85,9 @@
             // 
             panel3.BackColor = Color.WhiteSmoke;
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(263, 66);
+            panel3.Location = new Point(263, 94);
             panel3.Name = "panel3";
-            panel3.Size = new Size(209, 238);
+            panel3.Size = new Size(209, 210);
             panel3.TabIndex = 2;
             // 
             // label3
@@ -103,9 +103,9 @@
             // 
             panel4.BackColor = Color.WhiteSmoke;
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(741, 12);
+            panel4.Location = new Point(741, 94);
             panel4.Name = "panel4";
-            panel4.Size = new Size(245, 292);
+            panel4.Size = new Size(245, 210);
             panel4.TabIndex = 3;
             // 
             // label4
