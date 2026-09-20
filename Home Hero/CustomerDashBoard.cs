@@ -21,14 +21,14 @@ namespace HomeHero
         // Working Part
         private void btnNewServiceRequest_Click_1(object sender, EventArgs e)
         {
-            CreateRequestForm requestForm = new CreateRequestForm();
+            frmCreateRequest requestForm = new frmCreateRequest();
             requestForm.ShowDialog();
         }
 
         public void btnTrackRequest_Click_1(object sender, EventArgs e)
         {
-            RequestTrackingForm requestTracking = new RequestTrackingForm();
-            requestTracking.Show();
+            frmRequestTracking requestTracking = new frmRequestTracking();
+            requestTracking.ShowDialog();
         }
 
 
@@ -44,6 +44,14 @@ namespace HomeHero
 
         private void frmCustomerDashboard_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnBackToHome_Click(object sender, EventArgs e)
+        {
+            frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
+            this.Hide();
+            frmHomeHeroHomepage.Show();
 
         }
     }

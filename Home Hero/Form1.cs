@@ -41,5 +41,10 @@ namespace Home_Hero
         {
 
         }
+
+        private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

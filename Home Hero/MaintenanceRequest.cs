@@ -36,8 +36,6 @@ namespace Home_Hero
             AssignedProviderId = "Unassigned";
             EstimatedCost = CalculateEstimatedCost(category);
             FinalCost = 0.00m;
-
-
         }
 
         public decimal CalculateEstimatedCost(string category)
@@ -51,7 +49,6 @@ namespace Home_Hero
                 "Painting" => 200.00m,
                 "General Maintenance" => 300.00m,
                 _ => 0.00m
-
 
             };
             return callOutFee + baseRate;
@@ -78,11 +75,6 @@ namespace Home_Hero
             errorMessage = $"Invalid status transition from {Status} to {newStatus}";
             return false;
         }
-
-
-
-
-
     }
 }
 

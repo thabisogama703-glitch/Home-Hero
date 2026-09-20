@@ -1,6 +1,6 @@
 ﻿namespace Home_Hero
 {
-    partial class CreateRequestForm
+    partial class frmCreateRequest
     {
         /// <summary>
         /// Required designer variable.
@@ -155,7 +155,7 @@
             label5.TabIndex = 11;
             label5.Text = "Time Slot";
             // 
-            // CreateRequestForm
+            // frmCreateRequest
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -172,9 +172,9 @@
             Controls.Add(txtAddress);
             Controls.Add(label1);
             Controls.Add(cmbCategory);
-            Name = "CreateRequestForm";
+            Name = "frmCreateRequest";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "CreateRequestForm";
+            Text = "Create Request";
             Load += CreateRequestForm_Load;
             ResumeLayout(false);
             PerformLayout();

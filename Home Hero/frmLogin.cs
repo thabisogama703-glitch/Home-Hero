@@ -1,4 +1,5 @@
 using Home_Hero;
+using HomeHero;
 
 namespace HomeHero_2
 {
@@ -11,8 +12,7 @@ namespace HomeHero_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //frmHomeHeroRegistration registerForm = new frmHomeHeroRegistration();
-            //registerForm.ShowDialog();
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -61,43 +61,44 @@ namespace HomeHero_2
                 return;
             }
 
-            //if (selectedUserType == "Customer")
-            //{
-            //    Customer loggedInCustomer = null; // We create a variable to hold the customer if we find one.
+            if (selectedUserType == "Customer")
+            {
+                Customer loggedInCustomer = null; // We create a variable to hold the customer if we find one.
 
-            //    foreach (Customer customer in CustomerRepository.Customers) // Go through each customer in our customer list.
-            //    {
-            //        if (customer.Email.Trim() == email.Trim() && customer.VerifyPassword(password)) // Does this customer's email match what was entered AND does their password match?
-            //        {
-            //            loggedInCustomer = customer;
-            //            break;
-            //        }
-            //    }
+                foreach (Customer customer in CustomerRepository.Customers) // Go through each customer in our customer list.
+                {
+                    if (customer.Email.Trim() == email.Trim() && customer.VerifyPassword(password)) // Does this customer's email match what was entered AND does their password match?
+                    {
+                        loggedInCustomer = customer;
+                        break;
+                    }
+                }
 
-            //    if (loggedInCustomer == null)
-            //    {
-            //        MessageBox.Show("Invalid email or password");
-            //        ClearFields();
-            //        return;
-            //    }
+                if (loggedInCustomer == null)
+                {
+                    MessageBox.Show("Invalid email or password");
+                    ClearFields();
+                    return;
+                }
 
-            //    MessageBox.Show("Login successful !");
-            //    ClearFields();
-
-
-            //}
-            //else if (selectedUserType == "Service Provider")
-            //{
-
-            //}
-            //else if (selectedUserType == "Administrator")
-            //{
-
-            //}
+                MessageBox.Show("Login successful !");
+                ClearFields();
+                frmCustomerDashboard customerForm = new frmCustomerDashboard();
+                this.Hide();
+                customerForm.Show();
 
 
-
-            //MessageBox.Show("Number of customers : " + CustomerRepository.Customers.Count);
+            }
+            else if (selectedUserType == "Service Provider")
+            {
+                
+            }
+            else if (selectedUserType == "Administrator")
+            {
+                frmAdministrator frmAdministrator = new frmAdministrator();
+                this.Hide();
+                frmAdministrator.Show();
+            }
 
         }
 
@@ -136,6 +137,19 @@ namespace HomeHero_2
         private void lblName_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            txtEmail.Clear();
+            txtPassword.Clear();
+            string users =cmbLoginAs.SelectedIndex.ToString();
+            users = "";
+            
+
+            frmHomeHeroRegistration registerForm = new frmHomeHeroRegistration();
+            this.Hide();
+            registerForm.Show();
         }
     }
 }

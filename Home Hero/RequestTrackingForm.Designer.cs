@@ -1,6 +1,6 @@
 ﻿namespace Home_Hero
 {
-    partial class RequestTrackingForm
+    partial class frmRequestTracking
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,7 @@
             dgvRequests.Location = new Point(61, 196);
             dgvRequests.Name = "dgvRequests";
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(1135, 188);
+            dgvRequests.Size = new Size(967, 188);
             dgvRequests.TabIndex = 0;
             // 
             // lblRequestNum
@@ -122,11 +122,11 @@
             btnRefresh.UseVisualStyleBackColor = true;
             btnRefresh.Click += btnRefresh_Click;
             // 
-            // RequestTrackingForm
+            // frmRequestTracking
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1208, 450);
+            ClientSize = new Size(1058, 511);
             Controls.Add(btnRefresh);
             Controls.Add(lblFinalCost);
             Controls.Add(lblEstimatedCost);
@@ -136,8 +136,9 @@
             Controls.Add(lblCategory);
             Controls.Add(lblRequestNum);
             Controls.Add(dgvRequests);
-            Name = "RequestTrackingForm";
-            Text = "RequestTrackingForm";
+            Name = "frmRequestTracking";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Request Tracking";
             Load += RequestTrackingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             ResumeLayout(false);
