@@ -49,9 +49,9 @@
             // panel1
             // 
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(12, 12);
+            panel1.Location = new Point(12, 94);
             panel1.Name = "panel1";
-            panel1.Size = new Size(207, 292);
+            panel1.Size = new Size(207, 210);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -67,9 +67,9 @@
             // 
             panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(495, 12);
+            panel2.Location = new Point(495, 81);
             panel2.Name = "panel2";
-            panel2.Size = new Size(221, 292);
+            panel2.Size = new Size(221, 223);
             panel2.TabIndex = 1;
             // 
             // label2
@@ -85,9 +85,9 @@
             // 
             panel3.BackColor = Color.WhiteSmoke;
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(263, 12);
+            panel3.Location = new Point(263, 66);
             panel3.Name = "panel3";
-            panel3.Size = new Size(209, 292);
+            panel3.Size = new Size(209, 238);
             panel3.TabIndex = 2;
             // 
             // label3
@@ -119,7 +119,7 @@
             // 
             // btnViewRequests
             // 
-            btnViewRequests.Location = new Point(13, 321);
+            btnViewRequests.Location = new Point(15, 18);
             btnViewRequests.Name = "btnViewRequests";
             btnViewRequests.Size = new Size(206, 29);
             btnViewRequests.TabIndex = 4;
@@ -129,7 +129,7 @@
             // 
             // btnManageProviders
             // 
-            btnManageProviders.Location = new Point(263, 321);
+            btnManageProviders.Location = new Point(263, 18);
             btnManageProviders.Name = "btnManageProviders";
             btnManageProviders.Size = new Size(206, 29);
             btnManageProviders.TabIndex = 5;
@@ -139,7 +139,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(495, 321);
+            button3.Location = new Point(495, 12);
             button3.Name = "button3";
             button3.Size = new Size(206, 29);
             button3.TabIndex = 6;
