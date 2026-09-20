@@ -65,7 +65,7 @@
             btnNewServiceRequest.FlatStyle = FlatStyle.Flat;
             btnNewServiceRequest.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewServiceRequest.ForeColor = Color.White;
-            btnNewServiceRequest.Location = new Point(994, 23);
+            btnNewServiceRequest.Location = new Point(1628, 21);
             btnNewServiceRequest.Name = "btnNewServiceRequest";
             btnNewServiceRequest.Size = new Size(251, 54);
             btnNewServiceRequest.TabIndex = 1;
@@ -76,7 +76,7 @@
             // btnTrackRequest
             // 
             btnTrackRequest.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTrackRequest.Location = new Point(812, 39);
+            btnTrackRequest.Location = new Point(1455, 37);
             btnTrackRequest.Name = "btnTrackRequest";
             btnTrackRequest.Size = new Size(152, 38);
             btnTrackRequest.TabIndex = 2;
@@ -92,7 +92,7 @@
             panel1.Controls.Add(btnTrackRequest);
             panel1.Location = new Point(-5, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1252, 104);
+            panel1.Size = new Size(1892, 104);
             panel1.TabIndex = 3;
             // 
             // panel2
@@ -103,17 +103,18 @@
             panel2.Controls.Add(BtnActiceRequests);
             panel2.Location = new Point(-5, 113);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1252, 82);
+            panel2.Size = new Size(1892, 82);
             panel2.TabIndex = 4;
             // 
             // btnBackToHome
             // 
-            btnBackToHome.Location = new Point(1036, 25);
+            btnBackToHome.Location = new Point(1719, 25);
             btnBackToHome.Name = "btnBackToHome";
             btnBackToHome.Size = new Size(160, 29);
             btnBackToHome.TabIndex = 2;
             btnBackToHome.Text = "←      Back Home";
             btnBackToHome.UseVisualStyleBackColor = true;
+            btnBackToHome.Click += btnBackToHome_Click;
             // 
             // btnServiceHistory
             // 
@@ -151,15 +152,15 @@
             dgvActiveRequests.Name = "dgvActiveRequests";
             dgvActiveRequests.ReadOnly = true;
             dgvActiveRequests.RowHeadersWidth = 51;
-            dgvActiveRequests.Size = new Size(1205, 222);
+            dgvActiveRequests.Size = new Size(1850, 377);
             dgvActiveRequests.TabIndex = 5;
             // 
             // grpbxActiveRequests
             // 
             grpbxActiveRequests.Controls.Add(dgvActiveRequests);
-            grpbxActiveRequests.Location = new Point(12, 201);
+            grpbxActiveRequests.Location = new Point(12, 259);
             grpbxActiveRequests.Name = "grpbxActiveRequests";
-            grpbxActiveRequests.Size = new Size(1228, 254);
+            grpbxActiveRequests.Size = new Size(1862, 409);
             grpbxActiveRequests.TabIndex = 6;
             grpbxActiveRequests.TabStop = false;
             grpbxActiveRequests.Text = "Active Requests";
@@ -170,19 +171,19 @@
             dgvServiceHistory.BackgroundColor = SystemColors.ControlLightLight;
             dgvServiceHistory.BorderStyle = BorderStyle.None;
             dgvServiceHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServiceHistory.Location = new Point(6, 20);
+            dgvServiceHistory.Location = new Point(6, 19);
             dgvServiceHistory.Name = "dgvServiceHistory";
             dgvServiceHistory.ReadOnly = true;
             dgvServiceHistory.RowHeadersWidth = 51;
-            dgvServiceHistory.Size = new Size(1205, 203);
+            dgvServiceHistory.Size = new Size(1850, 284);
             dgvServiceHistory.TabIndex = 5;
             // 
             // grpbxServiceHistory
             // 
             grpbxServiceHistory.Controls.Add(dgvServiceHistory);
-            grpbxServiceHistory.Location = new Point(12, 461);
+            grpbxServiceHistory.Location = new Point(12, 674);
             grpbxServiceHistory.Name = "grpbxServiceHistory";
-            grpbxServiceHistory.Size = new Size(1228, 228);
+            grpbxServiceHistory.Size = new Size(1862, 309);
             grpbxServiceHistory.TabIndex = 7;
             grpbxServiceHistory.TabStop = false;
             grpbxServiceHistory.Text = "Service History";
@@ -192,13 +193,15 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
-            ClientSize = new Size(1252, 696);
+            ClientSize = new Size(1886, 995);
             Controls.Add(grpbxServiceHistory);
             Controls.Add(grpbxActiveRequests);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "frmCustomerDashboard";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Customer Dashboard";
+            WindowState = FormWindowState.Maximized;
             Load += frmCustomerDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

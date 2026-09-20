@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class RequestTrackingForm : Form
+    public partial class frmRequestTracking : Form
     {
         private List<MaintenanceRequest> customerRequests = new List<MaintenanceRequest>();
-        public RequestTrackingForm()
+        public frmRequestTracking()
         {
             InitializeComponent();
             Load += RequestTrackingForm_Load;

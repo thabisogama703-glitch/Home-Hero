@@ -91,16 +91,14 @@ namespace HomeHero_2
             }
             else if (selectedUserType == "Service Provider")
             {
-
+                
             }
             else if (selectedUserType == "Administrator")
             {
-
+                frmAdministrator frmAdministrator = new frmAdministrator();
+                this.Hide();
+                frmAdministrator.Show();
             }
-
-
-
-            MessageBox.Show("Number of customers : " + CustomerRepository.Customers.Count);
 
         }
 
@@ -143,8 +141,15 @@ namespace HomeHero_2
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            txtEmail.Clear();
+            txtPassword.Clear();
+            string users =cmbLoginAs.SelectedIndex.ToString();
+            users = "";
+            
+
             frmHomeHeroRegistration registerForm = new frmHomeHeroRegistration();
-            registerForm.ShowDialog();
+            this.Hide();
+            registerForm.Show();
         }
     }
 }

@@ -39,7 +39,6 @@
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
             btnLogin = new Button();
-            btnAdministration = new Button();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -146,6 +145,7 @@
             lnklblServices.TabIndex = 1;
             lnklblServices.TabStop = true;
             lnklblServices.Text = "Services";
+            lnklblServices.LinkClicked += lnklblServices_LinkClicked;
             // 
             // lnklblHowItWorks
             // 
@@ -194,7 +194,6 @@
             pnlServicesButtons.Controls.Add(btnRequestAService);
             pnlServicesButtons.Controls.Add(btnCreateAccount);
             pnlServicesButtons.Controls.Add(btnLogin);
-            pnlServicesButtons.Controls.Add(btnAdministration);
             pnlServicesButtons.Location = new Point(1071, 3);
             pnlServicesButtons.Name = "pnlServicesButtons";
             pnlServicesButtons.Size = new Size(616, 102);
@@ -253,23 +252,6 @@
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
-            // btnAdministration
-            // 
-            btnAdministration.AutoSize = true;
-            btnAdministration.BackColor = Color.FromArgb(0, 0, 64);
-            btnAdministration.FlatAppearance.BorderColor = Color.DarkGray;
-            btnAdministration.FlatStyle = FlatStyle.Flat;
-            btnAdministration.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdministration.ForeColor = Color.White;
-            btnAdministration.Location = new Point(36, 28);
-            btnAdministration.Margin = new Padding(9, 0, 9, 0);
-            btnAdministration.Name = "btnAdministration";
-            btnAdministration.Size = new Size(111, 46);
-            btnAdministration.TabIndex = 9;
-            btnAdministration.Text = "Admin";
-            btnAdministration.UseVisualStyleBackColor = false;
-            btnAdministration.Click += btnAdministration_Click;
-            // 
             // pnlHomeHeroLogo
             // 
             pnlHomeHeroLogo.Controls.Add(lblHero);
@@ -323,10 +305,10 @@
             pnlAboutTheAppAndSearchBar.Controls.Add(pnlSearchBox);
             pnlAboutTheAppAndSearchBar.Controls.Add(flpAboutTheApplication);
             pnlAboutTheAppAndSearchBar.Controls.Add(flpSlogan);
-            pnlAboutTheAppAndSearchBar.Location = new Point(98, 111);
+            pnlAboutTheAppAndSearchBar.Location = new Point(98, 118);
             pnlAboutTheAppAndSearchBar.Margin = new Padding(4, 5, 4, 5);
             pnlAboutTheAppAndSearchBar.Name = "pnlAboutTheAppAndSearchBar";
-            pnlAboutTheAppAndSearchBar.Size = new Size(1114, 668);
+            pnlAboutTheAppAndSearchBar.Size = new Size(1113, 661);
             pnlAboutTheAppAndSearchBar.TabIndex = 5;
             // 
             // lblPopular
@@ -428,7 +410,7 @@
             flpSlogan.Controls.Add(lblHomeCare);
             flpSlogan.Controls.Add(lblDoneRight);
             flpSlogan.FlowDirection = FlowDirection.TopDown;
-            flpSlogan.Location = new Point(39, 126);
+            flpSlogan.Location = new Point(39, 119);
             flpSlogan.Name = "flpSlogan";
             flpSlogan.Size = new Size(945, 147);
             flpSlogan.TabIndex = 1;
@@ -678,7 +660,6 @@
         private Label lblJobsCompleted1;
         private Label lblJobsCompleted2;
         private Panel pnlMoreInfo;
-        private Button btnAdministration;
         private Panel pnlServicesButtons;
         private Panel pnlAvgResponseTime;
         private Label lblAvgResponseTime;

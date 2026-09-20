@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class CreateRequestForm : Form
+    public partial class frmCreateRequest : Form
     {
-        public CreateRequestForm()
+        public frmCreateRequest()
         {
             InitializeComponent();
             SetupDefaults();

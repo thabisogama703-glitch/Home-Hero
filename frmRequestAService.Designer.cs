@@ -30,11 +30,13 @@
         {
             btnBackHome = new Button();
             pnlServiceRequest = new Panel();
+            lblGetHelpFast = new Label();
+            lblMaintenanceR = new Label();
             lblMaintenanceRequest = new Label();
+            lblSubmitaMaintenanceRequest = new Label();
             lblHero = new Label();
             lblHome = new Label();
             pbxLogo = new PictureBox();
-            btnCustomerDashboard = new Button();
             pnlServiceRequest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbxLogo).BeginInit();
             SuspendLayout();
@@ -58,7 +60,10 @@
             // pnlServiceRequest
             // 
             pnlServiceRequest.BackColor = Color.FromArgb(0, 0, 64);
+            pnlServiceRequest.Controls.Add(lblGetHelpFast);
+            pnlServiceRequest.Controls.Add(lblMaintenanceR);
             pnlServiceRequest.Controls.Add(lblMaintenanceRequest);
+            pnlServiceRequest.Controls.Add(lblSubmitaMaintenanceRequest);
             pnlServiceRequest.Controls.Add(btnBackHome);
             pnlServiceRequest.Controls.Add(lblHero);
             pnlServiceRequest.Controls.Add(lblHome);
@@ -68,9 +73,30 @@
             pnlServiceRequest.Margin = new Padding(4, 5, 4, 5);
             pnlServiceRequest.Name = "pnlServiceRequest";
             pnlServiceRequest.Padding = new Padding(98, 0, 98, 0);
-            pnlServiceRequest.Size = new Size(1886, 160);
+            pnlServiceRequest.Size = new Size(1886, 291);
             pnlServiceRequest.TabIndex = 1;
             pnlServiceRequest.Paint += pnlServiceRequest_Paint;
+            // 
+            // lblGetHelpFast
+            // 
+            lblGetHelpFast.AutoSize = true;
+            lblGetHelpFast.ForeColor = Color.Orange;
+            lblGetHelpFast.Location = new Point(583, 77);
+            lblGetHelpFast.Name = "lblGetHelpFast";
+            lblGetHelpFast.Size = new Size(109, 20);
+            lblGetHelpFast.TabIndex = 11;
+            lblGetHelpFast.Text = "GET HELP FAST";
+            // 
+            // lblMaintenanceR
+            // 
+            lblMaintenanceR.BackColor = Color.FromArgb(0, 0, 64);
+            lblMaintenanceR.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMaintenanceR.ForeColor = Color.DimGray;
+            lblMaintenanceR.Location = new Point(574, 169);
+            lblMaintenanceR.Name = "lblMaintenanceR";
+            lblMaintenanceR.Size = new Size(867, 88);
+            lblMaintenanceR.TabIndex = 1;
+            lblMaintenanceR.Text = "Fill in the details below and we'll match you with a verified, insured professional — usually within 2 hours.";
             // 
             // lblMaintenanceRequest
             // 
@@ -82,6 +108,17 @@
             lblMaintenanceRequest.Size = new Size(284, 38);
             lblMaintenanceRequest.TabIndex = 2;
             lblMaintenanceRequest.Text = "Maintenance Request";
+            // 
+            // lblSubmitaMaintenanceRequest
+            // 
+            lblSubmitaMaintenanceRequest.AutoSize = true;
+            lblSubmitaMaintenanceRequest.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSubmitaMaintenanceRequest.ForeColor = Color.White;
+            lblSubmitaMaintenanceRequest.Location = new Point(574, 111);
+            lblSubmitaMaintenanceRequest.Name = "lblSubmitaMaintenanceRequest";
+            lblSubmitaMaintenanceRequest.Size = new Size(484, 46);
+            lblSubmitaMaintenanceRequest.TabIndex = 2;
+            lblSubmitaMaintenanceRequest.Text = "Submit a Maintenance Request";
             // 
             // lblHero
             // 
@@ -118,23 +155,11 @@
             pbxLogo.TabIndex = 10;
             pbxLogo.TabStop = false;
             // 
-            // btnCustomerDashboard
-            // 
-            btnCustomerDashboard.AutoSize = true;
-            btnCustomerDashboard.Location = new Point(45, 223);
-            btnCustomerDashboard.Name = "btnCustomerDashboard";
-            btnCustomerDashboard.Size = new Size(159, 30);
-            btnCustomerDashboard.TabIndex = 2;
-            btnCustomerDashboard.Text = "Customer Dashboard";
-            btnCustomerDashboard.UseVisualStyleBackColor = true;
-            btnCustomerDashboard.Click += btnCustomerDashboard_Click;
-            // 
             // frmRequestAService
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1886, 995);
-            Controls.Add(btnCustomerDashboard);
             Controls.Add(pnlServiceRequest);
             Name = "frmRequestAService";
             StartPosition = FormStartPosition.CenterScreen;
@@ -145,7 +170,6 @@
             pnlServiceRequest.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbxLogo).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -156,6 +180,8 @@
         private Label lblHome;
         private PictureBox pbxLogo;
         private Label lblMaintenanceRequest;
-        private Button btnCustomerDashboard;
+        private Label lblMaintenanceR;
+        private Label lblSubmitaMaintenanceRequest;
+        private Label lblGetHelpFast;
     }
 }
