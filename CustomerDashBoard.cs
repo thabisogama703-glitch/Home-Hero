@@ -1,4 +1,5 @@
 using Home_Hero;
+using HomeHero_2;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -44,14 +45,23 @@ namespace HomeHero
 
         private void frmCustomerDashboard_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnBackToHome_Click(object sender, EventArgs e)
         {
-            frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
-            this.Hide();
-            frmHomeHeroHomepage.Show();
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?","Logging Out",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);
+            if(result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
+                this.Hide();
+                frmHomeHeroHomepage.Show();
+            }
+            else
+            {
+
+            }
+
 
         }
     }
