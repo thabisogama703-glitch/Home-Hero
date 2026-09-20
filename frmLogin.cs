@@ -95,7 +95,7 @@ namespace HomeHero_2
             }
             else if (selectedUserType == "Administrator")
             {
-                frmAdministrator frmAdministrator = new frmAdministrator();
+                AdminDashboard frmAdministrator = new AdminDashboard();
                 this.Hide();
                 frmAdministrator.Show();
             }

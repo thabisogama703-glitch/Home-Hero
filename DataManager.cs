@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero_2;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -9,6 +10,16 @@ namespace Home_Hero
     {
         private static readonly string filePath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "maintenance_requests.json");
+        private static readonly string providerFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "providers.json");
+
+        public static List<ServiceProvider> LoadServiceProviders()
+        {
+            if (!File.Exists(providerFile)) return new List<ServiceProvider>();
+            string json = File.ReadAllText(providerFile);
+            if (string.IsNullOrWhiteSpace(json)) return new List<ServiceProvider>();
+            return JsonSerializer.Deserialize<List<ServiceProvider>>(json) ?? new List<ServiceProvider>();
+        }
+
 
         public static List<MaintenanceRequest> LoadRequests()
         {
