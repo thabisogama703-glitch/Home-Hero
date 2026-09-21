@@ -105,7 +105,7 @@ namespace Home_Hero
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
-            AdminDashboard adminDashboard = new AdminDashboard();
+            frmAdminDashboard adminDashboard = new frmAdminDashboard();
             adminDashboard.Show();
         }
 
@@ -179,6 +179,40 @@ namespace Home_Hero
         {
 
         }
-        
+
+        private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmAdminDashboard frmAdminDashboard = new frmAdminDashboard();
+            this.Hide();
+            frmAdminDashboard.Show();
+        }
+
+        private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmReports reports = new frmReports();
+            this.Hide();
+            reports.Show();
+        }
+
+        private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void btnExitAdmin_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want ot logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage homepage = new frmHomeHeroHomepage();
+                this.Hide();
+                homepage.Show();
+            }
+        }
     }
 }

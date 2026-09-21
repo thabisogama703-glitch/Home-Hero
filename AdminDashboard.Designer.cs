@@ -1,6 +1,6 @@
 ﻿namespace Home_Hero
 {
-    partial class AdminDashboard
+    partial class frmAdminDashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -44,24 +44,30 @@
             pictureBox3 = new PictureBox();
             label9 = new Label();
             label4 = new Label();
-            btnOverview = new Button();
-            btnRequests = new Button();
-            btnProviders = new Button();
-            btnServices = new Button();
             panel5 = new Panel();
             label15 = new Label();
             panel6 = new Panel();
             label12 = new Label();
-            panel7 = new Panel();
+            pnlNavigationAdminPanl = new Panel();
+            lblAdminPortal = new Label();
+            btnExitAdmin = new Button();
             pictureBox1 = new PictureBox();
-            label13 = new Label();
-            label14 = new Label();
+            lblHero = new Label();
+            lblHome = new Label();
+            pbxHomeHeroLogo = new PictureBox();
+            lblAdminDashboard = new Label();
+            label16 = new Label();
             panel8 = new Panel();
             pictureBox4 = new PictureBox();
             label11 = new Label();
             label8 = new Label();
             label10 = new Label();
-            btnReports = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            lnklblReports = new LinkLabel();
+            lnklblServices = new LinkLabel();
+            lnklblProviders = new LinkLabel();
+            lnklblRequests = new LinkLabel();
+            lnklblOverView = new LinkLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel2.SuspendLayout();
@@ -72,35 +78,39 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
-            panel7.SuspendLayout();
+            pnlNavigationAdminPanl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.BackColor = Color.MintCream;
+            panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(pictureBox6);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(12, 134);
+            panel1.Location = new Point(134, 360);
             panel1.Name = "panel1";
-            panel1.Size = new Size(207, 210);
+            panel1.Size = new Size(362, 193);
             panel1.TabIndex = 0;
             // 
             // pictureBox6
             // 
             pictureBox6.Image = Properties.Resources.Screenshot_2026_09_13_170332;
-            pictureBox6.Location = new Point(14, 15);
+            pictureBox6.Location = new Point(11, 16);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(36, 53);
+            pictureBox6.Size = new Size(46, 64);
             pictureBox6.TabIndex = 5;
             pictureBox6.TabStop = false;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(128, 15);
+            label6.Location = new Point(281, 15);
             label6.Name = "label6";
             label6.Size = new Size(64, 20);
             label6.TabIndex = 4;
@@ -109,7 +119,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(14, 178);
+            label1.Location = new Point(11, 162);
             label1.Name = "label1";
             label1.Size = new Size(105, 20);
             label1.TabIndex = 0;
@@ -117,28 +127,29 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.WhiteSmoke;
+            panel2.BackColor = Color.MintCream;
+            panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label2);
-            panel2.Location = new Point(495, 134);
+            panel2.Location = new Point(898, 360);
             panel2.Name = "panel2";
-            panel2.Size = new Size(221, 210);
+            panel2.Size = new Size(294, 193);
             panel2.TabIndex = 1;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.Screenshot_2026_09_13_170101;
-            pictureBox2.Location = new Point(5, 26);
+            pictureBox2.Location = new Point(14, 15);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(33, 30);
+            pictureBox2.Size = new Size(39, 43);
             pictureBox2.TabIndex = 6;
             pictureBox2.TabStop = false;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(15, 178);
+            label7.Location = new Point(14, 162);
             label7.Name = "label7";
             label7.Size = new Size(115, 20);
             label7.TabIndex = 5;
@@ -147,7 +158,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(116, 15);
+            label2.Location = new Point(185, 16);
             label2.Name = "label2";
             label2.Size = new Size(90, 20);
             label2.TabIndex = 1;
@@ -155,19 +166,21 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.WhiteSmoke;
+            panel3.BackColor = Color.MintCream;
+            panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(pictureBox5);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(263, 134);
+            panel3.Location = new Point(548, 360);
             panel3.Name = "panel3";
-            panel3.Size = new Size(209, 210);
+            panel3.RightToLeft = RightToLeft.No;
+            panel3.Size = new Size(294, 193);
             panel3.TabIndex = 2;
             // 
             // pictureBox5
             // 
             pictureBox5.Image = Properties.Resources.Screenshot_2026_09_13_170404;
-            pictureBox5.Location = new Point(23, 26);
+            pictureBox5.Location = new Point(23, 16);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(46, 42);
             pictureBox5.TabIndex = 4;
@@ -176,7 +189,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(23, 178);
+            label5.Location = new Point(23, 162);
             label5.Name = "label5";
             label5.Size = new Size(133, 20);
             label5.TabIndex = 3;
@@ -185,7 +198,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(104, 15);
+            label3.Location = new Point(193, 14);
             label3.Name = "label3";
             label3.Size = new Size(92, 20);
             label3.TabIndex = 2;
@@ -193,19 +206,20 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.WhiteSmoke;
+            panel4.BackColor = Color.MintCream;
+            panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(pictureBox3);
             panel4.Controls.Add(label9);
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(741, 134);
+            panel4.Location = new Point(1224, 360);
             panel4.Name = "panel4";
-            panel4.Size = new Size(220, 210);
+            panel4.Size = new Size(294, 193);
             panel4.TabIndex = 3;
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.Screenshot_2026_09_13_170243;
-            pictureBox3.Location = new Point(29, 26);
+            pictureBox3.Location = new Point(27, 15);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(47, 49);
             pictureBox3.TabIndex = 8;
@@ -214,7 +228,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(29, 178);
+            label9.Location = new Point(27, 162);
             label9.Name = "label9";
             label9.Size = new Size(102, 20);
             label9.TabIndex = 7;
@@ -223,58 +237,19 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(94, 15);
+            label4.Location = new Point(171, 15);
             label4.Name = "label4";
             label4.Size = new Size(116, 20);
             label4.TabIndex = 2;
             label4.Text = "Completed Jobs";
             // 
-            // btnOverview
-            // 
-            btnOverview.Location = new Point(15, 99);
-            btnOverview.Name = "btnOverview";
-            btnOverview.Size = new Size(206, 29);
-            btnOverview.TabIndex = 4;
-            btnOverview.Text = "Overview";
-            btnOverview.UseVisualStyleBackColor = true;
-            btnOverview.Click += btnViewRequests_Click;
-            // 
-            // btnRequests
-            // 
-            btnRequests.Location = new Point(275, 99);
-            btnRequests.Name = "btnRequests";
-            btnRequests.Size = new Size(206, 29);
-            btnRequests.TabIndex = 5;
-            btnRequests.Text = "Requests";
-            btnRequests.UseVisualStyleBackColor = true;
-            btnRequests.Click += btnManageProviders_Click;
-            // 
-            // btnProviders
-            // 
-            btnProviders.Location = new Point(495, 99);
-            btnProviders.Name = "btnProviders";
-            btnProviders.Size = new Size(206, 29);
-            btnProviders.TabIndex = 6;
-            btnProviders.Text = "Providers";
-            btnProviders.UseVisualStyleBackColor = true;
-            btnProviders.Click += btnProviders_Click;
-            // 
-            // btnServices
-            // 
-            btnServices.Location = new Point(744, 99);
-            btnServices.Name = "btnServices";
-            btnServices.Size = new Size(206, 29);
-            btnServices.TabIndex = 7;
-            btnServices.Text = "Services";
-            btnServices.UseVisualStyleBackColor = true;
-            // 
             // panel5
             // 
             panel5.BackColor = Color.WhiteSmoke;
             panel5.Controls.Add(label15);
-            panel5.Location = new Point(645, 395);
+            panel5.Location = new Point(944, 572);
             panel5.Name = "panel5";
-            panel5.Size = new Size(537, 269);
+            panel5.Size = new Size(901, 467);
             panel5.TabIndex = 8;
             // 
             // label15
@@ -290,9 +265,9 @@
             // 
             panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(label12);
-            panel6.Location = new Point(15, 395);
+            panel6.Location = new Point(134, 572);
             panel6.Name = "panel6";
-            panel6.Size = new Size(557, 269);
+            panel6.Size = new Size(804, 467);
             panel6.TabIndex = 9;
             // 
             // label12
@@ -304,65 +279,131 @@
             label12.TabIndex = 0;
             label12.Text = "Request Status Breakdown";
             // 
-            // panel7
+            // pnlNavigationAdminPanl
             // 
-            panel7.BackColor = Color.MidnightBlue;
-            panel7.Controls.Add(pictureBox1);
-            panel7.Controls.Add(label13);
-            panel7.Controls.Add(label14);
-            panel7.Location = new Point(-11, -38);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(1219, 122);
-            panel7.TabIndex = 10;
+            pnlNavigationAdminPanl.Anchor = AnchorStyles.None;
+            pnlNavigationAdminPanl.BackColor = Color.FromArgb(0, 0, 64);
+            pnlNavigationAdminPanl.Controls.Add(lblAdminPortal);
+            pnlNavigationAdminPanl.Controls.Add(btnExitAdmin);
+            pnlNavigationAdminPanl.Controls.Add(pictureBox1);
+            pnlNavigationAdminPanl.Controls.Add(lblHero);
+            pnlNavigationAdminPanl.Controls.Add(lblHome);
+            pnlNavigationAdminPanl.Controls.Add(pbxHomeHeroLogo);
+            pnlNavigationAdminPanl.Controls.Add(lblAdminDashboard);
+            pnlNavigationAdminPanl.Controls.Add(label16);
+            pnlNavigationAdminPanl.Location = new Point(-4, -1);
+            pnlNavigationAdminPanl.Name = "pnlNavigationAdminPanl";
+            pnlNavigationAdminPanl.Size = new Size(1909, 174);
+            pnlNavigationAdminPanl.TabIndex = 10;
+            pnlNavigationAdminPanl.Paint += panel7_Paint;
+            // 
+            // lblAdminPortal
+            // 
+            lblAdminPortal.AutoSize = true;
+            lblAdminPortal.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAdminPortal.ForeColor = Color.White;
+            lblAdminPortal.Location = new Point(1481, 22);
+            lblAdminPortal.Name = "lblAdminPortal";
+            lblAdminPortal.Size = new Size(264, 38);
+            lblAdminPortal.TabIndex = 16;
+            lblAdminPortal.Text = "Administrator Portal";
+            // 
+            // btnExitAdmin
+            // 
+            btnExitAdmin.FlatAppearance.BorderSize = 0;
+            btnExitAdmin.FlatStyle = FlatStyle.Flat;
+            btnExitAdmin.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExitAdmin.ForeColor = SystemColors.ActiveBorder;
+            btnExitAdmin.Location = new Point(1737, 20);
+            btnExitAdmin.Name = "btnExitAdmin";
+            btnExitAdmin.Size = new Size(159, 47);
+            btnExitAdmin.TabIndex = 15;
+            btnExitAdmin.Text = "← Exit Admin";
+            btnExitAdmin.UseVisualStyleBackColor = true;
+            btnExitAdmin.Click += btnExitAdmin_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Screenshot_2026_09_13_171334;
-            pictureBox1.Location = new Point(37, 50);
+            pictureBox1.Image = Properties.Resources.Screenshot_2026_09_21_001251;
+            pictureBox1.Location = new Point(192, 84);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(48, 41);
-            pictureBox1.TabIndex = 3;
+            pictureBox1.Size = new Size(62, 63);
+            pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
             // 
-            // label13
+            // lblHero
             // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(88, 47);
-            label13.Name = "label13";
-            label13.Size = new Size(127, 50);
-            label13.TabIndex = 1;
-            label13.Text = "Home";
+            lblHero.AutoSize = true;
+            lblHero.FlatStyle = FlatStyle.Flat;
+            lblHero.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHero.ForeColor = Color.FromArgb(255, 128, 0);
+            lblHero.Location = new Point(407, 36);
+            lblHero.Name = "lblHero";
+            lblHero.Size = new Size(67, 31);
+            lblHero.TabIndex = 12;
+            lblHero.Text = "Hero";
             // 
-            // label14
+            // lblHome
             // 
-            label14.AutoSize = true;
-            label14.BackColor = Color.MidnightBlue;
-            label14.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = Color.Tomato;
-            label14.Location = new Point(203, 47);
-            label14.Name = "label14";
-            label14.Size = new Size(108, 50);
-            label14.TabIndex = 2;
-            label14.Text = "Hero";
+            lblHome.AutoSize = true;
+            lblHome.FlatStyle = FlatStyle.Flat;
+            lblHome.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHome.ForeColor = Color.White;
+            lblHome.Location = new Point(337, 36);
+            lblHome.Name = "lblHome";
+            lblHome.Size = new Size(79, 31);
+            lblHome.TabIndex = 13;
+            lblHome.Text = "Home";
+            // 
+            // pbxHomeHeroLogo
+            // 
+            pbxHomeHeroLogo.Image = Properties.Resources.Screenshot_2026_09_05_180629;
+            pbxHomeHeroLogo.Location = new Point(283, 20);
+            pbxHomeHeroLogo.Name = "pbxHomeHeroLogo";
+            pbxHomeHeroLogo.Size = new Size(48, 47);
+            pbxHomeHeroLogo.TabIndex = 11;
+            pbxHomeHeroLogo.TabStop = false;
+            // 
+            // lblAdminDashboard
+            // 
+            lblAdminDashboard.AutoSize = true;
+            lblAdminDashboard.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAdminDashboard.ForeColor = Color.White;
+            lblAdminDashboard.Location = new Point(260, 109);
+            lblAdminDashboard.Name = "lblAdminDashboard";
+            lblAdminDashboard.Size = new Size(240, 38);
+            lblAdminDashboard.TabIndex = 5;
+            lblAdminDashboard.Text = "Admin Dashboard";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label16.ForeColor = Color.Orange;
+            label16.Location = new Point(269, 84);
+            label16.Name = "label16";
+            label16.Size = new Size(121, 25);
+            label16.TabIndex = 4;
+            label16.Text = "Administrator";
             // 
             // panel8
             // 
-            panel8.BackColor = Color.WhiteSmoke;
+            panel8.BackColor = Color.MintCream;
+            panel8.BorderStyle = BorderStyle.FixedSingle;
             panel8.Controls.Add(pictureBox4);
             panel8.Controls.Add(label11);
             panel8.Controls.Add(label8);
             panel8.Controls.Add(label10);
-            panel8.Location = new Point(983, 134);
+            panel8.Location = new Point(1551, 360);
             panel8.Name = "panel8";
-            panel8.Size = new Size(199, 210);
+            panel8.Size = new Size(294, 193);
             panel8.TabIndex = 11;
+            panel8.Paint += panel8_Paint;
             // 
             // pictureBox4
             // 
             pictureBox4.Image = Properties.Resources.Screenshot_2026_09_13_185833;
-            pictureBox4.Location = new Point(16, 26);
+            pictureBox4.Location = new Point(3, 10);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(58, 55);
             pictureBox4.TabIndex = 9;
@@ -371,7 +412,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(121, 15);
+            label11.Location = new Point(221, 17);
             label11.Name = "label11";
             label11.Size = new Size(58, 20);
             label11.TabIndex = 8;
@@ -394,37 +435,128 @@
             label10.TabIndex = 8;
             label10.Text = "Avg Job Rating";
             // 
-            // btnReports
+            // tableLayoutPanel1
             // 
-            btnReports.Location = new Point(983, 102);
-            btnReports.Name = "btnReports";
-            btnReports.Size = new Size(179, 29);
-            btnReports.TabIndex = 12;
-            btnReports.Text = "Reports";
-            btnReports.UseVisualStyleBackColor = true;
-            btnReports.Click += btnReports_Click;
+            tableLayoutPanel1.Anchor = AnchorStyles.Bottom;
+            tableLayoutPanel1.ColumnCount = 6;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 225F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 236F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 214F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 196F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 180F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 104F));
+            tableLayoutPanel1.Controls.Add(lnklblReports, 5, 0);
+            tableLayoutPanel1.Controls.Add(lnklblServices, 4, 0);
+            tableLayoutPanel1.Controls.Add(lnklblProviders, 3, 0);
+            tableLayoutPanel1.Controls.Add(lnklblRequests, 2, 0);
+            tableLayoutPanel1.Controls.Add(lnklblOverView, 1, 0);
+            tableLayoutPanel1.Location = new Point(-4, 179);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1909, 66);
+            tableLayoutPanel1.TabIndex = 13;
             // 
-            // AdminDashboard
+            // lnklblReports
+            // 
+            lnklblReports.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lnklblReports.AutoSize = true;
+            lnklblReports.DisabledLinkColor = Color.White;
+            lnklblReports.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lnklblReports.LinkColor = Color.Black;
+            lnklblReports.Location = new Point(1054, 28);
+            lnklblReports.Name = "lnklblReports";
+            lnklblReports.Size = new Size(111, 38);
+            lnklblReports.TabIndex = 0;
+            lnklblReports.TabStop = true;
+            lnklblReports.Text = "Reports";
+            lnklblReports.TextAlign = ContentAlignment.BottomCenter;
+            lnklblReports.LinkClicked += lnklblReports_LinkClicked;
+            // 
+            // lnklblServices
+            // 
+            lnklblServices.Anchor = AnchorStyles.Bottom;
+            lnklblServices.AutoSize = true;
+            lnklblServices.DisabledLinkColor = Color.White;
+            lnklblServices.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lnklblServices.LinkColor = Color.Black;
+            lnklblServices.Location = new Point(902, 28);
+            lnklblServices.Name = "lnklblServices";
+            lnklblServices.Size = new Size(117, 38);
+            lnklblServices.TabIndex = 0;
+            lnklblServices.TabStop = true;
+            lnklblServices.Text = "Services";
+            lnklblServices.TextAlign = ContentAlignment.BottomCenter;
+            lnklblServices.LinkClicked += lnklblServices_LinkClicked;
+            // 
+            // lnklblProviders
+            // 
+            lnklblProviders.Anchor = AnchorStyles.Bottom;
+            lnklblProviders.AutoSize = true;
+            lnklblProviders.DisabledLinkColor = Color.White;
+            lnklblProviders.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lnklblProviders.LinkColor = Color.Black;
+            lnklblProviders.Location = new Point(707, 28);
+            lnklblProviders.Name = "lnklblProviders";
+            lnklblProviders.Size = new Size(132, 38);
+            lnklblProviders.TabIndex = 0;
+            lnklblProviders.TabStop = true;
+            lnklblProviders.Text = "Providers";
+            lnklblProviders.TextAlign = ContentAlignment.BottomCenter;
+            lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
+            // 
+            // lnklblRequests
+            // 
+            lnklblRequests.Anchor = AnchorStyles.Bottom;
+            lnklblRequests.AutoSize = true;
+            lnklblRequests.DisabledLinkColor = Color.White;
+            lnklblRequests.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lnklblRequests.LinkColor = Color.Black;
+            lnklblRequests.Location = new Point(504, 28);
+            lnklblRequests.Name = "lnklblRequests";
+            lnklblRequests.Size = new Size(128, 38);
+            lnklblRequests.TabIndex = 0;
+            lnklblRequests.TabStop = true;
+            lnklblRequests.Text = "Requests";
+            lnklblRequests.TextAlign = ContentAlignment.BottomCenter;
+            lnklblRequests.LinkClicked += lnklblRequests_LinkClicked;
+            // 
+            // lnklblOverView
+            // 
+            lnklblOverView.Anchor = AnchorStyles.Bottom;
+            lnklblOverView.AutoSize = true;
+            lnklblOverView.DisabledLinkColor = Color.White;
+            lnklblOverView.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lnklblOverView.LinkColor = Color.Black;
+            lnklblOverView.Location = new Point(277, 28);
+            lnklblOverView.Name = "lnklblOverView";
+            lnklblOverView.Size = new Size(131, 38);
+            lnklblOverView.TabIndex = 0;
+            lnklblOverView.TabStop = true;
+            lnklblOverView.Text = "Overview";
+            lnklblOverView.TextAlign = ContentAlignment.BottomCenter;
+            lnklblOverView.LinkClicked += lnklblOverView_LinkClicked;
+            // 
+            // frmAdminDashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1194, 676);
-            Controls.Add(btnReports);
+            AutoSize = true;
+            ClientSize = new Size(1904, 1042);
             Controls.Add(panel8);
-            Controls.Add(panel7);
+            Controls.Add(pnlNavigationAdminPanl);
             Controls.Add(panel6);
             Controls.Add(panel5);
-            Controls.Add(btnServices);
-            Controls.Add(btnProviders);
-            Controls.Add(btnRequests);
-            Controls.Add(btnOverview);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "AdminDashboard";
+            Name = "frmAdminDashboard";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AdminDashboard";
+            WindowState = FormWindowState.Maximized;
             Load += AdminDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -442,12 +574,15 @@
             panel5.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
+            pnlNavigationAdminPanl.ResumeLayout(false);
+            pnlNavigationAdminPanl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).EndInit();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -457,17 +592,13 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
-        private Button btnOverview;
-        private Button btnRequests;
-        private Button btnProviders;
-        private Button btnServices;
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
         private Panel panel5;
         private Panel panel6;
-        private Panel panel7;
+        private Panel pnlNavigationAdminPanl;
         private Panel panel8;
         private Label label6;
         private Label label7;
@@ -475,17 +606,27 @@
         private Label label9;
         private Label label8;
         private Label label10;
-        private Button btnReports;
         private Label label15;
         private Label label12;
-        private Label label13;
-        private Label label14;
         private Label label11;
         private PictureBox pictureBox6;
         private PictureBox pictureBox2;
         private PictureBox pictureBox5;
         private PictureBox pictureBox3;
-        private PictureBox pictureBox1;
         private PictureBox pictureBox4;
+        private Label lblAdminDashboard;
+        private Label label16;
+        private PictureBox pbxHomeHeroLogo;
+        private Button btnExitAdmin;
+        private PictureBox pictureBox1;
+        private Label lblHero;
+        private Label lblHome;
+        private Label lblAdminPortal;
+        private TableLayoutPanel tableLayoutPanel1;
+        private LinkLabel lnklblOverView;
+        private LinkLabel lnklblServices;
+        private LinkLabel lnklblProviders;
+        private LinkLabel lnklblRequests;
+        private LinkLabel lnklblReports;
     }
 }

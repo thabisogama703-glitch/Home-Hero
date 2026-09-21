@@ -127,7 +127,7 @@
             pictureBox1.BackgroundImage = Properties.Resources.Screenshot_2026_09_13_1713342;
             pictureBox1.Location = new Point(19, 28);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(51, 37);
+            pictureBox1.Size = new Size(51, 46);
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 

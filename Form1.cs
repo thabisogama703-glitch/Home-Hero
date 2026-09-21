@@ -32,7 +32,7 @@ namespace Home_Hero
 
         private void btnAdministration_Click(object sender, EventArgs e)
         {
-            AdminDashboard adminPage = new AdminDashboard();
+            frmAdminDashboard adminPage = new frmAdminDashboard();
             this.Hide();
             adminPage.FormClosed += (s, args) => this.Close();
             adminPage.Show();

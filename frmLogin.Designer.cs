@@ -112,7 +112,7 @@
             // cmbLoginAs
             // 
             cmbLoginAs.FormattingEnabled = true;
-            cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider", "Administrator" });
+            cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider" });
             cmbLoginAs.Location = new Point(35, 314);
             cmbLoginAs.Name = "cmbLoginAs";
             cmbLoginAs.Size = new Size(252, 28);

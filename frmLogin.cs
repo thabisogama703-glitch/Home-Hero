@@ -9,7 +9,9 @@ namespace HomeHero_2
         {
             InitializeComponent();
         }
-
+        List<Administrator> administrators = new List<Administrator>();
+        //Administrator Thabiso = new Administrator();
+        
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -18,21 +20,13 @@ namespace HomeHero_2
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            string selectedUserType = cmbLoginAs.Text;
-
-            if (string.IsNullOrEmpty(selectedUserType))
-            {
-                MessageBox.Show("Please select a user type.");
-                return;
-            }
-
-            bool hasEmptyFields = false;
-
             string email = txtEmail.Text;
             string password = txtPassword.Text;
 
+            string selectedUserType = cmbLoginAs.Text;
 
-
+           
+            bool hasEmptyFields = false;
 
             if (string.IsNullOrEmpty(email))
             {
@@ -58,6 +52,42 @@ namespace HomeHero_2
             {
                 MessageBox.Show("Please fill in all required fields");
                 ClearFields();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedUserType))
+            {
+                Administrator Thabiso = new Administrator();
+                Thabiso.AdminName = "Thabiso";
+                Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
+                Thabiso.Password = "@Thandolwami07";
+                administrators.Add(Thabiso);
+
+                Administrator Sibusiso = new Administrator();
+                Sibusiso.AdminName = "Sibusiso";
+                Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
+                Sibusiso.Password = "@Thandolwami07";
+                administrators.Add(Sibusiso);
+
+
+                foreach (Administrator administrator in administrators)
+                {
+                    if (email.Trim().ToLower() == administrator.EmailAdress)
+                    {
+                        if (password.Trim() == administrator.Password)
+                        {
+                            MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin succesfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            frmAdminDashboard adminDashboard = new frmAdminDashboard();
+                            this.Hide();
+                            adminDashboard.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                MessageBox.Show("Please select a user type.");
                 return;
             }
 
@@ -92,12 +122,6 @@ namespace HomeHero_2
             else if (selectedUserType == "Service Provider")
             {
                 
-            }
-            else if (selectedUserType == "Administrator")
-            {
-                AdminDashboard frmAdministrator = new AdminDashboard();
-                this.Hide();
-                frmAdministrator.Show();
             }
 
         }

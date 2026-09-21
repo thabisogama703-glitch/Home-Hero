@@ -16,5 +16,40 @@ namespace Home_Hero
         {
             InitializeComponent();
         }
+
+        private void btnExitAdmin_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want ot logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage homepage = new frmHomeHeroHomepage();
+                this.Hide();
+                homepage.Show();
+            }
+        }
+
+        private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmAdminDashboard adminDashboard = new frmAdminDashboard();
+            this.Hide();
+            adminDashboard.Show();
+        }
+
+        private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RequestManagement requestManagement = new RequestManagement();
+            this.Hide();
+            requestManagement.Show();
+        }
+
+        private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

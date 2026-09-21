@@ -11,35 +11,11 @@ using System.IO;
 
 namespace Home_Hero
 {
-    public partial class AdminDashboard : Form
+    public partial class frmAdminDashboard : Form
     {
-        public AdminDashboard()
+        public frmAdminDashboard()
         {
             InitializeComponent();
-        }
-
-        private void btnViewRequests_Click(object sender, EventArgs e)
-        {
-            AdminDashboard adminPage = new AdminDashboard();
-            adminPage.ShowDialog();
-            this.Show();
-        }
-
-        private void btnManageProviders_Click(object sender, EventArgs e)
-        {
-            RequestManagement requestManagementPage = new RequestManagement();
-            requestManagementPage.ShowDialog();
-            this.Show();
-        }
-
-        private void btnManageServices(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnManageAppointments(object sender, EventArgs e)
-        {
-           
         }
 
         private void AdminDashboard_Load(object sender, EventArgs e)
@@ -49,16 +25,70 @@ namespace Home_Hero
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-            frmReports reportsPage = new frmReports();
-            reportsPage.ShowDialog();
-            this.Show();
+
         }
 
         private void btnProviders_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void panel7_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmReports reportsPage = new frmReports();
+            this.Hide();
+            reportsPage.Show();
+            
+        }
+
+        private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
             ProviderManagement providerManagementPage = new ProviderManagement();
-            providerManagementPage.ShowDialog();
-            this.Show();
+            providerManagementPage.Show();
+            this.Hide();
+        }
+
+        private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RequestManagement requestManagement = new RequestManagement();
+            this.Hide();
+            requestManagement.Show();
+        }
+
+        private void btnExitAdmin_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want ot logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage homepage = new frmHomeHeroHomepage();
+                this.Hide();
+                homepage.Show();
+            }
         }
     }
 }
