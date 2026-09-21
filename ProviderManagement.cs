@@ -4,15 +4,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class ProviderManagement : Form
+    public partial class frmProviderManagement : Form
     {
-        public ProviderManagement()
+        public frmProviderManagement()
         {
             InitializeComponent();
             LoadProvidersToGrid();
@@ -84,6 +85,27 @@ namespace Home_Hero
         private void btnAddProvider__Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmReports reports = new frmReports();
+            this.Hide();
+            reports.Show();
+        }
+
+        private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmAdminDashboard adminDashboard = new frmAdminDashboard();
+            this.Hide();
+            adminDashboard.Show();
+        }
+
+        private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RequestManagement requestManagement = new RequestManagement();
+            this.Hide();
+            requestManagement.Show();
         }
     }
 }

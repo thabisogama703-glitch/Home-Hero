@@ -174,7 +174,7 @@
             lblAdminPortal.AutoSize = true;
             lblAdminPortal.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblAdminPortal.ForeColor = Color.White;
-            lblAdminPortal.Location = new Point(1481, 22);
+            lblAdminPortal.Location = new Point(1467, 29);
             lblAdminPortal.Name = "lblAdminPortal";
             lblAdminPortal.Size = new Size(264, 38);
             lblAdminPortal.TabIndex = 16;

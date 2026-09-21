@@ -44,7 +44,9 @@ namespace Home_Hero
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            frmProviderManagement providerManagementPage = new frmProviderManagement();
+            providerManagementPage.Show();
+            this.Hide();
         }
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

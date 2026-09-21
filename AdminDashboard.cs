@@ -63,14 +63,14 @@ namespace Home_Hero
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ProviderManagement providerManagementPage = new ProviderManagement();
+            frmProviderManagement providerManagementPage = new frmProviderManagement();
             providerManagementPage.Show();
             this.Hide();
         }
 
         private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            
         }
 
         private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

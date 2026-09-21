@@ -189,7 +189,9 @@ namespace Home_Hero
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            frmProviderManagement management = new frmProviderManagement();
+            this.Hide();
+            management.Show();
         }
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -201,7 +203,9 @@ namespace Home_Hero
 
         private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            RequestManagement management = new RequestManagement();
+            this.Hide();
+            management.Show();
         }
 
         private void btnExitAdmin_Click(object sender, EventArgs e)
