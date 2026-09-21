@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHero_2
+namespace ServiceProviderDashboard
+
 {
     public class ServiceProvider : User
     {
         public List<string> Specialisation { get; private set; }
         public List<Job> Assignedjobs { get; private set; }
 
-        public ServiceProvider(string firstName, string lastName, string email, string password, string phoneNumber, List<string> specialisation = null) : base(firstName, lastName, email, phoneNumber, password)
+        public ServiceProvider(string firstName, string lastName, string email, string password, string phoneNumber, List<string> specialisation = null) : base(firstName, lastName, phoneNumber, email, password)
         {
             Assignedjobs = new List<Job>();
             Specialisation = new List<string>();

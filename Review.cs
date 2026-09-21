@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HomeHero_2
+namespace ServiceProviderDashboard
+
 {
     public class Review
     {
@@ -29,7 +30,7 @@ namespace HomeHero_2
             
         }
 
-        public static bool ReviewValidation(Customer  customer,Job job,int rating , string comment,out Review review,out string error)
+        public  static bool ReviewValidation(Customer  customer,Job job,int rating , string comment,out Review review,out string error)
         {
             if (rating<1 || rating >5)
             {

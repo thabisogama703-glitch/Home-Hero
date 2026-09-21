@@ -1,11 +1,10 @@
-﻿using Home_Hero;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHero_2
+namespace ServiceProviderDashboard
 {
     public class Appointment
     {
