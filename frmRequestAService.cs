@@ -56,22 +56,6 @@ namespace Home_Hero
         {
 
         }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            string description = txtProblemDEscription.Text;
-
-            if (description.Length < 20)
-            {
-                ValidationError.SetError(lblMinimumCharacters, "Please provide a detailed description of the problem, with a minimum of 20 characters");
-            }
-            else
-            {
-                ValidationError.SetError(lblMinimumCharacters, "");
-
-            }
-        }
-
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
@@ -84,7 +68,7 @@ namespace Home_Hero
 
         private void btnSubmitRequest_Click(object sender, EventArgs e)
         {
-            bool isValid = false;
+            bool isValid = true;
 
             //Validating the service choice and priority level
 
@@ -226,7 +210,7 @@ namespace Home_Hero
                 ValidationError.SetError(txtPropertyAddress, "");
             }
 
-            //After all validations we then show the process was succesfully submitted
+            /*After all validations we then show the process was succesfully submitted*/
             if (isValid == true)
             {
                 MessageBox.Show("Maintenance Request succesfully submitted ");

@@ -408,7 +408,6 @@
             btnNext.TabIndex = 3;
             btnNext.Text = "Next";
             btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += btnNext_Click;
             // 
             // ValidationError
             // 
