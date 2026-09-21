@@ -84,7 +84,7 @@ namespace Home_Hero
 
         private void btnSubmitRequest_Click(object sender, EventArgs e)
         {
-            bool isValid = false;
+            bool isValid = true;
 
             //Validating the service choice and priority level
 
