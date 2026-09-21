@@ -214,12 +214,31 @@ namespace Home_Hero
             if (isValid == true)
             {
                 MessageBox.Show("Maintenance Request succesfully submitted ");
+                ClearAllFields();
             }
             else
             {
                 return;
             }
+
+
         }
+
+        public void ClearAllFields()
+        {
+            txtFirstName.Clear();
+            txtLastName.Clear();
+            txtPhoneNumber.Clear();
+            txtProblemDEscription.Clear();
+            txtPropertyAddress.Clear();
+            txtEmailAddress.Clear();
+            cbxServices.Text = null;
+            RdbtnUrgent.Checked = false;
+            RdbxNormalPriorityLevel.Checked = false;
+            cbxPreferredTime.SelectedItem = null;
+
+        }
+
 
         private void btnCancelReuest_Click(object sender, EventArgs e)
         {
