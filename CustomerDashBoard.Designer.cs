@@ -29,26 +29,27 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            btnNewServiceRequest = new Button();
-            btnTrackRequest = new Button();
             panel1 = new Panel();
             btnLogout = new Button();
             btnDashboard = new Button();
             btnServiceHistory = new Button();
             BtnActiceRequests = new Button();
-            panel2 = new Panel();
             dgvActiveRequests = new DataGridView();
             grpbxActiveRequests = new GroupBox();
             dgvServiceHistory = new DataGridView();
             grpbxServiceHistory = new GroupBox();
-            lblWelcomeBack = new Label();
-            lblUserNameDashBoard = new Label();
+            btnNewServiceRequest = new Button();
+            btnTrackRequest = new Button();
+            panel2 = new Panel();
+            lblWelcome = new Label();
+            btnBackToHome = new Button();
+            lblCustomer = new Label();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).BeginInit();
             grpbxActiveRequests.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).BeginInit();
             grpbxServiceHistory.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -61,31 +62,6 @@
             label1.Size = new Size(265, 60);
             label1.TabIndex = 0;
             label1.Text = "Home Hero";
-            // 
-            // btnNewServiceRequest
-            // 
-            btnNewServiceRequest.BackColor = Color.FromArgb(255, 128, 0);
-            btnNewServiceRequest.FlatStyle = FlatStyle.Flat;
-            btnNewServiceRequest.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnNewServiceRequest.ForeColor = Color.White;
-            btnNewServiceRequest.Location = new Point(1628, 9);
-            btnNewServiceRequest.Name = "btnNewServiceRequest";
-            btnNewServiceRequest.Size = new Size(251, 54);
-            btnNewServiceRequest.TabIndex = 1;
-            btnNewServiceRequest.Text = "+ New Service Request";
-            btnNewServiceRequest.UseVisualStyleBackColor = false;
-            btnNewServiceRequest.Click += btnNewServiceRequest_Click_1;
-            // 
-            // btnTrackRequest
-            // 
-            btnTrackRequest.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTrackRequest.Location = new Point(1451, 25);
-            btnTrackRequest.Name = "btnTrackRequest";
-            btnTrackRequest.Size = new Size(152, 38);
-            btnTrackRequest.TabIndex = 2;
-            btnTrackRequest.Text = "Track Request";
-            btnTrackRequest.UseVisualStyleBackColor = true;
-            btnTrackRequest.Click += btnTrackRequest_Click_1;
             // 
             // panel1
             // 
@@ -150,18 +126,6 @@
             BtnActiceRequests.UseVisualStyleBackColor = false;
             BtnActiceRequests.Click += BtnActiceRequests_Click;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.FromArgb(255, 128, 0);
-            panel2.Controls.Add(lblUserNameDashBoard);
-            panel2.Controls.Add(lblWelcomeBack);
-            panel2.Controls.Add(btnTrackRequest);
-            panel2.Controls.Add(btnNewServiceRequest);
-            panel2.Location = new Point(-5, 113);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1892, 82);
-            panel2.TabIndex = 4;
-            // 
             // dgvActiveRequests
             // 
             dgvActiveRequests.AllowUserToAddRows = false;
@@ -208,23 +172,74 @@
             grpbxServiceHistory.TabStop = false;
             grpbxServiceHistory.Text = "Service History";
             // 
-            // lblWelcomeBack
+            // btnNewServiceRequest
             // 
-            lblWelcomeBack.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblWelcomeBack.Location = new Point(43, 9);
-            lblWelcomeBack.Name = "lblWelcomeBack";
-            lblWelcomeBack.Size = new Size(180, 25);
-            lblWelcomeBack.TabIndex = 3;
-            lblWelcomeBack.Text = "WELCOME BACK";
+            btnNewServiceRequest.BackColor = Color.FromArgb(255, 128, 0);
+            btnNewServiceRequest.FlatStyle = FlatStyle.Flat;
+            btnNewServiceRequest.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNewServiceRequest.ForeColor = Color.White;
+            btnNewServiceRequest.Location = new Point(1154, 39);
+            btnNewServiceRequest.Name = "btnNewServiceRequest";
+            btnNewServiceRequest.Size = new Size(251, 54);
+            btnNewServiceRequest.TabIndex = 1;
+            btnNewServiceRequest.Text = "+ New Service Request";
+            btnNewServiceRequest.UseVisualStyleBackColor = false;
+            btnNewServiceRequest.Click += btnNewServiceRequest_Click_1;
             // 
-            // lblUserNameDashBoard
+            // btnTrackRequest
             // 
-            lblUserNameDashBoard.AutoSize = true;
-            lblUserNameDashBoard.Location = new Point(51, 43);
-            lblUserNameDashBoard.Name = "lblUserNameDashBoard";
-            lblUserNameDashBoard.Size = new Size(124, 20);
-            lblUserNameDashBoard.TabIndex = 4;
-            lblUserNameDashBoard.Text = "User's Dashboard";
+            btnTrackRequest.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTrackRequest.Location = new Point(943, 46);
+            btnTrackRequest.Name = "btnTrackRequest";
+            btnTrackRequest.Size = new Size(152, 38);
+            btnTrackRequest.TabIndex = 2;
+            btnTrackRequest.Text = "Track Request";
+            btnTrackRequest.UseVisualStyleBackColor = true;
+            btnTrackRequest.Click += btnTrackRequest_Click_1;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.White;
+            panel2.Controls.Add(lblWelcome);
+            panel2.Controls.Add(btnBackToHome);
+            panel2.Controls.Add(btnNewServiceRequest);
+            panel2.Controls.Add(lblCustomer);
+            panel2.Controls.Add(btnTrackRequest);
+            panel2.Location = new Point(-5, 113);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1823, 120);
+            panel2.TabIndex = 8;
+            // 
+            // lblWelcome
+            // 
+            lblWelcome.AutoSize = true;
+            lblWelcome.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWelcome.Location = new Point(44, 62);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(240, 31);
+            lblWelcome.TabIndex = 14;
+            lblWelcome.Text = "Customer DashBoard";
+            // 
+            // btnBackToHome
+            // 
+            btnBackToHome.Location = new Point(1483, 55);
+            btnBackToHome.Name = "btnBackToHome";
+            btnBackToHome.Size = new Size(146, 29);
+            btnBackToHome.TabIndex = 2;
+            btnBackToHome.Text = "←      Back Home";
+            btnBackToHome.UseVisualStyleBackColor = true;
+            btnBackToHome.Click += btnBackToHome_Click_1;
+            // 
+            // lblCustomer
+            // 
+            lblCustomer.AutoSize = true;
+            lblCustomer.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCustomer.ForeColor = Color.DimGray;
+            lblCustomer.Location = new Point(50, 24);
+            lblCustomer.Name = "lblCustomer";
+            lblCustomer.Size = new Size(136, 25);
+            lblCustomer.TabIndex = 13;
+            lblCustomer.Text = "Welcome back";
             // 
             // frmCustomerDashboard
             // 
@@ -232,9 +247,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1886, 995);
+            Controls.Add(panel2);
             Controls.Add(grpbxServiceHistory);
             Controls.Add(grpbxActiveRequests);
-            Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "frmCustomerDashboard";
             StartPosition = FormStartPosition.CenterScreen;
@@ -243,21 +258,18 @@
             Load += frmCustomerDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).EndInit();
             grpbxActiveRequests.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).EndInit();
             grpbxServiceHistory.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Label label1;
-        private Button btnNewServiceRequest;
-        private Button btnTrackRequest;
-        private Panel panel2;
         private Button BtnActiceRequests;
         private Button btnServiceHistory;
         private DataGridView dgvActiveRequests;
@@ -267,7 +279,11 @@
         private GroupBox grpbxServiceHistory;
         private Button btnDashboard;
         private Panel panel1;
-        private Label lblUserNameDashBoard;
-        private Label lblWelcomeBack;
+        private Button btnNewServiceRequest;
+        private Button btnTrackRequest;
+        private Panel panel2;
+        private Label lblWelcome;
+        private Button btnBackToHome;
+        private Label lblCustomer;
     }
 }

@@ -23,14 +23,18 @@ namespace HomeHero
         private void btnNewServiceRequest_Click_1(object sender, EventArgs e)
         {
             frmCreateRequest requestForm = new frmCreateRequest();
-            requestForm.ShowDialog();
+            requestForm.Show();
+            this.Hide();
         }
 
         public void btnTrackRequest_Click_1(object sender, EventArgs e)
         {
             frmRequestTracking requestTracking = new frmRequestTracking();
-            requestTracking.ShowDialog();
+           
+            requestTracking.Show();
+            this.Hide();
         }
+
 
 
         private void BtnActiceRequests_Click(object sender, EventArgs e)
@@ -45,13 +49,13 @@ namespace HomeHero
 
         private void frmCustomerDashboard_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnBackToHome_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to logout?","Logging Out",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);
-            if(result == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logging Out", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
                 frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
                 this.Hide();
@@ -63,6 +67,13 @@ namespace HomeHero
             }
 
 
+        }
+
+        private void btnBackToHome_Click_1(object sender, EventArgs e)
+        {
+            frmHomeHeroHomepage backtoHome = new frmHomeHeroHomepage();
+            this.Hide();
+            backtoHome.Show();
         }
     }
 }

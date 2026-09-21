@@ -105,7 +105,7 @@
             // btnBackHome
             // 
             btnBackHome.AutoSize = true;
-            btnBackHome.BackColor = Color.FromArgb(0, 0, 64);
+            btnBackHome.BackColor = Color.FromArgb(255, 128, 0);
             btnBackHome.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 64);
             btnBackHome.FlatAppearance.BorderSize = 0;
             btnBackHome.FlatStyle = FlatStyle.Flat;

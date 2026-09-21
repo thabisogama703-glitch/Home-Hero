@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -70,7 +71,12 @@ namespace Home_Hero
                 MessageBoxIcon.Information);
         }
 
-
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
+            this.Hide();
+            Customerdashboard.Show();
+        }
     }
 }
 
