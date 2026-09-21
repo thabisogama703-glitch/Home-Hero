@@ -111,7 +111,7 @@ namespace HomeHero_2
                     return;
                 }
 
-                MessageBox.Show("Login successful !");
+                MessageBox.Show("Login successful !","Login Successful",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 ClearFields();
                 frmCustomerDashboard customerForm = new frmCustomerDashboard();
                 this.Hide();

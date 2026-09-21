@@ -30,9 +30,7 @@ namespace HomeHero
         public void btnTrackRequest_Click_1(object sender, EventArgs e)
         {
             frmRequestTracking requestTracking = new frmRequestTracking();
-           
-            requestTracking.Show();
-            this.Hide();
+            requestTracking.ShowDialog();
         }
 
 
@@ -67,13 +65,6 @@ namespace HomeHero
             }
 
 
-        }
-
-        private void btnBackToHome_Click_1(object sender, EventArgs e)
-        {
-            frmHomeHeroHomepage backtoHome = new frmHomeHeroHomepage();
-            this.Hide();
-            backtoHome.Show();
         }
     }
 }

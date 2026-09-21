@@ -42,7 +42,6 @@
             btnTrackRequest = new Button();
             panel2 = new Panel();
             lblWelcome = new Label();
-            btnBackToHome = new Button();
             lblCustomer = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).BeginInit();
@@ -178,7 +177,7 @@
             btnNewServiceRequest.FlatStyle = FlatStyle.Flat;
             btnNewServiceRequest.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewServiceRequest.ForeColor = Color.White;
-            btnNewServiceRequest.Location = new Point(1154, 39);
+            btnNewServiceRequest.Location = new Point(1617, 39);
             btnNewServiceRequest.Name = "btnNewServiceRequest";
             btnNewServiceRequest.Size = new Size(251, 54);
             btnNewServiceRequest.TabIndex = 1;
@@ -189,7 +188,7 @@
             // btnTrackRequest
             // 
             btnTrackRequest.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTrackRequest.Location = new Point(943, 46);
+            btnTrackRequest.Location = new Point(1420, 55);
             btnTrackRequest.Name = "btnTrackRequest";
             btnTrackRequest.Size = new Size(152, 38);
             btnTrackRequest.TabIndex = 2;
@@ -201,13 +200,12 @@
             // 
             panel2.BackColor = Color.White;
             panel2.Controls.Add(lblWelcome);
-            panel2.Controls.Add(btnBackToHome);
             panel2.Controls.Add(btnNewServiceRequest);
             panel2.Controls.Add(lblCustomer);
             panel2.Controls.Add(btnTrackRequest);
-            panel2.Location = new Point(-5, 113);
+            panel2.Location = new Point(0, 107);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1823, 120);
+            panel2.Size = new Size(1892, 120);
             panel2.TabIndex = 8;
             // 
             // lblWelcome
@@ -219,16 +217,6 @@
             lblWelcome.Size = new Size(240, 31);
             lblWelcome.TabIndex = 14;
             lblWelcome.Text = "Customer DashBoard";
-            // 
-            // btnBackToHome
-            // 
-            btnBackToHome.Location = new Point(1483, 55);
-            btnBackToHome.Name = "btnBackToHome";
-            btnBackToHome.Size = new Size(146, 29);
-            btnBackToHome.TabIndex = 2;
-            btnBackToHome.Text = "←      Back Home";
-            btnBackToHome.UseVisualStyleBackColor = true;
-            btnBackToHome.Click += btnBackToHome_Click_1;
             // 
             // lblCustomer
             // 
@@ -283,7 +271,6 @@
         private Button btnTrackRequest;
         private Panel panel2;
         private Label lblWelcome;
-        private Button btnBackToHome;
         private Label lblCustomer;
     }
 }

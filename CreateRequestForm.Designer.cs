@@ -156,9 +156,10 @@
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(txtAddress);
             panel1.Controls.Add(lblEstimatedCost);
-            panel1.Location = new Point(33, 33);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1800, 830);
+            panel1.Size = new Size(1886, 995);
             panel1.TabIndex = 18;
             // 
             // panel5
@@ -375,7 +376,7 @@
             panel2.Controls.Add(btnBack);
             panel2.Location = new Point(-1, -1);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1796, 108);
+            panel2.Size = new Size(1884, 108);
             panel2.TabIndex = 16;
             // 
             // lblRequest
@@ -397,7 +398,7 @@
             btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(1557, 39);
+            btnBack.Location = new Point(1683, 34);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(151, 29);
             btnBack.TabIndex = 11;
@@ -418,11 +419,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1845, 902);
+            ClientSize = new Size(1886, 995);
             Controls.Add(panel1);
             Name = "frmCreateRequest";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Create Request";
+            WindowState = FormWindowState.Maximized;
             Load += CreateRequestForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

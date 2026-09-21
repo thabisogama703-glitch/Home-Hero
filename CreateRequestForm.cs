@@ -103,15 +103,26 @@ namespace Home_Hero
                 );
             DataManager.AddRequest(newRequest);
 
-            MessageBox.Show(
+            DialogResult result =  MessageBox.Show(
             "Request submitted successfully!\n\n" +
             "Request Number: " + newRequest.RequestNumber + "\n" +
             "Estimated Cost: R" +
             newRequest.EstimatedCost.ToString("F2") + "\n" +
-            "Status: " + newRequest.Status,
+            "Status: " + newRequest.Status + "\n Would you like to create another service request?",
             "Request Submitted",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information);
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+
+            if(result == DialogResult.No)
+            {
+                frmCustomerDashboard returnToDashBoard = new frmCustomerDashboard();
+                this.Hide();
+                returnToDashBoard.Show();
+            }
+            else
+            {
+
+            }
 
             ClearForm();
         }
