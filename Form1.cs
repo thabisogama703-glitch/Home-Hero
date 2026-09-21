@@ -47,5 +47,30 @@ namespace Home_Hero
         {
 
         }
+
+        private void btnFindAPro_Click(object sender, EventArgs e)
+        {
+            string searchedService = txtSearchForService.Text.Trim().ToLower();
+            
+            if(searchedService == "")
+            {
+                ValidationError.SetError(txtSearchForService, "Please enter the service name you need help on.");
+
+            }
+            else
+            {
+                if (searchedService.Length < 4)
+                {
+                    ValidationError.SetError(txtSearchForService, "The search service should not contain less than 4 charcters");
+                }
+                else
+                {
+                    ValidationError.SetError(txtSearchForService, "");
+                    frmRequestAService requestAServicePage = new frmRequestAService();
+                    this.Hide();
+                    requestAServicePage.Show();
+                }
+            }
+        }
     }
 }

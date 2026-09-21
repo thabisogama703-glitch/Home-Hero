@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pnlHomeHero = new Panel();
             tblpHomeHeroPanel = new TableLayoutPanel();
             flpNavigationTab = new FlowLayoutPanel();
@@ -59,16 +60,17 @@
             tblpStatistics = new TableLayoutPanel();
             pnlAvgResponseTime = new Panel();
             lblAvgResponseTime = new Label();
-            lblAverageResponseTime = new Label();
+            lblAverageResponseTimeValue = new Label();
             pnlVerifiedPros = new Panel();
             lblVerifiedPros2 = new Label();
-            lblVerifiedpros = new Label();
+            lblVerifiedprosValue = new Label();
             pnlAverageRating = new Panel();
             lblAverageRating = new Label();
-            lblAvgRating = new Label();
+            lblAvgRatingValue = new Label();
             pnlMoreInfo = new Panel();
             lblJobsCompleted2 = new Label();
-            lblJobsCompleted1 = new Label();
+            lblJobsCompletedValue = new Label();
+            ValidationError = new ErrorProvider(components);
             pnlHomeHero.SuspendLayout();
             tblpHomeHeroPanel.SuspendLayout();
             flpNavigationTab.SuspendLayout();
@@ -85,6 +87,7 @@
             pnlVerifiedPros.SuspendLayout();
             pnlAverageRating.SuspendLayout();
             pnlMoreInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ValidationError).BeginInit();
             SuspendLayout();
             // 
             // pnlHomeHero
@@ -341,6 +344,7 @@
             btnFindAPro.TabIndex = 5;
             btnFindAPro.Text = "Find a Pro";
             btnFindAPro.UseVisualStyleBackColor = false;
+            btnFindAPro.Click += btnFindAPro_Click;
             // 
             // txtLiveUpdate
             // 
@@ -461,7 +465,7 @@
             // pnlAvgResponseTime
             // 
             pnlAvgResponseTime.Controls.Add(lblAvgResponseTime);
-            pnlAvgResponseTime.Controls.Add(lblAverageResponseTime);
+            pnlAvgResponseTime.Controls.Add(lblAverageResponseTimeValue);
             pnlAvgResponseTime.Location = new Point(1462, 4);
             pnlAvgResponseTime.Name = "pnlAvgResponseTime";
             pnlAvgResponseTime.Size = new Size(479, 117);
@@ -478,21 +482,21 @@
             lblAvgResponseTime.TabIndex = 1;
             lblAvgResponseTime.Text = "Average Response Time";
             // 
-            // lblAverageResponseTime
+            // lblAverageResponseTimeValue
             // 
-            lblAverageResponseTime.Anchor = AnchorStyles.None;
-            lblAverageResponseTime.AutoSize = true;
-            lblAverageResponseTime.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAverageResponseTime.Location = new Point(157, 18);
-            lblAverageResponseTime.Name = "lblAverageResponseTime";
-            lblAverageResponseTime.Size = new Size(170, 62);
-            lblAverageResponseTime.TabIndex = 0;
-            lblAverageResponseTime.Text = "48 Hrs";
+            lblAverageResponseTimeValue.Anchor = AnchorStyles.None;
+            lblAverageResponseTimeValue.AutoSize = true;
+            lblAverageResponseTimeValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAverageResponseTimeValue.Location = new Point(157, 18);
+            lblAverageResponseTimeValue.Name = "lblAverageResponseTimeValue";
+            lblAverageResponseTimeValue.Size = new Size(118, 62);
+            lblAverageResponseTimeValue.TabIndex = 0;
+            lblAverageResponseTimeValue.Text = "N/A";
             // 
             // pnlVerifiedPros
             // 
             pnlVerifiedPros.Controls.Add(lblVerifiedPros2);
-            pnlVerifiedPros.Controls.Add(lblVerifiedpros);
+            pnlVerifiedPros.Controls.Add(lblVerifiedprosValue);
             pnlVerifiedPros.Location = new Point(976, 4);
             pnlVerifiedPros.Name = "pnlVerifiedPros";
             pnlVerifiedPros.Size = new Size(479, 117);
@@ -509,21 +513,21 @@
             lblVerifiedPros2.TabIndex = 1;
             lblVerifiedPros2.Text = "Verified Pros";
             // 
-            // lblVerifiedpros
+            // lblVerifiedprosValue
             // 
-            lblVerifiedpros.Anchor = AnchorStyles.None;
-            lblVerifiedpros.AutoSize = true;
-            lblVerifiedpros.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblVerifiedpros.Location = new Point(151, 14);
-            lblVerifiedpros.Name = "lblVerifiedpros";
-            lblVerifiedpros.Size = new Size(181, 62);
-            lblVerifiedpros.TabIndex = 0;
-            lblVerifiedpros.Text = "1,200+";
+            lblVerifiedprosValue.Anchor = AnchorStyles.None;
+            lblVerifiedprosValue.AutoSize = true;
+            lblVerifiedprosValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVerifiedprosValue.Location = new Point(151, 14);
+            lblVerifiedprosValue.Name = "lblVerifiedprosValue";
+            lblVerifiedprosValue.Size = new Size(54, 62);
+            lblVerifiedprosValue.TabIndex = 0;
+            lblVerifiedprosValue.Text = "0";
             // 
             // pnlAverageRating
             // 
             pnlAverageRating.Controls.Add(lblAverageRating);
-            pnlAverageRating.Controls.Add(lblAvgRating);
+            pnlAverageRating.Controls.Add(lblAvgRatingValue);
             pnlAverageRating.Location = new Point(490, 4);
             pnlAverageRating.Name = "pnlAverageRating";
             pnlAverageRating.Size = new Size(479, 117);
@@ -540,21 +544,21 @@
             lblAverageRating.TabIndex = 1;
             lblAverageRating.Text = "Average Rating";
             // 
-            // lblAvgRating
+            // lblAvgRatingValue
             // 
-            lblAvgRating.Anchor = AnchorStyles.None;
-            lblAvgRating.AutoSize = true;
-            lblAvgRating.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAvgRating.Location = new Point(185, 14);
-            lblAvgRating.Name = "lblAvgRating";
-            lblAvgRating.Size = new Size(121, 62);
-            lblAvgRating.TabIndex = 0;
-            lblAvgRating.Text = "4.87";
+            lblAvgRatingValue.Anchor = AnchorStyles.None;
+            lblAvgRatingValue.AutoSize = true;
+            lblAvgRatingValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAvgRatingValue.Location = new Point(185, 14);
+            lblAvgRatingValue.Name = "lblAvgRatingValue";
+            lblAvgRatingValue.Size = new Size(94, 62);
+            lblAvgRatingValue.TabIndex = 0;
+            lblAvgRatingValue.Text = "0.0";
             // 
             // pnlMoreInfo
             // 
             pnlMoreInfo.Controls.Add(lblJobsCompleted2);
-            pnlMoreInfo.Controls.Add(lblJobsCompleted1);
+            pnlMoreInfo.Controls.Add(lblJobsCompletedValue);
             pnlMoreInfo.Location = new Point(4, 4);
             pnlMoreInfo.Name = "pnlMoreInfo";
             pnlMoreInfo.Size = new Size(479, 117);
@@ -571,16 +575,20 @@
             lblJobsCompleted2.TabIndex = 1;
             lblJobsCompleted2.Text = "Jobs Completed";
             // 
-            // lblJobsCompleted1
+            // lblJobsCompletedValue
             // 
-            lblJobsCompleted1.Anchor = AnchorStyles.None;
-            lblJobsCompleted1.AutoSize = true;
-            lblJobsCompleted1.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblJobsCompleted1.Location = new Point(120, 18);
-            lblJobsCompleted1.Name = "lblJobsCompleted1";
-            lblJobsCompleted1.Size = new Size(208, 62);
-            lblJobsCompleted1.TabIndex = 0;
-            lblJobsCompleted1.Text = "50,000+";
+            lblJobsCompletedValue.Anchor = AnchorStyles.None;
+            lblJobsCompletedValue.AutoSize = true;
+            lblJobsCompletedValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblJobsCompletedValue.Location = new Point(120, 18);
+            lblJobsCompletedValue.Name = "lblJobsCompletedValue";
+            lblJobsCompletedValue.Size = new Size(54, 62);
+            lblJobsCompletedValue.TabIndex = 0;
+            lblJobsCompletedValue.Text = "0";
+            // 
+            // ValidationError
+            // 
+            ValidationError.ContainerControl = this;
             // 
             // frmHomeHeroHomepage
             // 
@@ -629,6 +637,7 @@
             pnlAverageRating.PerformLayout();
             pnlMoreInfo.ResumeLayout(false);
             pnlMoreInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ValidationError).EndInit();
             ResumeLayout(false);
         }
 
@@ -657,23 +666,24 @@
         private Label lblPopularServices;
         private TableLayoutPanel tblpStatistics;
         private Label lblPopular;
-        private Label lblJobsCompleted1;
+        private Label lblJobsCompletedValue;
         private Label lblJobsCompleted2;
         private Panel pnlMoreInfo;
         private Panel pnlServicesButtons;
         private Panel pnlAvgResponseTime;
         private Label lblAvgResponseTime;
-        private Label lblAverageResponseTime;
+        private Label lblAverageResponseTimeValue;
         private Panel pnlVerifiedPros;
         private Label lblVerifiedPros2;
-        private Label lblVerifiedpros;
+        private Label lblVerifiedprosValue;
         private Panel pnlAverageRating;
         private Label lblAverageRating;
-        private Label lblAvgRating;
+        private Label lblAvgRatingValue;
         private TextBox txtLiveUpdate;
         private Panel pnlHomeHeroLogo;
         private Label lblHero;
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
+        private ErrorProvider ValidationError;
     }
 }
