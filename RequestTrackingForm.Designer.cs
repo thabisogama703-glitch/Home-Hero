@@ -53,12 +53,12 @@
             dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(363, 386);
+            dgvRequests.Location = new Point(11, 386);
             dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
             dgvRequests.ReadOnly = true;
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(1003, 257);
+            dgvRequests.Size = new Size(1693, 257);
             dgvRequests.TabIndex = 0;
             dgvRequests.CellContentClick += dgvRequests_CellContentClick;
             // 
@@ -128,10 +128,12 @@
             // btnRefresh
             // 
             btnRefresh.BackColor = Color.FromArgb(255, 128, 0);
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(562, 660);
+            btnRefresh.Location = new Point(624, 679);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(516, 46);
+            btnRefresh.Size = new Size(393, 30);
             btnRefresh.TabIndex = 8;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -208,9 +210,9 @@
             // 
             // gbxServiceDetails
             // 
-            gbxServiceDetails.Location = new Point(363, 147);
+            gbxServiceDetails.Location = new Point(11, 147);
             gbxServiceDetails.Name = "gbxServiceDetails";
-            gbxServiceDetails.Size = new Size(1003, 245);
+            gbxServiceDetails.Size = new Size(1693, 245);
             gbxServiceDetails.TabIndex = 14;
             gbxServiceDetails.TabStop = false;
             gbxServiceDetails.Text = "Service Details";
@@ -224,6 +226,7 @@
             Name = "frmRequestTracking";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Request Tracking";
+            WindowState = FormWindowState.Maximized;
             Load += RequestTrackingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             pnlDetails.ResumeLayout(false);

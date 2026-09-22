@@ -84,7 +84,10 @@ namespace Home_Hero
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            frmCustomerDashboard backtoHome = new frmCustomerDashboard();
+            this.Hide();
+            backtoHome.Show();
+            
         }
     }
 }

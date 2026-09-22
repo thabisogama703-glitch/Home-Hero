@@ -63,6 +63,36 @@ namespace Home_Hero.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Active_Jobs {
+            get {
+                object obj = ResourceManager.GetObject("Active Jobs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Jobs_Done {
+            get {
+                object obj = ResourceManager.GetObject("Jobs Done", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Provider_Rating {
+            get {
+                object obj = ResourceManager.GetObject("Provider Rating", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2026_09_05_180629 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2026-09-05 180629", resourceCulture);
@@ -206,6 +236,16 @@ namespace Home_Hero.Properties {
         internal static System.Drawing.Bitmap Screenshot_2026_09_21_002813 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2026-09-21 002813", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Total_Spent {
+            get {
+                object obj = ResourceManager.GetObject("Total Spent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
