@@ -134,6 +134,7 @@ namespace HomeHero_2
              email,
              password);
 
+            customer.WriteToFile(name, email, phoneNumber, password);
             CustomerRepository.Customers.Add(customer); // we are putting a new customer to the list we created
             DialogResult result =  MessageBox.Show("Registration successful ! \n Would you like to login right now?","Account succesfully created",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
             ClearFields();

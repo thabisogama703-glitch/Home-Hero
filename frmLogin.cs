@@ -96,30 +96,24 @@ namespace HomeHero_2
 
             if (selectedUserType == "Customer")
             {
-                Customer loggedInCustomer = null; // We create a variable to hold the customer if we find one.
 
-                foreach (Customer customer in CustomerRepository.Customers) // Go through each customer in our customer list.
-                {
-                    if (customer.Email.Trim() == email.Trim() && customer.VerifyPassword(password)) // Does this customer's email match what was entered AND does their password match?
-                    {
-                        loggedInCustomer = customer;
-                        break;
-                    }
-                }
+                Customer loggedInCustomer = new Customer("","",email,"",password); // We create a variable to hold the customer if we find one.
+                string message = loggedInCustomer.ReadFromFile(email, password);
 
-                if (loggedInCustomer == null)
+                if (message == "Unsuccesful login")
                 {
                     MessageBox.Show("Invalid email or password");
                     ClearFields();
                     return;
                 }
-
-                MessageBox.Show("Login successful !","Login Successful",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                ClearFields();
-                frmCustomerDashboard customerForm = new frmCustomerDashboard();
-                this.Hide();
-                customerForm.Show();
-
+                else
+                {
+                    MessageBox.Show("Login successful !", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearFields();
+                    frmCustomerDashboard customerForm = new frmCustomerDashboard();
+                    this.Hide();
+                    customerForm.Show();
+                }
 
             }
             else if (selectedUserType == "Service Provider")
