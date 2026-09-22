@@ -66,37 +66,6 @@
             lnklblProviders = new LinkLabel();
             lnklblRequests = new LinkLabel();
             lnklblOverView = new LinkLabel();
-            pnlServices = new Panel();
-            panel6 = new Panel();
-            panel7 = new Panel();
-            panel9 = new Panel();
-            panel11 = new Panel();
-            panel12 = new Panel();
-            panel13 = new Panel();
-            panel10 = new Panel();
-            panel5 = new Panel();
-            lblRevenue = new Label();
-            lblPlumbing = new Label();
-            lblLandscaping = new Label();
-            lblRoofing = new Label();
-            lblWindows = new Label();
-            lblHVAC = new Label();
-            lblCleaning = new Label();
-            lblPainting = new Label();
-            dgvReports = new DataGridView();
-            cmlRequest = new DataGridViewTextBoxColumn();
-            cmlCustomer = new DataGridViewTextBoxColumn();
-            clmStatus = new DataGridViewTextBoxColumn();
-            clmProvider = new DataGridViewTextBoxColumn();
-            cmlCost = new DataGridViewTextBoxColumn();
-            cmlRating = new DataGridViewTextBoxColumn();
-            lblRoofingValue = new Label();
-            lblHVACValue = new Label();
-            lblCleaningValue = new Label();
-            lblWindowsValue = new Label();
-            lblPlumbingValue = new Label();
-            lblPaintingValue = new Label();
-            lblLandscapingValue = new Label();
             pnlNavigationAdminPanl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
@@ -109,9 +78,6 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             tableLayoutPanel1.SuspendLayout();
-            pnlServices.SuspendLayout();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvReports).BeginInit();
             SuspendLayout();
             // 
             // pnlNavigationAdminPanl
@@ -126,7 +92,7 @@
             pnlNavigationAdminPanl.Controls.Add(pbxHomeHeroLogo);
             pnlNavigationAdminPanl.Controls.Add(lblAdminDashboard);
             pnlNavigationAdminPanl.Controls.Add(label16);
-            pnlNavigationAdminPanl.Location = new Point(1, 32);
+            pnlNavigationAdminPanl.Location = new Point(1, 2);
             pnlNavigationAdminPanl.Name = "pnlNavigationAdminPanl";
             pnlNavigationAdminPanl.Size = new Size(1903, 174);
             pnlNavigationAdminPanl.TabIndex = 11;
@@ -449,7 +415,7 @@
             tableLayoutPanel1.Controls.Add(lnklblProviders, 3, 0);
             tableLayoutPanel1.Controls.Add(lnklblRequests, 2, 0);
             tableLayoutPanel1.Controls.Add(lnklblOverView, 1, 0);
-            tableLayoutPanel1.Location = new Point(1, 232);
+            tableLayoutPanel1.Location = new Point(1, 173);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -535,301 +501,11 @@
             lnklblOverView.TextAlign = ContentAlignment.BottomCenter;
             lnklblOverView.LinkClicked += lnklblOverView_LinkClicked;
             // 
-            // pnlServices
-            // 
-            pnlServices.BackColor = Color.WhiteSmoke;
-            pnlServices.Controls.Add(lblLandscapingValue);
-            pnlServices.Controls.Add(lblPaintingValue);
-            pnlServices.Controls.Add(lblPlumbingValue);
-            pnlServices.Controls.Add(lblWindowsValue);
-            pnlServices.Controls.Add(lblCleaningValue);
-            pnlServices.Controls.Add(lblHVACValue);
-            pnlServices.Controls.Add(lblRoofingValue);
-            pnlServices.Controls.Add(panel6);
-            pnlServices.Controls.Add(panel7);
-            pnlServices.Controls.Add(panel9);
-            pnlServices.Controls.Add(panel11);
-            pnlServices.Controls.Add(panel12);
-            pnlServices.Controls.Add(panel13);
-            pnlServices.Controls.Add(panel10);
-            pnlServices.Controls.Add(panel5);
-            pnlServices.Controls.Add(lblPlumbing);
-            pnlServices.Controls.Add(lblLandscaping);
-            pnlServices.Controls.Add(lblRoofing);
-            pnlServices.Controls.Add(lblWindows);
-            pnlServices.Controls.Add(lblHVAC);
-            pnlServices.Controls.Add(lblCleaning);
-            pnlServices.Controls.Add(lblPainting);
-            pnlServices.Location = new Point(30, 512);
-            pnlServices.Name = "pnlServices";
-            pnlServices.Size = new Size(520, 520);
-            pnlServices.TabIndex = 16;
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.FromArgb(255, 128, 0);
-            panel6.Location = new Point(19, 467);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(250, 10);
-            panel6.TabIndex = 26;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.FromArgb(255, 128, 0);
-            panel7.Location = new Point(19, 413);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(250, 10);
-            panel7.TabIndex = 26;
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.FromArgb(255, 128, 0);
-            panel9.Location = new Point(19, 342);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(250, 10);
-            panel9.TabIndex = 26;
-            // 
-            // panel11
-            // 
-            panel11.BackColor = Color.FromArgb(255, 128, 0);
-            panel11.Location = new Point(19, 277);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(250, 10);
-            panel11.TabIndex = 26;
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.FromArgb(255, 128, 0);
-            panel12.Location = new Point(19, 217);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(250, 10);
-            panel12.TabIndex = 26;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.FromArgb(255, 128, 0);
-            panel13.Location = new Point(19, 155);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(250, 10);
-            panel13.TabIndex = 26;
-            // 
-            // panel10
-            // 
-            panel10.BackColor = Color.FromArgb(255, 128, 0);
-            panel10.Location = new Point(19, 91);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(250, 10);
-            panel10.TabIndex = 25;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.White;
-            panel5.BorderStyle = BorderStyle.FixedSingle;
-            panel5.Controls.Add(lblRevenue);
-            panel5.Location = new Point(0, 0);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(520, 42);
-            panel5.TabIndex = 18;
-            // 
-            // lblRevenue
-            // 
-            lblRevenue.AutoSize = true;
-            lblRevenue.Font = new Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRevenue.Location = new Point(18, 10);
-            lblRevenue.Name = "lblRevenue";
-            lblRevenue.Size = new Size(187, 21);
-            lblRevenue.TabIndex = 1;
-            lblRevenue.Text = "Revenue by Service";
-            // 
-            // lblPlumbing
-            // 
-            lblPlumbing.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPlumbing.Location = new Point(13, 127);
-            lblPlumbing.Name = "lblPlumbing";
-            lblPlumbing.Size = new Size(457, 25);
-            lblPlumbing.TabIndex = 21;
-            lblPlumbing.Text = "Plumbing                                                                                       ";
-            // 
-            // lblLandscaping
-            // 
-            lblLandscaping.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLandscaping.Location = new Point(15, 439);
-            lblLandscaping.Name = "lblLandscaping";
-            lblLandscaping.Size = new Size(457, 25);
-            lblLandscaping.TabIndex = 20;
-            lblLandscaping.Text = "Landscaping                                                                                ";
-            // 
-            // lblRoofing
-            // 
-            lblRoofing.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblRoofing.Location = new Point(13, 372);
-            lblRoofing.Name = "lblRoofing";
-            lblRoofing.Size = new Size(457, 25);
-            lblRoofing.TabIndex = 19;
-            lblRoofing.Text = "Roofing                                                                                                   ";
-            // 
-            // lblWindows
-            // 
-            lblWindows.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWindows.Location = new Point(13, 189);
-            lblWindows.Name = "lblWindows";
-            lblWindows.Size = new Size(457, 25);
-            lblWindows.TabIndex = 18;
-            lblWindows.Text = "Windows                                                                                       ";
-            // 
-            // lblHVAC
-            // 
-            lblHVAC.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHVAC.Location = new Point(13, 304);
-            lblHVAC.Name = "lblHVAC";
-            lblHVAC.Size = new Size(457, 25);
-            lblHVAC.TabIndex = 17;
-            lblHVAC.Text = "HVAC                                                                                             ";
-            // 
-            // lblCleaning
-            // 
-            lblCleaning.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCleaning.Location = new Point(13, 249);
-            lblCleaning.Name = "lblCleaning";
-            lblCleaning.Size = new Size(457, 25);
-            lblCleaning.TabIndex = 16;
-            lblCleaning.Text = "Cleaning                                                                                        ";
-            // 
-            // lblPainting
-            // 
-            lblPainting.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPainting.Location = new Point(15, 63);
-            lblPainting.Name = "lblPainting";
-            lblPainting.Size = new Size(457, 25);
-            lblPainting.TabIndex = 15;
-            lblPainting.Text = "Painting                                                                                         ";
-            // 
-            // dgvReports
-            // 
-            dgvReports.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvReports.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvReports.Columns.AddRange(new DataGridViewColumn[] { cmlRequest, cmlCustomer, clmStatus, clmProvider, cmlCost, cmlRating });
-            dgvReports.Location = new Point(556, 512);
-            dgvReports.MultiSelect = false;
-            dgvReports.Name = "dgvReports";
-            dgvReports.RowHeadersWidth = 51;
-            dgvReports.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvReports.Size = new Size(1190, 520);
-            dgvReports.TabIndex = 17;
-            // 
-            // cmlRequest
-            // 
-            cmlRequest.HeaderText = "ID";
-            cmlRequest.MinimumWidth = 6;
-            cmlRequest.Name = "cmlRequest";
-            // 
-            // cmlCustomer
-            // 
-            cmlCustomer.HeaderText = "Customer";
-            cmlCustomer.MinimumWidth = 6;
-            cmlCustomer.Name = "cmlCustomer";
-            // 
-            // clmStatus
-            // 
-            clmStatus.HeaderText = "Provider";
-            clmStatus.MinimumWidth = 6;
-            clmStatus.Name = "clmStatus";
-            // 
-            // clmProvider
-            // 
-            clmProvider.HeaderText = "Service";
-            clmProvider.MinimumWidth = 6;
-            clmProvider.Name = "clmProvider";
-            // 
-            // cmlCost
-            // 
-            cmlCost.HeaderText = "Final Cost";
-            cmlCost.MinimumWidth = 6;
-            cmlCost.Name = "cmlCost";
-            // 
-            // cmlRating
-            // 
-            cmlRating.HeaderText = "Rating";
-            cmlRating.MinimumWidth = 6;
-            cmlRating.Name = "cmlRating";
-            // 
-            // lblRoofingValue
-            // 
-            lblRoofingValue.AutoSize = true;
-            lblRoofingValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblRoofingValue.Location = new Point(466, 372);
-            lblRoofingValue.Name = "lblRoofingValue";
-            lblRoofingValue.Size = new Size(18, 20);
-            lblRoofingValue.TabIndex = 27;
-            lblRoofingValue.Text = "0";
-            // 
-            // lblHVACValue
-            // 
-            lblHVACValue.AutoSize = true;
-            lblHVACValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHVACValue.Location = new Point(466, 304);
-            lblHVACValue.Name = "lblHVACValue";
-            lblHVACValue.Size = new Size(18, 20);
-            lblHVACValue.TabIndex = 28;
-            lblHVACValue.Text = "0";
-            // 
-            // lblCleaningValue
-            // 
-            lblCleaningValue.AutoSize = true;
-            lblCleaningValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCleaningValue.Location = new Point(466, 249);
-            lblCleaningValue.Name = "lblCleaningValue";
-            lblCleaningValue.Size = new Size(18, 20);
-            lblCleaningValue.TabIndex = 29;
-            lblCleaningValue.Text = "0";
-            // 
-            // lblWindowsValue
-            // 
-            lblWindowsValue.AutoSize = true;
-            lblWindowsValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWindowsValue.Location = new Point(466, 189);
-            lblWindowsValue.Name = "lblWindowsValue";
-            lblWindowsValue.Size = new Size(18, 20);
-            lblWindowsValue.TabIndex = 30;
-            lblWindowsValue.Text = "0";
-            // 
-            // lblPlumbingValue
-            // 
-            lblPlumbingValue.AutoSize = true;
-            lblPlumbingValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPlumbingValue.Location = new Point(466, 127);
-            lblPlumbingValue.Name = "lblPlumbingValue";
-            lblPlumbingValue.Size = new Size(18, 20);
-            lblPlumbingValue.TabIndex = 31;
-            lblPlumbingValue.Text = "0";
-            // 
-            // lblPaintingValue
-            // 
-            lblPaintingValue.AutoSize = true;
-            lblPaintingValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPaintingValue.Location = new Point(466, 68);
-            lblPaintingValue.Name = "lblPaintingValue";
-            lblPaintingValue.Size = new Size(18, 20);
-            lblPaintingValue.TabIndex = 32;
-            lblPaintingValue.Text = "0";
-            // 
-            // lblLandscapingValue
-            // 
-            lblLandscapingValue.AutoSize = true;
-            lblLandscapingValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLandscapingValue.Location = new Point(466, 439);
-            lblLandscapingValue.Name = "lblLandscapingValue";
-            lblLandscapingValue.Size = new Size(18, 20);
-            lblLandscapingValue.TabIndex = 33;
-            lblLandscapingValue.Text = "0";
-            // 
             // frmReports
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1052);
-            Controls.Add(dgvReports);
-            Controls.Add(pnlServices);
+            ClientSize = new Size(1902, 993);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel2);
             Controls.Add(panel8);
@@ -858,11 +534,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            pnlServices.ResumeLayout(false);
-            pnlServices.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvReports).EndInit();
             ResumeLayout(false);
         }
 
@@ -905,36 +576,5 @@
         private LinkLabel lnklblProviders;
         private LinkLabel lnklblRequests;
         private LinkLabel lnklblOverView;
-        private Panel pnlServices;
-        private Panel panel6;
-        private Panel panel7;
-        private Panel panel9;
-        private Panel panel11;
-        private Panel panel12;
-        private Panel panel13;
-        private Panel panel10;
-        private Panel panel5;
-        private Label lblRevenue;
-        private Label lblPlumbing;
-        private Label lblLandscaping;
-        private Label lblRoofing;
-        private Label lblWindows;
-        private Label lblHVAC;
-        private Label lblCleaning;
-        private Label lblPainting;
-        private DataGridView dgvReports;
-        private DataGridViewTextBoxColumn cmlRequest;
-        private DataGridViewTextBoxColumn cmlCustomer;
-        private DataGridViewTextBoxColumn clmStatus;
-        private DataGridViewTextBoxColumn clmProvider;
-        private DataGridViewTextBoxColumn cmlCost;
-        private DataGridViewTextBoxColumn cmlRating;
-        private Label lblLandscapingValue;
-        private Label lblPaintingValue;
-        private Label lblPlumbingValue;
-        private Label lblWindowsValue;
-        private Label lblCleaningValue;
-        private Label lblHVACValue;
-        private Label lblRoofingValue;
     }
 }

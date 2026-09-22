@@ -38,6 +38,7 @@
             panel1 = new Panel();
             btnBack = new Button();
             lblServicesHistory = new Label();
+            btnLogout = new Button();
             label1 = new Label();
             grpbxServiceHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).BeginInit();
@@ -47,9 +48,9 @@
             // grpbxServiceHistory
             // 
             grpbxServiceHistory.Controls.Add(dgvServiceHistory);
-            grpbxServiceHistory.Location = new Point(12, 139);
+            grpbxServiceHistory.Location = new Point(12, 159);
             grpbxServiceHistory.Name = "grpbxServiceHistory";
-            grpbxServiceHistory.Size = new Size(1450, 450);
+            grpbxServiceHistory.Size = new Size(1441, 352);
             grpbxServiceHistory.TabIndex = 8;
             grpbxServiceHistory.TabStop = false;
             grpbxServiceHistory.Text = "Service History";
@@ -65,7 +66,7 @@
             dgvServiceHistory.Name = "dgvServiceHistory";
             dgvServiceHistory.ReadOnly = true;
             dgvServiceHistory.RowHeadersWidth = 51;
-            dgvServiceHistory.Size = new Size(1444, 424);
+            dgvServiceHistory.Size = new Size(1435, 326);
             dgvServiceHistory.TabIndex = 5;
             // 
             // RequestId
@@ -113,10 +114,11 @@
             panel1.BackColor = Color.FromArgb(0, 0, 64);
             panel1.Controls.Add(btnBack);
             panel1.Controls.Add(lblServicesHistory);
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, 1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1805, 104);
+            panel1.Size = new Size(1475, 104);
             panel1.TabIndex = 10;
             // 
             // btnBack
@@ -142,6 +144,17 @@
             lblServicesHistory.Size = new Size(166, 28);
             lblServicesHistory.TabIndex = 3;
             lblServicesHistory.Text = "Services History";
+            // 
+            // btnLogout
+            // 
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1675, 35);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(135, 40);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -183,6 +196,7 @@
         private Panel panel1;
         private Button btnBack;
         private Label lblServicesHistory;
+        private Button btnLogout;
         private Label label1;
     }
 }

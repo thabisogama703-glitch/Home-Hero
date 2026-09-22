@@ -46,7 +46,6 @@
             ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
             pnlDetails.SuspendLayout();
             panel1.SuspendLayout();
-            gbxServiceDetails.SuspendLayout();
             SuspendLayout();
             // 
             // dgvRequests
@@ -54,19 +53,19 @@
             dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(237, 386);
+            dgvRequests.Location = new Point(363, 386);
             dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
             dgvRequests.ReadOnly = true;
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(1275, 311);
+            dgvRequests.Size = new Size(1003, 257);
             dgvRequests.TabIndex = 0;
             dgvRequests.CellContentClick += dgvRequests_CellContentClick;
             // 
             // lblRequestNum
             // 
             lblRequestNum.AutoSize = true;
-            lblRequestNum.Location = new Point(24, 45);
+            lblRequestNum.Location = new Point(490, 173);
             lblRequestNum.Name = "lblRequestNum";
             lblRequestNum.Size = new Size(123, 20);
             lblRequestNum.TabIndex = 1;
@@ -75,7 +74,7 @@
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(499, 45);
+            lblCategory.Location = new Point(745, 173);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(94, 20);
             lblCategory.TabIndex = 2;
@@ -84,7 +83,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(885, 45);
+            lblStatus.Location = new Point(1026, 173);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(116, 20);
             lblStatus.TabIndex = 3;
@@ -93,7 +92,7 @@
             // lblAssignedProvider
             // 
             lblAssignedProvider.AutoSize = true;
-            lblAssignedProvider.Location = new Point(24, 122);
+            lblAssignedProvider.Location = new Point(490, 266);
             lblAssignedProvider.Name = "lblAssignedProvider";
             lblAssignedProvider.Size = new Size(131, 20);
             lblAssignedProvider.TabIndex = 4;
@@ -102,7 +101,7 @@
             // lblAppointment
             // 
             lblAppointment.AutoSize = true;
-            lblAppointment.Location = new Point(499, 122);
+            lblAppointment.Location = new Point(745, 266);
             lblAppointment.Name = "lblAppointment";
             lblAppointment.Size = new Size(85, 20);
             lblAppointment.TabIndex = 5;
@@ -111,7 +110,7 @@
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
-            lblEstimatedCost.Location = new Point(885, 122);
+            lblEstimatedCost.Location = new Point(1026, 266);
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(111, 20);
             lblEstimatedCost.TabIndex = 6;
@@ -120,7 +119,7 @@
             // lblFinalCost
             // 
             lblFinalCost.AutoSize = true;
-            lblFinalCost.Location = new Point(24, 205);
+            lblFinalCost.Location = new Point(507, 363);
             lblFinalCost.Name = "lblFinalCost";
             lblFinalCost.Size = new Size(76, 20);
             lblFinalCost.TabIndex = 7;
@@ -129,12 +128,10 @@
             // btnRefresh
             // 
             btnRefresh.BackColor = Color.FromArgb(255, 128, 0);
-            btnRefresh.FlatAppearance.BorderSize = 0;
-            btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(688, 703);
+            btnRefresh.Location = new Point(562, 660);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(393, 30);
+            btnRefresh.Size = new Size(516, 46);
             btnRefresh.TabIndex = 8;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -145,7 +142,14 @@
             pnlDetails.BackColor = Color.White;
             pnlDetails.BorderStyle = BorderStyle.FixedSingle;
             pnlDetails.Controls.Add(panel1);
+            pnlDetails.Controls.Add(lblFinalCost);
             pnlDetails.Controls.Add(btnRefresh);
+            pnlDetails.Controls.Add(lblEstimatedCost);
+            pnlDetails.Controls.Add(lblAppointment);
+            pnlDetails.Controls.Add(lblAssignedProvider);
+            pnlDetails.Controls.Add(lblStatus);
+            pnlDetails.Controls.Add(lblCategory);
+            pnlDetails.Controls.Add(lblRequestNum);
             pnlDetails.Controls.Add(dgvRequests);
             pnlDetails.Controls.Add(gbxServiceDetails);
             pnlDetails.Dock = DockStyle.Fill;
@@ -184,7 +188,7 @@
             lblRequest.AutoSize = true;
             lblRequest.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblRequest.ForeColor = Color.White;
-            lblRequest.Location = new Point(624, 38);
+            lblRequest.Location = new Point(562, 38);
             lblRequest.Name = "lblRequest";
             lblRequest.Size = new Size(596, 38);
             lblRequest.TabIndex = 14;
@@ -204,16 +208,9 @@
             // 
             // gbxServiceDetails
             // 
-            gbxServiceDetails.Controls.Add(lblRequestNum);
-            gbxServiceDetails.Controls.Add(lblFinalCost);
-            gbxServiceDetails.Controls.Add(lblCategory);
-            gbxServiceDetails.Controls.Add(lblStatus);
-            gbxServiceDetails.Controls.Add(lblEstimatedCost);
-            gbxServiceDetails.Controls.Add(lblAssignedProvider);
-            gbxServiceDetails.Controls.Add(lblAppointment);
-            gbxServiceDetails.Location = new Point(237, 144);
+            gbxServiceDetails.Location = new Point(363, 147);
             gbxServiceDetails.Name = "gbxServiceDetails";
-            gbxServiceDetails.Size = new Size(1275, 239);
+            gbxServiceDetails.Size = new Size(1003, 245);
             gbxServiceDetails.TabIndex = 14;
             gbxServiceDetails.TabStop = false;
             gbxServiceDetails.Text = "Service Details";
@@ -227,14 +224,12 @@
             Name = "frmRequestTracking";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Request Tracking";
-            WindowState = FormWindowState.Maximized;
             Load += RequestTrackingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             pnlDetails.ResumeLayout(false);
+            pnlDetails.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            gbxServiceDetails.ResumeLayout(false);
-            gbxServiceDetails.PerformLayout();
             ResumeLayout(false);
         }
 

@@ -12,7 +12,7 @@ namespace HomeHero
 {
     public partial class frmActiveRequest : Form
     {
-        public frmActiveRequest(List<MaintenanceRequest> requests)
+        public frmActiveRequest(List<MaintenanceRequest1> requests)
         {
             //List<MaintenanceRequest> serviceRequests = new List<MaintenanceRequest>();
             InitializeComponent();
@@ -52,12 +52,6 @@ namespace HomeHero
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
-           
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

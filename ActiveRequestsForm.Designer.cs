@@ -39,6 +39,7 @@
             panel1 = new Panel();
             btnBack = new Button();
             lblActiveRequests = new Label();
+            btnLogout = new Button();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).BeginInit();
             grpbxActiveRequests.SuspendLayout();
@@ -56,7 +57,7 @@
             dgvActiveRequests.Name = "dgvActiveRequests";
             dgvActiveRequests.ReadOnly = true;
             dgvActiveRequests.RowHeadersWidth = 51;
-            dgvActiveRequests.Size = new Size(1471, 424);
+            dgvActiveRequests.Size = new Size(1471, 325);
             dgvActiveRequests.TabIndex = 6;
             dgvActiveRequests.CellContentClick += dgvActiveRequests_CellContentClick;
             // 
@@ -113,9 +114,9 @@
             grpbxActiveRequests.Controls.Add(dgvActiveRequests);
             grpbxActiveRequests.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpbxActiveRequests.ForeColor = Color.Black;
-            grpbxActiveRequests.Location = new Point(12, 178);
+            grpbxActiveRequests.Location = new Point(12, 221);
             grpbxActiveRequests.Name = "grpbxActiveRequests";
-            grpbxActiveRequests.Size = new Size(1477, 454);
+            grpbxActiveRequests.Size = new Size(1477, 355);
             grpbxActiveRequests.TabIndex = 7;
             grpbxActiveRequests.TabStop = false;
             grpbxActiveRequests.Text = "Active Requests";
@@ -125,10 +126,11 @@
             panel1.BackColor = Color.FromArgb(0, 0, 64);
             panel1.Controls.Add(btnBack);
             panel1.Controls.Add(lblActiveRequests);
+            panel1.Controls.Add(btnLogout);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, 1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1799, 104);
+            panel1.Size = new Size(1502, 104);
             panel1.TabIndex = 9;
             // 
             // btnBack
@@ -154,6 +156,17 @@
             lblActiveRequests.Size = new Size(163, 28);
             lblActiveRequests.TabIndex = 3;
             lblActiveRequests.Text = "Active Requests";
+            // 
+            // btnLogout
+            // 
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1675, 35);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(135, 40);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -195,6 +208,7 @@
         private DataGridViewTextBoxColumn Status;
         private Panel panel1;
         private Label lblActiveRequests;
+        private Button btnLogout;
         private Label label1;
         private Button btnBack;
     }

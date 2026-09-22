@@ -9,7 +9,7 @@ namespace HomeHero_2
         {
             InitializeComponent();
         }
-        List<Administrator> administrators = new List<Administrator>();
+        List<Administrator1> administrators = new List<Administrator1>();
         //Administrator Thabiso = new Administrator();
         
         private void button1_Click(object sender, EventArgs e)
@@ -54,13 +54,13 @@ namespace HomeHero_2
                 ClearFields();
                 return;
             }
-            Administrator Thabiso = new Administrator();
+            Administrator1 Thabiso = new Administrator1();
             Thabiso.AdminName = "Thabiso";
             Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
             Thabiso.Password = "@Thandolwami07";
             administrators.Add(Thabiso);
 
-            Administrator Sibusiso = new Administrator();
+            Administrator1 Sibusiso = new Administrator1();
             Sibusiso.AdminName = "Sibusiso";
             Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
             Sibusiso.Password = "@Thandolwami07";
@@ -68,7 +68,7 @@ namespace HomeHero_2
 
             bool adminLoggedIn = false;
 
-            foreach (Administrator administrator in administrators)
+            foreach (Administrator1 administrator in administrators)
             {
                 if (email.Trim().ToLower() == administrator.EmailAdress)
                 {

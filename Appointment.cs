@@ -1,16 +1,15 @@
-﻿using Home_Hero;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHero_2
+namespace ServiceProviderDashboard
 {
     public class Appointment
     {
         public Guid AppointmentId { get; private set; }
-        public MaintenanceRequest Request { get; private set; }
+        public MaintenanceRequests Request { get; private set; }
         public ServiceProvider Provider { get; private set; }
          public DateTime DateTime { get; private set; }
         public string Status { get; private set; }
@@ -25,7 +24,7 @@ namespace HomeHero_2
             public const string Rescheduled = "Rescheduled";
         }
 
-        public Appointment(MaintenanceRequest request,ServiceProvider provider, DateTime dateTime)
+        public Appointment(MaintenanceRequests request,ServiceProvider provider, DateTime dateTime)
         {
             AppointmentId = Guid.NewGuid();
             Request = request;

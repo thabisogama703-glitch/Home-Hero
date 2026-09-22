@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="ActiveRequestsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AdminDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CreateRequestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CustomerDashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1 %281%29.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmAdministrator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmJobDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmRequestAService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="HomeHero Registration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ProviderManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RequestManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RequestTrackingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ServiceHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

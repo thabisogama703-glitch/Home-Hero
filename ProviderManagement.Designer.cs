@@ -85,30 +85,22 @@
             // 
             // btnAddProvider_
             // 
-            btnAddProvider_.BackColor = Color.FromArgb(255, 128, 0);
-            btnAddProvider_.FlatAppearance.BorderSize = 0;
-            btnAddProvider_.FlatStyle = FlatStyle.Flat;
-            btnAddProvider_.ForeColor = Color.White;
             btnAddProvider_.Location = new Point(849, 981);
             btnAddProvider_.Name = "btnAddProvider_";
             btnAddProvider_.Size = new Size(667, 29);
             btnAddProvider_.TabIndex = 2;
             btnAddProvider_.Text = "Add Provider";
-            btnAddProvider_.UseVisualStyleBackColor = false;
+            btnAddProvider_.UseVisualStyleBackColor = true;
             btnAddProvider_.Click += btnAddProvider__Click;
             // 
             // btnRemoveProvider
             // 
-            btnRemoveProvider.BackColor = Color.FromArgb(255, 128, 0);
-            btnRemoveProvider.FlatAppearance.BorderSize = 0;
-            btnRemoveProvider.FlatStyle = FlatStyle.Flat;
-            btnRemoveProvider.ForeColor = Color.White;
             btnRemoveProvider.Location = new Point(176, 981);
             btnRemoveProvider.Name = "btnRemoveProvider";
             btnRemoveProvider.Size = new Size(667, 29);
             btnRemoveProvider.TabIndex = 3;
             btnRemoveProvider.Text = "Remove Provider";
-            btnRemoveProvider.UseVisualStyleBackColor = false;
+            btnRemoveProvider.UseVisualStyleBackColor = true;
             btnRemoveProvider.Click += btnAddProvider_Click;
             // 
             // label3
@@ -129,16 +121,12 @@
             // 
             // btnSearch
             // 
-            btnSearch.BackColor = Color.FromArgb(255, 128, 0);
-            btnSearch.FlatAppearance.BorderSize = 0;
-            btnSearch.FlatStyle = FlatStyle.Flat;
-            btnSearch.ForeColor = Color.White;
             btnSearch.Location = new Point(1359, 307);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(94, 29);
             btnSearch.TabIndex = 8;
             btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.UseVisualStyleBackColor = true;
             btnSearch.Click += btnSearch_Click;
             // 
             // pnlNavigationAdminPanl

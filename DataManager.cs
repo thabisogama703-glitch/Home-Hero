@@ -12,41 +12,41 @@ namespace Home_Hero
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "maintenance_requests.json");
         private static readonly string providerFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "providers.json");
 
-        public static List<ServiceProvider> LoadServiceProviders()
+        public static List<ServiceProvider1> LoadServiceProviders()
         {
-            if (!File.Exists(providerFile)) return new List<ServiceProvider>();
+            if (!File.Exists(providerFile)) return new List<ServiceProvider1>();
             string json = File.ReadAllText(providerFile);
-            if (string.IsNullOrWhiteSpace(json)) return new List<ServiceProvider>();
-            return JsonSerializer.Deserialize<List<ServiceProvider>>(json) ?? new List<ServiceProvider>();
+            if (string.IsNullOrWhiteSpace(json)) return new List<ServiceProvider1>();
+            return JsonSerializer.Deserialize<List<ServiceProvider1>>(json) ?? new List<ServiceProvider1>();
         }
 
 
-        public static List<MaintenanceRequest> LoadRequests()
+        public static List<MaintenanceRequest1> LoadRequests()
         {
             try
             {
                 if (!File.Exists(filePath))
                 {
-                    return new List<MaintenanceRequest>();
+                    return new List<MaintenanceRequest1>();
                 }
 
                 string json = File.ReadAllText(filePath);
 
                 if (string.IsNullOrWhiteSpace(json))
                 {
-                    return new List<MaintenanceRequest>();
+                    return new List<MaintenanceRequest1>();
                 }
 
-                return JsonSerializer.Deserialize<List<MaintenanceRequest>>(json)
-                       ?? new List<MaintenanceRequest>();
+                return JsonSerializer.Deserialize<List<MaintenanceRequest1>>(json)
+                       ?? new List<MaintenanceRequest1>();
             }
             catch
             {
-                return new List<MaintenanceRequest>();
+                return new List<MaintenanceRequest1>();
             }
         }
 
-        public static void SaveRequests(List<MaintenanceRequest> requests)
+        public static void SaveRequests(List<MaintenanceRequest1> requests)
         {
             string json = JsonSerializer.Serialize(
                 requests,
@@ -58,9 +58,9 @@ namespace Home_Hero
             File.WriteAllText(filePath, json);
         }
 
-        public static void AddRequest(MaintenanceRequest request)
+        public static void AddRequest(MaintenanceRequest1 request)
         {
-            List<MaintenanceRequest> requests = LoadRequests();
+            List<MaintenanceRequest1> requests = LoadRequests();
 
             requests.Add(request);
 

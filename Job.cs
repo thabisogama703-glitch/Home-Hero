@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeHero_2
+namespace ServiceProviderDashboard
 {
     public class Job
     {
@@ -26,11 +26,11 @@ namespace HomeHero_2
             Status = newStaus;
         }
 
-        //public Invoice CreateInvoice()
-        //{
-        //    decimal cost = Appointment.Request.ServiceRequest.CalculateCost();
-        //    Invoice = new Invoice(this, cost);
-        //    return Invoice;
-        //}
+        public Invoice CreateInvoice()
+        {
+            decimal cost = Appointment.Request.ServiceRequest.CalculateCost();
+            Invoice = new Invoice(this, cost);
+            return Invoice;
+        }
     }
 }

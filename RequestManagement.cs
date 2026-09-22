@@ -27,7 +27,7 @@ namespace Home_Hero
 
             if (dgvRequests.SelectedRows.Count > 0)
             {
-                var request = (MaintenanceRequest)dgvRequests.SelectedRows[0].DataBoundItem;
+                var request = (MaintenanceRequest1)dgvRequests.SelectedRows[0].DataBoundItem;
 
 
                 var result = MessageBox.Show(
@@ -75,7 +75,7 @@ namespace Home_Hero
         {
             if (dgvRequests.SelectedRows.Count > 0)
             {
-                var request = (MaintenanceRequest)dgvRequests.SelectedRows[0].DataBoundItem;
+                var request = (MaintenanceRequest1)dgvRequests.SelectedRows[0].DataBoundItem;
 
                 string errorMessage;
                 if (request.TryUpdateStatus(RequestStatus.Approved, out errorMessage))

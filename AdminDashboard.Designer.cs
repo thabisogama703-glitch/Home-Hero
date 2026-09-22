@@ -44,6 +44,10 @@
             pictureBox3 = new PictureBox();
             label9 = new Label();
             label4 = new Label();
+            panel5 = new Panel();
+            label15 = new Label();
+            panel6 = new Panel();
+            label12 = new Label();
             pnlNavigationAdminPanl = new Panel();
             lblAdminPortal = new Label();
             btnExitAdmin = new Button();
@@ -64,28 +68,6 @@
             lnklblProviders = new LinkLabel();
             lnklblRequests = new LinkLabel();
             lnklblOverView = new LinkLabel();
-            pnlBreakdown = new Panel();
-            panel11 = new Panel();
-            panel14 = new Panel();
-            panel12 = new Panel();
-            panel13 = new Panel();
-            panel9 = new Panel();
-            panel10 = new Panel();
-            label15 = new Label();
-            label14 = new Label();
-            label13 = new Label();
-            label12 = new Label();
-            lblSubmit = new Label();
-            pnlDetails = new Panel();
-            lblBreakdown = new Label();
-            pnlSubmit = new Panel();
-            panel7 = new Panel();
-            lblSubmissions = new Label();
-            lblSubmitValue = new Label();
-            lblCompletedValue = new Label();
-            lblProgressValue = new Label();
-            lblScheduledValue = new Label();
-            lblAssignedValue = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             panel2.SuspendLayout();
@@ -94,17 +76,14 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
             pnlNavigationAdminPanl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             tableLayoutPanel1.SuspendLayout();
-            pnlBreakdown.SuspendLayout();
-            panel9.SuspendLayout();
-            pnlDetails.SuspendLayout();
-            pnlSubmit.SuspendLayout();
-            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -264,6 +243,42 @@
             label4.TabIndex = 2;
             label4.Text = "Completed Jobs";
             // 
+            // panel5
+            // 
+            panel5.BackColor = Color.WhiteSmoke;
+            panel5.Controls.Add(label15);
+            panel5.Location = new Point(944, 572);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(901, 467);
+            panel5.TabIndex = 8;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(25, 16);
+            label15.Name = "label15";
+            label15.Size = new Size(139, 20);
+            label15.TabIndex = 3;
+            label15.Text = "Recent Submissions";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.WhiteSmoke;
+            panel6.Controls.Add(label12);
+            panel6.Location = new Point(134, 572);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(804, 467);
+            panel6.TabIndex = 9;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(24, 16);
+            label12.Name = "label12";
+            label12.Size = new Size(184, 20);
+            label12.TabIndex = 0;
+            label12.Text = "Request Status Breakdown";
+            // 
             // pnlNavigationAdminPanl
             // 
             pnlNavigationAdminPanl.Anchor = AnchorStyles.None;
@@ -276,7 +291,7 @@
             pnlNavigationAdminPanl.Controls.Add(pbxHomeHeroLogo);
             pnlNavigationAdminPanl.Controls.Add(lblAdminDashboard);
             pnlNavigationAdminPanl.Controls.Add(label16);
-            pnlNavigationAdminPanl.Location = new Point(-4, 12);
+            pnlNavigationAdminPanl.Location = new Point(-4, -1);
             pnlNavigationAdminPanl.Name = "pnlNavigationAdminPanl";
             pnlNavigationAdminPanl.Size = new Size(1909, 174);
             pnlNavigationAdminPanl.TabIndex = 10;
@@ -435,7 +450,7 @@
             tableLayoutPanel1.Controls.Add(lnklblProviders, 3, 0);
             tableLayoutPanel1.Controls.Add(lnklblRequests, 2, 0);
             tableLayoutPanel1.Controls.Add(lnklblOverView, 1, 0);
-            tableLayoutPanel1.Location = new Point(-4, 205);
+            tableLayoutPanel1.Location = new Point(-4, 179);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -522,232 +537,16 @@
             lnklblOverView.TextAlign = ContentAlignment.BottomCenter;
             lnklblOverView.LinkClicked += lnklblOverView_LinkClicked;
             // 
-            // pnlBreakdown
-            // 
-            pnlBreakdown.BackColor = Color.WhiteSmoke;
-            pnlBreakdown.Controls.Add(lblAssignedValue);
-            pnlBreakdown.Controls.Add(lblScheduledValue);
-            pnlBreakdown.Controls.Add(lblProgressValue);
-            pnlBreakdown.Controls.Add(lblCompletedValue);
-            pnlBreakdown.Controls.Add(lblSubmitValue);
-            pnlBreakdown.Controls.Add(panel11);
-            pnlBreakdown.Controls.Add(panel14);
-            pnlBreakdown.Controls.Add(panel12);
-            pnlBreakdown.Controls.Add(panel13);
-            pnlBreakdown.Controls.Add(panel9);
-            pnlBreakdown.Controls.Add(label15);
-            pnlBreakdown.Controls.Add(label14);
-            pnlBreakdown.Controls.Add(label13);
-            pnlBreakdown.Controls.Add(label12);
-            pnlBreakdown.Controls.Add(lblSubmit);
-            pnlBreakdown.Controls.Add(pnlDetails);
-            pnlBreakdown.Location = new Point(134, 592);
-            pnlBreakdown.Name = "pnlBreakdown";
-            pnlBreakdown.Size = new Size(708, 467);
-            pnlBreakdown.TabIndex = 14;
-            // 
-            // panel11
-            // 
-            panel11.BackColor = Color.Green;
-            panel11.Location = new Point(38, 352);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(250, 10);
-            panel11.TabIndex = 24;
-            // 
-            // panel14
-            // 
-            panel14.BackColor = Color.Brown;
-            panel14.Location = new Point(38, 280);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(250, 10);
-            panel14.TabIndex = 25;
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.Blue;
-            panel12.Location = new Point(38, 220);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(250, 10);
-            panel12.TabIndex = 24;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.MediumSlateBlue;
-            panel13.Location = new Point(38, 169);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(250, 10);
-            panel13.TabIndex = 24;
-            // 
-            // panel9
-            // 
-            panel9.Controls.Add(panel10);
-            panel9.Location = new Point(38, 115);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(250, 10);
-            panel9.TabIndex = 23;
-            // 
-            // panel10
-            // 
-            panel10.BackColor = Color.Gray;
-            panel10.Location = new Point(0, 0);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(250, 10);
-            panel10.TabIndex = 24;
-            // 
-            // label15
-            // 
-            label15.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.Location = new Point(38, 324);
-            label15.Name = "label15";
-            label15.Size = new Size(631, 25);
-            label15.TabIndex = 22;
-            label15.Text = "Completed                                                                                                                                    ";
-            // 
-            // label14
-            // 
-            label14.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(38, 132);
-            label14.Name = "label14";
-            label14.Size = new Size(631, 25);
-            label14.TabIndex = 21;
-            label14.Text = "Assigned                                                                                                                                         ";
-            // 
-            // label13
-            // 
-            label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(38, 252);
-            label13.Name = "label13";
-            label13.Size = new Size(631, 25);
-            label13.TabIndex = 20;
-            label13.Text = "In Progress                                                                                                                                       ";
-            // 
-            // label12
-            // 
-            label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(38, 192);
-            label12.Name = "label12";
-            label12.Size = new Size(631, 25);
-            label12.TabIndex = 19;
-            label12.Text = "Scheduled                                                                                                                                       ";
-            // 
-            // lblSubmit
-            // 
-            lblSubmit.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSubmit.Location = new Point(38, 79);
-            lblSubmit.Name = "lblSubmit";
-            lblSubmit.Size = new Size(631, 25);
-            lblSubmit.TabIndex = 14;
-            lblSubmit.Text = "Submitted                                                                                                                                       ";
-            // 
-            // pnlDetails
-            // 
-            pnlDetails.BackColor = Color.White;
-            pnlDetails.BorderStyle = BorderStyle.FixedSingle;
-            pnlDetails.Controls.Add(lblBreakdown);
-            pnlDetails.Location = new Point(0, 0);
-            pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(708, 42);
-            pnlDetails.TabIndex = 18;
-            // 
-            // lblBreakdown
-            // 
-            lblBreakdown.AutoSize = true;
-            lblBreakdown.Font = new Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBreakdown.Location = new Point(18, 10);
-            lblBreakdown.Name = "lblBreakdown";
-            lblBreakdown.Size = new Size(250, 21);
-            lblBreakdown.TabIndex = 1;
-            lblBreakdown.Text = "Request Status Breakdown";
-            // 
-            // pnlSubmit
-            // 
-            pnlSubmit.BackColor = Color.WhiteSmoke;
-            pnlSubmit.Controls.Add(panel7);
-            pnlSubmit.Location = new Point(914, 589);
-            pnlSubmit.Name = "pnlSubmit";
-            pnlSubmit.Size = new Size(893, 467);
-            pnlSubmit.TabIndex = 15;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.White;
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.Controls.Add(lblSubmissions);
-            panel7.Location = new Point(0, 0);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(893, 42);
-            panel7.TabIndex = 19;
-            // 
-            // lblSubmissions
-            // 
-            lblSubmissions.AutoSize = true;
-            lblSubmissions.Font = new Font("Arial Rounded MT Bold", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSubmissions.Location = new Point(18, 10);
-            lblSubmissions.Name = "lblSubmissions";
-            lblSubmissions.Size = new Size(190, 21);
-            lblSubmissions.TabIndex = 1;
-            lblSubmissions.Text = "Recent Submissions";
-            // 
-            // lblSubmitValue
-            // 
-            lblSubmitValue.AutoSize = true;
-            lblSubmitValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSubmitValue.Location = new Point(611, 84);
-            lblSubmitValue.Name = "lblSubmitValue";
-            lblSubmitValue.Size = new Size(18, 20);
-            lblSubmitValue.TabIndex = 26;
-            lblSubmitValue.Text = "0";
-            // 
-            // lblCompletedValue
-            // 
-            lblCompletedValue.AutoSize = true;
-            lblCompletedValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCompletedValue.Location = new Point(609, 324);
-            lblCompletedValue.Name = "lblCompletedValue";
-            lblCompletedValue.Size = new Size(18, 20);
-            lblCompletedValue.TabIndex = 27;
-            lblCompletedValue.Text = "0";
-            // 
-            // lblProgressValue
-            // 
-            lblProgressValue.AutoSize = true;
-            lblProgressValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblProgressValue.Location = new Point(609, 252);
-            lblProgressValue.Name = "lblProgressValue";
-            lblProgressValue.Size = new Size(18, 20);
-            lblProgressValue.TabIndex = 28;
-            lblProgressValue.Text = "0";
-            // 
-            // lblScheduledValue
-            // 
-            lblScheduledValue.AutoSize = true;
-            lblScheduledValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblScheduledValue.Location = new Point(609, 192);
-            lblScheduledValue.Name = "lblScheduledValue";
-            lblScheduledValue.Size = new Size(18, 20);
-            lblScheduledValue.TabIndex = 29;
-            lblScheduledValue.Text = "0";
-            // 
-            // lblAssignedValue
-            // 
-            lblAssignedValue.AutoSize = true;
-            lblAssignedValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAssignedValue.Location = new Point(611, 132);
-            lblAssignedValue.Name = "lblAssignedValue";
-            lblAssignedValue.Size = new Size(18, 20);
-            lblAssignedValue.TabIndex = 30;
-            lblAssignedValue.Text = "0";
-            // 
             // frmAdminDashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1904, 1068);
-            Controls.Add(pnlSubmit);
-            Controls.Add(pnlBreakdown);
+            ClientSize = new Size(1904, 1042);
             Controls.Add(panel8);
             Controls.Add(pnlNavigationAdminPanl);
+            Controls.Add(panel6);
+            Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -771,6 +570,10 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             pnlNavigationAdminPanl.ResumeLayout(false);
             pnlNavigationAdminPanl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -780,14 +583,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            pnlBreakdown.ResumeLayout(false);
-            pnlBreakdown.PerformLayout();
-            panel9.ResumeLayout(false);
-            pnlDetails.ResumeLayout(false);
-            pnlDetails.PerformLayout();
-            pnlSubmit.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -801,6 +596,8 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private Panel panel5;
+        private Panel panel6;
         private Panel pnlNavigationAdminPanl;
         private Panel panel8;
         private Label label6;
@@ -809,6 +606,8 @@
         private Label label9;
         private Label label8;
         private Label label10;
+        private Label label15;
+        private Label label12;
         private Label label11;
         private PictureBox pictureBox6;
         private PictureBox pictureBox2;
@@ -829,27 +628,5 @@
         private LinkLabel lnklblProviders;
         private LinkLabel lnklblRequests;
         private LinkLabel lnklblReports;
-        private Panel pnlBreakdown;
-        private Panel panel11;
-        private Panel panel14;
-        private Panel panel12;
-        private Panel panel13;
-        private Panel panel9;
-        private Panel panel10;
-        private Label label15;
-        private Label label14;
-        private Label label13;
-        private Label label12;
-        private Label lblSubmit;
-        private Panel pnlDetails;
-        private Label lblBreakdown;
-        private Panel pnlSubmit;
-        private Panel panel7;
-        private Label lblSubmissions;
-        private Label lblAssignedValue;
-        private Label lblScheduledValue;
-        private Label lblProgressValue;
-        private Label lblCompletedValue;
-        private Label lblSubmitValue;
     }
 }

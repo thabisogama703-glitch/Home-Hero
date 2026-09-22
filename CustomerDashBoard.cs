@@ -8,7 +8,7 @@ namespace HomeHero
 {
     public partial class frmCustomerDashboard : Form
     {
-        List<MaintenanceRequest> serviceRequests = new List<MaintenanceRequest>();
+        List<MaintenanceRequest1> serviceRequests = new List<MaintenanceRequest1>();
 
         public frmCustomerDashboard()
         {
@@ -28,15 +28,14 @@ namespace HomeHero
         public void btnTrackRequest_Click_1(object sender, EventArgs e)
         {
             frmRequestTracking requestTracking = new frmRequestTracking();
-            requestTracking.Show();
-            this.Hide();
+            requestTracking.ShowDialog();
         }
 
 
 
         private void BtnActiceRequests_Click(object sender, EventArgs e)
         {
-            List<MaintenanceRequest> requests = new List<MaintenanceRequest>();
+            List<MaintenanceRequest1> requests = new List<MaintenanceRequest1>();
             frmActiveRequest activeRequest = new frmActiveRequest(requests);
             activeRequest.ShowDialog();
         }
@@ -72,24 +71,6 @@ namespace HomeHero
         private void btnDashboard_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void lblJobsDoneNumber_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCustomerDashboardTitle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-
-            frmHomeHeroHomepage backtoHome = new frmHomeHeroHomepage();
-            this.Hide();
-            backtoHome.Show();
         }
     }
 }

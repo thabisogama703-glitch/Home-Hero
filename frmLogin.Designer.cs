@@ -155,7 +155,7 @@
             pnlNavigationTab.Location = new Point(0, 0);
             pnlNavigationTab.Name = "pnlNavigationTab";
             pnlNavigationTab.RightToLeft = RightToLeft.Yes;
-            pnlNavigationTab.Size = new Size(1682, 108);
+            pnlNavigationTab.Size = new Size(1595, 108);
             pnlNavigationTab.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -166,7 +166,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 622F));
             tableLayoutPanel1.Controls.Add(lblName, 1, 0);
             tableLayoutPanel1.Controls.Add(btnBack, 0, 0);
-            tableLayoutPanel1.Location = new Point(511, 0);
+            tableLayoutPanel1.Location = new Point(467, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -338,7 +338,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1682, 935);
+            ClientSize = new Size(1595, 935);
             Controls.Add(pnlDetails);
             Controls.Add(panel2);
             Controls.Add(pnlNavigationTab);
