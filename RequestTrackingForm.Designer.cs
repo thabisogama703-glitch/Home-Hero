@@ -53,12 +53,12 @@
             dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(11, 386);
+            dgvRequests.Location = new Point(237, 386);
             dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
             dgvRequests.ReadOnly = true;
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(1693, 257);
+            dgvRequests.Size = new Size(1275, 311);
             dgvRequests.TabIndex = 0;
             dgvRequests.CellContentClick += dgvRequests_CellContentClick;
             // 
@@ -131,7 +131,7 @@
             btnRefresh.FlatAppearance.BorderSize = 0;
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(624, 679);
+            btnRefresh.Location = new Point(688, 703);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(393, 30);
             btnRefresh.TabIndex = 8;
@@ -190,7 +190,7 @@
             lblRequest.AutoSize = true;
             lblRequest.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblRequest.ForeColor = Color.White;
-            lblRequest.Location = new Point(562, 38);
+            lblRequest.Location = new Point(624, 38);
             lblRequest.Name = "lblRequest";
             lblRequest.Size = new Size(596, 38);
             lblRequest.TabIndex = 14;
@@ -210,9 +210,9 @@
             // 
             // gbxServiceDetails
             // 
-            gbxServiceDetails.Location = new Point(11, 147);
+            gbxServiceDetails.Location = new Point(237, 144);
             gbxServiceDetails.Name = "gbxServiceDetails";
-            gbxServiceDetails.Size = new Size(1693, 245);
+            gbxServiceDetails.Size = new Size(1275, 239);
             gbxServiceDetails.TabIndex = 14;
             gbxServiceDetails.TabStop = false;
             gbxServiceDetails.Text = "Service Details";
