@@ -130,7 +130,7 @@ namespace Home_Hero
 
             //Validating the last section (4. Your information)
 
-            string firstName = txtFirstName.Text.Trim().ToLower();
+            string firstName = txtFirstName.Text.Trim();
             string lastName = txtLastName.Text.Trim().ToLower();
             string emailAddress = txtEmailAddress.Text.Trim().ToLower();
             string cellphoneNumber = txtPhoneNumber.Text.Trim();
@@ -226,8 +226,9 @@ namespace Home_Hero
             if (isValid == true)
             {
                 QuickRequest newQuickRequest = new QuickRequest(selectedService, isChecked, txtProblemDEscription.Text, dateTimePicker1, preferredTime, firstName, lastName, emailAddress, cellphoneNumber, physicalAddress);
+                MessageBox.Show($"Thank you for choosing HomeHero \n{firstName} The maintenance request has been succesfully submitted \nOnce confirmed one of our experienced service provider will keep in touch.","Service Succesfully Requested.",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                firstName.ToLower();
                 newQuickRequest.WriteToFile();
-                MessageBox.Show("Maintenance Request succesfully submitted ");
                 ClearAllFields();
             }
             else
