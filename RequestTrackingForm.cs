@@ -71,10 +71,6 @@ namespace Home_Hero
                 MessageBoxIcon.Information);
         }
 
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void lblRequest_Click(object sender, EventArgs e)
         {
@@ -84,6 +80,11 @@ namespace Home_Hero
         private void dgvRequests_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

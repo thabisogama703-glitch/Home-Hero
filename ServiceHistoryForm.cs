@@ -38,8 +38,7 @@ namespace HomeHero
                 "Plumbing", "27/06/2026",
                 "R520", "Completed");
         }
-
-        private void btnBackHome_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
         }

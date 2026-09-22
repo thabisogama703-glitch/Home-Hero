@@ -35,17 +35,22 @@
             CompletedDate = new DataGridViewTextBoxColumn();
             TotalCost = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
-            btnBackHome = new Button();
+            panel1 = new Panel();
+            btnBack = new Button();
+            lblServicesHistory = new Label();
+            btnLogout = new Button();
+            label1 = new Label();
             grpbxServiceHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // grpbxServiceHistory
             // 
             grpbxServiceHistory.Controls.Add(dgvServiceHistory);
-            grpbxServiceHistory.Location = new Point(12, 12);
+            grpbxServiceHistory.Location = new Point(12, 159);
             grpbxServiceHistory.Name = "grpbxServiceHistory";
-            grpbxServiceHistory.Size = new Size(1441, 499);
+            grpbxServiceHistory.Size = new Size(1441, 352);
             grpbxServiceHistory.TabIndex = 8;
             grpbxServiceHistory.TabStop = false;
             grpbxServiceHistory.Text = "Service History";
@@ -61,7 +66,7 @@
             dgvServiceHistory.Name = "dgvServiceHistory";
             dgvServiceHistory.ReadOnly = true;
             dgvServiceHistory.RowHeadersWidth = 51;
-            dgvServiceHistory.Size = new Size(1435, 473);
+            dgvServiceHistory.Size = new Size(1435, 326);
             dgvServiceHistory.TabIndex = 5;
             // 
             // RequestId
@@ -104,30 +109,78 @@
             Status.Name = "Status";
             Status.ReadOnly = true;
             // 
-            // btnBackHome
+            // panel1
             // 
-            btnBackHome.BackColor = Color.FromArgb(255, 128, 0);
-            btnBackHome.ForeColor = Color.White;
-            btnBackHome.Location = new Point(1201, 517);
-            btnBackHome.Name = "btnBackHome";
-            btnBackHome.Size = new Size(252, 50);
-            btnBackHome.TabIndex = 9;
-            btnBackHome.Text = "Back Home";
-            btnBackHome.UseVisualStyleBackColor = false;
-            btnBackHome.Click += btnBackHome_Click;
+            panel1.BackColor = Color.FromArgb(0, 0, 64);
+            panel1.Controls.Add(btnBack);
+            panel1.Controls.Add(lblServicesHistory);
+            panel1.Controls.Add(btnLogout);
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, 1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1475, 104);
+            panel1.TabIndex = 10;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.Orange;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(1318, 33);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(135, 40);
+            btnBack.TabIndex = 4;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
+            // 
+            // lblServicesHistory
+            // 
+            lblServicesHistory.AutoSize = true;
+            lblServicesHistory.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblServicesHistory.ForeColor = Color.White;
+            lblServicesHistory.Location = new Point(701, 45);
+            lblServicesHistory.Name = "lblServicesHistory";
+            lblServicesHistory.Size = new Size(166, 28);
+            lblServicesHistory.TabIndex = 3;
+            lblServicesHistory.Text = "Services History";
+            // 
+            // btnLogout
+            // 
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1675, 35);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(135, 40);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(17, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(265, 60);
+            label1.TabIndex = 0;
+            label1.Text = "Home Hero";
             // 
             // ServiceHistoryForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1474, 601);
-            Controls.Add(btnBackHome);
+            Controls.Add(panel1);
             Controls.Add(grpbxServiceHistory);
             Name = "ServiceHistoryForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ServiceHistoryForm";
             grpbxServiceHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -135,11 +188,15 @@
 
         private GroupBox grpbxServiceHistory;
         private DataGridView dgvServiceHistory;
-        private Button btnBackHome;
         private DataGridViewTextBoxColumn RequestId;
         private DataGridViewTextBoxColumn ServiceCategory;
         private DataGridViewTextBoxColumn CompletedDate;
         private DataGridViewTextBoxColumn TotalCost;
         private DataGridViewTextBoxColumn Status;
+        private Panel panel1;
+        private Button btnBack;
+        private Label lblServicesHistory;
+        private Button btnLogout;
+        private Label label1;
     }
 }

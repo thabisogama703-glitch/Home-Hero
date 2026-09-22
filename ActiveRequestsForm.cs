@@ -27,7 +27,7 @@ namespace HomeHero
 
             dgvActiveRequests.Rows.Add("REQ023",
                 "Electrical", "Faulty wall socket",
-                "24/10/2026", "R680","Pending");
+                "24/10/2026", "R680", "Pending");
 
             //dgvActiveRequests.AutoGenerateColumns = false;
             //dgvActiveRequests.DataSource = requests; 
@@ -49,8 +49,7 @@ namespace HomeHero
             //    "Electrical", "Faulty wall socket",
             //    "R680", "24/10/2026");
         }
-
-        private void btnBackHome_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -36,9 +36,14 @@
             Cost = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
             grpbxActiveRequests = new GroupBox();
-            btnBackHome = new Button();
+            panel1 = new Panel();
+            btnBack = new Button();
+            lblActiveRequests = new Label();
+            btnLogout = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).BeginInit();
             grpbxActiveRequests.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvActiveRequests
@@ -52,7 +57,7 @@
             dgvActiveRequests.Name = "dgvActiveRequests";
             dgvActiveRequests.ReadOnly = true;
             dgvActiveRequests.RowHeadersWidth = 51;
-            dgvActiveRequests.Size = new Size(1471, 524);
+            dgvActiveRequests.Size = new Size(1471, 325);
             dgvActiveRequests.TabIndex = 6;
             dgvActiveRequests.CellContentClick += dgvActiveRequests_CellContentClick;
             // 
@@ -109,37 +114,85 @@
             grpbxActiveRequests.Controls.Add(dgvActiveRequests);
             grpbxActiveRequests.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpbxActiveRequests.ForeColor = Color.Black;
-            grpbxActiveRequests.Location = new Point(12, 22);
+            grpbxActiveRequests.Location = new Point(12, 221);
             grpbxActiveRequests.Name = "grpbxActiveRequests";
-            grpbxActiveRequests.Size = new Size(1477, 554);
+            grpbxActiveRequests.Size = new Size(1477, 355);
             grpbxActiveRequests.TabIndex = 7;
             grpbxActiveRequests.TabStop = false;
             grpbxActiveRequests.Text = "Active Requests";
             // 
-            // btnBackHome
+            // panel1
             // 
-            btnBackHome.BackColor = Color.FromArgb(255, 128, 0);
-            btnBackHome.ForeColor = Color.White;
-            btnBackHome.Location = new Point(1234, 582);
-            btnBackHome.Name = "btnBackHome";
-            btnBackHome.Size = new Size(252, 50);
-            btnBackHome.TabIndex = 8;
-            btnBackHome.Text = "Back Home";
-            btnBackHome.UseVisualStyleBackColor = false;
-            btnBackHome.Click += btnBackHome_Click;
+            panel1.BackColor = Color.FromArgb(0, 0, 64);
+            panel1.Controls.Add(btnBack);
+            panel1.Controls.Add(lblActiveRequests);
+            panel1.Controls.Add(btnLogout);
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(0, 1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1502, 104);
+            panel1.TabIndex = 9;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.Orange;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(1351, 33);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(135, 40);
+            btnBack.TabIndex = 4;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
+            // 
+            // lblActiveRequests
+            // 
+            lblActiveRequests.AutoSize = true;
+            lblActiveRequests.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblActiveRequests.ForeColor = Color.White;
+            lblActiveRequests.Location = new Point(735, 45);
+            lblActiveRequests.Name = "lblActiveRequests";
+            lblActiveRequests.Size = new Size(163, 28);
+            lblActiveRequests.TabIndex = 3;
+            lblActiveRequests.Text = "Active Requests";
+            // 
+            // btnLogout
+            // 
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1675, 35);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(135, 40);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(17, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(265, 60);
+            label1.TabIndex = 0;
+            label1.Text = "Home Hero";
             // 
             // frmActiveRequest
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 644);
-            Controls.Add(btnBackHome);
+            Controls.Add(panel1);
             Controls.Add(grpbxActiveRequests);
             Name = "frmActiveRequest";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Acrtive Requests";
             ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).EndInit();
             grpbxActiveRequests.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -147,12 +200,16 @@
 
         private DataGridView dgvActiveRequests;
         private GroupBox grpbxActiveRequests;
-        private Button btnBackHome;
         private DataGridViewTextBoxColumn RequestID;
         private DataGridViewTextBoxColumn ServiceCategory;
         private DataGridViewTextBoxColumn ProblemDescription;
         private DataGridViewTextBoxColumn PrefferedDate;
         private DataGridViewTextBoxColumn Cost;
         private DataGridViewTextBoxColumn Status;
+        private Panel panel1;
+        private Label lblActiveRequests;
+        private Button btnLogout;
+        private Label label1;
+        private Button btnBack;
     }
 }

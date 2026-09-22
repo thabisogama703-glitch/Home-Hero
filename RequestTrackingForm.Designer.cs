@@ -38,15 +38,14 @@
             lblFinalCost = new Label();
             btnRefresh = new Button();
             pnlDetails = new Panel();
-            panel2 = new Panel();
-            btnBack = new Button();
+            panel1 = new Panel();
+            button1 = new Button();
             lblRequest = new Label();
-            lblLog = new Label();
-            lblWelcome = new Label();
+            label1 = new Label();
             gbxServiceDetails = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
             pnlDetails.SuspendLayout();
-            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvRequests
@@ -54,7 +53,7 @@
             dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(471, 399);
+            dgvRequests.Location = new Point(363, 386);
             dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
             dgvRequests.ReadOnly = true;
@@ -130,7 +129,7 @@
             // 
             btnRefresh.BackColor = Color.FromArgb(255, 128, 0);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(745, 662);
+            btnRefresh.Location = new Point(562, 660);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(516, 46);
             btnRefresh.TabIndex = 8;
@@ -142,7 +141,7 @@
             // 
             pnlDetails.BackColor = Color.White;
             pnlDetails.BorderStyle = BorderStyle.FixedSingle;
-            pnlDetails.Controls.Add(panel2);
+            pnlDetails.Controls.Add(panel1);
             pnlDetails.Controls.Add(lblFinalCost);
             pnlDetails.Controls.Add(btnRefresh);
             pnlDetails.Controls.Add(lblEstimatedCost);
@@ -159,73 +158,59 @@
             pnlDetails.Size = new Size(1717, 738);
             pnlDetails.TabIndex = 16;
             // 
-            // panel2
+            // panel1
             // 
-            panel2.BackColor = Color.FromArgb(0, 0, 64);
-            panel2.Controls.Add(btnBack);
-            panel2.Controls.Add(lblRequest);
-            panel2.Controls.Add(lblLog);
-            panel2.Controls.Add(lblWelcome);
-            panel2.Location = new Point(-1, -1);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1717, 93);
-            panel2.TabIndex = 13;
+            panel1.BackColor = Color.FromArgb(0, 0, 64);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(lblRequest);
+            panel1.Controls.Add(label1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1715, 104);
+            panel1.TabIndex = 15;
             // 
-            // btnBack
+            // button1
             // 
-            btnBack.BackColor = Color.FromArgb(255, 128, 0);
-            btnBack.FlatAppearance.BorderSize = 0;
-            btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(1527, 28);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(151, 29);
-            btnBack.TabIndex = 15;
-            btnBack.Text = " ← Back";
-            btnBack.UseVisualStyleBackColor = false;
-            btnBack.Click += btnBack_Click;
+            button1.BackColor = Color.Orange;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(1569, 36);
+            button1.Name = "button1";
+            button1.Size = new Size(135, 40);
+            button1.TabIndex = 4;
+            button1.Text = "Back";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // lblRequest
             // 
             lblRequest.AutoSize = true;
             lblRequest.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblRequest.ForeColor = Color.White;
-            lblRequest.Location = new Point(581, 28);
+            lblRequest.Location = new Point(562, 38);
             lblRequest.Name = "lblRequest";
             lblRequest.Size = new Size(596, 38);
             lblRequest.TabIndex = 14;
             lblRequest.Text = "Track and Follow your Maintenance Request";
             lblRequest.Click += lblRequest_Click;
             // 
-            // lblLog
+            // label1
             // 
-            lblLog.AutoSize = true;
-            lblLog.FlatStyle = FlatStyle.Flat;
-            lblLog.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLog.ForeColor = Color.White;
-            lblLog.Location = new Point(12, 54);
-            lblLog.Name = "lblLog";
-            lblLog.Size = new Size(0, 31);
-            lblLog.TabIndex = 13;
-            // 
-            // lblWelcome
-            // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.FlatStyle = FlatStyle.Flat;
-            lblWelcome.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcome.ForeColor = Color.FromArgb(255, 128, 0);
-            lblWelcome.Location = new Point(12, 14);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(112, 23);
-            lblWelcome.TabIndex = 11;
-            lblWelcome.Text = "Job Progress";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(11, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(265, 60);
+            label1.TabIndex = 0;
+            label1.Text = "Home Hero";
             // 
             // gbxServiceDetails
             // 
-            gbxServiceDetails.Location = new Point(471, 147);
+            gbxServiceDetails.Location = new Point(363, 147);
             gbxServiceDetails.Name = "gbxServiceDetails";
-            gbxServiceDetails.Size = new Size(1003, 246);
+            gbxServiceDetails.Size = new Size(1003, 245);
             gbxServiceDetails.TabIndex = 14;
             gbxServiceDetails.TabStop = false;
             gbxServiceDetails.Text = "Service Details";
@@ -243,8 +228,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             pnlDetails.ResumeLayout(false);
             pnlDetails.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -260,11 +245,10 @@
         private Label lblFinalCost;
         private Button btnRefresh;
         private Panel pnlDetails;
-        private Panel panel2;
         private Label lblRequest;
-        private Label lblLog;
-        private Label lblWelcome;
-        private Button btnBack;
         private GroupBox gbxServiceDetails;
+        private Panel panel1;
+        private Button button1;
+        private Label label1;
     }
 }
