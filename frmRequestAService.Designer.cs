@@ -341,9 +341,9 @@
             lblMinimumCharacters.AutoSize = true;
             lblMinimumCharacters.Location = new Point(546, 360);
             lblMinimumCharacters.Name = "lblMinimumCharacters";
-            lblMinimumCharacters.Size = new Size(178, 20);
+            lblMinimumCharacters.Size = new Size(163, 20);
             lblMinimumCharacters.TabIndex = 5;
-            lblMinimumCharacters.Text = "0 chars (20 more needed)";
+            lblMinimumCharacters.Text = "20 characters minimum";
             // 
             // txtProblemDEscription
             // 
@@ -625,7 +625,7 @@
             // 
             txtLastName.Location = new Point(355, 155);
             txtLastName.Name = "txtLastName";
-            txtLastName.PlaceholderText = "Doe";
+            txtLastName.PlaceholderText = "Cena";
             txtLastName.Size = new Size(268, 27);
             txtLastName.TabIndex = 4;
             // 

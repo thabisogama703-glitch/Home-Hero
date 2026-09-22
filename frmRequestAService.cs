@@ -92,6 +92,15 @@ namespace Home_Hero
             {
                 ValidationError.SetError(lblPriorityLevel, "");
             }
+            bool isChecked = false;
+            if (RdbtnUrgent.Checked)
+            {
+                isChecked = true;
+            }
+            else
+            {
+                isChecked = false;
+            }
 
             //Validating section 2 (Problem description)
             int problemDescription = txtProblemDEscription.Text.Length;
@@ -173,30 +182,33 @@ namespace Home_Hero
             {
                 ValidationError.SetError(txtEmailAddress, "");
             }
-            
+
             //Phone number validation
-
-
-            //foreach (char cellNumChar in cellphoneNumber)
-            //{
-            //    if (!char.IsDigit(cellNumChar))
-            //    {
-            //        ValidationError.SetError(txtPhoneNumber, "Enter only digits/numbers for a phone number");
-            //        isValid = false;
-            //    }
-            //    else
-            //    {
-            //        if (cellphoneNumber.Length != 10)
-            //        {
-            //            ValidationError.SetError(txtPhoneNumber, "Phone number should be exactly 10 digits");
-            //            isValid = false;
-            //        }
-            //        else
-            //        {
-            //            ValidationError.SetError(txtPhoneNumber, "");
-            //        }
-            //    }
-            //}
+            if (string.IsNullOrEmpty(cellphoneNumber))
+            {
+                ValidationError.SetError(txtPhoneNumber, "Please provide with your cellphone number");
+                isValid = false;
+            }
+            else
+            {
+                foreach (char cellNumChar in cellphoneNumber)
+                {
+                    if (!char.IsDigit(cellNumChar))
+                    {
+                        ValidationError.SetError(txtPhoneNumber, "Enter only digits/numbers for a phone number");
+                        isValid = false;
+                    }
+                    else if (cellphoneNumber.Length != 10)
+                    {
+                        ValidationError.SetError(txtPhoneNumber, "Phone number should be exactly 10 digits");
+                        isValid = false;
+                    }
+                    else
+                    {
+                        ValidationError.SetError(txtPhoneNumber, "");
+                    }
+                }
+            }
 
             //Validating the property address
             string physicalAddress = txtPropertyAddress.Text;
@@ -213,6 +225,8 @@ namespace Home_Hero
             /*After all validations we then show the process was succesfully submitted*/
             if (isValid == true)
             {
+                QuickRequest newQuickRequest = new QuickRequest(selectedService, isChecked, txtProblemDEscription.Text, dateTimePicker1, preferredTime, firstName, lastName, emailAddress, cellphoneNumber, physicalAddress);
+                newQuickRequest.WriteToFile();
                 MessageBox.Show("Maintenance Request succesfully submitted ");
                 ClearAllFields();
             }
