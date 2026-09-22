@@ -159,8 +159,9 @@ namespace Home_Hero
         private void btnBack_Click(object sender, EventArgs e)
         {
             frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
-            this.Hide();
             Customerdashboard.Show();
+            this.Hide();
+            
         }
     }
 }

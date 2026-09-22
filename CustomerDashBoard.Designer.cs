@@ -31,23 +31,14 @@
             label1 = new Label();
             panel1 = new Panel();
             btnLogout = new Button();
-            btnDashboard = new Button();
             btnServiceHistory = new Button();
             BtnActiceRequests = new Button();
-            dgvActiveRequests = new DataGridView();
-            grpbxActiveRequests = new GroupBox();
-            dgvServiceHistory = new DataGridView();
-            grpbxServiceHistory = new GroupBox();
             btnNewServiceRequest = new Button();
             btnTrackRequest = new Button();
             panel2 = new Panel();
             lblWelcome = new Label();
             lblCustomer = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).BeginInit();
-            grpbxActiveRequests.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).BeginInit();
-            grpbxServiceHistory.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,7 +57,6 @@
             // 
             panel1.BackColor = Color.FromArgb(0, 0, 64);
             panel1.Controls.Add(btnLogout);
-            panel1.Controls.Add(btnDashboard);
             panel1.Controls.Add(btnServiceHistory);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(BtnActiceRequests);
@@ -87,24 +77,12 @@
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnBackToHome_Click;
             // 
-            // btnDashboard
-            // 
-            btnDashboard.FlatAppearance.BorderColor = Color.White;
-            btnDashboard.FlatStyle = FlatStyle.Flat;
-            btnDashboard.ForeColor = Color.White;
-            btnDashboard.Location = new Point(566, 24);
-            btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(178, 51);
-            btnDashboard.TabIndex = 3;
-            btnDashboard.Text = "Dashboard";
-            btnDashboard.UseVisualStyleBackColor = true;
-            // 
             // btnServiceHistory
             // 
             btnServiceHistory.BackColor = Color.FromArgb(0, 0, 64);
             btnServiceHistory.FlatStyle = FlatStyle.Flat;
             btnServiceHistory.ForeColor = Color.White;
-            btnServiceHistory.Location = new Point(934, 24);
+            btnServiceHistory.Location = new Point(878, 24);
             btnServiceHistory.Name = "btnServiceHistory";
             btnServiceHistory.Size = new Size(178, 51);
             btnServiceHistory.TabIndex = 1;
@@ -117,59 +95,13 @@
             BtnActiceRequests.BackColor = Color.FromArgb(0, 0, 64);
             BtnActiceRequests.FlatStyle = FlatStyle.Flat;
             BtnActiceRequests.ForeColor = Color.White;
-            BtnActiceRequests.Location = new Point(750, 24);
+            BtnActiceRequests.Location = new Point(658, 24);
             BtnActiceRequests.Name = "BtnActiceRequests";
             BtnActiceRequests.Size = new Size(178, 51);
             BtnActiceRequests.TabIndex = 0;
             BtnActiceRequests.Text = "Active Requests";
             BtnActiceRequests.UseVisualStyleBackColor = false;
             BtnActiceRequests.Click += BtnActiceRequests_Click;
-            // 
-            // dgvActiveRequests
-            // 
-            dgvActiveRequests.AllowUserToAddRows = false;
-            dgvActiveRequests.BackgroundColor = SystemColors.ControlLightLight;
-            dgvActiveRequests.BorderStyle = BorderStyle.None;
-            dgvActiveRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvActiveRequests.Location = new Point(6, 26);
-            dgvActiveRequests.Name = "dgvActiveRequests";
-            dgvActiveRequests.ReadOnly = true;
-            dgvActiveRequests.RowHeadersWidth = 51;
-            dgvActiveRequests.Size = new Size(1850, 377);
-            dgvActiveRequests.TabIndex = 5;
-            // 
-            // grpbxActiveRequests
-            // 
-            grpbxActiveRequests.Controls.Add(dgvActiveRequests);
-            grpbxActiveRequests.Location = new Point(12, 303);
-            grpbxActiveRequests.Name = "grpbxActiveRequests";
-            grpbxActiveRequests.Size = new Size(1862, 365);
-            grpbxActiveRequests.TabIndex = 6;
-            grpbxActiveRequests.TabStop = false;
-            grpbxActiveRequests.Text = "Active Requests";
-            // 
-            // dgvServiceHistory
-            // 
-            dgvServiceHistory.AllowUserToAddRows = false;
-            dgvServiceHistory.BackgroundColor = SystemColors.ControlLightLight;
-            dgvServiceHistory.BorderStyle = BorderStyle.None;
-            dgvServiceHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServiceHistory.Location = new Point(6, 19);
-            dgvServiceHistory.Name = "dgvServiceHistory";
-            dgvServiceHistory.ReadOnly = true;
-            dgvServiceHistory.RowHeadersWidth = 51;
-            dgvServiceHistory.Size = new Size(1850, 284);
-            dgvServiceHistory.TabIndex = 5;
-            // 
-            // grpbxServiceHistory
-            // 
-            grpbxServiceHistory.Controls.Add(dgvServiceHistory);
-            grpbxServiceHistory.Location = new Point(12, 674);
-            grpbxServiceHistory.Name = "grpbxServiceHistory";
-            grpbxServiceHistory.Size = new Size(1862, 309);
-            grpbxServiceHistory.TabIndex = 7;
-            grpbxServiceHistory.TabStop = false;
-            grpbxServiceHistory.Text = "Service History";
             // 
             // btnNewServiceRequest
             // 
@@ -236,8 +168,6 @@
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1886, 995);
             Controls.Add(panel2);
-            Controls.Add(grpbxServiceHistory);
-            Controls.Add(grpbxActiveRequests);
             Controls.Add(panel1);
             Name = "frmCustomerDashboard";
             StartPosition = FormStartPosition.CenterScreen;
@@ -246,10 +176,6 @@
             Load += frmCustomerDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvActiveRequests).EndInit();
-            grpbxActiveRequests.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvServiceHistory).EndInit();
-            grpbxServiceHistory.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -260,12 +186,7 @@
         private Label label1;
         private Button BtnActiceRequests;
         private Button btnServiceHistory;
-        private DataGridView dgvActiveRequests;
         private Button btnLogout;
-        private GroupBox grpbxActiveRequests;
-        private DataGridView dgvServiceHistory;
-        private GroupBox grpbxServiceHistory;
-        private Button btnDashboard;
         private Panel panel1;
         private Button btnNewServiceRequest;
         private Button btnTrackRequest;

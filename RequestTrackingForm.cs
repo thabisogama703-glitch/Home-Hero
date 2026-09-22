@@ -73,9 +73,17 @@ namespace Home_Hero
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
-            this.Hide();
-            Customerdashboard.Show();
+            this.Close();
+        }
+
+        private void lblRequest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvRequests_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

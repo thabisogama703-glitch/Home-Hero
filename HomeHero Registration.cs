@@ -115,12 +115,12 @@ namespace HomeHero_2
             {
                 if (hasEmptyFields)
                 {
-                    MessageBox.Show("Please fill in all required fields.");
+                    MessageBox.Show("Please fill in all required fields.","Missing Required Fields",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
                 }
                 else
                 {
-                    MessageBox.Show("Registration unsuccessful. Please try again. ");
+                    MessageBox.Show("Registration unsuccessful. Please try again. ", "Missing Required Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 

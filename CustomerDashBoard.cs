@@ -14,8 +14,6 @@ namespace HomeHero
         {
             InitializeComponent();
 
-            dgvActiveRequests.DataSource = serviceRequests;
-
         }
 
 
@@ -37,12 +35,15 @@ namespace HomeHero
 
         private void BtnActiceRequests_Click(object sender, EventArgs e)
         {
-
+            List<MaintenanceRequest> requests = new List<MaintenanceRequest>();
+            frmActiveRequest activeRequest = new frmActiveRequest(requests);
+            activeRequest.ShowDialog();
         }
 
         private void btnServiceHistory_Click(object sender, EventArgs e)
         {
-
+            ServiceHistoryForm serviceHistory = new ServiceHistoryForm();
+            serviceHistory.ShowDialog();
         }
 
         private void frmCustomerDashboard_Load(object sender, EventArgs e)
@@ -64,6 +65,11 @@ namespace HomeHero
 
             }
 
+
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
 
         }
     }

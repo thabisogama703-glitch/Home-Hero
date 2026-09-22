@@ -54,39 +54,42 @@ namespace HomeHero_2
                 ClearFields();
                 return;
             }
+            Administrator Thabiso = new Administrator();
+            Thabiso.AdminName = "Thabiso";
+            Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
+            Thabiso.Password = "@Thandolwami07";
+            administrators.Add(Thabiso);
 
-            if (string.IsNullOrEmpty(selectedUserType))
+            Administrator Sibusiso = new Administrator();
+            Sibusiso.AdminName = "Sibusiso";
+            Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
+            Sibusiso.Password = "@Thandolwami07";
+            administrators.Add(Sibusiso);
+
+            bool adminLoggedIn = false;
+
+            foreach (Administrator administrator in administrators)
             {
-                Administrator Thabiso = new Administrator();
-                Thabiso.AdminName = "Thabiso";
-                Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
-                Thabiso.Password = "@Thandolwami07";
-                administrators.Add(Thabiso);
-
-                Administrator Sibusiso = new Administrator();
-                Sibusiso.AdminName = "Sibusiso";
-                Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
-                Sibusiso.Password = "@Thandolwami07";
-                administrators.Add(Sibusiso);
-
-
-                foreach (Administrator administrator in administrators)
+                if (email.Trim().ToLower() == administrator.EmailAdress)
                 {
-                    if (email.Trim().ToLower() == administrator.EmailAdress)
+                    if (password.Trim() == administrator.Password)
                     {
-                        if (password.Trim() == administrator.Password)
-                        {
-                            MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin succesfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            frmAdminDashboard adminDashboard = new frmAdminDashboard();
-                            this.Hide();
-                            adminDashboard.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        adminLoggedIn = true;
+                        MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin succesfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmAdminDashboard adminDashboard = new frmAdminDashboard();
+                        this.Hide();
+                        adminDashboard.Show();
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+
+            if (string.IsNullOrEmpty(selectedUserType) && adminLoggedIn == false)
+            {
                 MessageBox.Show("Please select a user type.");
                 return;
             }

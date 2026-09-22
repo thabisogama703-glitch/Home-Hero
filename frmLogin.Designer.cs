@@ -189,12 +189,12 @@
             // 
             // btnBack
             // 
-            btnBack.Anchor = AnchorStyles.None;
+            btnBack.Anchor = AnchorStyles.Left;
             btnBack.AutoSize = true;
             btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(799, 29);
+            btnBack.Location = new Point(972, 29);
             btnBack.Name = "btnBack";
             btnBack.RightToLeft = RightToLeft.No;
             btnBack.Size = new Size(162, 46);

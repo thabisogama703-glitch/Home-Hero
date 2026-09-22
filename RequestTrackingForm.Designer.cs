@@ -39,10 +39,11 @@
             btnRefresh = new Button();
             pnlDetails = new Panel();
             panel2 = new Panel();
+            btnBack = new Button();
             lblRequest = new Label();
             lblLog = new Label();
             lblWelcome = new Label();
-            btnBack = new Button();
+            gbxServiceDetails = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
             pnlDetails.SuspendLayout();
             panel2.SuspendLayout();
@@ -50,17 +51,22 @@
             // 
             // dgvRequests
             // 
+            dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(49, 383);
+            dgvRequests.Location = new Point(471, 399);
+            dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
+            dgvRequests.ReadOnly = true;
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(967, 188);
+            dgvRequests.Size = new Size(1003, 257);
             dgvRequests.TabIndex = 0;
+            dgvRequests.CellContentClick += dgvRequests_CellContentClick;
             // 
             // lblRequestNum
             // 
             lblRequestNum.AutoSize = true;
-            lblRequestNum.Location = new Point(32, 143);
+            lblRequestNum.Location = new Point(490, 173);
             lblRequestNum.Name = "lblRequestNum";
             lblRequestNum.Size = new Size(123, 20);
             lblRequestNum.TabIndex = 1;
@@ -69,7 +75,7 @@
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(287, 143);
+            lblCategory.Location = new Point(745, 173);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(94, 20);
             lblCategory.TabIndex = 2;
@@ -78,7 +84,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(568, 143);
+            lblStatus.Location = new Point(1026, 173);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(116, 20);
             lblStatus.TabIndex = 3;
@@ -87,7 +93,7 @@
             // lblAssignedProvider
             // 
             lblAssignedProvider.AutoSize = true;
-            lblAssignedProvider.Location = new Point(32, 236);
+            lblAssignedProvider.Location = new Point(490, 266);
             lblAssignedProvider.Name = "lblAssignedProvider";
             lblAssignedProvider.Size = new Size(131, 20);
             lblAssignedProvider.TabIndex = 4;
@@ -96,7 +102,7 @@
             // lblAppointment
             // 
             lblAppointment.AutoSize = true;
-            lblAppointment.Location = new Point(287, 236);
+            lblAppointment.Location = new Point(745, 266);
             lblAppointment.Name = "lblAppointment";
             lblAppointment.Size = new Size(85, 20);
             lblAppointment.TabIndex = 5;
@@ -105,7 +111,7 @@
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
-            lblEstimatedCost.Location = new Point(568, 236);
+            lblEstimatedCost.Location = new Point(1026, 266);
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(111, 20);
             lblEstimatedCost.TabIndex = 6;
@@ -114,7 +120,7 @@
             // lblFinalCost
             // 
             lblFinalCost.AutoSize = true;
-            lblFinalCost.Location = new Point(49, 333);
+            lblFinalCost.Location = new Point(507, 363);
             lblFinalCost.Name = "lblFinalCost";
             lblFinalCost.Size = new Size(76, 20);
             lblFinalCost.TabIndex = 7;
@@ -124,9 +130,9 @@
             // 
             btnRefresh.BackColor = Color.FromArgb(255, 128, 0);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(52, 632);
+            btnRefresh.Location = new Point(745, 662);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(111, 29);
+            btnRefresh.Size = new Size(516, 46);
             btnRefresh.TabIndex = 8;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -146,9 +152,11 @@
             pnlDetails.Controls.Add(lblCategory);
             pnlDetails.Controls.Add(lblRequestNum);
             pnlDetails.Controls.Add(dgvRequests);
-            pnlDetails.Location = new Point(200, 23);
+            pnlDetails.Controls.Add(gbxServiceDetails);
+            pnlDetails.Dock = DockStyle.Fill;
+            pnlDetails.Location = new Point(0, 0);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(1393, 694);
+            pnlDetails.Size = new Size(1717, 738);
             pnlDetails.TabIndex = 16;
             // 
             // panel2
@@ -160,19 +168,35 @@
             panel2.Controls.Add(lblWelcome);
             panel2.Location = new Point(-1, -1);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1393, 93);
+            panel2.Size = new Size(1717, 93);
             panel2.TabIndex = 13;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.FromArgb(255, 128, 0);
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(1527, 28);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(151, 29);
+            btnBack.TabIndex = 15;
+            btnBack.Text = " ← Back";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
             // 
             // lblRequest
             // 
             lblRequest.AutoSize = true;
             lblRequest.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblRequest.ForeColor = Color.White;
-            lblRequest.Location = new Point(99, 47);
+            lblRequest.Location = new Point(581, 28);
             lblRequest.Name = "lblRequest";
             lblRequest.Size = new Size(596, 38);
             lblRequest.TabIndex = 14;
             lblRequest.Text = "Track and Follow your Maintenance Request";
+            lblRequest.Click += lblRequest_Click;
             // 
             // lblLog
             // 
@@ -197,20 +221,14 @@
             lblWelcome.TabIndex = 11;
             lblWelcome.Text = "Job Progress";
             // 
-            // btnBack
+            // gbxServiceDetails
             // 
-            btnBack.BackColor = Color.FromArgb(255, 128, 0);
-            btnBack.FlatAppearance.BorderSize = 0;
-            btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBack.ForeColor = Color.White;
-            btnBack.Location = new Point(1113, 33);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(151, 29);
-            btnBack.TabIndex = 15;
-            btnBack.Text = " ← Back";
-            btnBack.UseVisualStyleBackColor = false;
-            btnBack.Click += btnBack_Click;
+            gbxServiceDetails.Location = new Point(471, 147);
+            gbxServiceDetails.Name = "gbxServiceDetails";
+            gbxServiceDetails.Size = new Size(1003, 246);
+            gbxServiceDetails.TabIndex = 14;
+            gbxServiceDetails.TabStop = false;
+            gbxServiceDetails.Text = "Service Details";
             // 
             // frmRequestTracking
             // 
@@ -247,5 +265,6 @@
         private Label lblLog;
         private Label lblWelcome;
         private Button btnBack;
+        private GroupBox gbxServiceDetails;
     }
 }
