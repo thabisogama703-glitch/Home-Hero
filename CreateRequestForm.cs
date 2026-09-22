@@ -103,7 +103,7 @@ namespace Home_Hero
                 );
             DataManager.AddRequest(newRequest);
 
-            DialogResult result =  MessageBox.Show(
+            DialogResult result = MessageBox.Show(
             "Request submitted successfully!\n\n" +
             "Request Number: " + newRequest.RequestNumber + "\n" +
             "Estimated Cost: R" +
@@ -113,7 +113,7 @@ namespace Home_Hero
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question);
 
-            if(result == DialogResult.No)
+            if (result == DialogResult.No)
             {
                 frmCustomerDashboard returnToDashBoard = new frmCustomerDashboard();
                 this.Hide();
@@ -147,7 +147,7 @@ namespace Home_Hero
 
             string category = cmbCategory.SelectedItem.ToString();
             MaintenanceRequest temp = new MaintenanceRequest();
-            decimal estimate = temp.CalculateEstimatedCost(category);
+            decimal estimate = MaintenanceRequest.CalculateEstimatedCost(category);
             lblEstimatedCost.Text = $"Estimated Cost: R{estimate:F2}";
         }
 
@@ -161,7 +161,7 @@ namespace Home_Hero
             frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
             Customerdashboard.Show();
             this.Hide();
-            
+
         }
     }
 }

@@ -46,6 +46,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
             pnlDetails.SuspendLayout();
             panel1.SuspendLayout();
+            gbxServiceDetails.SuspendLayout();
             SuspendLayout();
             // 
             // dgvRequests
@@ -65,7 +66,7 @@
             // lblRequestNum
             // 
             lblRequestNum.AutoSize = true;
-            lblRequestNum.Location = new Point(490, 173);
+            lblRequestNum.Location = new Point(24, 45);
             lblRequestNum.Name = "lblRequestNum";
             lblRequestNum.Size = new Size(123, 20);
             lblRequestNum.TabIndex = 1;
@@ -74,7 +75,7 @@
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(745, 173);
+            lblCategory.Location = new Point(499, 45);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(94, 20);
             lblCategory.TabIndex = 2;
@@ -83,7 +84,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(1026, 173);
+            lblStatus.Location = new Point(885, 45);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(116, 20);
             lblStatus.TabIndex = 3;
@@ -92,7 +93,7 @@
             // lblAssignedProvider
             // 
             lblAssignedProvider.AutoSize = true;
-            lblAssignedProvider.Location = new Point(490, 266);
+            lblAssignedProvider.Location = new Point(24, 122);
             lblAssignedProvider.Name = "lblAssignedProvider";
             lblAssignedProvider.Size = new Size(131, 20);
             lblAssignedProvider.TabIndex = 4;
@@ -101,7 +102,7 @@
             // lblAppointment
             // 
             lblAppointment.AutoSize = true;
-            lblAppointment.Location = new Point(745, 266);
+            lblAppointment.Location = new Point(499, 122);
             lblAppointment.Name = "lblAppointment";
             lblAppointment.Size = new Size(85, 20);
             lblAppointment.TabIndex = 5;
@@ -110,7 +111,7 @@
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
-            lblEstimatedCost.Location = new Point(1026, 266);
+            lblEstimatedCost.Location = new Point(885, 122);
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(111, 20);
             lblEstimatedCost.TabIndex = 6;
@@ -119,7 +120,7 @@
             // lblFinalCost
             // 
             lblFinalCost.AutoSize = true;
-            lblFinalCost.Location = new Point(507, 363);
+            lblFinalCost.Location = new Point(24, 205);
             lblFinalCost.Name = "lblFinalCost";
             lblFinalCost.Size = new Size(76, 20);
             lblFinalCost.TabIndex = 7;
@@ -144,14 +145,7 @@
             pnlDetails.BackColor = Color.White;
             pnlDetails.BorderStyle = BorderStyle.FixedSingle;
             pnlDetails.Controls.Add(panel1);
-            pnlDetails.Controls.Add(lblFinalCost);
             pnlDetails.Controls.Add(btnRefresh);
-            pnlDetails.Controls.Add(lblEstimatedCost);
-            pnlDetails.Controls.Add(lblAppointment);
-            pnlDetails.Controls.Add(lblAssignedProvider);
-            pnlDetails.Controls.Add(lblStatus);
-            pnlDetails.Controls.Add(lblCategory);
-            pnlDetails.Controls.Add(lblRequestNum);
             pnlDetails.Controls.Add(dgvRequests);
             pnlDetails.Controls.Add(gbxServiceDetails);
             pnlDetails.Dock = DockStyle.Fill;
@@ -210,6 +204,13 @@
             // 
             // gbxServiceDetails
             // 
+            gbxServiceDetails.Controls.Add(lblRequestNum);
+            gbxServiceDetails.Controls.Add(lblFinalCost);
+            gbxServiceDetails.Controls.Add(lblCategory);
+            gbxServiceDetails.Controls.Add(lblStatus);
+            gbxServiceDetails.Controls.Add(lblEstimatedCost);
+            gbxServiceDetails.Controls.Add(lblAssignedProvider);
+            gbxServiceDetails.Controls.Add(lblAppointment);
             gbxServiceDetails.Location = new Point(237, 144);
             gbxServiceDetails.Name = "gbxServiceDetails";
             gbxServiceDetails.Size = new Size(1275, 239);
@@ -230,9 +231,10 @@
             Load += RequestTrackingForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRequests).EndInit();
             pnlDetails.ResumeLayout(false);
-            pnlDetails.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            gbxServiceDetails.ResumeLayout(false);
+            gbxServiceDetails.PerformLayout();
             ResumeLayout(false);
         }
 
