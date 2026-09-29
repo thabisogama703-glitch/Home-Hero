@@ -65,6 +65,16 @@ namespace Home_Hero
                     MessageBoxIcon.Warning);
                 return;
             }
+            if (txtProblemDescription.Text.Trim().Length < 10)
+            {
+                MessageBox.Show(
+                    "Please provide a more detailed description of the problem.",
+                    "Invalid Description",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
             {
                 MessageBox.Show(
@@ -74,6 +84,16 @@ namespace Home_Hero
                     MessageBoxIcon.Warning);
                 return;
             }
+            if (txtAddress.Text.Trim().Length < 5)
+            {
+                MessageBox.Show(
+                    "Please enter a valid property address.",
+                    "Invalid Address",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             if (dtpDatePreferred.Value.Date < DateTime.Today)
             {
                 MessageBox.Show(
@@ -92,6 +112,58 @@ namespace Home_Hero
                     MessageBoxIcon.Warning);
                 return;
             }
+            if (dtpDatePreferred.Value.Date == DateTime.Today &&
+                   cmbTimeSlot.SelectedIndex != -1)
+            {
+                string selectedTime = cmbTimeSlot.SelectedItem.ToString();
+
+                DateTime currentTime = DateTime.Now;
+
+                if (selectedTime.StartsWith("08:00") &&
+                    currentTime.TimeOfDay >= new TimeSpan(8, 0, 0))
+                {
+                    MessageBox.Show(
+                        "The selected time slot has already passed. Please choose another time.",
+                        "Invalid Time",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (selectedTime.StartsWith("10:00") &&
+                    currentTime.TimeOfDay >= new TimeSpan(10, 0, 0))
+                {
+                    MessageBox.Show(
+                        "The selected time slot has already passed. Please choose another time.",
+                        "Invalid Time",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (selectedTime.StartsWith("12:00") &&
+                    currentTime.TimeOfDay >= new TimeSpan(12, 0, 0))
+                {
+                    MessageBox.Show(
+                        "The selected time slot has already passed. Please choose another time.",
+                        "Invalid Time",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (selectedTime.StartsWith("02:00") &&
+                    currentTime.TimeOfDay >= new TimeSpan(14, 0, 0))
+                {
+                    MessageBox.Show(
+                        "The selected time slot has already passed. Please choose another time.",
+                        "Invalid Time",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             string CurrentCustomerId = "11";
             MaintenanceRequest newRequest = new MaintenanceRequest(
                 CurrentCustomerId,
@@ -101,6 +173,17 @@ namespace Home_Hero
                 dtpDatePreferred.Value.Date,
                 cmbTimeSlot.SelectedItem.ToString()
                 );
+            if (!newRequest.ValidateRequest(out string errorMessage))
+            {
+                MessageBox.Show(
+                    errorMessage,
+                    "Invalid Request",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
             DataManager.AddRequest(newRequest);
 
             DialogResult result =  MessageBox.Show(

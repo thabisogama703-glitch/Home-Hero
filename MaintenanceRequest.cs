@@ -28,10 +28,26 @@ namespace Home_Hero
         public decimal FinalCost { get; set; }
         public object ServiceRequest { get; internal set; }
 
+        public void SetRequestNumber(string requestNumber)
+        {
+            RequestNumber = requestNumber;
+        }
+        public void SetStatusFromFile(RequestStatus status)
+        {
+            Status = status;
+        }
+        public void SetCostsFromFile(decimal estimatedCost, decimal finalCost)
+        {
+            EstimatedCost = estimatedCost;
+            FinalCost = finalCost;
+        }
+
+
+
         public MaintenanceRequest() { }
         public MaintenanceRequest(string customerId, string category, string description, string address, DateTime preferredDate, string preferredTime)
         {
-            RequestNumber = "REQ-" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
+            RequestNumber = "REQ-" + DateTime.Now.ToString("yyyyMMdd-HHmmss-fff");
             CustomerId = customerId;
             ServiceCategory = category;
             ProblemDescription = description;
@@ -49,7 +65,14 @@ namespace Home_Hero
             this.customer = customer;
             this.service = service;
             this.requestDescription = requestDescription;
+
+            RequestNumber = "REQ-" + DateTime.Now.ToString("yyyyMMdd-HHmmss-fff");
+            Status = RequestStatus.Requested;
+            AssignedProviderId = "Unassigned";
+            EstimatedCost = 0.00m;
+            FinalCost = 0.00m;
         }
+
 
         public decimal CalculateEstimatedCost(string category)
         {
@@ -68,10 +91,17 @@ namespace Home_Hero
         }
         public bool TryUpdateStatus(RequestStatus newStatus, out string errorMessage)
         {
-            errorMessage = string.Empty;
-            if (Status == RequestStatus.Completed || Status == RequestStatus.Cancelled)
+            errorMessage = "";
+
+            if (Status == RequestStatus.Completed)
             {
-                errorMessage = "Cannot modify a job that is already completed or cancelled!";
+                errorMessage = "A completed request cannot be updated.";
+                return false;
+            }
+
+            if (Status == RequestStatus.Cancelled)
+            {
+                errorMessage = "A cancelled request cannot be updated.";
                 return false;
             }
 
@@ -80,14 +110,109 @@ namespace Home_Hero
                 Status = RequestStatus.Cancelled;
                 return true;
             }
-            if ((int)newStatus == (int)Status + 1)
+
+            bool validTransition = false;
+
+            switch (Status)
+            {
+                case RequestStatus.Requested:
+                    if (newStatus == RequestStatus.Approved)
+                    {
+                        validTransition = true;
+                    }
+                    break;
+
+                case RequestStatus.Approved:
+                    if (newStatus == RequestStatus.ProviderAssigned)
+                    {
+                        validTransition = true;
+                    }
+                    break;
+
+                case RequestStatus.ProviderAssigned:
+                    if (newStatus == RequestStatus.Scheduled)
+                    {
+                        validTransition = true;
+                    }
+                    break;
+
+                case RequestStatus.Scheduled:
+                    if (newStatus == RequestStatus.InProgress)
+                    {
+                        validTransition = true;
+                    }
+                    break;
+
+                case RequestStatus.InProgress:
+                    if (newStatus == RequestStatus.Completed)
+                    {
+                        validTransition = true;
+                    }
+                    break;
+            }
+
+            if (validTransition)
             {
                 Status = newStatus;
                 return true;
             }
-            errorMessage = $"Invalid status transition from {Status} to {newStatus}";
+
+            errorMessage =
+                $"Invalid status transition from {Status} to {newStatus}.";
+
             return false;
         }
+
+        public bool ValidateRequest(out string errorMessage)
+        {
+            errorMessage = "";
+
+            if (string.IsNullOrWhiteSpace(CustomerId))
+            {
+                errorMessage = "Customer information is required.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(ServiceCategory))
+            {
+                errorMessage = "Please select a service category.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(ProblemDescription))
+            {
+                errorMessage = "Please provide a description of the problem.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(PropertyAddress))
+            {
+                errorMessage = "Please provide the property address.";
+                return false;
+            }
+
+            if (PreferredDate.Date < DateTime.Today)
+            {
+                errorMessage = "The preferred appointment date cannot be in the past.";
+                return false;
+            }
+
+            if (EstimatedCost < 0)
+            {
+                errorMessage = "Estimated cost cannot be negative.";
+                return false;
+            }
+
+            if (FinalCost < 0)
+            {
+                errorMessage = "Final cost cannot be negative.";
+                return false;
+            }
+
+            return true;
+        }
+
+
     }
 }
 
