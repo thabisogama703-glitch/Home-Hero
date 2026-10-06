@@ -88,11 +88,7 @@ namespace Home_Hero
 
                 if (filtered.Count == 0)
                 {
-                    MessageBox.Show(
-                        "No matching providers found.",
-                        "Search",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    MessageBox.Show("No matching providers found.","Search",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
             }
             else
@@ -109,8 +105,7 @@ namespace Home_Hero
                 return;
             }
 
-            string providerName =
-                dgvProviders.CurrentRow.Cells["Name"].Value?.ToString();
+            string providerName =dgvProviders.CurrentRow.Cells["Name"].Value?.ToString();
 
             if (string.IsNullOrEmpty(providerName))
                 return;
