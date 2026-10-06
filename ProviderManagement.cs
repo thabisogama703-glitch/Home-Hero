@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero_2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,26 +17,46 @@ namespace Home_Hero
         public frmProviderManagement()
         {
             InitializeComponent();
-            LoadProvidersToGrid();
+            LoadProvidersToGrid(DataManager.LoadServiceProviders());
         }
-        private void LoadProvidersToGrid()
+        private void LoadProvidersToGrid(IEnumerable<ServiceProvider> providers)
         {
-            var providers = DataManager.LoadServiceProviders();
+            var providers_ = DataManager.LoadServiceProviders();
 
-            var table = new System.Data.DataTable();
+            DataTable table = new DataTable();
+
             table.Columns.Add("Name");
-            table.Columns.Add("Specialisation");
+            table.Columns.Add("Email");
             table.Columns.Add("Phone");
+            table.Columns.Add("Service Area");
+            table.Columns.Add("Specialisation");
             table.Columns.Add("Jobs");
 
             foreach (var p in providers)
             {
-                string spec = p.Specialisation != null ? string.Join(", ", p.Specialisation) : "None";
-                table.Rows.Add(p.FirstName + " " + p.LastName, spec, p.PhoneNumber, p.Assignedjobs.Count);
+                string name = p.FirstName + " " + p.LastName;
+
+                string specialisation = p.Specialisation == null ||
+                                        p.Specialisation.Count == 0
+                    ? "None"
+                    : string.Join(", ", p.Specialisation);
+
+                int jobs = p.Assignedjobs == null
+                    ? 0
+                    : p.Assignedjobs.Count;
+
+                table.Rows.Add(
+                    name,
+                    p.Email,
+                    p.PhoneNumber,
+                    p.Location,
+                    specialisation,
+                    jobs
+                );
             }
 
+            dgvProviders.DataSource = null;
             dgvProviders.DataSource = table;
-            dgvProviders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
 
@@ -51,40 +72,75 @@ namespace Home_Hero
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
             string searchText = txtSearchProvider.Text.Trim();
+
+            var providers = DataManager.LoadServiceProviders();
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                var providers = DataManager.LoadServiceProviders();
-
                 var filtered = providers
-                    .Where(p => (p.FirstName + " " + p.LastName).Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                    .Where(p =>
+                        (p.FirstName + " " + p.LastName)
+                        .Contains(searchText, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                dgvProviders.DataSource = null;
-                dgvProviders.DataSource = filtered;
+                LoadProvidersToGrid(filtered);
 
                 if (filtered.Count == 0)
                 {
-                    MessageBox.Show("No matching providers found.");
+                    MessageBox.Show(
+                        "No matching providers found.",
+                        "Search",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
             }
             else
             {
-                dgvProviders.DataSource = null;
-                dgvProviders.DataSource = DataManager.LoadServiceProviders();
+                LoadProvidersToGrid(providers);
             }
         }
 
         private void btnAddProvider_Click(object sender, EventArgs e)
         {
+            if (dgvProviders.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a provider first.");
+                return;
+            }
 
+            string providerName =
+                dgvProviders.CurrentRow.Cells["Name"].Value?.ToString();
+
+            if (string.IsNullOrEmpty(providerName))
+                return;
+
+            var providers = DataManager.LoadServiceProviders();
+
+            ServiceProvider provider = providers.FirstOrDefault(p =>(p.FirstName + " " + p.LastName).Equals(providerName, StringComparison.OrdinalIgnoreCase));
+
+            if (provider == null)
+            {
+                MessageBox.Show("Provider could not be found.");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Are you sure you want to remove " + providerName + "?","Remove Provider",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DataManager.DeleteServiceProvider(provider.UserId);
+
+                LoadProvidersToGrid(DataManager.LoadServiceProviders());
+
+                MessageBox.Show("Provider removed successfully.","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
         }
 
         private void btnAddProvider__Click(object sender, EventArgs e)
         {
-
+            AddProvider addProviderForm = new AddProvider();
+            addProviderForm.Show();
         }
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

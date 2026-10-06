@@ -26,6 +26,69 @@ namespace Home_Hero
             return JsonSerializer.Deserialize<List<ServiceProvider>>(json)
                    ?? new List<ServiceProvider>();
         }
+        public static void SaveServiceProviders(
+           List<ServiceProvider> providers)
+        {
+            try
+            {
+                string json = JsonSerializer.Serialize(
+                    providers,
+                    new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+
+                File.WriteAllText(providerFile, json);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Providers could not be saved.\n\n" + ex.Message,"File Error",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Error);
+            }
+        }
+        public static void AddServiceProvider(ServiceProvider provider)
+        {
+            List<ServiceProvider> providers =LoadServiceProviders();
+
+            providers.Add(provider);
+
+            SaveServiceProviders(providers);
+        }
+        public static bool UpdateServiceProvider(
+            ServiceProvider updatedProvider)
+        {
+            List<ServiceProvider> providers =
+                LoadServiceProviders();
+
+            int index = providers.FindIndex(
+                p => p.UserId == updatedProvider.UserId);
+
+            if (index == -1)
+                return false;
+
+            providers[index] = updatedProvider;
+
+            SaveServiceProviders(providers);
+
+            return true;
+        }
+        public static bool DeleteServiceProvider(
+           Guid userId)
+        {
+            List<ServiceProvider> providers =
+                LoadServiceProviders();
+
+            ServiceProvider provider =providers.FirstOrDefault(p => p.UserId == userId);
+
+            if (provider == null)
+                return false;
+
+            providers.Remove(provider);
+
+            SaveServiceProviders(providers);
+
+            return true;
+        }
+
 
 
         public static List<MaintenanceRequest> LoadRequests()

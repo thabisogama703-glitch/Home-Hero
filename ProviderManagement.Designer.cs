@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             dgvProviders = new DataGridView();
-            name = new DataGridViewTextBoxColumn();
-            specialization = new DataGridViewTextBoxColumn();
             btnAddProvider_ = new Button();
             btnRemoveProvider = new Button();
             label3 = new Label();
@@ -63,25 +61,12 @@
             // 
             dgvProviders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProviders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProviders.Columns.AddRange(new DataGridViewColumn[] { name, specialization });
             dgvProviders.Location = new Point(176, 359);
             dgvProviders.Name = "dgvProviders";
             dgvProviders.RowHeadersWidth = 51;
             dgvProviders.Size = new Size(1336, 577);
             dgvProviders.TabIndex = 0;
             dgvProviders.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // name
-            // 
-            name.HeaderText = "Name";
-            name.MinimumWidth = 6;
-            name.Name = "name";
-            // 
-            // specialization
-            // 
-            specialization.HeaderText = "Specialization";
-            specialization.MinimumWidth = 6;
-            specialization.Name = "specialization";
             // 
             // btnAddProvider_
             // 
@@ -389,8 +374,6 @@
         #endregion
 
         private DataGridView dgvProviders;
-        private DataGridViewTextBoxColumn name;
-        private DataGridViewTextBoxColumn specialization;
         private Button btnAddProvider_;
         private Button btnRemoveProvider;
         private Label label3;

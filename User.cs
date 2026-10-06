@@ -14,7 +14,7 @@ namespace HomeHero_2
         public string Email { get;  protected set; }
         public string PhoneNumber { get; protected set; }
 
-        private string _password;
+        public string Password { get; private set; }
 
         public User (string firstName , string lastName,string phoneNumber,string email, string password) 
         {
@@ -29,12 +29,12 @@ namespace HomeHero_2
         
         public void SetPassword(string password) 
         {
-             _password = password;
+             Password = password;
 
         }
         public bool VerifyPassword (string inputPassword)
         {
-            return _password == inputPassword;
+            return Password == inputPassword;
         }
 
         public abstract string UserType();
