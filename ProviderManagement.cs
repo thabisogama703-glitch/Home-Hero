@@ -109,7 +109,6 @@ namespace Home_Hero
 
             if (string.IsNullOrEmpty(providerName))
                 return;
-
             var providers = DataManager.LoadServiceProviders();
 
             ServiceProvider provider = providers.FirstOrDefault(p =>(p.FirstName + " " + p.LastName).Equals(providerName, StringComparison.OrdinalIgnoreCase));
