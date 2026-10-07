@@ -54,53 +54,33 @@ namespace HomeHero_2
                 ClearFields();
                 return;
             }
-            Administrator Thabiso = new Administrator();
-            Thabiso.AdminName = "Thabiso";
-            Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
-            Thabiso.Password = "@Thandolwami07";
-            administrators.Add(Thabiso);
 
-            Administrator Sibusiso = new Administrator();
-            Sibusiso.AdminName = "Sibusiso";
-            Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
-            Sibusiso.Password = "@Thandolwami07";
-            administrators.Add(Sibusiso);
+            CustomerDatabase adminDatabase = new CustomerDatabase(); ;
 
-            bool adminLoggedIn = false;
+            Administrator loggedInAdministrator =
+            adminDatabase.LoginAdministrator(email, password);
 
-            foreach (Administrator administrator in administrators)
+            if (loggedInAdministrator != null)
             {
-                if (email.Trim().ToLower() == administrator.EmailAdress)
-                {
-                    if (password.Trim() == administrator.Password)
-                    {
-                        adminLoggedIn = true;
-                        MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin succesfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmAdminDashboard adminDashboard = new frmAdminDashboard();
-                        this.Hide();
-                        adminDashboard.Show();
-                        break;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
+                MessageBox.Show("Login successful!", "Administrator Login",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            if (string.IsNullOrEmpty(selectedUserType) && adminLoggedIn == false)
-            {
-                MessageBox.Show("Please select a user type.");
+                ClearFields();
+
+                frmAdminDashboard adminDashboard = new frmAdminDashboard();
+                this.Hide();
+                adminDashboard.Show();
+
                 return;
             }
 
             if (selectedUserType == "Customer")
             {
+                CustomerDatabase database = new CustomerDatabase();
 
-                Customer loggedInCustomer = new Customer("","",email,"",password); // We create a variable to hold the customer if we find one.
-                string message = loggedInCustomer.ReadFromFile(email, password);
+                Customer loggedInCustomer = database.LoginCustomer(email, password);
 
-                if (message == "Unsuccesful login")
+                if (loggedInCustomer == null)
                 {
                     MessageBox.Show("Invalid email or password");
                     ClearFields();
@@ -108,17 +88,41 @@ namespace HomeHero_2
                 }
                 else
                 {
-                    MessageBox.Show("Login successful !", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Login successful!", "Login Successful",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     ClearFields();
+
                     frmCustomerDashboard customerForm = new frmCustomerDashboard();
                     this.Hide();
                     customerForm.Show();
                 }
 
+
+
             }
             else if (selectedUserType == "Service Provider")
             {
-                
+                CustomerDatabase database = new CustomerDatabase();
+
+                ServiceProvider loggedInServiceProvider =
+                    database.LoginServiceProvider(email, password);
+
+                if (loggedInServiceProvider == null)
+                {
+                    MessageBox.Show("Invalid email or password");
+                    ClearFields();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Login successful!", "Login Successful",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ClearFields();
+
+                    // Add your Service Provider dashboard here later
+                }
             }
 
         }

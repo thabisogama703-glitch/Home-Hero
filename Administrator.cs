@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Home_Hero
+namespace HomeHero_2
 {
     public class Administrator
     {
