@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeHero_2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,6 +35,34 @@ namespace Home_Hero
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            frmHomeHeroLogin LoginPage = new frmHomeHeroLogin();
+            this.Hide();
+            LoginPage.Show();
+        }
+
+        private void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            frmHomeHeroRegistration createAccountPage = new frmHomeHeroRegistration();
+            this.Hide();
+            createAccountPage.Show();
+        }
+
+        private void btnRequestAService_Click(object sender, EventArgs e)
+        {
+            frmRequestAService requestAServicePage = new frmRequestAService();
+            this.Hide();
+            requestAServicePage.Show();
+        }
+
+        private void lnklblHome_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
+            frmHomeHeroHomepage.Show();
+            this.Hide();
         }
     }
 }

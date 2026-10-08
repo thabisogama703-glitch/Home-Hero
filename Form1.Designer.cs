@@ -35,7 +35,7 @@
             lnklblServices = new LinkLabel();
             lnklblHowItWorks = new LinkLabel();
             lnklblProviders = new LinkLabel();
-            lnklblPricing = new LinkLabel();
+            lnklblHome = new LinkLabel();
             pnlServicesButtons = new Panel();
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
@@ -126,13 +126,13 @@
             // 
             flpNavigationTab.Anchor = AnchorStyles.None;
             flpNavigationTab.AutoSize = true;
+            flpNavigationTab.Controls.Add(lnklblHome);
             flpNavigationTab.Controls.Add(lnklblServices);
             flpNavigationTab.Controls.Add(lnklblHowItWorks);
             flpNavigationTab.Controls.Add(lnklblProviders);
-            flpNavigationTab.Controls.Add(lnklblPricing);
-            flpNavigationTab.Location = new Point(395, 38);
+            flpNavigationTab.Location = new Point(400, 38);
             flpNavigationTab.Name = "flpNavigationTab";
-            flpNavigationTab.Size = new Size(635, 31);
+            flpNavigationTab.Size = new Size(625, 31);
             flpNavigationTab.TabIndex = 6;
             // 
             // lnklblServices
@@ -141,7 +141,7 @@
             lnklblServices.Font = new Font("Segoe UI", 13.8F);
             lnklblServices.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblServices.LinkColor = Color.LightGray;
-            lnklblServices.Location = new Point(25, 0);
+            lnklblServices.Location = new Point(150, 0);
             lnklblServices.Margin = new Padding(25, 0, 25, 0);
             lnklblServices.Name = "lnklblServices";
             lnklblServices.Size = new Size(96, 31);
@@ -156,7 +156,7 @@
             lnklblHowItWorks.Font = new Font("Segoe UI", 13.8F);
             lnklblHowItWorks.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblHowItWorks.LinkColor = Color.LightGray;
-            lnklblHowItWorks.Location = new Point(171, 0);
+            lnklblHowItWorks.Location = new Point(296, 0);
             lnklblHowItWorks.Margin = new Padding(25, 0, 25, 0);
             lnklblHowItWorks.Name = "lnklblHowItWorks";
             lnklblHowItWorks.Size = new Size(145, 31);
@@ -171,7 +171,7 @@
             lnklblProviders.Font = new Font("Segoe UI", 13.8F);
             lnklblProviders.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblProviders.LinkColor = Color.LightGray;
-            lnklblProviders.Location = new Point(366, 0);
+            lnklblProviders.Location = new Point(491, 0);
             lnklblProviders.Margin = new Padding(25, 0, 25, 0);
             lnklblProviders.Name = "lnklblProviders";
             lnklblProviders.Size = new Size(109, 31);
@@ -180,19 +180,19 @@
             lnklblProviders.Text = "Providers";
             lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
             // 
-            // lnklblPricing
+            // lnklblHome
             // 
-            lnklblPricing.AutoSize = true;
-            lnklblPricing.Font = new Font("Segoe UI", 13.8F);
-            lnklblPricing.LinkBehavior = LinkBehavior.NeverUnderline;
-            lnklblPricing.LinkColor = Color.LightGray;
-            lnklblPricing.Location = new Point(525, 0);
-            lnklblPricing.Margin = new Padding(25, 0, 25, 0);
-            lnklblPricing.Name = "lnklblPricing";
-            lnklblPricing.Size = new Size(85, 31);
-            lnklblPricing.TabIndex = 4;
-            lnklblPricing.TabStop = true;
-            lnklblPricing.Text = "Pricing";
+            lnklblHome.AutoSize = true;
+            lnklblHome.Font = new Font("Segoe UI", 13.8F);
+            lnklblHome.LinkBehavior = LinkBehavior.NeverUnderline;
+            lnklblHome.LinkColor = Color.LightGray;
+            lnklblHome.Location = new Point(25, 0);
+            lnklblHome.Margin = new Padding(25, 0, 25, 0);
+            lnklblHome.Name = "lnklblHome";
+            lnklblHome.Size = new Size(75, 31);
+            lnklblHome.TabIndex = 4;
+            lnklblHome.TabStop = true;
+            lnklblHome.Text = "Home";
             // 
             // pnlServicesButtons
             // 
@@ -649,7 +649,7 @@
         private LinkLabel lnklblServices;
         private LinkLabel lnklblHowItWorks;
         private LinkLabel lnklblProviders;
-        private LinkLabel lnklblPricing;
+        private LinkLabel lnklblHome;
         private Button btnLogin;
         private Button btnCreateAccount;
         private Button btnRequestAService;

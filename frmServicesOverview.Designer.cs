@@ -34,7 +34,7 @@
             lnklblServices = new LinkLabel();
             lnklblHowItWorks = new LinkLabel();
             lnklblProviders = new LinkLabel();
-            lnklblPricing = new LinkLabel();
+            lnklblHome = new LinkLabel();
             pnlServicesButtons = new Panel();
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
@@ -44,17 +44,17 @@
             lblHome = new Label();
             pbxHomeHeroLogo = new PictureBox();
             panel1 = new Panel();
-            lblWhatWeOffer = new Label();
-            label1 = new Label();
-            lblDescription = new Label();
-            btnPlumbing = new Button();
-            btnElectrical = new Button();
-            button3 = new Button();
-            button4 = new Button();
             button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
+            button4 = new Button();
             button8 = new Button();
+            button3 = new Button();
+            button7 = new Button();
+            btnElectrical = new Button();
+            button6 = new Button();
+            btnPlumbing = new Button();
+            lblDescription = new Label();
+            label1 = new Label();
+            lblWhatWeOffer = new Label();
             pnlHomeHero.SuspendLayout();
             tblpHomeHeroPanel.SuspendLayout();
             flpNavigationTab.SuspendLayout();
@@ -100,13 +100,13 @@
             // 
             flpNavigationTab.Anchor = AnchorStyles.None;
             flpNavigationTab.AutoSize = true;
+            flpNavigationTab.Controls.Add(lnklblHome);
             flpNavigationTab.Controls.Add(lnklblServices);
             flpNavigationTab.Controls.Add(lnklblHowItWorks);
             flpNavigationTab.Controls.Add(lnklblProviders);
-            flpNavigationTab.Controls.Add(lnklblPricing);
-            flpNavigationTab.Location = new Point(395, 38);
+            flpNavigationTab.Location = new Point(400, 38);
             flpNavigationTab.Name = "flpNavigationTab";
-            flpNavigationTab.Size = new Size(635, 31);
+            flpNavigationTab.Size = new Size(625, 31);
             flpNavigationTab.TabIndex = 6;
             // 
             // lnklblServices
@@ -115,7 +115,7 @@
             lnklblServices.Font = new Font("Segoe UI", 13.8F);
             lnklblServices.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblServices.LinkColor = Color.LightGray;
-            lnklblServices.Location = new Point(25, 0);
+            lnklblServices.Location = new Point(150, 0);
             lnklblServices.Margin = new Padding(25, 0, 25, 0);
             lnklblServices.Name = "lnklblServices";
             lnklblServices.Size = new Size(96, 31);
@@ -130,7 +130,7 @@
             lnklblHowItWorks.Font = new Font("Segoe UI", 13.8F);
             lnklblHowItWorks.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblHowItWorks.LinkColor = Color.LightGray;
-            lnklblHowItWorks.Location = new Point(171, 0);
+            lnklblHowItWorks.Location = new Point(296, 0);
             lnklblHowItWorks.Margin = new Padding(25, 0, 25, 0);
             lnklblHowItWorks.Name = "lnklblHowItWorks";
             lnklblHowItWorks.Size = new Size(145, 31);
@@ -145,7 +145,7 @@
             lnklblProviders.Font = new Font("Segoe UI", 13.8F);
             lnklblProviders.LinkBehavior = LinkBehavior.NeverUnderline;
             lnklblProviders.LinkColor = Color.LightGray;
-            lnklblProviders.Location = new Point(366, 0);
+            lnklblProviders.Location = new Point(491, 0);
             lnklblProviders.Margin = new Padding(25, 0, 25, 0);
             lnklblProviders.Name = "lnklblProviders";
             lnklblProviders.Size = new Size(109, 31);
@@ -154,19 +154,20 @@
             lnklblProviders.Text = "Providers";
             lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
             // 
-            // lnklblPricing
+            // lnklblHome
             // 
-            lnklblPricing.AutoSize = true;
-            lnklblPricing.Font = new Font("Segoe UI", 13.8F);
-            lnklblPricing.LinkBehavior = LinkBehavior.NeverUnderline;
-            lnklblPricing.LinkColor = Color.LightGray;
-            lnklblPricing.Location = new Point(525, 0);
-            lnklblPricing.Margin = new Padding(25, 0, 25, 0);
-            lnklblPricing.Name = "lnklblPricing";
-            lnklblPricing.Size = new Size(85, 31);
-            lnklblPricing.TabIndex = 4;
-            lnklblPricing.TabStop = true;
-            lnklblPricing.Text = "Pricing";
+            lnklblHome.AutoSize = true;
+            lnklblHome.Font = new Font("Segoe UI", 13.8F);
+            lnklblHome.LinkBehavior = LinkBehavior.NeverUnderline;
+            lnklblHome.LinkColor = Color.LightGray;
+            lnklblHome.Location = new Point(25, 0);
+            lnklblHome.Margin = new Padding(25, 0, 25, 0);
+            lnklblHome.Name = "lnklblHome";
+            lnklblHome.Size = new Size(75, 31);
+            lnklblHome.TabIndex = 4;
+            lnklblHome.TabStop = true;
+            lnklblHome.Text = "Home";
+            lnklblHome.LinkClicked += lnklblHome_LinkClicked;
             // 
             // pnlServicesButtons
             // 
@@ -194,6 +195,7 @@
             btnRequestAService.TabIndex = 2;
             btnRequestAService.Text = "Request a Service";
             btnRequestAService.UseVisualStyleBackColor = false;
+            btnRequestAService.Click += btnRequestAService_Click;
             // 
             // btnCreateAccount
             // 
@@ -211,6 +213,7 @@
             btnCreateAccount.TabIndex = 1;
             btnCreateAccount.Text = "Create Account";
             btnCreateAccount.UseVisualStyleBackColor = false;
+            btnCreateAccount.Click += btnCreateAccount_Click;
             // 
             // btnLogin
             // 
@@ -227,6 +230,7 @@
             btnLogin.TabIndex = 0;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // pnlHomeHeroLogo
             // 
@@ -289,71 +293,18 @@
             panel1.Size = new Size(1678, 812);
             panel1.TabIndex = 2;
             // 
-            // lblWhatWeOffer
+            // button5
             // 
-            lblWhatWeOffer.AutoSize = true;
-            lblWhatWeOffer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWhatWeOffer.ForeColor = Color.FromArgb(255, 128, 0);
-            lblWhatWeOffer.Location = new Point(39, 42);
-            lblWhatWeOffer.Name = "lblWhatWeOffer";
-            lblWhatWeOffer.Size = new Size(130, 20);
-            lblWhatWeOffer.TabIndex = 0;
-            lblWhatWeOffer.Text = "WHAT WE OFFER";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(39, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(465, 124);
-            label1.TabIndex = 1;
-            label1.Text = "Every home service,\r\nin one place";
-            // 
-            // lblDescription
-            // 
-            lblDescription.AutoSize = true;
-            lblDescription.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDescription.Location = new Point(39, 238);
-            lblDescription.Name = "lblDescription";
-            lblDescription.Size = new Size(744, 114);
-            lblDescription.TabIndex = 2;
-            lblDescription.Text = "From emergency repairs to scheduled maintenance, our\r\nnetwork covers all the trades that keep your home running\r\nsmoothly.";
-            // 
-            // btnPlumbing
-            // 
-            btnPlumbing.BackColor = Color.FromArgb(255, 128, 0);
-            btnPlumbing.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPlumbing.ForeColor = Color.White;
-            btnPlumbing.Location = new Point(3, 386);
-            btnPlumbing.Name = "btnPlumbing";
-            btnPlumbing.Size = new Size(330, 155);
-            btnPlumbing.TabIndex = 3;
-            btnPlumbing.Text = "🔧\r\nPlumbing";
-            btnPlumbing.UseVisualStyleBackColor = false;
-            // 
-            // btnElectrical
-            // 
-            btnElectrical.BackColor = Color.FromArgb(0, 0, 64);
-            btnElectrical.Font = new Font("Segoe UI", 13.8F);
-            btnElectrical.ForeColor = Color.White;
-            btnElectrical.Location = new Point(339, 386);
-            btnElectrical.Name = "btnElectrical";
-            btnElectrical.Size = new Size(330, 155);
-            btnElectrical.TabIndex = 3;
-            btnElectrical.Text = "⚡\r\nElectrical";
-            btnElectrical.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.FromArgb(255, 128, 0);
-            button3.Font = new Font("Segoe UI", 13.8F);
-            button3.Location = new Point(675, 386);
-            button3.Name = "button3";
-            button3.Size = new Size(330, 155);
-            button3.TabIndex = 3;
-            button3.Text = "❄️\r\nHVAC";
-            button3.UseVisualStyleBackColor = false;
+            button5.BackColor = Color.FromArgb(255, 128, 0);
+            button5.Font = new Font("Segoe UI", 13.8F);
+            button5.ForeColor = Color.White;
+            button5.Location = new Point(1348, 386);
+            button5.Name = "button5";
+            button5.Size = new Size(330, 155);
+            button5.TabIndex = 3;
+            button5.Text = "\U0001fa9f\r\nWindows & Doors";
+            button5.UseVisualStyleBackColor = false;
+            button5.Click += button5_Click;
             // 
             // button4
             // 
@@ -366,42 +317,7 @@
             button4.TabIndex = 3;
             button4.Text = "🏠\r\nRoofing";
             button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.FromArgb(255, 128, 0);
-            button5.Font = new Font("Segoe UI", 13.8F);
-            button5.ForeColor = Color.White;
-            button5.Location = new Point(1348, 386);
-            button5.Name = "button5";
-            button5.Size = new Size(330, 155);
-            button5.TabIndex = 3;
-            button5.Text = "\U0001fa9f\r\nWindows & Doors";
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.FromArgb(0, 0, 64);
-            button6.Font = new Font("Segoe UI", 13.8F);
-            button6.ForeColor = Color.White;
-            button6.Location = new Point(3, 561);
-            button6.Name = "button6";
-            button6.Size = new Size(330, 155);
-            button6.TabIndex = 3;
-            button6.Text = "🌿\r\nLandscaping";
-            button6.UseVisualStyleBackColor = false;
-            // 
-            // button7
-            // 
-            button7.BackColor = Color.FromArgb(255, 128, 0);
-            button7.Font = new Font("Segoe UI", 13.8F);
-            button7.ForeColor = Color.White;
-            button7.Location = new Point(339, 561);
-            button7.Name = "button7";
-            button7.Size = new Size(330, 155);
-            button7.TabIndex = 3;
-            button7.Text = "🎨\r\nPainting";
-            button7.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
             // 
             // button8
             // 
@@ -414,6 +330,102 @@
             button8.TabIndex = 3;
             button8.Text = "\U0001f9f9\r\nDeep Cleaning";
             button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(255, 128, 0);
+            button3.Font = new Font("Segoe UI", 13.8F);
+            button3.Location = new Point(675, 386);
+            button3.Name = "button3";
+            button3.Size = new Size(330, 155);
+            button3.TabIndex = 3;
+            button3.Text = "❄️\r\nHVAC";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.FromArgb(255, 128, 0);
+            button7.Font = new Font("Segoe UI", 13.8F);
+            button7.ForeColor = Color.White;
+            button7.Location = new Point(339, 561);
+            button7.Name = "button7";
+            button7.Size = new Size(330, 155);
+            button7.TabIndex = 3;
+            button7.Text = "🎨\r\nPainting";
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
+            // 
+            // btnElectrical
+            // 
+            btnElectrical.BackColor = Color.FromArgb(0, 0, 64);
+            btnElectrical.Font = new Font("Segoe UI", 13.8F);
+            btnElectrical.ForeColor = Color.White;
+            btnElectrical.Location = new Point(339, 386);
+            btnElectrical.Name = "btnElectrical";
+            btnElectrical.Size = new Size(330, 155);
+            btnElectrical.TabIndex = 3;
+            btnElectrical.Text = "⚡\r\nElectrical";
+            btnElectrical.UseVisualStyleBackColor = false;
+            btnElectrical.Click += btnElectrical_Click;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.FromArgb(0, 0, 64);
+            button6.Font = new Font("Segoe UI", 13.8F);
+            button6.ForeColor = Color.White;
+            button6.Location = new Point(3, 561);
+            button6.Name = "button6";
+            button6.Size = new Size(330, 155);
+            button6.TabIndex = 3;
+            button6.Text = "🌿\r\nLandscaping";
+            button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click;
+            // 
+            // btnPlumbing
+            // 
+            btnPlumbing.BackColor = Color.FromArgb(255, 128, 0);
+            btnPlumbing.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPlumbing.ForeColor = Color.White;
+            btnPlumbing.Location = new Point(3, 386);
+            btnPlumbing.Name = "btnPlumbing";
+            btnPlumbing.Size = new Size(330, 155);
+            btnPlumbing.TabIndex = 3;
+            btnPlumbing.Text = "🔧\r\nPlumbing";
+            btnPlumbing.UseVisualStyleBackColor = false;
+            btnPlumbing.Click += btnPlumbing_Click;
+            // 
+            // lblDescription
+            // 
+            lblDescription.AutoSize = true;
+            lblDescription.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescription.Location = new Point(39, 238);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(744, 114);
+            lblDescription.TabIndex = 2;
+            lblDescription.Text = "From emergency repairs to scheduled maintenance, our\r\nnetwork covers all the trades that keep your home running\r\nsmoothly.";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(39, 94);
+            label1.Name = "label1";
+            label1.Size = new Size(465, 124);
+            label1.TabIndex = 1;
+            label1.Text = "Every home service,\r\nin one place";
+            // 
+            // lblWhatWeOffer
+            // 
+            lblWhatWeOffer.AutoSize = true;
+            lblWhatWeOffer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWhatWeOffer.ForeColor = Color.FromArgb(255, 128, 0);
+            lblWhatWeOffer.Location = new Point(39, 42);
+            lblWhatWeOffer.Name = "lblWhatWeOffer";
+            lblWhatWeOffer.Size = new Size(130, 20);
+            lblWhatWeOffer.TabIndex = 0;
+            lblWhatWeOffer.Text = "WHAT WE OFFER";
             // 
             // frmServicesOverview
             // 
@@ -451,7 +463,7 @@
         private LinkLabel lnklblServices;
         private LinkLabel lnklblHowItWorks;
         private LinkLabel lnklblProviders;
-        private LinkLabel lnklblPricing;
+        private LinkLabel lnklblHome;
         private Panel pnlServicesButtons;
         private Button btnRequestAService;
         private Button btnCreateAccount;
