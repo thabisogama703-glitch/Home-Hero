@@ -86,16 +86,17 @@
             // 
             txtEmail.Location = new Point(35, 100);
             txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderText = "you@email.com";
+            txtEmail.PlaceholderText = "johndoe123@gmail.com";
             txtEmail.Size = new Size(252, 27);
             txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
+            txtPassword.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(35, 207);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = ".........";
-            txtPassword.Size = new Size(252, 27);
+            txtPassword.Size = new Size(252, 31);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 

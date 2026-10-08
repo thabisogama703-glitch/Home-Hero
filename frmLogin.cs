@@ -19,7 +19,18 @@ namespace HomeHero_2
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            string rememberME = "Remember.txt";
+            string emilAddress = txtEmail.Text;
+            string password1 = txtPassword.Text;
 
+            if (chkRemember.Checked)
+            {
+                File.WriteAllText(rememberME, $"{emilAddress}|{password1}");
+            }
+            else
+            {
+
+            }
             string email = txtEmail.Text;
             string password = txtPassword.Text;
 
@@ -144,7 +155,30 @@ namespace HomeHero_2
 
         private void frmHomeHeroLogin_Load(object sender, EventArgs e)
         {
+            string rememberME = "Remember.txt";
+            string emilAddress = txtEmail.Text;
+            string password = txtPassword.Text;
 
+            //if (chkRemember.Checked)
+            //{
+            //    File.WriteAllText(rememberME, $"{emilAddress}|{password}");
+            //}
+            //else
+            //{
+
+            //}
+            if (File.Exists(rememberME))
+            {
+                string data = File.ReadAllText(rememberME);
+
+                string[] dataPaths = data.Split("|");
+
+                foreach (string file in dataPaths)
+                {
+                    txtEmail.Text = dataPaths[0];
+                    txtPassword.Text = dataPaths[1];
+                }
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
