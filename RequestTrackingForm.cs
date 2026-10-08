@@ -157,7 +157,7 @@ namespace Home_Hero
             frmCustomerDashboard backtoHome = new frmCustomerDashboard();
             this.Hide();
             backtoHome.Show();
-            
+
         }
         private string GetStatusText(RequestStatus status)
         {
@@ -189,6 +189,10 @@ namespace Home_Hero
             }
         }
 
+        private void gbxServiceDetails_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

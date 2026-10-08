@@ -82,22 +82,27 @@
             // 
             // btnApproveRequests
             // 
-            btnApproveRequests.Location = new Point(1179, 987);
+            btnApproveRequests.BackColor = Color.FromArgb(0, 192, 0);
+            btnApproveRequests.ForeColor = Color.White;
+            btnApproveRequests.ImageAlign = ContentAlignment.BottomLeft;
+            btnApproveRequests.Location = new Point(1315, 987);
             btnApproveRequests.Name = "btnApproveRequests";
-            btnApproveRequests.Size = new Size(445, 29);
+            btnApproveRequests.Size = new Size(283, 43);
             btnApproveRequests.TabIndex = 3;
             btnApproveRequests.Text = "Approve Request";
-            btnApproveRequests.UseVisualStyleBackColor = true;
+            btnApproveRequests.UseVisualStyleBackColor = false;
             btnApproveRequests.Click += btnApproveRequests_Click;
             // 
             // btnCancelRequests
             // 
-            btnCancelRequests.Location = new Point(728, 987);
+            btnCancelRequests.BackColor = Color.Red;
+            btnCancelRequests.ForeColor = Color.White;
+            btnCancelRequests.Location = new Point(802, 987);
             btnCancelRequests.Name = "btnCancelRequests";
-            btnCancelRequests.Size = new Size(445, 29);
+            btnCancelRequests.Size = new Size(292, 43);
             btnCancelRequests.TabIndex = 4;
             btnCancelRequests.Text = "Cancel Request";
-            btnCancelRequests.UseVisualStyleBackColor = true;
+            btnCancelRequests.UseVisualStyleBackColor = false;
             btnCancelRequests.Click += btnCancelRequests_Click;
             // 
             // cbxCategory
@@ -144,12 +149,15 @@
             // 
             // btnReassign
             // 
-            btnReassign.Location = new Point(277, 987);
+            btnReassign.BackColor = Color.White;
+            btnReassign.FlatAppearance.BorderSize = 0;
+            btnReassign.ForeColor = Color.Black;
+            btnReassign.Location = new Point(324, 987);
             btnReassign.Name = "btnReassign";
-            btnReassign.Size = new Size(445, 29);
+            btnReassign.Size = new Size(309, 43);
             btnReassign.TabIndex = 10;
             btnReassign.Text = "Reassign";
-            btnReassign.UseVisualStyleBackColor = true;
+            btnReassign.UseVisualStyleBackColor = false;
             btnReassign.Click += btnReassign_Click;
             // 
             // pnlNavigationAdminPanl

@@ -44,7 +44,6 @@
             lblDate = new Label();
             panel4 = new Panel();
             lblMinimumCharacters = new Label();
-            label3 = new Label();
             lblProblemDescription = new Label();
             label6 = new Label();
             lblDescribe = new Label();
@@ -78,10 +77,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(827, 438);
+            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(823, 438);
             label2.Name = "label2";
-            label2.Size = new Size(150, 25);
+            label2.Size = new Size(160, 25);
             label2.TabIndex = 3;
             label2.Text = "Property Address";
             // 
@@ -107,7 +106,7 @@
             // 
             lblEstimatedCost.AutoSize = true;
             lblEstimatedCost.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEstimatedCost.Location = new Point(1201, 679);
+            lblEstimatedCost.Location = new Point(1201, 809);
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(185, 25);
             lblEstimatedCost.TabIndex = 7;
@@ -118,7 +117,7 @@
             btnSubmitRequest.BackColor = Color.FromArgb(255, 128, 0);
             btnSubmitRequest.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSubmitRequest.ForeColor = Color.White;
-            btnSubmitRequest.Location = new Point(1201, 750);
+            btnSubmitRequest.Location = new Point(1201, 857);
             btnSubmitRequest.Name = "btnSubmitRequest";
             btnSubmitRequest.Size = new Size(207, 40);
             btnSubmitRequest.TabIndex = 8;
@@ -224,7 +223,6 @@
             // 
             panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(lblMinimumCharacters);
-            panel4.Controls.Add(label3);
             panel4.Controls.Add(lblProblemDescription);
             panel4.Controls.Add(label6);
             panel4.Controls.Add(txtProblemDescription);
@@ -242,16 +240,6 @@
             lblMinimumCharacters.Size = new Size(178, 20);
             lblMinimumCharacters.TabIndex = 5;
             lblMinimumCharacters.Text = "0 chars (20 more needed)";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = Color.DarkOrange;
-            label3.Location = new Point(271, 132);
-            label3.Name = "label3";
-            label3.Size = new Size(15, 20);
-            label3.TabIndex = 3;
-            label3.Text = "*";
             // 
             // lblProblemDescription
             // 
@@ -315,7 +303,7 @@
             // 
             RdbtnUrgent1.AutoSize = true;
             RdbtnUrgent1.ForeColor = Color.Red;
-            RdbtnUrgent1.Location = new Point(477, 242);
+            RdbtnUrgent1.Location = new Point(484, 256);
             RdbtnUrgent1.Name = "RdbtnUrgent1";
             RdbtnUrgent1.Size = new Size(145, 44);
             RdbtnUrgent1.TabIndex = 18;
@@ -363,7 +351,7 @@
             // 
             lblPriority.AutoSize = true;
             lblPriority.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPriority.Location = new Point(71, 221);
+            lblPriority.Location = new Point(70, 216);
             lblPriority.Name = "lblPriority";
             lblPriority.Size = new Size(61, 20);
             lblPriority.TabIndex = 9;
@@ -412,7 +400,7 @@
             txtAddress.Multiline = true;
             txtAddress.Name = "txtAddress";
             txtAddress.PlaceholderText = "124 Main Street, Johannesburg Enter street address, e.g 45 Oak Street, Sandton";
-            txtAddress.Size = new Size(911, 161);
+            txtAddress.Size = new Size(911, 292);
             txtAddress.TabIndex = 2;
             // 
             // frmCreateRequest
@@ -467,7 +455,6 @@
         private TextBox txtAddress;
         private Panel panel4;
         private Label lblMinimumCharacters;
-        private Label label3;
         private Label lblProblemDescription;
         private Label label6;
         private Panel panel5;

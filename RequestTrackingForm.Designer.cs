@@ -54,75 +54,82 @@
             dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRequests.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRequests.Location = new Point(237, 386);
+            dgvRequests.Location = new Point(66, 386);
             dgvRequests.MultiSelect = false;
             dgvRequests.Name = "dgvRequests";
             dgvRequests.ReadOnly = true;
             dgvRequests.RowHeadersWidth = 51;
-            dgvRequests.Size = new Size(1275, 311);
+            dgvRequests.Size = new Size(1712, 474);
             dgvRequests.TabIndex = 0;
             dgvRequests.CellContentClick += dgvRequests_CellContentClick;
             // 
             // lblRequestNum
             // 
             lblRequestNum.AutoSize = true;
-            lblRequestNum.Location = new Point(130, 29);
+            lblRequestNum.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRequestNum.Location = new Point(104, 44);
             lblRequestNum.Name = "lblRequestNum";
-            lblRequestNum.Size = new Size(123, 20);
+            lblRequestNum.Size = new Size(133, 20);
             lblRequestNum.TabIndex = 1;
             lblRequestNum.Text = "Request Number:";
             // 
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(494, 29);
+            lblCategory.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCategory.Location = new Point(494, 44);
             lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(94, 20);
+            lblCategory.Size = new Size(100, 20);
             lblCategory.TabIndex = 2;
             lblCategory.Text = "Service Type:";
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(893, 29);
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(893, 44);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(116, 20);
+            lblStatus.Size = new Size(125, 20);
             lblStatus.TabIndex = 3;
             lblStatus.Text = "Assigned Status:";
             // 
             // lblAssignedProvider
             // 
             lblAssignedProvider.AutoSize = true;
-            lblAssignedProvider.Location = new Point(130, 122);
+            lblAssignedProvider.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAssignedProvider.Location = new Point(104, 122);
             lblAssignedProvider.Name = "lblAssignedProvider";
-            lblAssignedProvider.Size = new Size(131, 20);
+            lblAssignedProvider.Size = new Size(141, 20);
             lblAssignedProvider.TabIndex = 4;
             lblAssignedProvider.Text = "Assigned Provider:";
             // 
             // lblAppointment
             // 
             lblAppointment.AutoSize = true;
+            lblAppointment.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAppointment.Location = new Point(494, 122);
             lblAppointment.Name = "lblAppointment";
-            lblAppointment.Size = new Size(85, 20);
+            lblAppointment.Size = new Size(89, 20);
             lblAppointment.TabIndex = 5;
             lblAppointment.Text = "Date & Time:";
             // 
             // lblEstimatedCost
             // 
             lblEstimatedCost.AutoSize = true;
+            lblEstimatedCost.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblEstimatedCost.Location = new Point(893, 122);
             lblEstimatedCost.Name = "lblEstimatedCost";
-            lblEstimatedCost.Size = new Size(111, 20);
+            lblEstimatedCost.Size = new Size(118, 20);
             lblEstimatedCost.TabIndex = 6;
             lblEstimatedCost.Text = "Estimated Cost:";
             // 
             // lblFinalCost
             // 
             lblFinalCost.AutoSize = true;
-            lblFinalCost.Location = new Point(130, 216);
+            lblFinalCost.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFinalCost.Location = new Point(104, 203);
             lblFinalCost.Name = "lblFinalCost";
-            lblFinalCost.Size = new Size(76, 20);
+            lblFinalCost.Size = new Size(81, 20);
             lblFinalCost.TabIndex = 7;
             lblFinalCost.Text = "Final Cost:";
             // 
@@ -132,9 +139,9 @@
             btnRefresh.FlatAppearance.BorderSize = 0;
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(688, 703);
+            btnRefresh.Location = new Point(753, 932);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(393, 30);
+            btnRefresh.Size = new Size(269, 30);
             btnRefresh.TabIndex = 8;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -151,7 +158,7 @@
             pnlDetails.Dock = DockStyle.Fill;
             pnlDetails.Location = new Point(0, 0);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(1717, 738);
+            pnlDetails.Size = new Size(1830, 975);
             pnlDetails.TabIndex = 16;
             // 
             // panel1
@@ -163,7 +170,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1715, 104);
+            panel1.Size = new Size(1828, 104);
             panel1.TabIndex = 15;
             // 
             // button1
@@ -211,18 +218,19 @@
             gbxServiceDetails.Controls.Add(lblStatus);
             gbxServiceDetails.Controls.Add(lblAppointment);
             gbxServiceDetails.Controls.Add(lblCategory);
-            gbxServiceDetails.Location = new Point(237, 144);
+            gbxServiceDetails.Location = new Point(66, 144);
             gbxServiceDetails.Name = "gbxServiceDetails";
-            gbxServiceDetails.Size = new Size(1275, 239);
+            gbxServiceDetails.Size = new Size(1712, 239);
             gbxServiceDetails.TabIndex = 14;
             gbxServiceDetails.TabStop = false;
             gbxServiceDetails.Text = "Service Details";
+            gbxServiceDetails.Enter += gbxServiceDetails_Enter;
             // 
             // frmRequestTracking
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1717, 738);
+            ClientSize = new Size(1830, 975);
             Controls.Add(pnlDetails);
             Name = "frmRequestTracking";
             StartPosition = FormStartPosition.CenterScreen;
