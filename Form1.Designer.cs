@@ -177,6 +177,7 @@
             lnklblProviders.TabIndex = 3;
             lnklblProviders.TabStop = true;
             lnklblProviders.Text = "Providers";
+            lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
             // 
             // lnklblPricing
             // 

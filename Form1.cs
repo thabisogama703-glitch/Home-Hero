@@ -51,8 +51,8 @@ namespace Home_Hero
         private void btnFindAPro_Click(object sender, EventArgs e)
         {
             string searchedService = txtSearchForService.Text.Trim().ToLower();
-            
-            if(searchedService == "")
+
+            if (searchedService == "")
             {
                 ValidationError.SetError(txtSearchForService, "Please enter the service name you need help on.");
 
@@ -71,6 +71,25 @@ namespace Home_Hero
                     requestAServicePage.Show();
                 }
             }
+        }
+
+        private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ServiceProvider provider = new ServiceProvider(
+                                           "Thabiso",
+                                           "Gama",
+                                           "thabisogama703@gamil.com",
+                                           "@Thandolwami07",
+                                           "0123456789",
+                                           "22 Jan Hofmeyer Street"
+                                       );
+
+            frmServiceProviderDashboard providerdashboard =
+                new frmServiceProviderDashboard(provider);
+
+            providerdashboard.Show();
+
+            this.Hide();
         }
     }
 }
