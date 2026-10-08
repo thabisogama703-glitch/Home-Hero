@@ -43,12 +43,25 @@
             lblHero = new Label();
             lblHome = new Label();
             pbxHomeHeroLogo = new PictureBox();
+            panel1 = new Panel();
+            lblWhatWeOffer = new Label();
+            label1 = new Label();
+            lblDescription = new Label();
+            btnPlumbing = new Button();
+            btnElectrical = new Button();
+            button3 = new Button();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
+            button8 = new Button();
             pnlHomeHero.SuspendLayout();
             tblpHomeHeroPanel.SuspendLayout();
             flpNavigationTab.SuspendLayout();
             pnlServicesButtons.SuspendLayout();
             pnlHomeHeroLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHomeHero
@@ -258,11 +271,156 @@
             pbxHomeHeroLogo.TabIndex = 10;
             pbxHomeHeroLogo.TabStop = false;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(button5);
+            panel1.Controls.Add(button4);
+            panel1.Controls.Add(button8);
+            panel1.Controls.Add(button3);
+            panel1.Controls.Add(button7);
+            panel1.Controls.Add(btnElectrical);
+            panel1.Controls.Add(button6);
+            panel1.Controls.Add(btnPlumbing);
+            panel1.Controls.Add(lblDescription);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lblWhatWeOffer);
+            panel1.Location = new Point(98, 171);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1678, 812);
+            panel1.TabIndex = 2;
+            // 
+            // lblWhatWeOffer
+            // 
+            lblWhatWeOffer.AutoSize = true;
+            lblWhatWeOffer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWhatWeOffer.ForeColor = Color.FromArgb(255, 128, 0);
+            lblWhatWeOffer.Location = new Point(39, 42);
+            lblWhatWeOffer.Name = "lblWhatWeOffer";
+            lblWhatWeOffer.Size = new Size(130, 20);
+            lblWhatWeOffer.TabIndex = 0;
+            lblWhatWeOffer.Text = "WHAT WE OFFER";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(39, 94);
+            label1.Name = "label1";
+            label1.Size = new Size(465, 124);
+            label1.TabIndex = 1;
+            label1.Text = "Every home service,\r\nin one place";
+            // 
+            // lblDescription
+            // 
+            lblDescription.AutoSize = true;
+            lblDescription.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDescription.Location = new Point(39, 238);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(744, 114);
+            lblDescription.TabIndex = 2;
+            lblDescription.Text = "From emergency repairs to scheduled maintenance, our\r\nnetwork covers all the trades that keep your home running\r\nsmoothly.";
+            // 
+            // btnPlumbing
+            // 
+            btnPlumbing.BackColor = Color.FromArgb(255, 128, 0);
+            btnPlumbing.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPlumbing.ForeColor = Color.White;
+            btnPlumbing.Location = new Point(3, 386);
+            btnPlumbing.Name = "btnPlumbing";
+            btnPlumbing.Size = new Size(330, 155);
+            btnPlumbing.TabIndex = 3;
+            btnPlumbing.Text = "🔧\r\nPlumbing";
+            btnPlumbing.UseVisualStyleBackColor = false;
+            // 
+            // btnElectrical
+            // 
+            btnElectrical.BackColor = Color.FromArgb(0, 0, 64);
+            btnElectrical.Font = new Font("Segoe UI", 13.8F);
+            btnElectrical.ForeColor = Color.White;
+            btnElectrical.Location = new Point(339, 386);
+            btnElectrical.Name = "btnElectrical";
+            btnElectrical.Size = new Size(330, 155);
+            btnElectrical.TabIndex = 3;
+            btnElectrical.Text = "⚡\r\nElectrical";
+            btnElectrical.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(255, 128, 0);
+            button3.Font = new Font("Segoe UI", 13.8F);
+            button3.Location = new Point(675, 386);
+            button3.Name = "button3";
+            button3.Size = new Size(330, 155);
+            button3.TabIndex = 3;
+            button3.Text = "❄️\r\nHVAC";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.FromArgb(0, 0, 64);
+            button4.Font = new Font("Segoe UI", 13.8F);
+            button4.ForeColor = Color.White;
+            button4.Location = new Point(1011, 386);
+            button4.Name = "button4";
+            button4.Size = new Size(330, 155);
+            button4.TabIndex = 3;
+            button4.Text = "🏠\r\nRoofing";
+            button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.FromArgb(255, 128, 0);
+            button5.Font = new Font("Segoe UI", 13.8F);
+            button5.ForeColor = Color.White;
+            button5.Location = new Point(1348, 386);
+            button5.Name = "button5";
+            button5.Size = new Size(330, 155);
+            button5.TabIndex = 3;
+            button5.Text = "\U0001fa9f\r\nWindows & Doors";
+            button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.FromArgb(0, 0, 64);
+            button6.Font = new Font("Segoe UI", 13.8F);
+            button6.ForeColor = Color.White;
+            button6.Location = new Point(3, 561);
+            button6.Name = "button6";
+            button6.Size = new Size(330, 155);
+            button6.TabIndex = 3;
+            button6.Text = "🌿\r\nLandscaping";
+            button6.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.FromArgb(255, 128, 0);
+            button7.Font = new Font("Segoe UI", 13.8F);
+            button7.ForeColor = Color.White;
+            button7.Location = new Point(339, 561);
+            button7.Name = "button7";
+            button7.Size = new Size(330, 155);
+            button7.TabIndex = 3;
+            button7.Text = "🎨\r\nPainting";
+            button7.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            button8.BackColor = Color.FromArgb(0, 0, 64);
+            button8.Font = new Font("Segoe UI", 13.8F);
+            button8.ForeColor = Color.White;
+            button8.Location = new Point(675, 561);
+            button8.Name = "button8";
+            button8.Size = new Size(330, 155);
+            button8.TabIndex = 3;
+            button8.Text = "\U0001f9f9\r\nDeep Cleaning";
+            button8.UseVisualStyleBackColor = false;
+            // 
             // frmServicesOverview
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1886, 995);
+            Controls.Add(panel1);
             Controls.Add(pnlHomeHero);
             Name = "frmServicesOverview";
             StartPosition = FormStartPosition.CenterScreen;
@@ -280,6 +438,8 @@
             pnlHomeHeroLogo.ResumeLayout(false);
             pnlHomeHeroLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -300,5 +460,17 @@
         private Label lblHero;
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
+        private Panel panel1;
+        private Label label1;
+        private Label lblWhatWeOffer;
+        private Button button5;
+        private Button button4;
+        private Button button3;
+        private Button btnElectrical;
+        private Button btnPlumbing;
+        private Label lblDescription;
+        private Button button8;
+        private Button button7;
+        private Button button6;
     }
 }
