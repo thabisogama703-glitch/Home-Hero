@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHowItWorksOverview));
             pnlHomeHero = new Panel();
             tblpHomeHeroPanel = new TableLayoutPanel();
             flpNavigationTab = new FlowLayoutPanel();
@@ -43,12 +44,14 @@
             lblHero = new Label();
             lblHome = new Label();
             pbxHomeHeroLogo = new PictureBox();
+            pictureBox1 = new PictureBox();
             pnlHomeHero.SuspendLayout();
             tblpHomeHeroPanel.SuspendLayout();
             flpNavigationTab.SuspendLayout();
             pnlServicesButtons.SuspendLayout();
             pnlHomeHeroLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pnlHomeHero
@@ -257,11 +260,22 @@
             pbxHomeHeroLogo.TabIndex = 10;
             pbxHomeHeroLogo.TabStop = false;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, 170);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(1972, 738);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
             // frmHowItWorksOverview
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1886, 995);
+            Controls.Add(pictureBox1);
             Controls.Add(pnlHomeHero);
             Name = "frmHowItWorksOverview";
             StartPosition = FormStartPosition.CenterScreen;
@@ -278,6 +292,7 @@
             pnlHomeHeroLogo.ResumeLayout(false);
             pnlHomeHeroLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -298,5 +313,6 @@
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
         private Button btnRequestAService;
+        private PictureBox pictureBox1;
     }
 }
