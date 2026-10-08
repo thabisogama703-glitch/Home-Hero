@@ -45,7 +45,9 @@ namespace Home_Hero
 
         private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            frmServicesOverview servicesOverview = new frmServicesOverview();
+            servicesOverview.Show();
+            this.Hide();
         }
 
         private void btnFindAPro_Click(object sender, EventArgs e)
@@ -89,6 +91,13 @@ namespace Home_Hero
 
             providerdashboard.Show();
 
+            this.Hide();
+        }
+
+        private void lnklblHowItWorks_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmHowItWorksOverview howItWorksOverview = new frmHowItWorksOverview();
+            howItWorksOverview.Show();
             this.Hide();
         }
     }

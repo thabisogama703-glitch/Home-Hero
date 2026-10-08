@@ -163,6 +163,7 @@
             lnklblHowItWorks.TabIndex = 2;
             lnklblHowItWorks.TabStop = true;
             lnklblHowItWorks.Text = "How it works";
+            lnklblHowItWorks.LinkClicked += lnklblHowItWorks_LinkClicked;
             // 
             // lnklblProviders
             // 
