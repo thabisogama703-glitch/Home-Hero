@@ -186,9 +186,9 @@ namespace Home_Hero
             {
                 ValidationError.SetError(txtServiceArea, "");
             }
-            if(isChecked == false)
+            if (isChecked == false)
             {
-                ValidationError.SetError(lblSpecialisation,"Kindly select atleast one work you specialize on");
+                ValidationError.SetError(lblSpecialisation, "Kindly select atleast one work you specialize on");
                 isValid = false;
             }
             if (!isValid)
@@ -210,8 +210,8 @@ namespace Home_Hero
             {
                 ValidationError.Clear();
                 string serviceProvider = "Service.txt";
-                ServiceProvider newServiceProvider = new ServiceProvider(name, "", email, password, phoneNumber, serviceArea,Specialisation);
-                File.AppendAllText(serviceProvider, $"{name}|{email}|{password}|{phoneNumber}|{serviceArea}|{Specialisation}"+ Environment.NewLine);
+                ServiceProvider newServiceProvider = new ServiceProvider(name, "", email, password, phoneNumber, serviceArea, Specialisation);
+                File.AppendAllText(serviceProvider, $"{name}|{email}|{password}|{phoneNumber}|{serviceArea}|{Specialisation}" + Environment.NewLine);
                 DialogResult result = MessageBox.Show("Registration successful ! \n Would you like to login right now?", "Account succesfully created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 ClearFields();
                 if (result == DialogResult.Yes)
@@ -242,6 +242,30 @@ namespace Home_Hero
             chkbxPlumbing.Checked = false;
             chkbxRoofing.Checked = false;
             chkbxWindowsDoors.Checked = false;
+        }
+
+        private void btnShowPassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.UseSystemPasswordChar)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowConfirmPassword_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.UseSystemPasswordChar)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+            }
         }
     }
 }

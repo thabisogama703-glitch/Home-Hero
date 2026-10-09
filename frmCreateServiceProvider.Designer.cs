@@ -245,6 +245,7 @@
             btnShowConfirmPassword.TabIndex = 13;
             btnShowConfirmPassword.Text = "show confirm password";
             btnShowConfirmPassword.UseVisualStyleBackColor = true;
+            btnShowConfirmPassword.Click += btnShowConfirmPassword_Click;
             // 
             // lblEmail
             // 
@@ -266,6 +267,7 @@
             btnShowPassword.TabIndex = 12;
             btnShowPassword.Text = "Show password";
             btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.Click += btnShowPassword_Click;
             // 
             // txtPhoneNumber
             // 
