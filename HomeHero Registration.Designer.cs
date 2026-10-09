@@ -45,6 +45,7 @@
             btnShowPassword = new Button();
             btnShowConfirmPassword = new Button();
             pnlNavigationTab = new Panel();
+            btnCreateasAServiceProvider = new Button();
             label2 = new Label();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
@@ -209,14 +210,29 @@
             // pnlNavigationTab
             // 
             pnlNavigationTab.BackColor = Color.FromArgb(0, 0, 64);
+            pnlNavigationTab.Controls.Add(btnCreateasAServiceProvider);
             pnlNavigationTab.Controls.Add(label2);
             pnlNavigationTab.Controls.Add(pnlHomeHeroLogo);
             pnlNavigationTab.Dock = DockStyle.Top;
             pnlNavigationTab.Location = new Point(0, 0);
             pnlNavigationTab.Name = "pnlNavigationTab";
             pnlNavigationTab.RightToLeft = RightToLeft.Yes;
-            pnlNavigationTab.Size = new Size(1595, 108);
+            pnlNavigationTab.Size = new Size(1837, 108);
             pnlNavigationTab.TabIndex = 14;
+            // 
+            // btnCreateasAServiceProvider
+            // 
+            btnCreateasAServiceProvider.AutoSize = true;
+            btnCreateasAServiceProvider.FlatStyle = FlatStyle.Flat;
+            btnCreateasAServiceProvider.ForeColor = Color.White;
+            btnCreateasAServiceProvider.Location = new Point(1633, 36);
+            btnCreateasAServiceProvider.Name = "btnCreateasAServiceProvider";
+            btnCreateasAServiceProvider.RightToLeft = RightToLeft.No;
+            btnCreateasAServiceProvider.Size = new Size(201, 47);
+            btnCreateasAServiceProvider.TabIndex = 14;
+            btnCreateasAServiceProvider.Text = "🏠 Become a Home Hero?";
+            btnCreateasAServiceProvider.UseVisualStyleBackColor = true;
+            btnCreateasAServiceProvider.Click += btnCreateasAServiceProvider_Click;
             // 
             // label2
             // 
@@ -225,7 +241,7 @@
             label2.FlatStyle = FlatStyle.Flat;
             label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(717, 35);
+            label2.Location = new Point(838, 35);
             label2.Name = "label2";
             label2.Size = new Size(160, 38);
             label2.TabIndex = 13;
@@ -335,7 +351,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1595, 935);
+            ClientSize = new Size(1837, 935);
             Controls.Add(pnlDetails);
             Controls.Add(panel2);
             Controls.Add(pnlNavigationTab);
@@ -384,5 +400,6 @@
         private Label lbCustomer;
         private Panel pnlDetails;
         private Label label2;
+        private Button btnCreateasAServiceProvider;
     }
 }

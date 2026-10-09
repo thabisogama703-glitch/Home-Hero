@@ -54,7 +54,6 @@
             lnklblOverView = new LinkLabel();
             flwLPSearchRequest = new FlowLayoutPanel();
             lblResults = new Label();
-            cmbProviders = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvRequests).BeginInit();
             pnlNavigationAdminPanl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -86,7 +85,7 @@
             btnApproveRequests.BackColor = Color.FromArgb(0, 192, 0);
             btnApproveRequests.ForeColor = Color.White;
             btnApproveRequests.ImageAlign = ContentAlignment.BottomLeft;
-            btnApproveRequests.Location = new Point(1349, 977);
+            btnApproveRequests.Location = new Point(1315, 987);
             btnApproveRequests.Name = "btnApproveRequests";
             btnApproveRequests.Size = new Size(283, 43);
             btnApproveRequests.TabIndex = 3;
@@ -98,7 +97,7 @@
             // 
             btnCancelRequests.BackColor = Color.Red;
             btnCancelRequests.ForeColor = Color.White;
-            btnCancelRequests.Location = new Point(888, 977);
+            btnCancelRequests.Location = new Point(802, 987);
             btnCancelRequests.Name = "btnCancelRequests";
             btnCancelRequests.Size = new Size(292, 43);
             btnCancelRequests.TabIndex = 4;
@@ -153,11 +152,11 @@
             btnReassign.BackColor = Color.White;
             btnReassign.FlatAppearance.BorderSize = 0;
             btnReassign.ForeColor = Color.Black;
-            btnReassign.Location = new Point(280, 977);
+            btnReassign.Location = new Point(324, 987);
             btnReassign.Name = "btnReassign";
             btnReassign.Size = new Size(309, 43);
             btnReassign.TabIndex = 10;
-            btnReassign.Text = "Assign Provider";
+            btnReassign.Text = "Reassign";
             btnReassign.UseVisualStyleBackColor = false;
             btnReassign.Click += btnReassign_Click;
             // 
@@ -388,21 +387,11 @@
             lblResults.TabIndex = 0;
             lblResults.Text = "Results";
             // 
-            // cmbProviders
-            // 
-            cmbProviders.FormattingEnabled = true;
-            cmbProviders.Location = new Point(626, 985);
-            cmbProviders.Name = "cmbProviders";
-            cmbProviders.Size = new Size(187, 28);
-            cmbProviders.TabIndex = 16;
-            cmbProviders.Text = "Providers";
-            // 
             // RequestManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1904, 1042);
-            Controls.Add(cmbProviders);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(pnlNavigationAdminPanl);
             Controls.Add(btnReassign);
@@ -462,6 +451,5 @@
         private LinkLabel lnklblOverView;
         private FlowLayoutPanel flwLPSearchRequest;
         private Label lblResults;
-        private ComboBox cmbProviders;
     }
 }

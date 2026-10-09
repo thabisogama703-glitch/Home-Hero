@@ -13,10 +13,10 @@ namespace HomeHero_2
         public string Location { get; private set; }
 
 
-        public ServiceProvider(string firstName, string lastName, string email, string password, string phoneNumber, string location, List<string> specialisation = null) : base(firstName, lastName, phoneNumber,email, password)
+        public ServiceProvider(string firstName, string lastName, string email, string password, string phoneNumber, string location, List<string> specialisation ) : base(firstName, lastName, phoneNumber,email, password)
         {
             Assignedjobs = new List<Job>();
-            Specialisation = specialisation ?? new List<string>();
+            Specialisation = specialisation;
             Location = location;
         }
 

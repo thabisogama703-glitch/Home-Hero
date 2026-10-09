@@ -18,7 +18,6 @@ namespace Home_Hero
         {
             InitializeComponent();
             LoadProvidersToGrid(DataManager.LoadServiceProviders());
-            LoadProviderToGrid(DataManager.LoadServiceProviders());
         }
         private void LoadProvidersToGrid(IEnumerable<ServiceProvider> providers)
         {
@@ -59,26 +58,7 @@ namespace Home_Hero
             dgvProviders.DataSource = null;
             dgvProviders.DataSource = table;
         }
-        private void LoadProviderToGrid(List<ServiceProvider> providers)
-        {
-            var requests = DataManager.LoadRequests();
 
-            var rows = providers.Select(p => new
-            {
-                Name = p.FirstName + " " + p.LastName,
-                Email = p.Email,
-                Phone = p.PhoneNumber,                       
-                ServiceArea = p.Location,
-                Specialisation = string.Join(", ", p.Specialisation),
-                Jobs = requests.Count(r =>
-                    r.AssignedProviderId == p.UserId.ToString() &&
-                    r.Status != RequestStatus.Completed &&
-                    r.Status != RequestStatus.Cancelled)
-            }).ToList();
-
-            dgvProviders.DataSource = null;
-            dgvProviders.DataSource = rows;
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -119,7 +99,6 @@ namespace Home_Hero
 
         private void btnAddProvider_Click(object sender, EventArgs e)
         {
-            dgvProviders.Rows.Clear();
             if (dgvProviders.CurrentRow == null)
             {
                 MessageBox.Show("Please select a provider first.");
@@ -145,7 +124,7 @@ namespace Home_Hero
             if (result == DialogResult.Yes)
             {
                 DataManager.DeleteServiceProvider(provider.UserId);
-                dgvProviders.Rows.Clear();
+
                 LoadProvidersToGrid(DataManager.LoadServiceProviders());
 
                 MessageBox.Show("Provider removed successfully.","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);

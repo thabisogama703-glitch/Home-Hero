@@ -115,7 +115,7 @@ namespace HomeHero_2
             {
                 if (hasEmptyFields)
                 {
-                    MessageBox.Show("Please fill in all required fields.","Missing Required Fields",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Please fill in all required fields.", "Missing Required Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 else
@@ -136,9 +136,9 @@ namespace HomeHero_2
 
             customer.WriteToFile(name, email, phoneNumber, password);
             CustomerRepository.Customers.Add(customer); // we are putting a new customer to the list we created
-            DialogResult result =  MessageBox.Show("Registration successful ! \n Would you like to login right now?","Account succesfully created",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Registration successful ! \n Would you like to login right now?", "Account succesfully created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             ClearFields();
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 frmHomeHeroLogin frmHomeHeroLogin = new frmHomeHeroLogin();
                 this.Hide();
@@ -146,7 +146,7 @@ namespace HomeHero_2
             }
             else
             {
-                
+
             }
 
         }
@@ -194,6 +194,13 @@ namespace HomeHero_2
         private void frmHomeHeroRegistration_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCreateasAServiceProvider_Click(object sender, EventArgs e)
+        {
+            frmCreateServiceProvider createServiceProvider = new frmCreateServiceProvider();
+            createServiceProvider.Show();
+            this.Hide();
         }
     }
 }

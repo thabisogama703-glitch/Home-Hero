@@ -83,7 +83,8 @@ namespace Home_Hero
                                            "thabisogama703@gamil.com",
                                            "@Thandolwami07",
                                            "0123456789",
-                                           "22 Jan Hofmeyer Street"
+                                           "22 Jan Hofmeyer Street",
+                                           new List<string>()
                                        );
 
             frmServiceProviderDashboard providerdashboard =
