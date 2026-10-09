@@ -1,5 +1,6 @@
 using Home_Hero;
 using HomeHero;
+using System.ComponentModel.DataAnnotations;
 
 namespace HomeHero_2
 {
@@ -129,7 +130,61 @@ namespace HomeHero_2
             }
             else if (selectedUserType == "Service Provider")
             {
-                
+                string serviceProvider = "Service.txt";
+
+                if (File.Exists(serviceProvider))
+                {
+                    string[] lines = File.ReadAllLines(serviceProvider);
+
+                    foreach (string line in lines)
+                    {
+                        string[] data = line.Split('|');
+
+                        if (data.Length >= 6)
+                        {
+                            string name = data[0];
+                            string emailAddress1 = data[1];
+                            string passWord1 = data[2];
+                            string number = data[3];
+                            string serviceArea = data[4];
+
+                            List<string> specialisation = new List<string>();
+                            specialisation.Add(data[5]);
+
+                            ServiceProvider loggedinServiceProvider =
+                                new ServiceProvider(
+                                    name,
+                                    "",
+                                    emailAddress1,
+                                    passWord1,
+                                    number,
+                                    serviceArea,
+                                    specialisation);
+
+                            if (emailAddress1 == email &&
+                                passWord1 == password)
+                            {
+                                MessageBox.Show("Login successful!",
+                                    "Login Successful",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+
+                                frmServiceProviderDashboard frmService =
+                                    new frmServiceProviderDashboard(loggedinServiceProvider);
+
+                                this.Hide();
+                                frmService.Show();
+
+                                return; // Stop checking once found
+                            }
+                        }
+                    }
+
+                    MessageBox.Show("Invalid credentials",
+                        "Login Failed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation);
+                }
             }
 
         }

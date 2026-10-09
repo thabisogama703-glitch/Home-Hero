@@ -58,9 +58,9 @@ namespace Home_Hero
             ServiceProvider provider = new ServiceProvider(firstName, lastName, email, temporaryPassword, phone, location, specialisations);
                        
             DataManager.AddServiceProvider(provider);
-                        
             MessageBox.Show("Provider added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             txtFirstName.Focus();
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -69,6 +69,16 @@ namespace Home_Hero
             providerManagementForm.Show();
             this.Close();
         }
-    }
 
+
+        public void ClearFiled()
+        {
+            txtFirstName.Clear();
+            txtLastName.Clear();
+            txtPhone.Clear();
+            txtEmail.Clear();
+            txtSeaviceArea.Clear();
+
+            chkSpecialization.ClearSelected();
+           }   }   
 }

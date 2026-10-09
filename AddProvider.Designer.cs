@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
             pnlAddProvider = new Panel();
             btnAddProvider = new Button();
             btnCancel = new Button();
@@ -47,17 +46,16 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            pnlNavigationAdminPanl = new Panel();
+            btnExitAdmin = new Button();
+            lblHero = new Label();
+            lblHome = new Label();
+            pbxHomeHeroLogo = new PictureBox();
             pnlAddProvider.SuspendLayout();
             panel3.SuspendLayout();
+            pnlNavigationAdminPanl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.MidnightBlue;
-            panel1.Location = new Point(-9, -8);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1459, 109);
-            panel1.TabIndex = 0;
             // 
             // pnlAddProvider
             // 
@@ -149,7 +147,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.MidnightBlue;
+            panel3.BackColor = Color.FromArgb(0, 0, 64);
             panel3.Controls.Add(label8);
             panel3.Controls.Add(label1);
             panel3.Location = new Point(0, -8);
@@ -233,26 +231,87 @@
             label7.TabIndex = 6;
             label7.Text = "First Name";
             // 
+            // pnlNavigationAdminPanl
+            // 
+            pnlNavigationAdminPanl.Anchor = AnchorStyles.None;
+            pnlNavigationAdminPanl.BackColor = Color.FromArgb(0, 0, 64);
+            pnlNavigationAdminPanl.Controls.Add(btnExitAdmin);
+            pnlNavigationAdminPanl.Controls.Add(lblHero);
+            pnlNavigationAdminPanl.Controls.Add(lblHome);
+            pnlNavigationAdminPanl.Controls.Add(pbxHomeHeroLogo);
+            pnlNavigationAdminPanl.Location = new Point(0, 0);
+            pnlNavigationAdminPanl.Name = "pnlNavigationAdminPanl";
+            pnlNavigationAdminPanl.Size = new Size(1445, 102);
+            pnlNavigationAdminPanl.TabIndex = 13;
+            // 
+            // btnExitAdmin
+            // 
+            btnExitAdmin.FlatAppearance.BorderSize = 0;
+            btnExitAdmin.FlatStyle = FlatStyle.Flat;
+            btnExitAdmin.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExitAdmin.ForeColor = SystemColors.ActiveBorder;
+            btnExitAdmin.Location = new Point(1737, 20);
+            btnExitAdmin.Name = "btnExitAdmin";
+            btnExitAdmin.Size = new Size(159, 47);
+            btnExitAdmin.TabIndex = 15;
+            btnExitAdmin.Text = "← Exit Admin";
+            btnExitAdmin.UseVisualStyleBackColor = true;
+            // 
+            // lblHero
+            // 
+            lblHero.AutoSize = true;
+            lblHero.FlatStyle = FlatStyle.Flat;
+            lblHero.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHero.ForeColor = Color.FromArgb(255, 128, 0);
+            lblHero.Location = new Point(193, 36);
+            lblHero.Name = "lblHero";
+            lblHero.Size = new Size(67, 31);
+            lblHero.TabIndex = 12;
+            lblHero.Text = "Hero";
+            // 
+            // lblHome
+            // 
+            lblHome.AutoSize = true;
+            lblHome.FlatStyle = FlatStyle.Flat;
+            lblHome.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHome.ForeColor = Color.White;
+            lblHome.Location = new Point(123, 36);
+            lblHome.Name = "lblHome";
+            lblHome.Size = new Size(79, 31);
+            lblHome.TabIndex = 13;
+            lblHome.Text = "Home";
+            // 
+            // pbxHomeHeroLogo
+            // 
+            pbxHomeHeroLogo.Image = Properties.Resources.Screenshot_2026_09_05_180629;
+            pbxHomeHeroLogo.Location = new Point(66, 20);
+            pbxHomeHeroLogo.Name = "pbxHomeHeroLogo";
+            pbxHomeHeroLogo.Size = new Size(48, 47);
+            pbxHomeHeroLogo.TabIndex = 11;
+            pbxHomeHeroLogo.TabStop = false;
+            // 
             // AddProvider
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1445, 693);
+            Controls.Add(pnlNavigationAdminPanl);
             Controls.Add(pnlAddProvider);
-            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AddProvider";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "AddProvider";
             pnlAddProvider.ResumeLayout(false);
             pnlAddProvider.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            pnlNavigationAdminPanl.ResumeLayout(false);
+            pnlNavigationAdminPanl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panel1;
         private Panel pnlAddProvider;
         private Panel panel3;
         private Label label8;
@@ -271,5 +330,10 @@
         private TextBox txtFirstName;
         private Button btnAddProvider;
         private Button btnCancel;
+        private Panel pnlNavigationAdminPanl;
+        private Button btnExitAdmin;
+        private Label lblHero;
+        private Label lblHome;
+        private PictureBox pbxHomeHeroLogo;
     }
 }

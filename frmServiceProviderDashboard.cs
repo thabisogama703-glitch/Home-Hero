@@ -93,7 +93,7 @@ namespace Home_Hero
                 }
             }
         }
-        
+
         private Job GetSelectedJob()
         {
             if (dgvAssignedJobs.SelectedRows.Count > 0)
@@ -151,6 +151,21 @@ namespace Home_Hero
         private void frmServiceProviderDashboard_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logging Out", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
+                this.Hide();
+                frmHomeHeroHomepage.Show();
+            }
+            else
+            {
+
+            }
         }
     }
 }

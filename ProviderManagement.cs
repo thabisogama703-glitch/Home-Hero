@@ -88,7 +88,7 @@ namespace Home_Hero
 
                 if (filtered.Count == 0)
                 {
-                    MessageBox.Show("No matching providers found.","Search",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("No matching providers found.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
@@ -105,13 +105,13 @@ namespace Home_Hero
                 return;
             }
 
-            string providerName =dgvProviders.CurrentRow.Cells["Name"].Value?.ToString();
+            string providerName = dgvProviders.CurrentRow.Cells["Name"].Value?.ToString();
 
             if (string.IsNullOrEmpty(providerName))
                 return;
             var providers = DataManager.LoadServiceProviders();
 
-            ServiceProvider provider = providers.FirstOrDefault(p =>(p.FirstName + " " + p.LastName).Equals(providerName, StringComparison.OrdinalIgnoreCase));
+            ServiceProvider provider = providers.FirstOrDefault(p => (p.FirstName + " " + p.LastName).Equals(providerName, StringComparison.OrdinalIgnoreCase));
 
             if (provider == null)
             {
@@ -119,7 +119,7 @@ namespace Home_Hero
                 return;
             }
 
-            DialogResult result = MessageBox.Show("Are you sure you want to remove " + providerName + "?","Remove Provider",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Are you sure you want to remove " + providerName + "?", "Remove Provider", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
@@ -127,14 +127,14 @@ namespace Home_Hero
 
                 LoadProvidersToGrid(DataManager.LoadServiceProviders());
 
-                MessageBox.Show("Provider removed successfully.","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Provider removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void btnAddProvider__Click(object sender, EventArgs e)
         {
             AddProvider addProviderForm = new AddProvider();
-            addProviderForm.Show();
+            addProviderForm.ShowDialog();
         }
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -156,6 +156,17 @@ namespace Home_Hero
             RequestManagement requestManagement = new RequestManagement();
             this.Hide();
             requestManagement.Show();
+        }
+
+        private void btnExitAdmin_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want ot logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                frmHomeHeroHomepage homepage = new frmHomeHeroHomepage();
+                this.Hide();
+                homepage.Show();
+            }
         }
     }
 }

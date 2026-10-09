@@ -163,6 +163,7 @@
             btnExitAdmin.TabIndex = 15;
             btnExitAdmin.Text = "← Exit Admin";
             btnExitAdmin.UseVisualStyleBackColor = true;
+            btnExitAdmin.Click += btnExitAdmin_Click;
             // 
             // pictureBox1
             // 

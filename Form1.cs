@@ -77,21 +77,8 @@ namespace Home_Hero
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ServiceProvider provider = new ServiceProvider(
-                                           "Thabiso",
-                                           "Gama",
-                                           "thabisogama703@gamil.com",
-                                           "@Thandolwami07",
-                                           "0123456789",
-                                           "22 Jan Hofmeyer Street",
-                                           new List<string>()
-                                       );
-
-            frmServiceProviderDashboard providerdashboard =
-                new frmServiceProviderDashboard(provider);
-
-            providerdashboard.Show();
-
+            frmProvidersOverview providersOverview = new frmProvidersOverview();
+            providersOverview.Show();
             this.Hide();
         }
 
