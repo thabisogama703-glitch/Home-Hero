@@ -1,15 +1,16 @@
-﻿using System;
+﻿using HomeHero_2;
+using System;
+using System.Collections.Generic;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Text.Json;
-using System.Collections.Generic;
 
 namespace Home_Hero
 {
@@ -20,8 +21,16 @@ namespace Home_Hero
             InitializeComponent();
             var requests = DataManager.LoadRequests();
             dgvRequests.DataSource = requests;
+            LoadProvidersIntoComboBox();
         }
+        private void LoadProvidersIntoComboBox()
+        {
+            var providers = DataManager.LoadServiceProviders();
 
+            cmbProviders.DataSource = providers;
+            cmbProviders.DisplayMember = "FirstName";
+            cmbProviders.SelectedIndex = -1;
+        }
         private void btnCancelRequests_Click(object sender, EventArgs e)
         {
 
@@ -30,11 +39,7 @@ namespace Home_Hero
                 var request = (MaintenanceRequest)dgvRequests.SelectedRows[0].DataBoundItem;
 
 
-                var result = MessageBox.Show(
-                    "Do you really want to cancel this request?",
-                    "Confirm Cancel",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                var result = MessageBox.Show("Do you really want to cancel this request?","Confirm Cancel",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
@@ -70,6 +75,7 @@ namespace Home_Hero
             dgvRequests.DataSource = null;
             dgvRequests.DataSource = requests;
         }
+
 
         private void btnApproveRequests_Click(object sender, EventArgs e)
         {
@@ -121,7 +127,31 @@ namespace Home_Hero
 
         private void btnReassign_Click(object sender, EventArgs e)
         {
+            if (dgvRequests.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a request first.");
+                return;
+            }
+            if (cmbProviders.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a provider.");
+                return;
+            }
 
+            var selected = (MaintenanceRequest)dgvRequests.SelectedRows[0].DataBoundItem;
+            var provider = (ServiceProvider)cmbProviders.SelectedItem;
+
+            var requests = DataManager.LoadRequests();
+            var existing = requests.FirstOrDefault(r => r.RequestNumber == selected.RequestNumber);
+
+            if (existing != null)
+            {
+                existing.AssignedProviderId = provider.FirstName;
+                DataManager.SaveRequests(requests);
+
+                MessageBox.Show($"Assigned to {provider.FirstName}.");
+                RefreshGrid();
+            }   
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
