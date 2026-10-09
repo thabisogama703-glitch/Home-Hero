@@ -82,7 +82,7 @@ namespace HomeHero_2
             }
             else
             {
-                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
             return "Unsuccesful login";
         }
