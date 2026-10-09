@@ -137,17 +137,6 @@ namespace Home_Hero
             LoadJobs();
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show
-                ("Are you sure you want to logout?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                this.Close();
-
-            }
-        }
-
         private void frmServiceProviderDashboard_Load(object sender, EventArgs e)
         {
 

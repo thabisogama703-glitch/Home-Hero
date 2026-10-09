@@ -55,7 +55,6 @@
             dataGridViewTextBoxColumn12 = new DataGridViewTextBoxColumn();
             btnViewJob = new Button();
             btnRefresh = new Button();
-            btnLogout = new Button();
             pnlNavigationTab = new Panel();
             button2 = new Button();
             lblName = new Label();
@@ -268,26 +267,13 @@
             btnRefresh.BackColor = Color.FromArgb(255, 224, 192);
             btnRefresh.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.Navy;
-            btnRefresh.Location = new Point(574, 727);
+            btnRefresh.Location = new Point(1075, 734);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(354, 29);
             btnRefresh.TabIndex = 9;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
             btnRefresh.Click += btnRefresh_Click;
-            // 
-            // btnLogout
-            // 
-            btnLogout.BackColor = Color.FromArgb(255, 224, 192);
-            btnLogout.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogout.ForeColor = Color.Navy;
-            btnLogout.Location = new Point(1075, 728);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(354, 29);
-            btnLogout.TabIndex = 10;
-            btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
             // 
             // pnlNavigationTab
             // 
@@ -373,7 +359,6 @@
             // gbxJobs
             // 
             gbxJobs.Controls.Add(dgvUpcomingJobs);
-            gbxJobs.Controls.Add(btnLogout);
             gbxJobs.Controls.Add(lblAssignedJob);
             gbxJobs.Controls.Add(btnRefresh);
             gbxJobs.Controls.Add(dgvAssignedJobs);
@@ -444,7 +429,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private Button btnViewJob;
         private Button btnRefresh;
-        private Button btnLogout;
         private Panel pnlNavigationTab;
         private Label lblName;
         private Panel pnlHomeHeroLogo;
