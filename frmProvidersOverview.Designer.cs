@@ -401,6 +401,7 @@
             // 
             // panel2
             // 
+            panel2.BackColor = Color.Goldenrod;
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label6);
@@ -448,6 +449,7 @@
             // 
             // panel3
             // 
+            panel3.BackColor = Color.Goldenrod;
             panel3.Controls.Add(label8);
             panel3.Controls.Add(label9);
             panel3.Controls.Add(label10);
@@ -495,6 +497,7 @@
             // 
             // panel4
             // 
+            panel4.BackColor = Color.Goldenrod;
             panel4.Controls.Add(label11);
             panel4.Controls.Add(label12);
             panel4.Controls.Add(label13);
@@ -542,6 +545,7 @@
             // 
             // panel5
             // 
+            panel5.BackColor = Color.Goldenrod;
             panel5.Controls.Add(label14);
             panel5.Controls.Add(label15);
             panel5.Controls.Add(label16);

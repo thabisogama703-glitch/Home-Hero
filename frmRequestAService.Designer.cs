@@ -421,7 +421,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.Transparent;
+            panel3.BackColor = Color.White;
             panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(pnlNote);
             panel3.Controls.Add(cbxPreferredTime);
@@ -541,7 +541,7 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.Transparent;
+            panel4.BackColor = Color.White;
             panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(gbxReadyToSubmit);
             panel4.Controls.Add(gbxPropertyAddress);
