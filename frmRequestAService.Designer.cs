@@ -221,7 +221,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Transparent;
+            panel1.BackColor = Color.White;
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(RdbtnUrgent);
             panel1.Controls.Add(RdbxNormalPriorityLevel);
@@ -231,7 +231,7 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(lblServiceCategory);
             panel1.Controls.Add(lblServicenumber1);
-            panel1.ForeColor = Color.White;
+            panel1.ForeColor = Color.Black;
             panel1.Location = new Point(56, 229);
             panel1.Name = "panel1";
             panel1.Size = new Size(755, 319);
@@ -328,7 +328,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Transparent;
+            panel2.BackColor = Color.White;
             panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(lblMinimumCharacters);
             panel2.Controls.Add(txtProblemDEscription);
@@ -336,7 +336,7 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(lblProblemDescription);
             panel2.Controls.Add(label6);
-            panel2.ForeColor = Color.White;
+            panel2.ForeColor = Color.Black;
             panel2.Location = new Point(56, 554);
             panel2.Name = "panel2";
             panel2.Size = new Size(755, 426);
@@ -776,6 +776,7 @@
             Controls.Add(panel1);
             Controls.Add(pnlServiceRequest);
             Controls.Add(btnNext);
+            ForeColor = Color.White;
             Name = "frmRequestAService";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmRequestAService";

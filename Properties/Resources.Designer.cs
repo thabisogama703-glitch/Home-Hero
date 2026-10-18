@@ -63,6 +63,16 @@ namespace Home_Hero.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _715579828291516585 {
+            get {
+                object obj = ResourceManager.GetObject("715579828291516585", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _8_Home_Maintenance_Jobs_That_MUST_Be_Done_Once_A_Year___NewsBreak {
             get {
                 object obj = ResourceManager.GetObject("8 Home Maintenance Jobs That MUST Be Done Once A Year - NewsBreak", resourceCulture);

@@ -34,9 +34,9 @@ namespace Home_Hero
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            frmHomeHeroRegistration createAccountPage = new frmHomeHeroRegistration();
+            frmHomeHeroLogin LoginPage = new frmHomeHeroLogin();
             this.Hide();
-            createAccountPage.Show();
+            LoginPage.Show();
         }
 
         private void btnCreateAccount_Click(object sender, EventArgs e)

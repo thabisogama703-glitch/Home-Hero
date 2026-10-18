@@ -101,7 +101,7 @@
             button1.Name = "button1";
             button1.Size = new Size(201, 47);
             button1.TabIndex = 15;
-            button1.Text = "Sign Up as Homeowner";
+            button1.Text = "Sign Up as 👤Homeowner";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -331,6 +331,7 @@
             // 
             // gbxPersonalInformation
             // 
+            gbxPersonalInformation.FlatStyle = FlatStyle.Flat;
             gbxPersonalInformation.Location = new Point(11, 9);
             gbxPersonalInformation.Name = "gbxPersonalInformation";
             gbxPersonalInformation.Size = new Size(488, 516);
@@ -351,6 +352,7 @@
             gbxServicesAndPlace.Controls.Add(chkbxWindowsDoors);
             gbxServicesAndPlace.Controls.Add(chkbxHVAC);
             gbxServicesAndPlace.Controls.Add(chkbxRoofing);
+            gbxServicesAndPlace.FlatStyle = FlatStyle.Flat;
             gbxServicesAndPlace.Location = new Point(505, 9);
             gbxServicesAndPlace.Name = "gbxServicesAndPlace";
             gbxServicesAndPlace.Size = new Size(389, 516);
@@ -508,9 +510,9 @@
             lbCustomer.ForeColor = Color.FromArgb(255, 128, 0);
             lbCustomer.Location = new Point(12, 9);
             lbCustomer.Name = "lbCustomer";
-            lbCustomer.Size = new Size(141, 23);
+            lbCustomer.Size = new Size(170, 23);
             lbCustomer.TabIndex = 11;
-            lbCustomer.Text = "Service Provider";
+            lbCustomer.Text = "🛠️ Service Provider";
             // 
             // btnBack
             // 

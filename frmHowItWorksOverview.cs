@@ -69,5 +69,15 @@ namespace Home_Hero
         {
 
         }
+
+        private void pnlHowHomeHeroWorks_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
