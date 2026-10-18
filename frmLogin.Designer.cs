@@ -49,10 +49,16 @@
             lblWelcome = new Label();
             lblLog = new Label();
             panel2 = new Panel();
+            lblLoginSummary = new Label();
             pnlDetails = new Panel();
             chkRemember = new CheckBox();
             label2 = new Label();
             button1 = new Button();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            label1 = new Label();
+            label3 = new Label();
+            lblEasyBook = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)ValidationError).BeginInit();
             pnlNavigationTab.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -60,13 +66,14 @@
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
             panel2.SuspendLayout();
             pnlDetails.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(33, 66);
+            lblEmail.Location = new Point(16, 31);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(105, 20);
             lblEmail.TabIndex = 0;
@@ -76,7 +83,7 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPassword.Location = new Point(35, 169);
+            lblPassword.Location = new Point(16, 146);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(80, 20);
             lblPassword.TabIndex = 1;
@@ -84,19 +91,19 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(35, 100);
+            txtEmail.Location = new Point(16, 66);
             txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderText = "johndoe123@gmail.com";
-            txtEmail.Size = new Size(252, 27);
+            txtEmail.PlaceholderText = "✉️ johndoe123@gmail.com";
+            txtEmail.Size = new Size(440, 27);
             txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(35, 207);
+            txtPassword.Font = new Font("Segoe UI", 9F);
+            txtPassword.Location = new Point(16, 182);
             txtPassword.Name = "txtPassword";
-            txtPassword.PlaceholderText = ".........";
-            txtPassword.Size = new Size(252, 31);
+            txtPassword.PlaceholderText = "🔒Enter your password";
+            txtPassword.Size = new Size(340, 27);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
@@ -104,7 +111,7 @@
             // 
             lblLoginAs.AutoSize = true;
             lblLoginAs.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLoginAs.Location = new Point(35, 273);
+            lblLoginAs.Location = new Point(16, 229);
             lblLoginAs.Name = "lblLoginAs";
             lblLoginAs.Size = new Size(71, 20);
             lblLoginAs.TabIndex = 4;
@@ -114,7 +121,7 @@
             // 
             cmbLoginAs.FormattingEnabled = true;
             cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider" });
-            cmbLoginAs.Location = new Point(35, 314);
+            cmbLoginAs.Location = new Point(25, 252);
             cmbLoginAs.Name = "cmbLoginAs";
             cmbLoginAs.Size = new Size(252, 28);
             cmbLoginAs.TabIndex = 5;
@@ -125,9 +132,9 @@
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(187, 413);
+            btnLogin.Location = new Point(16, 327);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(121, 37);
+            btnLogin.Size = new Size(440, 37);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
@@ -139,12 +146,15 @@
             // 
             // btnShowPassword
             // 
-            btnShowPassword.Location = new Point(350, 207);
+            btnShowPassword.BackColor = Color.Transparent;
+            btnShowPassword.FlatAppearance.BorderSize = 0;
+            btnShowPassword.FlatStyle = FlatStyle.Popup;
+            btnShowPassword.Location = new Point(362, 182);
             btnShowPassword.Name = "btnShowPassword";
             btnShowPassword.Size = new Size(94, 29);
             btnShowPassword.TabIndex = 8;
             btnShowPassword.Text = "Show password";
-            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.UseVisualStyleBackColor = false;
             btnShowPassword.Click += btnShowPassword_Click;
             // 
             // pnlNavigationTab
@@ -253,7 +263,7 @@
             lblWelcome.FlatStyle = FlatStyle.Flat;
             lblWelcome.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblWelcome.ForeColor = Color.FromArgb(255, 128, 0);
-            lblWelcome.Location = new Point(12, 14);
+            lblWelcome.Location = new Point(17, 32);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(127, 23);
             lblWelcome.TabIndex = 11;
@@ -263,23 +273,35 @@
             // 
             lblLog.AutoSize = true;
             lblLog.FlatStyle = FlatStyle.Flat;
-            lblLog.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLog.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblLog.ForeColor = Color.White;
             lblLog.Location = new Point(12, 54);
             lblLog.Name = "lblLog";
-            lblLog.Size = new Size(234, 31);
+            lblLog.Size = new Size(304, 41);
             lblLog.TabIndex = 13;
             lblLog.Text = "Log in to HomeHero";
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 0, 64);
+            panel2.Controls.Add(lblLoginSummary);
             panel2.Controls.Add(lblLog);
             panel2.Controls.Add(lblWelcome);
-            panel2.Location = new Point(725, 182);
+            panel2.Location = new Point(146, 197);
             panel2.Name = "panel2";
-            panel2.Size = new Size(510, 104);
+            panel2.Size = new Size(512, 148);
             panel2.TabIndex = 12;
+            // 
+            // lblLoginSummary
+            // 
+            lblLoginSummary.AutoSize = true;
+            lblLoginSummary.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLoginSummary.ForeColor = Color.LightGray;
+            lblLoginSummary.Location = new Point(12, 104);
+            lblLoginSummary.Name = "lblLoginSummary";
+            lblLoginSummary.Size = new Size(376, 23);
+            lblLoginSummary.TabIndex = 14;
+            lblLoginSummary.Text = "Access your account and get things done, faster";
             // 
             // pnlDetails
             // 
@@ -289,22 +311,22 @@
             pnlDetails.Controls.Add(label2);
             pnlDetails.Controls.Add(button1);
             pnlDetails.Controls.Add(txtEmail);
+            pnlDetails.Controls.Add(cmbLoginAs);
+            pnlDetails.Controls.Add(lblLoginAs);
             pnlDetails.Controls.Add(lblEmail);
-            pnlDetails.Controls.Add(txtPassword);
             pnlDetails.Controls.Add(lblPassword);
             pnlDetails.Controls.Add(btnShowPassword);
             pnlDetails.Controls.Add(btnLogin);
-            pnlDetails.Controls.Add(cmbLoginAs);
-            pnlDetails.Controls.Add(lblLoginAs);
-            pnlDetails.Location = new Point(725, 284);
+            pnlDetails.Controls.Add(txtPassword);
+            pnlDetails.Location = new Point(146, 343);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(510, 571);
+            pnlDetails.Size = new Size(512, 459);
             pnlDetails.TabIndex = 14;
             // 
             // chkRemember
             // 
             chkRemember.AutoSize = true;
-            chkRemember.Location = new Point(350, 413);
+            chkRemember.Location = new Point(16, 283);
             chkRemember.Name = "chkRemember";
             chkRemember.Size = new Size(129, 24);
             chkRemember.TabIndex = 11;
@@ -315,7 +337,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(122, 515);
+            label2.Location = new Point(16, 408);
             label2.Name = "label2";
             label2.Size = new Size(163, 20);
             label2.TabIndex = 10;
@@ -324,9 +346,11 @@
             // button1
             // 
             button1.BackColor = Color.WhiteSmoke;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
-            button1.Location = new Point(291, 511);
+            button1.Location = new Point(210, 408);
             button1.Name = "button1";
             button1.Size = new Size(130, 29);
             button1.TabIndex = 9;
@@ -334,12 +358,84 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_1;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.BackColor = Color.FromArgb(0, 0, 64);
+            tableLayoutPanel2.ColumnCount = 4;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Controls.Add(label3, 2, 0);
+            tableLayoutPanel2.Controls.Add(lblEasyBook, 1, 0);
+            tableLayoutPanel2.Controls.Add(label4, 3, 0);
+            tableLayoutPanel2.Location = new Point(0, 835);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(1682, 98);
+            tableLayoutPanel2.TabIndex = 15;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(80, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(260, 56);
+            label1.TabIndex = 0;
+            label1.Text = "\U0001f91d Trusted Proffesionals\r\n     Verified and rated experts";
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.None;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(957, 21);
+            label3.Name = "label3";
+            label3.Size = new Size(185, 56);
+            label3.TabIndex = 1;
+            label3.Text = "🔒Secure Payments\r\n     Safe And reliable";
+            // 
+            // lblEasyBook
+            // 
+            lblEasyBook.Anchor = AnchorStyles.None;
+            lblEasyBook.AutoSize = true;
+            lblEasyBook.Font = new Font("Segoe UI", 12F);
+            lblEasyBook.ForeColor = Color.White;
+            lblEasyBook.Location = new Point(512, 21);
+            lblEasyBook.Name = "lblEasyBook";
+            lblEasyBook.Size = new Size(235, 56);
+            lblEasyBook.TabIndex = 1;
+            lblEasyBook.Text = "⌚Fast And Easy Booking\r\n     Book in Minutes";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.None;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(1275, 21);
+            label4.Name = "label4";
+            label4.Size = new Size(391, 56);
+            label4.TabIndex = 1;
+            label4.Text = "🏠Home Services\r\n      Repairs,cleaning, maintenance and more";
+            // 
             // frmHomeHeroLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
+            BackgroundImage = Home_Hero.Properties.Resources.BackG_image;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1682, 935);
+            Controls.Add(tableLayoutPanel2);
             Controls.Add(pnlDetails);
             Controls.Add(panel2);
             Controls.Add(pnlNavigationTab);
@@ -359,7 +455,10 @@
             panel2.PerformLayout();
             pnlDetails.ResumeLayout(false);
             pnlDetails.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -388,5 +487,11 @@
         private Button button1;
         private CheckBox chkRemember;
         private TableLayoutPanel tableLayoutPanel1;
+        private Label lblLoginSummary;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label1;
+        private Label label3;
+        private Label lblEasyBook;
+        private Label label4;
     }
 }

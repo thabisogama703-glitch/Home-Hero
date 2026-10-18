@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRequestAService));
             btnBackHome = new Button();
             pnlServiceRequest = new Panel();
             lblGetHelpFast = new Label();
@@ -122,6 +123,7 @@
             // pnlServiceRequest
             // 
             pnlServiceRequest.BackColor = Color.FromArgb(0, 0, 64);
+            pnlServiceRequest.BackgroundImageLayout = ImageLayout.Stretch;
             pnlServiceRequest.Controls.Add(lblGetHelpFast);
             pnlServiceRequest.Controls.Add(lblMaintenanceR);
             pnlServiceRequest.Controls.Add(lblMaintenanceRequest);
@@ -219,6 +221,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.Transparent;
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(RdbtnUrgent);
             panel1.Controls.Add(RdbxNormalPriorityLevel);
@@ -228,6 +231,7 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(lblServiceCategory);
             panel1.Controls.Add(lblServicenumber1);
+            panel1.ForeColor = Color.White;
             panel1.Location = new Point(56, 229);
             panel1.Name = "panel1";
             panel1.Size = new Size(755, 319);
@@ -324,6 +328,7 @@
             // 
             // panel2
             // 
+            panel2.BackColor = Color.Transparent;
             panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(lblMinimumCharacters);
             panel2.Controls.Add(txtProblemDEscription);
@@ -331,6 +336,7 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(lblProblemDescription);
             panel2.Controls.Add(label6);
+            panel2.ForeColor = Color.White;
             panel2.Location = new Point(56, 554);
             panel2.Name = "panel2";
             panel2.Size = new Size(755, 426);
@@ -415,6 +421,7 @@
             // 
             // panel3
             // 
+            panel3.BackColor = Color.Transparent;
             panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(pnlNote);
             panel3.Controls.Add(cbxPreferredTime);
@@ -425,6 +432,7 @@
             panel3.Controls.Add(label7);
             panel3.Controls.Add(label8);
             panel3.Controls.Add(label9);
+            panel3.ForeColor = Color.White;
             panel3.Location = new Point(817, 229);
             panel3.Name = "panel3";
             panel3.Size = new Size(755, 262);
@@ -443,6 +451,7 @@
             // lblMessage
             // 
             lblMessage.AutoSize = true;
+            lblMessage.ForeColor = Color.Black;
             lblMessage.Location = new Point(5, 7);
             lblMessage.Name = "lblMessage";
             lblMessage.Size = new Size(554, 40);
@@ -451,6 +460,7 @@
             // 
             // cbxPreferredTime
             // 
+            cbxPreferredTime.ForeColor = Color.Black;
             cbxPreferredTime.FormattingEnabled = true;
             cbxPreferredTime.Items.AddRange(new object[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00" });
             cbxPreferredTime.Location = new Point(469, 154);
@@ -531,6 +541,7 @@
             // 
             // panel4
             // 
+            panel4.BackColor = Color.Transparent;
             panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(gbxReadyToSubmit);
             panel4.Controls.Add(gbxPropertyAddress);
@@ -547,6 +558,7 @@
             panel4.Controls.Add(lblYourInformation);
             panel4.Controls.Add(label15);
             panel4.Controls.Add(gxContactDetails);
+            panel4.ForeColor = Color.White;
             panel4.Location = new Point(817, 497);
             panel4.Name = "panel4";
             panel4.Size = new Size(1044, 483);
@@ -578,6 +590,7 @@
             // 
             // btnCancelReuest
             // 
+            btnCancelReuest.ForeColor = Color.Black;
             btnCancelReuest.Location = new Point(32, 23);
             btnCancelReuest.Name = "btnCancelReuest";
             btnCancelReuest.Size = new Size(335, 29);
@@ -754,6 +767,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1886, 1055);
             Controls.Add(panel3);
             Controls.Add(panel4);

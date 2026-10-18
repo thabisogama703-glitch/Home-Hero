@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCreateServiceProvider));
             pnlNavigationTab = new Panel();
             button1 = new Button();
             label1 = new Label();
@@ -172,7 +173,7 @@
             // 
             // pnlDetails
             // 
-            pnlDetails.BackColor = Color.White;
+            pnlDetails.BackColor = Color.FromArgb(224, 224, 224);
             pnlDetails.BorderStyle = BorderStyle.FixedSingle;
             pnlDetails.Controls.Add(txtName);
             pnlDetails.Controls.Add(lblName);
@@ -228,9 +229,9 @@
             btnRegister.FlatAppearance.BorderSize = 0;
             btnRegister.FlatStyle = FlatStyle.Flat;
             btnRegister.ForeColor = Color.White;
-            btnRegister.Location = new Point(398, 545);
+            btnRegister.Location = new Point(31, 543);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(232, 29);
+            btnRegister.Size = new Size(839, 29);
             btnRegister.TabIndex = 5;
             btnRegister.Text = "Create Service Provider Account";
             btnRegister.UseVisualStyleBackColor = false;
@@ -243,7 +244,7 @@
             btnShowConfirmPassword.Name = "btnShowConfirmPassword";
             btnShowConfirmPassword.Size = new Size(94, 29);
             btnShowConfirmPassword.TabIndex = 13;
-            btnShowConfirmPassword.Text = "show confirm password";
+            btnShowConfirmPassword.Text = "Show confirm password";
             btnShowConfirmPassword.UseVisualStyleBackColor = true;
             btnShowConfirmPassword.Click += btnShowConfirmPassword_Click;
             // 
@@ -292,7 +293,7 @@
             // 
             txtConfirmPassword.Location = new Point(31, 468);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.PlaceholderText = "Repeat Password";
+            txtConfirmPassword.PlaceholderText = "Confirm password";
             txtConfirmPassword.Size = new Size(270, 27);
             txtConfirmPassword.TabIndex = 10;
             txtConfirmPassword.UseSystemPasswordChar = true;
@@ -533,6 +534,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1886, 995);
             Controls.Add(pnlDetails);
             Controls.Add(panel2);

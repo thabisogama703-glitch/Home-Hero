@@ -258,13 +258,13 @@ namespace Home_Hero
 
         private void btnShowConfirmPassword_Click(object sender, EventArgs e)
         {
-            if (txtPassword.UseSystemPasswordChar)
+            if (txtConfirmPassword.UseSystemPasswordChar)
             {
-                txtPassword.UseSystemPasswordChar = false;
+                txtConfirmPassword.UseSystemPasswordChar = false;
             }
             else
             {
-                txtPassword.UseSystemPasswordChar = true;
+                txtConfirmPassword.UseSystemPasswordChar = true;
             }
         }
     }

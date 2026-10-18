@@ -31,10 +31,10 @@
             pnlHomeHero = new Panel();
             tblpHomeHeroPanel = new TableLayoutPanel();
             flpNavigationTab = new FlowLayoutPanel();
+            lnklblHome = new LinkLabel();
             lnklblServices = new LinkLabel();
             lnklblHowItWorks = new LinkLabel();
             lnklblProviders = new LinkLabel();
-            lnklblHome = new LinkLabel();
             pnlServicesButtons = new Panel();
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
@@ -109,6 +109,21 @@
             flpNavigationTab.Size = new Size(625, 31);
             flpNavigationTab.TabIndex = 6;
             // 
+            // lnklblHome
+            // 
+            lnklblHome.AutoSize = true;
+            lnklblHome.Font = new Font("Segoe UI", 13.8F);
+            lnklblHome.LinkBehavior = LinkBehavior.NeverUnderline;
+            lnklblHome.LinkColor = Color.LightGray;
+            lnklblHome.Location = new Point(25, 0);
+            lnklblHome.Margin = new Padding(25, 0, 25, 0);
+            lnklblHome.Name = "lnklblHome";
+            lnklblHome.Size = new Size(75, 31);
+            lnklblHome.TabIndex = 4;
+            lnklblHome.TabStop = true;
+            lnklblHome.Text = "Home";
+            lnklblHome.LinkClicked += lnklblHome_LinkClicked;
+            // 
             // lnklblServices
             // 
             lnklblServices.AutoSize = true;
@@ -153,21 +168,6 @@
             lnklblProviders.TabStop = true;
             lnklblProviders.Text = "Providers";
             lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
-            // 
-            // lnklblHome
-            // 
-            lnklblHome.AutoSize = true;
-            lnklblHome.Font = new Font("Segoe UI", 13.8F);
-            lnklblHome.LinkBehavior = LinkBehavior.NeverUnderline;
-            lnklblHome.LinkColor = Color.LightGray;
-            lnklblHome.Location = new Point(25, 0);
-            lnklblHome.Margin = new Padding(25, 0, 25, 0);
-            lnklblHome.Name = "lnklblHome";
-            lnklblHome.Size = new Size(75, 31);
-            lnklblHome.TabIndex = 4;
-            lnklblHome.TabStop = true;
-            lnklblHome.Text = "Home";
-            lnklblHome.LinkClicked += lnklblHome_LinkClicked;
             // 
             // pnlServicesButtons
             // 
@@ -277,6 +277,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(button5);
             panel1.Controls.Add(button4);
             panel1.Controls.Add(button8);
@@ -431,6 +432,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.Application_pic;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1886, 995);
             Controls.Add(panel1);
             Controls.Add(pnlHomeHero);

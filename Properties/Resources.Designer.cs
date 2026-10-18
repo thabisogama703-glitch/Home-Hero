@@ -63,9 +63,59 @@ namespace Home_Hero.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _8_Home_Maintenance_Jobs_That_MUST_Be_Done_Once_A_Year___NewsBreak {
+            get {
+                object obj = ResourceManager.GetObject("8 Home Maintenance Jobs That MUST Be Done Once A Year - NewsBreak", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Active_Jobs {
             get {
                 object obj = ResourceManager.GetObject("Active Jobs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Application_pic {
+            get {
+                object obj = ResourceManager.GetObject("Application pic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackG_image {
+            get {
+                object obj = ResourceManager.GetObject("BackG image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Breathtaking_new_Hamptons_style_house_in_Melbourne_s_south_east {
+            get {
+                object obj = ResourceManager.GetObject("Breathtaking new Hamptons style house in Melbourne\'s south east", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Home_Hero_background_image {
+            get {
+                object obj = ResourceManager.GetObject("Home Hero background image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

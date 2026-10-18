@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHowItWorksOverview));
             pnlHomeHero = new Panel();
             tblpHomeHeroPanel = new TableLayoutPanel();
             flpNavigationTab = new FlowLayoutPanel();
@@ -44,14 +43,31 @@
             lblHero = new Label();
             lblHome = new Label();
             pbxHomeHeroLogo = new PictureBox();
-            pictureBox1 = new PictureBox();
+            pnlHowHomeHeroWorks = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            panel2 = new Panel();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            lblShortDescr = new Label();
+            label2 = new Label();
+            lblForCustomers = new Label();
+            label1 = new Label();
+            lblOnePla = new Label();
+            lblSimpleProcess = new Label();
             pnlHomeHero.SuspendLayout();
             tblpHomeHeroPanel.SuspendLayout();
             flpNavigationTab.SuspendLayout();
             pnlServicesButtons.SuspendLayout();
             pnlHomeHeroLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlHowHomeHeroWorks.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            panel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHomeHero
@@ -264,22 +280,182 @@
             pbxHomeHeroLogo.TabIndex = 10;
             pbxHomeHeroLogo.TabStop = false;
             // 
-            // pictureBox1
+            // pnlHowHomeHeroWorks
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(0, 170);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1972, 738);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pnlHowHomeHeroWorks.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlHowHomeHeroWorks.BackColor = Color.MidnightBlue;
+            pnlHowHomeHeroWorks.Controls.Add(tableLayoutPanel2);
+            pnlHowHomeHeroWorks.Controls.Add(tableLayoutPanel1);
+            pnlHowHomeHeroWorks.Controls.Add(label1);
+            pnlHowHomeHeroWorks.Controls.Add(lblOnePla);
+            pnlHowHomeHeroWorks.Controls.Add(lblSimpleProcess);
+            pnlHowHomeHeroWorks.Location = new Point(0, 108);
+            pnlHowHomeHeroWorks.Name = "pnlHowHomeHeroWorks";
+            pnlHowHomeHeroWorks.Size = new Size(1886, 886);
+            pnlHowHomeHeroWorks.TabIndex = 4;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.Anchor = AnchorStyles.None;
+            tableLayoutPanel2.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble;
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.Controls.Add(panel2, 0, 0);
+            tableLayoutPanel2.Location = new Point(969, 288);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Size = new Size(884, 568);
+            tableLayoutPanel2.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(label5);
+            panel2.Location = new Point(6, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(865, 132);
+            panel2.TabIndex = 3;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.AppWorkspace;
+            label3.Location = new Point(18, 66);
+            label3.Name = "label3";
+            label3.Size = new Size(672, 56);
+            label3.TabIndex = 4;
+            label3.Text = "Join HomeHero as an independent professional and connect with customers\r\nwho need your expertise.";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(18, 29);
+            label4.Name = "label4";
+            label4.Size = new Size(431, 31);
+            label4.TabIndex = 2;
+            label4.Text = "Turn your skills into new opportunities";
+            label4.Click += label2_Click;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.None;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(255, 128, 0);
+            label5.Location = new Point(20, 5);
+            label5.Name = "label5";
+            label5.Size = new Size(190, 23);
+            label5.TabIndex = 2;
+            label5.Text = "🛠️For Service Providers";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Location = new Point(63, 318);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.Size = new Size(884, 568);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(lblShortDescr);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(lblForCustomers);
+            panel1.Location = new Point(6, 6);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(872, 132);
+            panel1.TabIndex = 3;
+            // 
+            // lblShortDescr
+            // 
+            lblShortDescr.AutoSize = true;
+            lblShortDescr.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblShortDescr.ForeColor = SystemColors.AppWorkspace;
+            lblShortDescr.Location = new Point(18, 69);
+            lblShortDescr.Name = "lblShortDescr";
+            lblShortDescr.Size = new Size(635, 56);
+            lblShortDescr.TabIndex = 4;
+            lblShortDescr.Text = "Find and book verified professionals for repairs, maintenance and home\r\nimprovements.";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(18, 32);
+            label2.Name = "label2";
+            label2.Size = new Size(347, 31);
+            label2.TabIndex = 2;
+            label2.Text = "Get trusted help for your home";
+            label2.Click += label2_Click;
+            // 
+            // lblForCustomers
+            // 
+            lblForCustomers.Anchor = AnchorStyles.None;
+            lblForCustomers.AutoSize = true;
+            lblForCustomers.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblForCustomers.ForeColor = Color.FromArgb(255, 128, 0);
+            lblForCustomers.Location = new Point(17, 8);
+            lblForCustomers.Name = "lblForCustomers";
+            lblForCustomers.Size = new Size(143, 23);
+            lblForCustomers.TabIndex = 2;
+            lblForCustomers.Text = "👤For Customers";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.LightGray;
+            label1.Location = new Point(53, 174);
+            label1.Name = "label1";
+            label1.Size = new Size(825, 62);
+            label1.TabIndex = 0;
+            label1.Text = "Whether you need reliable help at home or want to offer your services as an\r\nindependent professional, HomeHero gives you a clear path forward.";
+            // 
+            // lblOnePla
+            // 
+            lblOnePla.AutoSize = true;
+            lblOnePla.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblOnePla.ForeColor = Color.White;
+            lblOnePla.Location = new Point(53, 112);
+            lblOnePla.Name = "lblOnePla";
+            lblOnePla.Size = new Size(632, 46);
+            lblOnePla.TabIndex = 0;
+            lblOnePla.Text = "One Platform, Two ways to get started";
+            // 
+            // lblSimpleProcess
+            // 
+            lblSimpleProcess.AutoSize = true;
+            lblSimpleProcess.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSimpleProcess.ForeColor = Color.FromArgb(255, 128, 0);
+            lblSimpleProcess.Location = new Point(62, 60);
+            lblSimpleProcess.Name = "lblSimpleProcess";
+            lblSimpleProcess.Size = new Size(174, 31);
+            lblSimpleProcess.TabIndex = 0;
+            lblSimpleProcess.Text = "Simple Process";
             // 
             // frmHowItWorksOverview
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1886, 995);
-            Controls.Add(pictureBox1);
+            Controls.Add(pnlHowHomeHeroWorks);
             Controls.Add(pnlHomeHero);
             Name = "frmHowItWorksOverview";
             StartPosition = FormStartPosition.CenterScreen;
@@ -296,7 +472,14 @@
             pnlHomeHeroLogo.ResumeLayout(false);
             pnlHomeHeroLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbxHomeHeroLogo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlHowHomeHeroWorks.ResumeLayout(false);
+            pnlHowHomeHeroWorks.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -317,6 +500,19 @@
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
         private Button btnRequestAService;
-        private PictureBox pictureBox1;
+        private Panel pnlHowHomeHeroWorks;
+        private Label lblSimpleProcess;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label label1;
+        private Label lblOnePla;
+        private Label lblForCustomers;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label2;
+        private Panel panel2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Panel panel1;
+        private Label lblShortDescr;
     }
 }
