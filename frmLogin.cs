@@ -35,7 +35,7 @@ namespace HomeHero_2
             string email = txtEmail.Text;
             string password = txtPassword.Text;
 
-            string selectedUserType = cmbLoginAs.Text;
+             
 
            
             bool hasEmptyFields = false;
@@ -91,44 +91,36 @@ namespace HomeHero_2
                         frmAdminDashboard adminDashboard = new frmAdminDashboard();
                         this.Hide();
                         adminDashboard.Show();
-                        break;
+                        return;
                     }
-                    else
-                    {
-                        MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                     
                 }
             }
 
-            if (string.IsNullOrEmpty(selectedUserType) && adminLoggedIn == false)
-            {
-                MessageBox.Show("Please select a user type.");
-                return;
-            }
+             
 
-            if (selectedUserType == "Customer")
-            {
+            
 
-                Customer loggedInCustomer = new Customer("","",email,"",password); // We create a variable to hold the customer if we find one.
+                Customer loggedInCustomer = new Customer("", "", email, "", password);
+
                 string message = loggedInCustomer.ReadFromFile(email, password);
 
-                if (message == "Unsuccesful login")
+                if (message == "Succesful login")
                 {
-                    MessageBox.Show("Invalid email or password");
+                    MessageBox.Show("Login successful!", "Login Successful",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     ClearFields();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Login successful !", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearFields();
+
                     frmCustomerDashboard customerForm = new frmCustomerDashboard();
                     this.Hide();
                     customerForm.Show();
+
+                    return;
                 }
 
-            }
-            else if (selectedUserType == "Service Provider")
+
+            if (File.Exists("Service.txt"))
             {
                 string serviceProvider = "Service.txt";
 
@@ -161,8 +153,8 @@ namespace HomeHero_2
                                     serviceArea,
                                     specialisation);
 
-                            if (emailAddress1 == email &&
-                                passWord1 == password)
+                            if (emailAddress1.Trim().ToLower() == email.Trim().ToLower() &&
+                                passWord1.Trim() == password.Trim())
                             {
                                 MessageBox.Show("Login successful!",
                                     "Login Successful",
@@ -180,11 +172,15 @@ namespace HomeHero_2
                         }
                     }
 
-                    MessageBox.Show("Invalid credentials",
-                        "Login Failed",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
+                     
+
                 }
+
+                MessageBox.Show("Invalid email or password.",
+                    "Login Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
             }
 
         }
@@ -253,8 +249,8 @@ namespace HomeHero_2
         {
             txtEmail.Clear();
             txtPassword.Clear();
-            string users =cmbLoginAs.SelectedIndex.ToString();
-            users = "";
+           
+            
             
 
             frmHomeHeroRegistration registerForm = new frmHomeHeroRegistration();
