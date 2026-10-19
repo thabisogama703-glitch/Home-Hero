@@ -108,7 +108,7 @@
             // cbxCategory
             // 
             cbxCategory.FormattingEnabled = true;
-            cbxCategory.Items.AddRange(new object[] { "Category : All", "Category : Plumbing", "Category : Electrical", "Category : HVAC", "Category : Landscaping", "Category : Roofing", "Category : Painting" });
+            cbxCategory.Items.AddRange(new object[] { "Category : All", "Category : Windows and Doors", "Category : Plumbing", "Category : Electrical", "Category : HVAC", "Category : Roofing", "Category : Landscaping", "Category : Painting", "Category : Deep Cleaning", "Category : Appliance Repair", "Category : General Maintenance" });
             cbxCategory.Location = new Point(1315, 330);
             cbxCategory.Name = "cbxCategory";
             cbxCategory.Size = new Size(211, 28);
@@ -140,7 +140,7 @@
             // cbxStatus
             // 
             cbxStatus.FormattingEnabled = true;
-            cbxStatus.Items.AddRange(new object[] { "Status : All", "Status : Submitted", "Status : Assigned", "Status : Scheduled", "Status : In Progress", "Status : Completed" });
+            cbxStatus.Items.AddRange(new object[] { "Status : All", "Status : Submitted", "Status : Approved", "Status : Assigned", "Status : Scheduled", "Status : In Progress", "Status : Completed", "Status : Cancelled" });
             cbxStatus.Location = new Point(1082, 330);
             cbxStatus.Name = "cbxStatus";
             cbxStatus.Size = new Size(199, 28);

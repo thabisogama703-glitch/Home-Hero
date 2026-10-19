@@ -742,8 +742,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            ClientSize = new Size(1904, 1068);
+            ClientSize = new Size(1904, 1042);
             Controls.Add(pnlSubmit);
             Controls.Add(pnlBreakdown);
             Controls.Add(panel8);

@@ -1,4 +1,4 @@
-﻿namespace HomeHero_2
+namespace HomeHero_2
 {
     partial class frmHomeHeroLogin
     {
@@ -33,8 +33,6 @@
             lblPassword = new Label();
             txtEmail = new TextBox();
             txtPassword = new TextBox();
-            lblLoginAs = new Label();
-            cmbLoginAs = new ComboBox();
             btnLogin = new Button();
             ValidationError = new ErrorProvider(components);
             btnShowPassword = new Button();
@@ -91,6 +89,7 @@
             // 
             // txtEmail
             // 
+            txtEmail.BorderStyle = BorderStyle.FixedSingle;
             txtEmail.Location = new Point(25, 126);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "✉️ johndoe123@gmail.com";
@@ -99,7 +98,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Font = new Font("Segoe UI", 9F);
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
             txtPassword.Location = new Point(25, 250);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "🔒Enter your password";
@@ -107,32 +106,13 @@
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
-            // lblLoginAs
-            // 
-            lblLoginAs.AutoSize = true;
-            lblLoginAs.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLoginAs.Location = new Point(25, 303);
-            lblLoginAs.Name = "lblLoginAs";
-            lblLoginAs.Size = new Size(71, 20);
-            lblLoginAs.TabIndex = 4;
-            lblLoginAs.Text = "Login as ";
-            // 
-            // cmbLoginAs
-            // 
-            cmbLoginAs.FormattingEnabled = true;
-            cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider" });
-            cmbLoginAs.Location = new Point(25, 338);
-            cmbLoginAs.Name = "cmbLoginAs";
-            cmbLoginAs.Size = new Size(252, 28);
-            cmbLoginAs.TabIndex = 5;
-            // 
             // btnLogin
             // 
             btnLogin.BackColor = Color.FromArgb(255, 128, 0);
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(25, 429);
+            btnLogin.Location = new Point(25, 372);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(577, 37);
             btnLogin.TabIndex = 6;
@@ -149,6 +129,7 @@
             btnShowPassword.BackColor = Color.Transparent;
             btnShowPassword.FlatAppearance.BorderSize = 0;
             btnShowPassword.FlatStyle = FlatStyle.Popup;
+            btnShowPassword.ForeColor = Color.FromArgb(17, 17, 17);
             btnShowPassword.Location = new Point(508, 250);
             btnShowPassword.Name = "btnShowPassword";
             btnShowPassword.Size = new Size(94, 29);
@@ -311,8 +292,6 @@
             pnlDetails.Controls.Add(label2);
             pnlDetails.Controls.Add(button1);
             pnlDetails.Controls.Add(txtEmail);
-            pnlDetails.Controls.Add(cmbLoginAs);
-            pnlDetails.Controls.Add(lblLoginAs);
             pnlDetails.Controls.Add(lblEmail);
             pnlDetails.Controls.Add(lblPassword);
             pnlDetails.Controls.Add(btnShowPassword);
@@ -320,13 +299,13 @@
             pnlDetails.Controls.Add(txtPassword);
             pnlDetails.Location = new Point(110, 290);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(669, 574);
+            pnlDetails.Size = new Size(669, 510);
             pnlDetails.TabIndex = 14;
             // 
             // chkRemember
             // 
             chkRemember.AutoSize = true;
-            chkRemember.Location = new Point(25, 372);
+            chkRemember.Location = new Point(25, 320);
             chkRemember.Name = "chkRemember";
             chkRemember.Size = new Size(129, 24);
             chkRemember.TabIndex = 11;
@@ -337,7 +316,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(25, 507);
+            label2.Location = new Point(25, 450);
             label2.Name = "label2";
             label2.Size = new Size(163, 20);
             label2.TabIndex = 10;
@@ -350,7 +329,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
-            button1.Location = new Point(220, 507);
+            button1.Location = new Point(220, 450);
             button1.Name = "button1";
             button1.Size = new Size(130, 29);
             button1.TabIndex = 9;
@@ -467,8 +446,6 @@
         private Label lblPassword;
         private TextBox txtEmail;
         private TextBox txtPassword;
-        private Label lblLoginAs;
-        private ComboBox cmbLoginAs;
         private Button btnLogin;
         private ErrorProvider ValidationError;
         private Button btnShowPassword;

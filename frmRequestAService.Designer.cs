@@ -272,7 +272,7 @@
             // cbxServices
             // 
             cbxServices.FormattingEnabled = true;
-            cbxServices.Items.AddRange(new object[] { "🔧Plumbing", "⚡Electrical", "🔌Appliance Repair", "🎨Painting", "🌿Landscaping", "🏠General Maintenance" });
+            cbxServices.Items.AddRange(HomeServiceCatalog.Services.Select(service => service.Name).ToArray());
             cbxServices.Location = new Point(41, 164);
             cbxServices.Name = "cbxServices";
             cbxServices.Size = new Size(644, 28);

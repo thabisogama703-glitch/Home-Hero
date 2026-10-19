@@ -35,6 +35,7 @@
             PrefferedDate = new DataGridViewTextBoxColumn();
             Cost = new DataGridViewTextBoxColumn();
             Status = new DataGridViewTextBoxColumn();
+            Progress = new DataGridViewTextBoxColumn();
             grpbxActiveRequests = new GroupBox();
             panel1 = new Panel();
             btnBack = new Button();
@@ -50,7 +51,7 @@
             dgvActiveRequests.BackgroundColor = SystemColors.ControlLightLight;
             dgvActiveRequests.BorderStyle = BorderStyle.None;
             dgvActiveRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvActiveRequests.Columns.AddRange(new DataGridViewColumn[] { RequestID, ServiceCategory, ProblemDescription, PrefferedDate, Cost, Status });
+            dgvActiveRequests.Columns.AddRange(new DataGridViewColumn[] { RequestID, ServiceCategory, ProblemDescription, PrefferedDate, Cost, Status, Progress });
             dgvActiveRequests.Dock = DockStyle.Fill;
             dgvActiveRequests.Location = new Point(3, 27);
             dgvActiveRequests.Name = "dgvActiveRequests";
@@ -107,6 +108,14 @@
             Status.MinimumWidth = 6;
             Status.Name = "Status";
             Status.ReadOnly = true;
+            //
+            // Progress
+            //
+            Progress.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Progress.HeaderText = "Progress";
+            Progress.MinimumWidth = 6;
+            Progress.Name = "Progress";
+            Progress.ReadOnly = true;
             // 
             // grpbxActiveRequests
             // 
@@ -193,6 +202,7 @@
         private DataGridViewTextBoxColumn PrefferedDate;
         private DataGridViewTextBoxColumn Cost;
         private DataGridViewTextBoxColumn Status;
+        private DataGridViewTextBoxColumn Progress;
         private Panel panel1;
         private Label lblActiveRequests;
         private Label label1;

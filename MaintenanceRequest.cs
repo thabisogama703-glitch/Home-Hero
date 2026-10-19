@@ -27,6 +27,17 @@ namespace Home_Hero
         public decimal EstimatedCost { get; set; }
         public decimal FinalCost { get; set; }
         public object ServiceRequest { get; internal set; }
+        public int ProgressPercentage => Status switch
+        {
+            RequestStatus.Requested => 10,
+            RequestStatus.Approved => 25,
+            RequestStatus.ProviderAssigned => 40,
+            RequestStatus.Scheduled => 55,
+            RequestStatus.InProgress => 75,
+            RequestStatus.Completed => 100,
+            RequestStatus.Cancelled => 0,
+            _ => 0
+        };
 
         public void SetRequestNumber(string requestNumber)
         {
@@ -76,18 +87,7 @@ namespace Home_Hero
 
         public decimal CalculateEstimatedCost(string category)
         {
-            decimal callOutFee = 250.00m;
-            decimal baseRate = category switch
-            {
-                "Electrical" => 500.00m,
-                "Plumbing" => 400.00m,
-                "Appliance Repair" => 350.00m,
-                "Painting" => 200.00m,
-                "General Maintenance" => 300.00m,
-                _ => 0.00m
-
-            };
-            return callOutFee + baseRate;
+            return HomeServiceCatalog.GetStartingPrice(category);
         }
         public bool TryUpdateStatus(RequestStatus newStatus, out string errorMessage)
         {
@@ -218,4 +218,3 @@ namespace Home_Hero
 
 
     
-

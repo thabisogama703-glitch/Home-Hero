@@ -260,7 +260,6 @@
             btnViewJob.TabIndex = 8;
             btnViewJob.Text = "View Jobs";
             btnViewJob.UseVisualStyleBackColor = false;
-            btnViewJob.Click += btnViewJob_Click;
             // 
             // btnRefresh
             // 
@@ -273,7 +272,6 @@
             btnRefresh.TabIndex = 9;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
-            btnRefresh.Click += btnRefresh_Click;
             // 
             // pnlNavigationTab
             // 
@@ -298,7 +296,6 @@
             button2.TabIndex = 12;
             button2.Text = "Logout";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // lblName
             // 
@@ -388,7 +385,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Service Provider Dashboard";
             WindowState = FormWindowState.Maximized;
-            Load += frmServiceProviderDashboard_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAssignedJobs).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvUpcomingJobs).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvCompletedJobs).EndInit();

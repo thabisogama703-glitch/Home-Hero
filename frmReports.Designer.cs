@@ -486,6 +486,7 @@
             lnklblServices.TabStop = true;
             lnklblServices.Text = "Services";
             lnklblServices.TextAlign = ContentAlignment.BottomCenter;
+            lnklblServices.LinkClicked += lnklblServices_LinkClicked;
             // 
             // lnklblProviders
             // 
@@ -731,13 +732,13 @@
             // 
             // clmStatus
             // 
-            clmStatus.HeaderText = "Provider";
+            clmStatus.HeaderText = "Status";
             clmStatus.MinimumWidth = 6;
             clmStatus.Name = "clmStatus";
             // 
             // clmProvider
             // 
-            clmProvider.HeaderText = "Service";
+            clmProvider.HeaderText = "Provider";
             clmProvider.MinimumWidth = 6;
             clmProvider.Name = "clmProvider";
             // 
@@ -827,7 +828,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1052);
+            ClientSize = new Size(1904, 1042);
             Controls.Add(dgvReports);
             Controls.Add(pnlServices);
             Controls.Add(tableLayoutPanel1);
@@ -836,6 +837,7 @@
             Controls.Add(panel4);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationAdminPanl);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmReports";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmReports";

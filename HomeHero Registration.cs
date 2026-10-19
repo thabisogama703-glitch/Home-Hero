@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace HomeHero_2
 {
@@ -25,8 +26,8 @@ namespace HomeHero_2
             string name = txtName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string phoneNumber = txtPhoneNumber.Text.Trim();
-            string password = txtPassword.Text.Trim();
-            string confirmPassword = txtConfirmPassword.Text.Trim();
+            string password = txtPassword.Text;
+            string confirmPassword = txtConfirmPassword.Text;
 
 
             if (string.IsNullOrEmpty(name))
@@ -47,7 +48,7 @@ namespace HomeHero_2
                 hasEmptyFields = true;
 
             }
-            else if (!email.Contains("@") || !email.Contains("."))
+            else if (!IsValidEmail(email))
             {
                 ValidationError.SetError(txtEmail, "Please enter a valid email");
                 isValid = false;
@@ -91,6 +92,12 @@ namespace HomeHero_2
                 ValidationError.SetError(txtPassword, "");
             }
 
+            if (!string.IsNullOrEmpty(password) && password.Length < 8)
+            {
+                ValidationError.SetError(txtPassword, "Use at least 8 characters for your password.");
+                isValid = false;
+            }
+
             if (string.IsNullOrEmpty(confirmPassword))
             {
                 ValidationError.SetError(txtConfirmPassword, "Please confirm your password.");
@@ -127,11 +134,18 @@ namespace HomeHero_2
                 return;
             }
 
+            if (CustomerRepository.EmailExists(email))
+            {
+                ValidationError.SetError(txtEmail, "An account with this email already exists.");
+                MessageBox.Show("An account with this email already exists.", "Email Already Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Customer customer = new Customer(
              name,
              "",
-             phoneNumber,
              email,
+             phoneNumber,
              password);
 
             customer.WriteToFile(name, email, phoneNumber, password);
@@ -165,6 +179,18 @@ namespace HomeHero_2
             txtPhoneNumber.Clear();
             txtPassword.Clear();
             txtConfirmPassword.Clear();
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                return string.Equals(new MailAddress(email).Address, email, StringComparison.OrdinalIgnoreCase);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

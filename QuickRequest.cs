@@ -44,7 +44,7 @@ namespace Home_Hero
 
         public void WriteToFile()
         {
-            string filePath = "QuickRequest.txt";
+            string filePath = AppSettings.GetBaseDirectoryFilePath(AppSettings.QuickRequestFileName);
             string priorityLevel = "";
 
             if (priorityLevelUrgent == true)

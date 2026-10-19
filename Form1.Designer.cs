@@ -1,4 +1,4 @@
-﻿namespace Home_Hero
+namespace Home_Hero
 {
     partial class frmHomeHeroHomepage
     {
@@ -392,7 +392,7 @@
             txtSearchForService.Location = new Point(53, 14);
             txtSearchForService.Name = "txtSearchForService";
             txtSearchForService.PlaceholderText = " What do you need? e.g leaking pipe, broken Ac...";
-            txtSearchForService.Size = new Size(506, 27);
+            txtSearchForService.Size = new Size(506, 48);
             txtSearchForService.TabIndex = 3;
             // 
             // flpAboutTheApplication

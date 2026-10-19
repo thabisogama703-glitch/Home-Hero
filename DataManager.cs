@@ -9,10 +9,10 @@ namespace Home_Hero
     public static class DataManager
     {
         private static readonly string filePath =
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "maintenance_requests.txt");
+            AppSettings.GetBaseDirectoryFilePath(AppSettings.MaintenanceRequestsFileName);
 
         private static readonly string providerFile =
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "providers.json");
+            AppSettings.GetBaseDirectoryFilePath(AppSettings.ProvidersFileName);
         public static List<ServiceProvider> LoadServiceProviders()
         {
             if (!File.Exists(providerFile))
@@ -52,6 +52,19 @@ namespace Home_Hero
             providers.Add(provider);
 
             SaveServiceProviders(providers);
+        }
+        public static bool DeleteServiceProvider(string email)
+        {
+            List<ServiceProvider> providers = LoadServiceProviders();
+            int removed = providers.RemoveAll(provider =>
+                string.Equals(provider.Email, email, StringComparison.OrdinalIgnoreCase));
+            if (removed == 0)
+            {
+                return false;
+            }
+
+            SaveServiceProviders(providers);
+            return true;
         }
         public static bool UpdateServiceProvider(
             ServiceProvider updatedProvider)
@@ -157,7 +170,7 @@ namespace Home_Hero
         }
 
 
-        public static void SaveRequests(List<MaintenanceRequest> requests)
+        public static bool SaveRequests(List<MaintenanceRequest> requests)
         {
             try
             {
@@ -179,6 +192,7 @@ namespace Home_Hero
                             request.FinalCost);
                     }
                 }
+                return true;
             }
             catch (Exception)
             {
@@ -187,6 +201,7 @@ namespace Home_Hero
                     "File Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return false;
             }
         }
 
