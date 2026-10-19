@@ -49,13 +49,11 @@ namespace Home_Hero
             dashboardLayout.SetHero(
                 $"Welcome back, {currentProvider.FirstName}",
                 "Grow your business by delivering excellent service and keeping every customer informed.");
+            dashboardLayout.SetHeroImage(Properties.Resources.Home_Hero_background_image);
             dashboardLayout.SetNavigation(
                 new[] { "Customer Requests", "My Jobs", "Completed Jobs", "Messages", "Analytics" },
                 "Customer Requests");
             dashboardLayout.NavigationRequested += (_, section) => ShowProviderSection(section);
-            HomeHeroDashboardLayout.StyleTable(availableRequestsGrid);
-            HomeHeroDashboardLayout.StyleTable(assignedRequestsGrid);
-            HomeHeroDashboardLayout.StyleTable(completedRequestsGrid);
             KryptonButton logoutButton = CreateActionButton("Log out");
             logoutButton.Size = new Size(104, 34);
             logoutButton.StateCommon.Back.Color1 = Color.FromArgb(33, 43, 74);
@@ -69,7 +67,7 @@ namespace Home_Hero
             jobsContent = CreateProviderTableContent("My active jobs", assignedRequestsGrid);
             completedContent = CreateProviderTableContent("Completed jobs", completedRequestsGrid);
             analyticsContent = CreateOverviewPanel();
-            messagesContent = new() { Dock = DockStyle.Fill, BackColor = Color.White };
+            messagesContent = new HomeHeroCard { Dock = DockStyle.Fill, Padding = new Padding(20) };
             AddMessageCenter(messagesContent);
 
             approveRequestButton.Size = new Size(180, 38);
@@ -154,62 +152,20 @@ namespace Home_Hero
 
         private static Panel CreateProviderTableContent(string title, DataGridView grid)
         {
-            Panel content = new() { Dock = DockStyle.Fill, BackColor = Color.FromArgb(246, 248, 251) };
-            TableLayoutPanel layout = new()
-            {
-                ColumnCount = 1,
-                Dock = DockStyle.Fill,
-                RowCount = 3
-            };
-            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 56F));
-
-            layout.Controls.Add(new Label
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 16F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(2, 2, 89),
-                Text = title,
-                TextAlign = ContentAlignment.MiddleLeft
-            }, 0, 0);
-
-            Panel tableCard = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(10)
-            };
-            grid.Dock = DockStyle.Fill;
-            tableCard.Controls.Add(grid);
-            layout.Controls.Add(tableCard, 0, 1);
-            FlowLayoutPanel actionBar = new()
-            {
-                Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.LeftToRight,
-                Padding = new Padding(0, 8, 0, 0),
-                WrapContents = false,
-                Tag = "action-bar"
-            };
-            layout.Controls.Add(actionBar, 0, 2);
-            content.Controls.Add(layout);
-            return content;
+            HomeHeroDataGridCard card = new(title, grid);
+            return card;
         }
 
         private static void AddTableActions(Panel content, params Control[] actions)
         {
-            if (content.Controls.Count == 0 ||
-                content.Controls[0] is not TableLayoutPanel layout ||
-                layout.GetControlFromPosition(0, 2) is not FlowLayoutPanel actionBar)
+            if (content is not HomeHeroDataGridCard card)
             {
                 return;
             }
 
             foreach (Control action in actions)
             {
-                action.Margin = new Padding(0, 0, 10, 0);
-                actionBar.Controls.Add(action);
+                card.AddActionControl(action);
             }
         }
 
@@ -248,83 +204,96 @@ namespace Home_Hero
 
         private Control CreateOverviewPanel()
         {
-            Panel overview = new()
+            TableLayoutPanel overview = new()
             {
                 Dock = DockStyle.Fill,
-                BackColor = Color.FromArgb(246, 248, 251)
+                BackColor = Color.FromArgb(246, 248, 251),
+                ColumnCount = 3,
+                RowCount = 2,
+                Padding = new Padding(0)
             };
-            TableLayoutPanel layout = new()
+            for (int column = 0; column < 3; column++)
             {
-                ColumnCount = 2,
-                Dock = DockStyle.Fill,
-                RowCount = 1
-            };
-            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58F));
-            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42F));
-            layout.Controls.Add(CreatePipelinePanel(), 0, 0);
-            layout.Controls.Add(CreateSchedulePanel(), 1, 0);
-            overview.Controls.Add(layout);
+                overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.333F));
+            }
+            for (int row = 0; row < 2; row++)
+            {
+                overview.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            }
+
+            overview.Controls.Add(CreateSchedulePanel(), 0, 0);
+            overview.Controls.Add(CreateUpcomingJobsPanel(), 1, 0);
+            overview.Controls.Add(CreateRevenuePanel(), 2, 0);
+            overview.Controls.Add(CreateRatingPanel(), 0, 1);
+            overview.Controls.Add(CreateRecentMessagesPanel(), 1, 1);
+            overview.Controls.Add(CreatePipelinePanel(), 2, 1);
             return overview;
         }
 
         private Control CreatePipelinePanel()
         {
             Panel card = CreateProviderCard("Job pipeline");
-            FlowLayoutPanel pipeline = new()
+            TableLayoutPanel pipeline = new()
             {
                 Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                Padding = new Padding(20, 18, 20, 10),
-                WrapContents = false,
-                AutoScroll = true
+                Padding = new Padding(12, 8, 12, 6),
+                ColumnCount = 2,
+                RowCount = 2
             };
+            pipeline.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            pipeline.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            pipeline.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            pipeline.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             List<MaintenanceRequest> mine = DataManager.LoadRequests()
                 .Where(IsAssignedToCurrentProvider)
                 .ToList();
-            AddPipelineRow(pipeline, "Accepted", mine.Count(request => request.Status == RequestStatus.ProviderAssigned));
-            AddPipelineRow(pipeline, "Scheduled", mine.Count(request => request.Status == RequestStatus.Scheduled));
-            AddPipelineRow(pipeline, "In progress", mine.Count(request => request.Status == RequestStatus.InProgress));
-            AddPipelineRow(pipeline, "Completed", mine.Count(request => request.Status == RequestStatus.Completed));
+            pipeline.Controls.Add(CreatePipelineStage("Accepted", mine.Count(request => request.Status == RequestStatus.ProviderAssigned)), 0, 0);
+            pipeline.Controls.Add(CreatePipelineStage("Scheduled", mine.Count(request => request.Status == RequestStatus.Scheduled)), 1, 0);
+            pipeline.Controls.Add(CreatePipelineStage("In progress", mine.Count(request => request.Status == RequestStatus.InProgress)), 0, 1);
+            pipeline.Controls.Add(CreatePipelineStage("Completed", mine.Count(request => request.Status == RequestStatus.Completed)), 1, 1);
             ((TableLayoutPanel)card.Tag!).Controls.Add(pipeline, 0, 1);
             return card;
         }
 
-        private static void AddPipelineRow(FlowLayoutPanel panel, string title, int count)
+        private static Control CreatePipelineStage(string title, int count)
         {
-            Panel row = new()
+            TableLayoutPanel stage = new()
             {
                 BackColor = Color.FromArgb(246, 248, 251),
-                Margin = new Padding(0, 0, 0, 10),
-                Size = new Size(440, 58)
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(4),
+                RowCount = 1
             };
-            row.Controls.Add(new Label
+            stage.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            stage.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+            stage.Controls.Add(new Label
             {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(27, 27, 27),
-                Location = new Point(14, 18),
-                Text = title
-            });
-            row.Controls.Add(new Label
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            stage.Controls.Add(new Label
             {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 15F, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(255, 138, 0),
-                Location = new Point(370, 14),
-                Text = count.ToString()
-            });
-            panel.Controls.Add(row);
+                Text = count.ToString(),
+                TextAlign = ContentAlignment.MiddleCenter
+            }, 1, 0);
+            return stage;
         }
 
         private Control CreateSchedulePanel()
         {
-            Panel card = CreateProviderCard("Today's schedule");
+            HomeHeroCard card = CreateProviderCard("Today's schedule");
             FlowLayoutPanel schedule = new()
             {
-                AutoScroll = true,
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.TopDown,
-                Padding = new Padding(18, 18, 18, 10),
+                Padding = new Padding(14, 8, 14, 6),
                 WrapContents = false
             };
             List<MaintenanceRequest> todaysJobs = DataManager.LoadRequests()
@@ -353,7 +322,7 @@ namespace Home_Hero
                         Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
                         ForeColor = Color.FromArgb(27, 27, 27),
                         Margin = new Padding(0, 0, 0, 12),
-                        Size = new Size(330, 44),
+                        Size = new Size(250, 50),
                         Text = $"{job.PreferredTime}  ·  {job.ServiceCategory}\n{job.CustomerId}"
                     });
                 }
@@ -362,14 +331,158 @@ namespace Home_Hero
             return card;
         }
 
-        private static Panel CreateProviderCard(string title)
+        private Control CreateUpcomingJobsPanel()
         {
-            Panel card = new()
+            HomeHeroCard card = CreateProviderCard("Upcoming jobs");
+            FlowLayoutPanel list = CreateCardList();
+            List<MaintenanceRequest> upcoming = DataManager.LoadRequests()
+                .Where(IsAssignedToCurrentProvider)
+                .Where(request => request.Status == RequestStatus.Scheduled &&
+                                  request.PreferredDate.Date > DateTime.Today)
+                .OrderBy(request => request.PreferredDate)
+                .Take(2)
+                .ToList();
+            if (upcoming.Count == 0)
             {
-                BackColor = Color.White,
+                list.Controls.Add(CreateEmptyState("No upcoming jobs are scheduled."));
+            }
+            else
+            {
+                foreach (MaintenanceRequest job in upcoming)
+                {
+                    list.Controls.Add(CreateProviderDetail(
+                        $"{job.PreferredDate:ddd, d MMM}  ·  {job.PreferredTime}",
+                        $"{job.ServiceCategory}  ·  {job.CustomerId}"));
+                }
+            }
+
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
+        }
+
+        private Control CreateRevenuePanel()
+        {
+            HomeHeroCard card = CreateProviderCard("Revenue summary");
+            List<MaintenanceRequest> completed = DataManager.LoadRequests()
+                .Where(IsAssignedToCurrentProvider)
+                .Where(request => request.Status == RequestStatus.Completed)
+                .ToList();
+            DateTime monthStart = new(DateTime.Today.Year, DateTime.Today.Month, 1);
+            decimal monthly = completed
+                .Where(request => request.PreferredDate.Date >= monthStart &&
+                                  request.PreferredDate.Date <= DateTime.Today)
+                .Sum(request => request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost);
+            decimal total = completed.Sum(request =>
+                request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost);
+            FlowLayoutPanel list = CreateCardList();
+            list.Controls.Add(CreateProviderDetail($"R{monthly:N2}", "Earned from completed jobs this month"));
+            list.Controls.Add(CreateProviderDetail($"R{total:N2}", $"All-time · {completed.Count} completed jobs"));
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
+        }
+
+        private Control CreateRatingPanel()
+        {
+            HomeHeroCard card = CreateProviderCard("Customer rating");
+            FlowLayoutPanel list = CreateCardList();
+            list.Controls.Add(CreateProviderDetail("Rating data not tracked", "Customer feedback can be surfaced here once collected."));
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
+        }
+
+        private Control CreateRecentMessagesPanel()
+        {
+            HomeHeroCard card = CreateProviderCard("Recent messages");
+            FlowLayoutPanel list = CreateCardList();
+            List<MessageRecord> recent = MessageRepository.LoadMessages()
+                .Where(message => string.Equals(message.ProviderEmail, currentProvider.Email, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(message => message.SentAt)
+                .Take(2)
+                .ToList();
+            if (recent.Count == 0)
+            {
+                list.Controls.Add(CreateEmptyState("No customer messages yet."));
+            }
+            else
+            {
+                foreach (MessageRecord message in recent)
+                {
+                    string preview = message.Body.Length > 54 ? $"{message.Body[..51]}..." : message.Body;
+                    list.Controls.Add(CreateProviderDetail(
+                        $"{message.CustomerEmail}  ·  {message.SentAt:g}",
+                        preview));
+                }
+            }
+
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
+        }
+
+        private static FlowLayoutPanel CreateCardList()
+        {
+            return new FlowLayoutPanel
+            {
                 Dock = DockStyle.Fill,
-                Margin = new Padding(0, 0, 14, 0),
-                Padding = new Padding(14)
+                FlowDirection = FlowDirection.TopDown,
+                Padding = new Padding(14, 8, 14, 6),
+                WrapContents = false
+            };
+        }
+
+        private static Control CreateProviderDetail(string heading, string detail)
+        {
+            TableLayoutPanel item = new()
+            {
+                ColumnCount = 1,
+                Margin = new Padding(0, 0, 0, 6),
+                RowCount = 2,
+                Size = new Size(250, 54)
+            };
+            item.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            item.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
+            item.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            item.Controls.Add(new Label
+            {
+                AutoEllipsis = true,
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = heading,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            item.Controls.Add(new Label
+            {
+                AutoEllipsis = true,
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.FromArgb(90, 99, 112),
+                Text = detail,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 1);
+            return item;
+        }
+
+        private static Control CreateEmptyState(string text)
+        {
+            return new Label
+            {
+                AutoEllipsis = true,
+                Dock = DockStyle.Top,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(90, 99, 112),
+                Height = 48,
+                Text = text,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+        }
+
+        private static HomeHeroCard CreateProviderCard(string title)
+        {
+            HomeHeroCard card = new()
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(8),
+                Padding = new Padding(20)
             };
             TableLayoutPanel layout = new()
             {
@@ -470,10 +583,12 @@ namespace Home_Hero
 
         private static void AddGridTab(TabPage tab, DataGridView grid)
         {
-            grid.Location = new Point(18, 18);
-            grid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            grid.Size = new Size(1200, 355);
-            tab.Controls.Add(grid);
+            HomeHeroDataGridCard card = new(tab.Text, grid)
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(20)
+            };
+            tab.Controls.Add(card);
         }
 
         private void LoadRequests()
@@ -502,6 +617,9 @@ namespace Home_Hero
             BindRequestsGrid(availableRequestsGrid, available);
             BindRequestsGrid(assignedRequestsGrid, assigned);
             BindRequestsGrid(completedRequestsGrid, completed);
+            (requestsContent as HomeHeroDataGridCard)?.ApplyCurrentSearch();
+            (jobsContent as HomeHeroDataGridCard)?.ApplyCurrentSearch();
+            (completedContent as HomeHeroDataGridCard)?.ApplyCurrentSearch();
             summaryAvailable.Text = available.Count.ToString();
             summaryAssigned.Text = assigned.Count.ToString();
             summaryCompleted.Text = completed.Count.ToString();

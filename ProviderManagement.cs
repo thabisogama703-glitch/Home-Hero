@@ -13,6 +13,7 @@ namespace Home_Hero
         private List<MaintenanceRequest> requests = new();
         private HomeHeroDashboardLayout? dashboardLayout;
         private Control? workspaceContent;
+        private HomeHeroDataGridCard? providersTableCard;
 
         public event EventHandler? WorkspaceDataChanged;
 
@@ -34,11 +35,11 @@ namespace Home_Hero
             dashboardLayout = new HomeHeroDashboardLayout();
             dashboardLayout.SetIdentity("ADMINISTRATOR PORTAL");
             dashboardLayout.SetHero("Service provider management", "Manage registered tradespeople, update service details, and add trusted professionals.");
+            dashboardLayout.SetHeroImage(Properties.Resources.Application_pic);
             dashboardLayout.SetNavigation(
                 new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
                 "Providers");
             dashboardLayout.NavigationRequested += (_, section) => NavigateAdmin(section);
-            HomeHeroDashboardLayout.StyleTable(providersGrid);
             Button logoutButton = CreateButton("Log out", Color.FromArgb(33, 43, 74));
             logoutButton.Size = new Size(106, 34);
             logoutButton.Click += btnExitAdmin_Click;
@@ -50,13 +51,11 @@ namespace Home_Hero
                 BackColor = Color.FromArgb(246, 248, 251),
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
-                RowCount = 2
+                RowCount = 1
             };
             content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
             content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            content.Controls.Add(CreateToolbar(), 0, 0);
-            content.Controls.Add(CreateGridPanel(), 0, 1);
+            content.Controls.Add(CreateGridPanel(), 0, 0);
             workspaceContent = content;
             dashboardLayout.ShowContent(content);
             Controls.Add(dashboardLayout);
@@ -161,56 +160,27 @@ namespace Home_Hero
             return metrics;
         }
 
-        private Control CreateToolbar()
-        {
-            TableLayoutPanel toolbar = new()
-            {
-                ColumnCount = 4,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(0, 8, 0, 8),
-                RowCount = 1
-            };
-            toolbar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            toolbar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-            toolbar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
-            toolbar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 165F));
-
-            searchBox.Dock = DockStyle.Fill;
-            searchBox.Font = new Font("Segoe UI", 10F);
-            searchBox.PlaceholderText = "Search by provider, email, service area, or specialization";
-            searchBox.TextChanged += (_, _) => BindProviders();
-            toolbar.Controls.Add(searchBox, 0, 0);
-
-            Button editButton = CreateButton("Edit selected", Color.FromArgb(0, 0, 64));
-            editButton.Dock = DockStyle.Fill;
-            editButton.Margin = new Padding(10, 0, 0, 0);
-            editButton.Click += (_, _) => EditSelectedProvider();
-            toolbar.Controls.Add(editButton, 1, 0);
-
-            Button removeButton = CreateButton("Remove selected", Color.FromArgb(176, 48, 48));
-            removeButton.Dock = DockStyle.Fill;
-            removeButton.Margin = new Padding(10, 0, 0, 0);
-            removeButton.Click += btnAddProvider_Click;
-            toolbar.Controls.Add(removeButton, 2, 0);
-
-            Button addButton = CreateButton("+ Add provider", Color.FromArgb(255, 128, 0));
-            addButton.Dock = DockStyle.Fill;
-            addButton.Margin = new Padding(10, 0, 0, 0);
-            addButton.Click += btnAddProvider__Click;
-            toolbar.Controls.Add(addButton, 3, 0);
-            return toolbar;
-        }
-
         private Control CreateGridPanel()
         {
-            Panel panel = new()
+            HomeHeroDataGridCard card = new("Provider directory", providersGrid);
+            providersTableCard = card;
+            card.SearchBox.PlaceholderText = "Search provider, email, service area, or specialty";
+            card.SearchBox.TextChanged += (_, _) =>
             {
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(10)
+                searchBox.Text = card.SearchBox.Text;
+                BindProviders();
             };
-            providersGrid.Dock = DockStyle.Fill;
+            Button editButton = CreateButton("Edit selected", Color.FromArgb(0, 0, 64));
+            editButton.Click += (_, _) => EditSelectedProvider();
+            card.AddActionControl(editButton);
+
+            Button removeButton = CreateButton("Remove selected", Color.FromArgb(176, 48, 48));
+            removeButton.Click += btnAddProvider_Click;
+            card.AddActionControl(removeButton);
+
+            Button addButton = CreateButton("+ Add provider", Color.FromArgb(255, 128, 0));
+            addButton.Click += btnAddProvider__Click;
+            card.AddActionControl(addButton);
             providersGrid.CellDoubleClick += (_, e) =>
             {
                 if (e.RowIndex >= 0)
@@ -218,8 +188,7 @@ namespace Home_Hero
                     EditSelectedProvider();
                 }
             };
-            panel.Controls.Add(providersGrid);
-            return panel;
+            return card;
         }
 
         private static Panel CreateMetricCard(string title, Label value)
@@ -372,6 +341,7 @@ namespace Home_Hero
                         request.Status != RequestStatus.Cancelled)
                 })
                 .ToList();
+            providersTableCard?.ApplyCurrentSearch();
         }
 
         private static bool IsAssignedToProvider(MaintenanceRequest request, ServiceProvider provider)

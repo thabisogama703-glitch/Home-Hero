@@ -42,6 +42,7 @@ namespace Home_Hero
             sharedLayout.SetHero(
                 "HomeHero Operations Center",
                 "Manage providers, service requests, service information, and platform performance.");
+            sharedLayout.SetHeroImage(Properties.Resources.Application_pic);
             sharedLayout.SetNavigation(
                 new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
                 "Overview");
@@ -133,34 +134,33 @@ namespace Home_Hero
 
         private Control CreateServicePanel()
         {
-            Panel panel = CreateWhitePanel();
-            panel.Padding = new Padding(12);
             TableLayoutPanel content = new()
             {
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
+                Padding = new Padding(8),
                 RowCount = 2
             };
             content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
             content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             content.Controls.Add(new Label
             {
                 Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 8.5F, FontStyle.Italic),
-                ForeColor = Color.DimGray,
-                Text = "Prices are starting estimates; the final quote may vary after a service assessment.",
+                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = "Service category performance",
                 TextAlign = ContentAlignment.MiddleLeft
             }, 0, 0);
             serviceCardsPanel = new FlowLayoutPanel
             {
                 AutoScroll = true,
                 Dock = DockStyle.Fill,
-                WrapContents = true
+                WrapContents = true,
+                Padding = new Padding(8)
             };
             content.Controls.Add(serviceCardsPanel, 0, 1);
-            panel.Controls.Add(content);
-            return panel;
+            return content;
         }
 
         private Control CreateRecentRequestsPanel()
@@ -170,7 +170,7 @@ namespace Home_Hero
             {
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
-                Padding = new Padding(16),
+                Padding = new Padding(20),
                 RowCount = 2
             };
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -204,14 +204,11 @@ namespace Home_Hero
             return panel;
         }
 
-        private static Panel CreateWhitePanel()
+        private static HomeHeroCard CreateWhitePanel()
         {
-            return new Panel
+            return new HomeHeroCard
             {
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                Dock = DockStyle.Fill,
-                Margin = new Padding(0, 0, 12, 12)
+                Dock = DockStyle.Fill
             };
         }
 
@@ -365,25 +362,127 @@ namespace Home_Hero
 
         private Control CreateOverviewContent()
         {
-            TableLayoutPanel overview = new()
+            List<MaintenanceRequest> requests = DataManager.LoadRequests();
+            List<ServiceProvider> providers = CustomerRepository.LoadRegisteredServiceProviders();
+            List<MaintenanceRequest> pending = requests
+                .Where(request => request.Status == RequestStatus.Requested)
+                .OrderBy(request => request.PreferredDate)
+                .Take(4)
+                .ToList();
+            DateTime monthStart = new(DateTime.Today.Year, DateTime.Today.Month, 1);
+            decimal revenueThisMonth = requests
+                .Where(request => request.Status == RequestStatus.Completed &&
+                                  request.PreferredDate.Date >= monthStart &&
+                                  request.PreferredDate.Date <= DateTime.Today)
+                .Sum(GetRecordedCost);
+            decimal totalRevenue = requests
+                .Where(request => request.Status == RequestStatus.Completed)
+                .Sum(GetRecordedCost);
+            int completed = requests.Count(request => request.Status == RequestStatus.Completed);
+            int active = requests.Count(request =>
+                request.Status != RequestStatus.Completed &&
+                request.Status != RequestStatus.Cancelled);
+            string categorySummary = string.Join(Environment.NewLine, requests
+                .GroupBy(request => HomeServiceCatalog.NormalizeCategory(request.ServiceCategory))
+                .OrderByDescending(group => group.Count())
+                .Take(3)
+                .Select(group => $"{group.Key}: {group.Count()} requests"));
+
+            FlowLayoutPanel cardGrid = new()
             {
-                AutoScroll = true,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Dock = DockStyle.Top,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true
+            };
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Provider verification queue",
+                $"{providers.Count} provider profiles are registered. Verification status is not tracked yet.",
+                "Manage providers",
+                (_, _) => ShowAdminSection("Providers")));
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Pending requests",
+                pending.Count == 0
+                    ? "The request queue is clear. New customer requests will appear here."
+                    : string.Join(Environment.NewLine, pending.Select(request =>
+                        $"{request.ServiceCategory}  ·  {request.PreferredDate:d}  ·  {request.CustomerId}")),
+                "Review request queue",
+                (_, _) => ShowAdminSection("Requests")));
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Revenue analytics",
+                $"This month: R{revenueThisMonth:N2}{Environment.NewLine}All-time completed revenue: R{totalRevenue:N2}",
+                "Open reports",
+                (_, _) => ShowAdminSection("Reports")));
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Service category performance",
+                string.IsNullOrWhiteSpace(categorySummary)
+                    ? "Category activity will appear after requests are submitted."
+                    : categorySummary,
+                "View services",
+                (_, _) => ShowAdminSection("Services")));
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Customer satisfaction",
+                $"Ratings are not currently tracked.{Environment.NewLine}{completed} completed jobs provide the basis for future feedback reporting.",
+                "Open reports",
+                (_, _) => ShowAdminSection("Reports")));
+            cardGrid.Controls.Add(CreateOperationalCard(
+                "Platform metrics",
+                $"{requests.Count} total requests{Environment.NewLine}{active} active jobs  ·  {providers.Count} registered providers  ·  {completed} completed",
+                "Open request queue",
+                (_, _) => ShowAdminSection("Requests")));
+            dashboardContent = new TableLayoutPanel { AutoSize = true };
+            return cardGrid;
+        }
+
+        private static Control CreateOperationalCard(string title, string details, string actionText, EventHandler action)
+        {
+            HomeHeroCard card = new()
+            {
+                Margin = new Padding(8),
+                Padding = new Padding(20),
+                Size = new Size(420, 174)
+            };
+            TableLayoutPanel layout = new()
+            {
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
-                RowCount = 4
+                RowCount = 3
             };
-            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 330F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
-            overview.Controls.Add(CreateSectionHeading("Home maintenance services and starting prices"), 0, 0);
-            serviceSummarySection = CreateServicePanel();
-            overview.Controls.Add(serviceSummarySection, 0, 1);
-            overview.Controls.Add(CreateSectionHeading("Recent service requests"), 0, 2);
-            overview.Controls.Add(CreateRecentRequestsPanel(), 0, 3);
-            dashboardContent = overview;
-            return overview;
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 9.5F),
+                ForeColor = Color.FromArgb(90, 99, 112),
+                Text = details,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 1);
+            Button button = new()
+            {
+                BackColor = Color.FromArgb(2, 2, 89),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Text = actionText,
+                Width = 180
+            };
+            button.FlatAppearance.BorderSize = 0;
+            button.Click += action;
+            layout.Controls.Add(button, 0, 2);
+            card.Controls.Add(layout);
+            return card;
         }
 
         private void BindServiceSummary(IEnumerable<MaintenanceRequest> requests)
@@ -399,13 +498,26 @@ namespace Home_Hero
                 existingCard.Dispose();
             }
             serviceCardsPanel.Controls.Clear();
-            foreach (HomeServiceOption service in HomeServiceCatalog.Services)
+            string[] featured = { "Electrical", "Plumbing", "Painting", "Deep Cleaning", "HVAC", "General Maintenance" };
+            foreach (HomeServiceOption service in HomeServiceCatalog.Services.Where(service =>
+                         featured.Contains(service.Name, StringComparer.OrdinalIgnoreCase)))
             {
                 int count = requests.Count(request => string.Equals(
                     HomeServiceCatalog.NormalizeCategory(request.ServiceCategory),
                     service.Name,
                     StringComparison.OrdinalIgnoreCase));
-                serviceCardsPanel.Controls.Add(CreateServiceCard(service, count));
+                HomeServiceOption displayService = service.Name switch
+                {
+                    "Deep Cleaning" => service with { Name = "Cleaning" },
+                    "General Maintenance" => service with { Name = "Repairs" },
+                    _ => service
+                };
+                HomeHeroServiceCard card = new(displayService, HomeHeroServiceCard.ImageFor(displayService.Name))
+                {
+                    Size = new Size(260, 260),
+                    Margin = new Padding(8)
+                };
+                serviceCardsPanel.Controls.Add(card);
             }
             serviceCardsPanel.ResumeLayout();
         }

@@ -1,6 +1,262 @@
+using System.Drawing.Drawing2D;
+
 namespace Home_Hero
 {
     public sealed record DashboardMetric(string Title, string Value, string Detail);
+
+    public class HomeHeroCard : Panel
+    {
+        public HomeHeroCard()
+        {
+            BackColor = Color.White;
+            Padding = new Padding(20);
+            Margin = new Padding(8);
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.ResizeRedraw |
+                ControlStyles.UserPaint,
+                true);
+            SizeChanged += (_, _) => UpdateRoundedRegion();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.Clear(Parent?.BackColor ?? Color.FromArgb(246, 248, 251));
+            Rectangle shadowBounds = ClientRectangle;
+            shadowBounds.Inflate(-3, -3);
+            shadowBounds.Offset(0, 2);
+            using GraphicsPath shadowPath = CreateRoundedPath(shadowBounds, 14);
+            using SolidBrush shadow = new(Color.FromArgb(20, 24, 39, 75));
+            e.Graphics.FillPath(shadow, shadowPath);
+            using GraphicsPath cardPath = CreateRoundedPath(ClientRectangle, 14);
+            using SolidBrush background = new(BackColor);
+            e.Graphics.FillPath(background, cardPath);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using GraphicsPath path = CreateRoundedPath(
+                new Rectangle(1, 1, Math.Max(0, Width - 3), Math.Max(0, Height - 3)), 14);
+            using Pen border = new(Color.FromArgb(255, 138, 0), 1.5F);
+            e.Graphics.DrawPath(border, path);
+        }
+
+        private void UpdateRoundedRegion()
+        {
+            if (Width < 2 || Height < 2)
+            {
+                return;
+            }
+
+            using GraphicsPath path = CreateRoundedPath(ClientRectangle, 14);
+            Region = new Region(path);
+        }
+
+        private static GraphicsPath CreateRoundedPath(Rectangle bounds, int radius)
+        {
+            int diameter = Math.Min(radius * 2, Math.Min(bounds.Width, bounds.Height));
+            GraphicsPath path = new();
+            if (diameter < 2)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+            path.AddArc(bounds.Left, bounds.Top, diameter, diameter, 180, 90);
+            path.AddArc(bounds.Right - diameter, bounds.Top, diameter, diameter, 270, 90);
+            path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(bounds.Left, bounds.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+    }
+
+    public sealed class HomeHeroDataGridCard : HomeHeroCard
+    {
+        private readonly DataGridView grid;
+
+        public HomeHeroDataGridCard(string title, DataGridView grid)
+        {
+            this.grid = grid;
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 4
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+
+            FlowLayoutPanel toolbar = new()
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                Padding = new Padding(0, 5, 0, 5),
+                WrapContents = false
+            };
+            SearchBox = new TextBox
+            {
+                Font = new Font("Segoe UI", 9.5F),
+                PlaceholderText = "Search this table",
+                Width = 260,
+                Height = 32,
+                Margin = new Padding(0, 0, 10, 0)
+            };
+            SearchBox.TextChanged += (_, _) => ApplySearch();
+            toolbar.Controls.Add(SearchBox);
+            ToolbarPanel = toolbar;
+            layout.Controls.Add(toolbar, 0, 1);
+
+            HomeHeroDashboardLayout.StyleTable(grid);
+            Panel gridFrame = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(2)
+            };
+            grid.Dock = DockStyle.Fill;
+            gridFrame.Controls.Add(grid);
+            layout.Controls.Add(gridFrame, 0, 2);
+            ActionPanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                Padding = new Padding(0, 8, 0, 0),
+                WrapContents = false
+            };
+            layout.Controls.Add(ActionPanel, 0, 3);
+            Controls.Add(layout);
+        }
+
+        public TextBox SearchBox { get; }
+        public FlowLayoutPanel ToolbarPanel { get; }
+        public FlowLayoutPanel ActionPanel { get; }
+
+        public void AddToolbarControl(Control control)
+        {
+            control.Margin = new Padding(0, 0, 10, 0);
+            ToolbarPanel.Controls.Add(control);
+        }
+
+        public void AddActionControl(Control control)
+        {
+            control.Margin = new Padding(0, 0, 10, 0);
+            ActionPanel.Controls.Add(control);
+        }
+
+        public void ApplyCurrentSearch() => ApplySearch();
+
+        private void ApplySearch()
+        {
+            if (grid.RowCount == 0)
+            {
+                return;
+            }
+
+            string query = SearchBox.Text.Trim();
+            if (grid.CurrentCell != null)
+            {
+                grid.CurrentCell = null;
+            }
+
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
+                bool matches = string.IsNullOrWhiteSpace(query) ||
+                               string.Join(" ", row.Cells.Cast<DataGridViewCell>()
+                                       .Select(cell => cell.Value?.ToString() ?? string.Empty))
+                                   .Contains(query, StringComparison.OrdinalIgnoreCase);
+                row.Visible = matches;
+            }
+        }
+    }
+
+    public sealed class HomeHeroServiceCard : HomeHeroCard
+    {
+        public HomeHeroServiceCard(HomeServiceOption service, Image image)
+        {
+            Padding = new Padding(0);
+            Size = new Size(260, 260);
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0),
+                RowCount = 4
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            PictureBox picture = new()
+            {
+                Dock = DockStyle.Fill,
+                Image = image,
+                SizeMode = PictureBoxSizeMode.Zoom
+            };
+            layout.Controls.Add(picture, 0, 0);
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Padding = new Padding(16, 6, 10, 0),
+                Text = service.Name
+            }, 0, 1);
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(90, 99, 112),
+                Padding = new Padding(16, 4, 12, 0),
+                Text = service.Description
+            }, 0, 2);
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(224, 112, 0),
+                Padding = new Padding(16, 4, 10, 0),
+                Text = $"Starting at R{service.StartingPrice:N0}"
+            }, 0, 3);
+            Controls.Add(layout);
+        }
+
+        public static Image ImageFor(string serviceName)
+        {
+            return HomeServiceCatalog.NormalizeCategory(serviceName) switch
+            {
+                "Electrical" => Properties.Resources.Application_pic,
+                "Plumbing" => Properties.Resources._8_Home_Maintenance_Jobs_That_MUST_Be_Done_Once_A_Year___NewsBreak,
+                "Painting" => Properties.Resources.Home_Hero_background_image,
+                "Cleaning" => Properties.Resources.Breathtaking_new_Hamptons_style_house_in_Melbourne_s_south_east,
+                "Deep Cleaning" => Properties.Resources.Breathtaking_new_Hamptons_style_house_in_Melbourne_s_south_east,
+                "HVAC" => Properties.Resources.BackG_image,
+                "Repairs" => Properties.Resources.Application_pic,
+                _ => Properties.Resources.Application_pic
+            };
+        }
+    }
 
     public sealed class HomeHeroDashboardLayout : UserControl
     {
@@ -11,13 +267,21 @@ namespace Home_Hero
         private readonly Label titleLabel = new();
         private readonly Label descriptionLabel = new();
         private readonly Label identityLabel = new();
-        private string selectedSection = string.Empty;
+        private Panel heroPanel = new();
+        private Control? currentContent;
 
         public HomeHeroDashboardLayout()
         {
             BackColor = Color.FromArgb(246, 248, 251);
             Dock = DockStyle.Fill;
             BuildLayout();
+            contentPanel.Resize += (_, _) =>
+            {
+                if (currentContent?.AutoSize == true)
+                {
+                    currentContent.Width = contentPanel.ClientSize.Width;
+                }
+            };
         }
 
         public Panel ContentPanel => contentPanel;
@@ -34,6 +298,11 @@ namespace Home_Hero
         {
             titleLabel.Text = title;
             descriptionLabel.Text = description;
+        }
+
+        public void SetHeroImage(Image image)
+        {
+            heroPanel.BackgroundImage = image;
         }
 
         public void SetMetrics(IEnumerable<DashboardMetric> values)
@@ -57,7 +326,6 @@ namespace Home_Hero
         {
             navigation.SuspendLayout();
             navigation.Controls.Clear();
-            selectedSection = selected;
             foreach (string section in sections)
             {
                 Button button = new()
@@ -89,7 +357,16 @@ namespace Home_Hero
         {
             contentPanel.SuspendLayout();
             contentPanel.Controls.Clear();
-            content.Dock = DockStyle.Fill;
+            currentContent = content;
+            if (content.AutoSize)
+            {
+                content.Dock = DockStyle.Top;
+                content.Width = contentPanel.ClientSize.Width;
+            }
+            else
+            {
+                content.Dock = DockStyle.Fill;
+            }
             contentPanel.Controls.Add(content);
             contentPanel.ResumeLayout();
         }
@@ -113,6 +390,7 @@ namespace Home_Hero
             table.DefaultCellStyle.SelectionBackColor = Color.FromArgb(230, 238, 250);
             table.DefaultCellStyle.SelectionForeColor = Color.FromArgb(27, 27, 27);
             table.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(246, 248, 251);
+            table.RowTemplate.Height = 38;
             table.CellFormatting += (_, e) =>
             {
                 if (e.RowIndex < 0 ||
@@ -147,10 +425,10 @@ namespace Home_Hero
                 RowCount = 5
             };
             root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 152F));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 66F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 168F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 116F));
             root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
             BuildTopBar();
@@ -162,15 +440,16 @@ namespace Home_Hero
             navigation.AutoScroll = true;
 
             Panel hero = BuildHero();
+            heroPanel = hero;
             metrics.Dock = DockStyle.Fill;
-            metrics.Padding = new Padding(28, 8, 28, 10);
+            metrics.Padding = new Padding(20, 12, 20, 16);
             metrics.RowCount = 1;
             metrics.BackColor = Color.FromArgb(246, 248, 251);
 
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.BackColor = Color.FromArgb(246, 248, 251);
-            contentPanel.Padding = new Padding(28, 8, 28, 26);
-            contentPanel.AutoScroll = false;
+            contentPanel.Padding = new Padding(20, 12, 20, 24);
+            contentPanel.AutoScroll = true;
 
             root.Controls.Add(topBar, 0, 0);
             root.Controls.Add(navigation, 0, 1);
@@ -200,6 +479,8 @@ namespace Home_Hero
             identityLabel.Location = new Point(220, 22);
             identityLabel.TextAlign = ContentAlignment.MiddleRight;
             topBar.Controls.Add(identityLabel);
+            topBar.Resize += (_, _) => identityLabel.Location =
+                new Point(Math.Min(260, Math.Max(190, topBar.ClientSize.Width / 3)), 23);
         }
 
         private Panel BuildHero()
@@ -210,7 +491,7 @@ namespace Home_Hero
                 BackgroundImage = Properties.Resources.Home_Hero_background_image,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 Dock = DockStyle.Fill,
-                Margin = new Padding(28, 10, 28, 8),
+                Margin = new Padding(20, 12, 20, 12),
                 Padding = new Padding(26)
             };
             hero.Paint += (_, e) =>
@@ -233,12 +514,11 @@ namespace Home_Hero
 
         private static Control CreateMetricCard(DashboardMetric metric)
         {
-            Panel card = new()
+            HomeHeroCard card = new()
             {
-                BackColor = Color.White,
                 Dock = DockStyle.Fill,
-                Margin = new Padding(0, 0, 12, 0),
-                Padding = new Padding(16)
+                Margin = new Padding(7, 0, 8, 0),
+                Padding = new Padding(20, 14, 14, 12)
             };
             Panel accent = new()
             {

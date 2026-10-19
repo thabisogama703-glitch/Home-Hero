@@ -6,10 +6,11 @@ namespace Home_Hero
     public partial class frmReports : Form
     {
         private readonly DataGridView serviceSummaryGrid = CreateSummaryGrid();
-        private readonly TextBox reportSearch = new();
         private readonly ComboBox reportStatusFilter = new();
         private HomeHeroDashboardLayout? dashboardLayout;
         private Control? workspaceContent;
+        private HomeHeroDataGridCard? activityTableCard;
+        private HomeHeroDataGridCard? serviceTableCard;
 
         public event EventHandler? WorkspaceDataChanged;
 
@@ -33,6 +34,7 @@ namespace Home_Hero
             dashboardLayout = new HomeHeroDashboardLayout();
             dashboardLayout.SetIdentity("ADMINISTRATOR PORTAL");
             dashboardLayout.SetHero("Platform performance reports", "Review completed work, revenue, request activity, and service demand.");
+            dashboardLayout.SetHeroImage(Properties.Resources.Application_pic);
             dashboardLayout.SetNavigation(
                 new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
                 "Reports");
@@ -54,10 +56,6 @@ namespace Home_Hero
             dashboardLayout.HeaderPanel.Resize += (_, _) => logout.Location =
                 new Point(dashboardLayout.HeaderPanel.ClientSize.Width - logout.Width - 28, 15);
 
-            reportSearch.Dock = DockStyle.Fill;
-            reportSearch.Font = new Font("Segoe UI", 9.5F);
-            reportSearch.PlaceholderText = "Search requests or providers";
-            reportSearch.TextChanged += (_, _) => ApplyReportFilters();
             reportStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             reportStatusFilter.Items.AddRange(new object[]
             {
@@ -67,53 +65,28 @@ namespace Home_Hero
             reportStatusFilter.Width = 180;
             reportStatusFilter.SelectedIndexChanged += (_, _) => ApplyReportFilters();
 
-            TableLayoutPanel filters = new()
-            {
-                ColumnCount = 2,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(0, 5, 0, 8),
-                RowCount = 1
-            };
-            filters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            filters.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 195F));
-            filters.Controls.Add(reportSearch, 0, 0);
-            filters.Controls.Add(reportStatusFilter, 1, 0);
-
             TabControl reportTabs = new()
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 9F)
             };
-            TabPage activityTab = new("Request activity") { BackColor = Color.White, Padding = new Padding(8) };
-            TabPage servicesTab = new("Service summary") { BackColor = Color.White, Padding = new Padding(8) };
-            HomeHeroDashboardLayout.StyleTable(dgvReports);
-            HomeHeroDashboardLayout.StyleTable(serviceSummaryGrid);
+            TabPage activityTab = new("Request activity") { BackColor = Color.FromArgb(246, 248, 251), Padding = new Padding(4) };
+            TabPage servicesTab = new("Service summary") { BackColor = Color.FromArgb(246, 248, 251), Padding = new Padding(4) };
             dgvReports.Dock = DockStyle.Fill;
             serviceSummaryGrid.Dock = DockStyle.Fill;
-            activityTab.Controls.Add(dgvReports);
-            servicesTab.Controls.Add(serviceSummaryGrid);
+            HomeHeroDataGridCard activityCard = new("Request activity", dgvReports);
+            activityTableCard = activityCard;
+            activityCard.AddToolbarControl(reportStatusFilter);
+            HomeHeroDataGridCard servicesCard = new("Service performance", serviceSummaryGrid);
+            serviceTableCard = servicesCard;
+            reportStatusFilter.SelectedIndexChanged += (_, _) => ApplyReportFilters();
+            activityTab.Controls.Add(activityCard);
+            servicesTab.Controls.Add(servicesCard);
             reportTabs.TabPages.Add(activityTab);
             reportTabs.TabPages.Add(servicesTab);
 
-            TableLayoutPanel content = new()
-            {
-                ColumnCount = 1,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(0),
-                RowCount = 2
-            };
-            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
-            content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            content.Controls.Add(filters, 0, 0);
-            Panel card = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(10)
-            };
-            card.Controls.Add(reportTabs);
-            content.Controls.Add(card, 0, 1);
+            Panel content = new() { Dock = DockStyle.Fill, Padding = new Padding(8) };
+            content.Controls.Add(reportTabs);
             workspaceContent = content;
             dashboardLayout.ShowContent(content);
             Controls.Add(dashboardLayout);
@@ -211,32 +184,29 @@ namespace Home_Hero
                 .ToList();
 
             BindServiceSummary(requests);
+            activityTableCard?.ApplyCurrentSearch();
+            serviceTableCard?.ApplyCurrentSearch();
             ApplyReportFilters();
             WorkspaceDataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ApplyReportFilters()
         {
-            string search = reportSearch.Text.Trim();
             string status = reportStatusFilter.SelectedItem?.ToString() ?? "All statuses";
-            foreach (DataGridView grid in new[] { dgvReports, serviceSummaryGrid })
+            if (dgvReports.CurrentCell != null)
             {
-                foreach (DataGridViewRow row in grid.Rows)
-                {
-                    if (row.IsNewRow)
-                    {
-                        continue;
-                    }
+                dgvReports.CurrentCell = null;
+            }
 
-                    string rowText = string.Join(" ", row.Cells.Cast<DataGridViewCell>()
-                        .Select(cell => cell.Value?.ToString() ?? string.Empty));
-                    bool matchesSearch = string.IsNullOrWhiteSpace(search) ||
-                                         rowText.Contains(search, StringComparison.OrdinalIgnoreCase);
-                    bool matchesStatus = grid != dgvReports ||
-                                         status == "All statuses" ||
-                                         string.Equals(row.Cells["Status"]?.Value?.ToString(), status, StringComparison.OrdinalIgnoreCase);
-                    row.Visible = matchesSearch && matchesStatus;
+            foreach (DataGridViewRow row in dgvReports.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
                 }
+
+                row.Visible = status == "All statuses" ||
+                              string.Equals(row.Cells["Status"]?.Value?.ToString(), status, StringComparison.OrdinalIgnoreCase);
             }
         }
 

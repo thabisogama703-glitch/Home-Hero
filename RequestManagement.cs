@@ -24,6 +24,7 @@ namespace Home_Hero
         };
         private HomeHeroDashboardLayout? dashboardLayout;
         private Control? workspaceContent;
+        private HomeHeroDataGridCard? requestTableCard;
 
         public event EventHandler? WorkspaceDataChanged;
 
@@ -62,6 +63,7 @@ namespace Home_Hero
             dashboardLayout = new HomeHeroDashboardLayout();
             dashboardLayout.SetIdentity("ADMINISTRATOR PORTAL");
             dashboardLayout.SetHero("Service request management", "Review requests, filter the queue, approve work, and assign providers.");
+            dashboardLayout.SetHeroImage(Properties.Resources.Application_pic);
             dashboardLayout.SetNavigation(
                 new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
                 "Requests");
@@ -78,25 +80,28 @@ namespace Home_Hero
             {
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
-                RowCount = 3
+                RowCount = 2
             };
             workspace.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            workspace.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            workspace.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
             workspace.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            workspace.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
-            workspace.Controls.Add(CreateFiltersBar(), 0, 0);
-
-            Panel gridCard = new()
+            workspace.Controls.Add(new Label
             {
-                BackColor = Color.White,
                 Dock = DockStyle.Fill,
-                Padding = new Padding(10)
-            };
-            HomeHeroDashboardLayout.StyleTable(dgvRequests);
-            dgvRequests.Dock = DockStyle.Fill;
-            gridCard.Controls.Add(dgvRequests);
+                Font = new Font("Segoe UI", 18F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = "Requests requiring attention",
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            HomeHeroDataGridCard gridCard = new("Request queue", dgvRequests);
+            requestTableCard = gridCard;
+            gridCard.SearchBox.TextChanged += (_, _) => txtSearchRequests.Text = gridCard.SearchBox.Text;
+            gridCard.AddToolbarControl(cbxStatus);
+            gridCard.AddToolbarControl(cbxCategory);
+            cbxStatus.Width = 155;
+            cbxCategory.Width = 185;
+            gridCard.ActionPanel.Controls.Add(CreateActionsBar());
             workspace.Controls.Add(gridCard, 0, 1);
-            workspace.Controls.Add(CreateActionsBar(), 0, 2);
             workspaceContent = workspace;
             dashboardLayout.ShowContent(workspace);
             Controls.Add(dashboardLayout);
@@ -130,20 +135,11 @@ namespace Home_Hero
                 Padding = new Padding(0, 5, 0, 5),
                 WrapContents = false
             };
-            txtSearchRequests.PlaceholderText = "Search request ID or customer";
-            txtSearchRequests.Font = new Font("Segoe UI", 9.5F);
-            txtSearchRequests.Width = 300;
-            txtSearchRequests.Margin = new Padding(0, 0, 10, 0);
-            btnSearch.Text = "Search";
-            btnSearch.Size = new Size(90, 34);
-            btnSearch.Margin = new Padding(0, 0, 10, 0);
             cbxStatus.Width = 145;
             cbxStatus.Height = 34;
             cbxStatus.Margin = new Padding(0, 0, 10, 0);
             cbxCategory.Width = 190;
             cbxCategory.Height = 34;
-            filters.Controls.Add(txtSearchRequests);
-            filters.Controls.Add(btnSearch);
             filters.Controls.Add(cbxStatus);
             filters.Controls.Add(cbxCategory);
             return filters;
@@ -330,6 +326,7 @@ namespace Home_Hero
             dgvRequests.DataSource = null;
             List<MaintenanceRequest> visibleRequests = filtered.ToList();
             dgvRequests.DataSource = visibleRequests;
+            requestTableCard?.ApplyCurrentSearch();
             dashboardLayout?.SetMetrics(new[]
             {
                 new DashboardMetric("Total requests", allRequests.Count.ToString(), "All submitted jobs"),

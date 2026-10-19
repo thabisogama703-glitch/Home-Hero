@@ -20,6 +20,7 @@ namespace HomeHero
         private HomeHeroDashboardLayout? dashboardLayout;
         private string activeSection = "Overview";
         private Panel? messagesContent;
+        private HomeHeroDataGridCard? requestsTableCard;
 
         public frmCustomerDashboard()
             : this(string.Empty)
@@ -47,6 +48,7 @@ namespace HomeHero
             dashboardLayout.SetHero(
                 "Your Home, Expertly Managed",
                 "Track requests, communicate with providers, and keep your home in perfect condition.");
+            dashboardLayout.SetHeroImage(Home_Hero.Properties.Resources.Home_Hero_background_image);
             dashboardLayout.SetNavigation(
                 new[] { "Overview", "Request Service", "Active Services", "Track Service", "Service History", "Messages" },
                 "Overview");
@@ -128,8 +130,7 @@ namespace HomeHero
 
         private Control CreateProgressPanel()
         {
-            Panel panel = CreateWhitePanel();
-            panel.Padding = new Padding(18, 12, 18, 12);
+            HomeHeroCard panel = new() { Padding = new Padding(20) };
             progressSummary.AutoSize = true;
             progressSummary.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             progressSummary.ForeColor = Color.FromArgb(0, 0, 64);
@@ -168,12 +169,19 @@ namespace HomeHero
 
         private Control CreateRequestListPanel()
         {
-            Panel panel = CreateWhitePanel();
-            requestsGrid.Dock = DockStyle.Fill;
-            emptyRequestsLabel.Dock = DockStyle.Fill;
+            requestsTableCard = new HomeHeroDataGridCard("Your recent requests", requestsGrid);
+            requestsTableCard.AddToolbarControl(statusFilter);
             emptyRequestsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             emptyRequestsLabel.ForeColor = Color.DimGray;
-            emptyRequestsLabel.TextAlign = ContentAlignment.MiddleCenter;
+            emptyRequestsLabel.AutoSize = true;
+            emptyRequestsLabel.Margin = new Padding(0, 0, 0, 8);
+            requestsTableCard.AddActionControl(emptyRequestsLabel);
+            statusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            statusFilter.Items.Clear();
+            statusFilter.Items.AddRange(new object[] { "All requests", "Active", "Completed", "Cancelled" });
+            statusFilter.SelectedIndex = 0;
+            statusFilter.Width = 170;
+            statusFilter.SelectedIndexChanged += (_, _) => BindRequestsGrid();
             requestsGrid.CellDoubleClick += (_, e) =>
             {
                 if (e.RowIndex >= 0)
@@ -181,9 +189,7 @@ namespace HomeHero
                     btnTrackRequest_Click_1(this, EventArgs.Empty);
                 }
             };
-            panel.Controls.Add(requestsGrid);
-            panel.Controls.Add(emptyRequestsLabel);
-            return panel;
+            return requestsTableCard;
         }
 
         private static Panel CreateMetricCard(string title, Label value)
@@ -401,8 +407,8 @@ namespace HomeHero
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 ForeColor = Color.White,
-                Margin = new Padding(0, 0, 10, 0),
-                Size = new Size(170, 36),
+                Margin = new Padding(0, 0, 8, 0),
+                Size = new Size(180, 40),
                 Text = text,
                 UseVisualStyleBackColor = false
             };
@@ -415,7 +421,7 @@ namespace HomeHero
         {
             TableLayoutPanel layout = new()
             {
-                AutoScroll = true,
+                AutoScroll = false,
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
                 RowCount = 3
@@ -429,38 +435,22 @@ namespace HomeHero
             layout.Controls.Add(startRequest, 0, 1);
             FlowLayoutPanel services = new()
             {
-                AutoScroll = false,
+                AutoScroll = true,
                 Dock = DockStyle.Fill,
                 WrapContents = true,
                 Padding = new Padding(0, 8, 0, 8)
             };
-            foreach (HomeServiceOption service in HomeServiceCatalog.Services)
+            string[] featuredServices = { "Electrical", "Plumbing", "Painting", "Deep Cleaning", "HVAC", "General Maintenance" };
+            foreach (HomeServiceOption service in HomeServiceCatalog.Services.Where(service =>
+                         featuredServices.Contains(service.Name, StringComparer.OrdinalIgnoreCase)))
             {
-                Panel card = new()
+                HomeServiceOption featured = service.Name switch
                 {
-                    BackColor = Color.White,
-                    Margin = new Padding(0, 0, 12, 12),
-                    Padding = new Padding(14),
-                    Size = new Size(240, 94)
+                    "Deep Cleaning" => service with { Name = "Cleaning" },
+                    "General Maintenance" => service with { Name = "Repairs" },
+                    _ => service
                 };
-                card.Controls.Add(new Label
-                {
-                    AutoEllipsis = true,
-                    Dock = DockStyle.Top,
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(2, 2, 89),
-                    Height = 25,
-                    Text = service.Name
-                });
-                card.Controls.Add(new Label
-                {
-                    AutoEllipsis = true,
-                    Dock = DockStyle.Fill,
-                    Font = new Font("Segoe UI", 9F),
-                    ForeColor = Color.FromArgb(107, 114, 128),
-                    Text = $"{service.Description}\nFrom R{service.StartingPrice:N0}"
-                });
-                services.Controls.Add(card);
+                services.Controls.Add(new HomeHeroServiceCard(featured, HomeHeroServiceCard.ImageFor(featured.Name)));
             }
             layout.Controls.Add(services, 0, 2);
             return layout;
@@ -504,14 +494,7 @@ namespace HomeHero
 
         private Control CreateRequestsGridCard(List<MaintenanceRequest> requests, string emptyMessage)
         {
-            Panel card = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(10)
-            };
             DataGridView grid = CreateRequestsGrid();
-            HomeHeroDashboardLayout.StyleTable(grid);
             List<MaintenanceRequest> snapshot = requests.ToList();
             grid.DataSource = snapshot.Select(request => new
             {
@@ -522,20 +505,21 @@ namespace HomeHero
                 Progress = $"{request.ProgressPercentage}%",
                 Provider = IsUnassigned(request) ? "Awaiting provider" : request.AssignedProviderId
             }).ToList();
+            HomeHeroDataGridCard card = new("Request details", grid)
+            {
+                Dock = DockStyle.Fill
+            };
             if (snapshot.Count == 0)
             {
-                card.Controls.Add(new Label
+                card.AddActionControl(new Label
                 {
-                    Dock = DockStyle.Fill,
+                    AutoEllipsis = true,
                     Font = new Font("Segoe UI", 11F, FontStyle.Bold),
                     ForeColor = Color.FromArgb(107, 114, 128),
+                    Height = 32,
                     Text = emptyMessage,
                     TextAlign = ContentAlignment.MiddleCenter
                 });
-            }
-            else
-            {
-                card.Controls.Add(grid);
             }
 
             return card;
@@ -545,7 +529,7 @@ namespace HomeHero
         {
             if (messagesContent == null)
             {
-                messagesContent = new Panel { Dock = DockStyle.Fill, BackColor = Color.White, Padding = new Padding(10) };
+                messagesContent = new HomeHeroCard { Dock = DockStyle.Fill, Padding = new Padding(20) };
                 MessageCenterForm messageCenter = new(currentCustomerEmail, false, GetCustomerRequests())
                 {
                     TopLevel = false,
@@ -648,6 +632,7 @@ namespace HomeHero
                     Provider = IsUnassigned(request) ? "Awaiting provider" : request.AssignedProviderId
                 })
                 .ToList();
+            requestsTableCard?.ApplyCurrentSearch();
             requestsGrid.Visible = visibleRequests.Count > 0;
             emptyRequestsLabel.Visible = visibleRequests.Count == 0;
             emptyRequestsLabel.Text = customerRequests.Count == 0
