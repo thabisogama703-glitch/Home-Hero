@@ -31,11 +31,7 @@ namespace Home_Hero
         private void SetupDefaults()
         {
             cmbCategory.Items.Clear();
-            cmbCategory.Items.Add("Plumbing");
-            cmbCategory.Items.Add("Electrical");
-            cmbCategory.Items.Add("Painting");
-            cmbCategory.Items.Add("Appliance Repair");
-            cmbCategory.Items.Add("General Maintenance");
+            cmbCategory.Items.AddRange(HomeServiceCatalog.Services.Select(service => service.Name).ToArray());
 
             cmbTimeSlot.Items.Clear();
             cmbTimeSlot.Items.Add("08:00 AM - 10:00 AM");
@@ -48,7 +44,7 @@ namespace Home_Hero
 
             dtpDatePreferred.MinDate = DateTime.Today;
 
-            lblEstimatedCost.Text = "Estimated Cost: R0.00";
+            lblEstimatedCost.Text = "Starting estimate: R0.00";
 
         }
 
@@ -206,7 +202,7 @@ namespace Home_Hero
             DialogResult result =  MessageBox.Show(
             "Request submitted successfully!\n\n" +
             "Request Number: " + newRequest.RequestNumber + "\n" +
-            "Estimated Cost: R" +
+            "Estimated starting price: R" +
             newRequest.EstimatedCost.ToString("F2") + "\n" +
             "Status: " + newRequest.Status + "\n Would you like to create another service request?",
             "Request Submitted",
@@ -231,7 +227,7 @@ namespace Home_Hero
             txtAddress.Clear();
             txtProblemDescription.Clear();
             dtpDatePreferred.Value = DateTime.Today;
-            lblEstimatedCost.Text = "Estimated Cost: R0.00";
+            lblEstimatedCost.Text = "Starting estimate: R0.00";
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -239,14 +235,14 @@ namespace Home_Hero
             if (cmbCategory.SelectedIndex == -1)
             {
                 lblEstimatedCost.Text =
-                    "Estimated Cost: R0.00";
+                    "Starting estimate: R0.00";
                 return;
             }
 
             string category = cmbCategory.SelectedItem.ToString();
             MaintenanceRequest temp = new MaintenanceRequest();
             decimal estimate = temp.CalculateEstimatedCost(category);
-            lblEstimatedCost.Text = $"Estimated Cost: R{estimate:F2}";
+            lblEstimatedCost.Text = $"Starting estimate: R{estimate:F2}";
         }
 
         private void CreateRequestForm_Load(object sender, EventArgs e)

@@ -16,7 +16,18 @@ namespace Home_Hero
         public frmProvidersOverview()
         {
             InitializeComponent();
+            label3.Text = GetStartingPriceText("Windows and Doors");
+            label5.Text = GetStartingPriceText("Plumbing");
+            label9.Text = GetStartingPriceText("Electrical");
+            label12.Text = GetStartingPriceText("HVAC");
+            label15.Text = GetStartingPriceText("Roofing");
+            label18.Text = GetStartingPriceText("Landscaping");
+            label21.Text = GetStartingPriceText("Painting");
+            label24.Text = GetStartingPriceText("Deep Cleaning");
         }
+
+        private static string GetStartingPriceText(string serviceName) =>
+            $"From R{HomeServiceCatalog.GetStartingPrice(serviceName):0}";
 
         private void lnklblHowItWorks_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

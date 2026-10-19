@@ -110,7 +110,7 @@
             lblEstimatedCost.Name = "lblEstimatedCost";
             lblEstimatedCost.Size = new Size(185, 25);
             lblEstimatedCost.TabIndex = 7;
-            lblEstimatedCost.Text = "Estimated Cost: R0.00";
+            lblEstimatedCost.Text = "Starting estimate: R0.00";
             // 
             // btnSubmitRequest
             // 

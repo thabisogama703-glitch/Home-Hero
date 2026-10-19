@@ -180,7 +180,6 @@
             lblCustomerDashboardTitle.Size = new Size(356, 46);
             lblCustomerDashboardTitle.TabIndex = 0;
             lblCustomerDashboardTitle.Text = "Customer Dashboard";
-            lblCustomerDashboardTitle.Click += lblCustomerDashboardTitle_Click;
             // 
             // panel3
             // 
@@ -248,7 +247,6 @@
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 3;
             pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
             // 
             // frmCustomerDashboard
             // 

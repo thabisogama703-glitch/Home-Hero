@@ -1,173 +1,335 @@
-﻿using HomeHero_2;
+using HomeHero_2;
+using Krypton.Toolkit;
 using System.Globalization;
 
 namespace Home_Hero
 {
     public partial class frmAdminDashboard : Form
     {
-        private readonly Label totalRequestsValue = CreateDashboardValue();
-        private readonly Label awaitingApprovalValue = CreateDashboardValue();
-        private readonly Label registeredProvidersValue = CreateDashboardValue();
-        private readonly Label totalRevenueValue = CreateDashboardValue();
-        private readonly Label customerMessagesValue = CreateDashboardValue();
-        private readonly DataGridView recentRequestsGrid = CreateRecentRequestsGrid();
+        private readonly Label totalRequestsValue = CreateMetricValue();
+        private readonly Label awaitingApprovalValue = CreateMetricValue();
+        private readonly Label registeredProvidersValue = CreateMetricValue();
+        private readonly Label completedRevenueValue = CreateMetricValue();
+        private readonly DataGridView serviceSummaryGrid = CreateGrid();
+        private readonly DataGridView recentRequestsGrid = CreateGrid();
+        private readonly Label requestBreakdown = new();
 
         public frmAdminDashboard()
         {
             InitializeComponent();
-            AddDashboardValues();
-            pnlSubmit.Controls.Add(recentRequestsGrid);
-            panel7.BringToFront();
-        }
-
-        private void AdminDashboard_Load(object sender, EventArgs e)
-        {
+            BuildAdminWorkspace();
             RefreshDashboard();
+            Activated += (_, _) => RefreshDashboard();
         }
 
-        private void btnReports_Click(object sender, EventArgs e)
+        private void BuildAdminWorkspace()
         {
+            Controls.Clear();
+            Text = "HomeHero | Administrator dashboard";
+            BackColor = Color.FromArgb(246, 248, 252);
+            MinimumSize = new Size(1000, 700);
+            WindowState = FormWindowState.Maximized;
 
-        }
-
-        private void btnProviders_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel7_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void btnServices_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel8_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            OpenAdminPage(new frmReports());
-        }
-
-        private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            OpenAdminPage(new frmReports());
-        }
-
-        private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            OpenAdminPage(new frmProviderManagement());
-        }
-
-        private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            RefreshDashboard();
-        }
-
-        private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            OpenAdminPage(new RequestManagement());
-        }
-
-        private void btnExitAdmin_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure you want ot logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(result == DialogResult.Yes)
+            Panel header = new()
             {
-                frmHomeHeroHomepage homepage = new frmHomeHeroHomepage();
-                this.Hide();
-                homepage.Show();
-            }
+                BackColor = Color.FromArgb(0, 0, 64),
+                Dock = DockStyle.Top,
+                Height = 82,
+                Padding = new Padding(28, 0, 28, 0)
+            };
+            header.Controls.Add(new Label
+            {
+                Text = "HomeHero",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(28, 18)
+            });
+            header.Controls.Add(new Label
+            {
+                Text = "ADMINISTRATOR PORTAL",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 174, 82),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Location = new Point(750, 30)
+            });
+            KryptonButton logoutButton = CreateActionButton("Log out", Color.FromArgb(33, 43, 74));
+            logoutButton.Size = new Size(120, 42);
+            logoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            logoutButton.Location = new Point(0, 20);
+            logoutButton.Click += btnExitAdmin_Click;
+            header.Controls.Add(logoutButton);
+            header.Resize += (_, _) =>
+            {
+                logoutButton.Location = new Point(header.ClientSize.Width - 148, 20);
+                Control? portalLabel = header.Controls.Cast<Control>().FirstOrDefault(control =>
+                    control is Label label && label.Text == "ADMINISTRATOR PORTAL");
+                if (portalLabel != null)
+                {
+                    portalLabel.Location = new Point(Math.Max(350, header.ClientSize.Width - 390), 30);
+                }
+            };
+
+            FlowLayoutPanel navigation = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Top,
+                Height = 58,
+                Padding = new Padding(28, 12, 20, 8),
+                WrapContents = false
+            };
+            navigation.Controls.Add(CreateNavLink("Overview", (_, _) => RefreshDashboard()));
+            navigation.Controls.Add(CreateNavLink("Requests", (_, _) => OpenAdminPage(new RequestManagement())));
+            navigation.Controls.Add(CreateNavLink("Providers", (_, _) => OpenAdminPage(new frmProviderManagement())));
+            navigation.Controls.Add(CreateNavLink("Services & estimates", (_, _) => FocusServiceSummary()));
+            navigation.Controls.Add(CreateNavLink("Reports", (_, _) => OpenAdminPage(new frmReports())));
+
+            TableLayoutPanel content = new()
+            {
+                AutoScroll = true,
+                BackColor = Color.FromArgb(246, 248, 252),
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(30, 20, 30, 26),
+                RowCount = 5
+            };
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            content.RowStyles.Add(new RowStyle(SizeType.Percent, 55F));
+            content.RowStyles.Add(new RowStyle(SizeType.Percent, 45F));
+            content.Controls.Add(CreateWelcomePanel(), 0, 0);
+            content.Controls.Add(CreateMetricsPanel(), 0, 1);
+            content.Controls.Add(CreateSectionHeading("Home maintenance services and estimated starting prices"), 0, 2);
+            content.Controls.Add(CreateServicePanel(), 0, 3);
+            content.Controls.Add(CreateRecentRequestsPanel(), 0, 4);
+
+            Controls.Add(content);
+            Controls.Add(navigation);
+            Controls.Add(header);
         }
 
-        private void AddDashboardValues()
+        private Control CreateWelcomePanel()
         {
-            panel1.Controls.Add(totalRequestsValue);
-            panel2.Controls.Add(registeredProvidersValue);
-            panel3.Controls.Add(awaitingApprovalValue);
-            panel4.Controls.Add(totalRevenueValue);
-            panel8.Controls.Add(customerMessagesValue);
-
-            foreach (Label value in new[]
-                     {
-                         totalRequestsValue,
-                         registeredProvidersValue,
-                         awaitingApprovalValue,
-                         totalRevenueValue,
-                         customerMessagesValue
-                     })
+            FlowLayoutPanel welcome = new()
             {
-                value.Location = new Point(18, 78);
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false
+            };
+            welcome.Controls.Add(new Label
+            {
+                Text = "Administrator overview",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(0, 0, 64)
+            });
+            welcome.Controls.Add(new Label
+            {
+                Text = "Monitor requests, providers, service pricing, and completed work.",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F),
+                ForeColor = Color.DimGray
+            });
+            return welcome;
+        }
+
+        private Control CreateMetricsPanel()
+        {
+            TableLayoutPanel metrics = new()
+            {
+                ColumnCount = 4,
+                Dock = DockStyle.Fill,
+                RowCount = 1
+            };
+            for (int column = 0; column < 4; column++)
+            {
+                metrics.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             }
 
-            label7.Text = "Registered Providers";
-            label2.Text = "On HomeHero";
-            label5.Text = "Awaiting Approval";
-            label4.Text = "Completed";
-            label11.Text = "All time";
-            label10.Text = "Customer Messages";
+            metrics.Controls.Add(CreateMetricCard("Total requests", totalRequestsValue), 0, 0);
+            metrics.Controls.Add(CreateMetricCard("Awaiting approval", awaitingApprovalValue), 1, 0);
+            metrics.Controls.Add(CreateMetricCard("Registered providers", registeredProvidersValue), 2, 0);
+            metrics.Controls.Add(CreateMetricCard("Completed revenue", completedRevenueValue), 3, 0);
+            return metrics;
+        }
+
+        private Control CreateSectionHeading(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 15F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(0, 0, 64),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+        }
+
+        private Control CreateServicePanel()
+        {
+            Panel panel = CreateWhitePanel();
+            serviceSummaryGrid.Dock = DockStyle.Fill;
+            panel.Controls.Add(serviceSummaryGrid);
+            return panel;
+        }
+
+        private Control CreateRecentRequestsPanel()
+        {
+            Panel panel = CreateWhitePanel();
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(16),
+                RowCount = 2
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            requestBreakdown.Dock = DockStyle.Fill;
+            requestBreakdown.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            requestBreakdown.ForeColor = Color.FromArgb(0, 0, 64);
+            requestBreakdown.TextAlign = ContentAlignment.MiddleLeft;
+            recentRequestsGrid.Dock = DockStyle.Fill;
+            layout.Controls.Add(requestBreakdown, 0, 0);
+            layout.Controls.Add(recentRequestsGrid, 0, 1);
+            panel.Controls.Add(layout);
+            return panel;
+        }
+
+        private static Panel CreateMetricCard(string title, Label value)
+        {
+            Panel panel = CreateWhitePanel();
+            panel.Margin = new Padding(0, 0, 14, 0);
+            panel.Controls.Add(new Label
+            {
+                Text = title,
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                ForeColor = Color.DimGray,
+                Location = new Point(16, 14)
+            });
+            value.Location = new Point(16, 44);
+            panel.Controls.Add(value);
+            return panel;
+        }
+
+        private static Panel CreateWhitePanel()
+        {
+            return new Panel
+            {
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0, 0, 12, 12)
+            };
+        }
+
+        private static Label CreateMetricValue()
+        {
+            return new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 128, 0),
+                Text = "0"
+            };
+        }
+
+        private static LinkLabel CreateNavLink(string text, EventHandler onClick)
+        {
+            LinkLabel link = new()
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                LinkBehavior = LinkBehavior.NeverUnderline,
+                LinkColor = Color.FromArgb(0, 0, 64),
+                Margin = new Padding(0, 5, 28, 0),
+                Text = text
+            };
+            link.Click += onClick;
+            return link;
+        }
+
+        private static KryptonButton CreateActionButton(string text, Color color)
+        {
+            KryptonButton button = new() { Text = text };
+            button.StateCommon.Back.Color1 = color;
+            button.StateCommon.Back.Color2 = color;
+            button.StateCommon.Content.ShortText.Color1 = Color.White;
+            button.StateCommon.Border.Rounding = 8;
+            return button;
+        }
+
+        private static DataGridView CreateGrid()
+        {
+            return new DataGridView
+            {
+                AllowUserToAddRows = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                EnableHeadersVisualStyles = false,
+                MultiSelect = false,
+                ReadOnly = true,
+                RowHeadersVisible = false,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                ColumnHeadersDefaultCellStyle =
+                {
+                    BackColor = Color.FromArgb(0, 0, 64),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                },
+                AlternatingRowsDefaultCellStyle =
+                {
+                    BackColor = Color.FromArgb(246, 248, 252)
+                }
+            };
         }
 
         private void RefreshDashboard()
         {
             List<MaintenanceRequest> requests = DataManager.LoadRequests();
             List<ServiceProvider> providers = CustomerRepository.LoadRegisteredServiceProviders();
-            List<MessageRecord> messages = MessageRepository.LoadMessages();
-            int total = requests.Count;
-            int awaitingApproval = requests.Count(request => request.Status == RequestStatus.Requested);
-            int assigned = requests.Count(request =>
-                request.Status == RequestStatus.Approved ||
-                request.Status == RequestStatus.ProviderAssigned);
-            int scheduled = requests.Count(request => request.Status == RequestStatus.Scheduled);
-            int inProgress = requests.Count(request => request.Status == RequestStatus.InProgress);
-            List<MaintenanceRequest> completed = requests
-                .Where(request => request.Status == RequestStatus.Completed)
-                .ToList();
-            int activeRequests = total - requests.Count(request => request.Status == RequestStatus.Cancelled);
+            int awaiting = requests.Count(request => request.Status == RequestStatus.Requested);
+            int completed = requests.Count(request => request.Status == RequestStatus.Completed);
 
-            totalRequestsValue.Text = total.ToString(CultureInfo.InvariantCulture);
-            awaitingApprovalValue.Text = awaitingApproval.ToString(CultureInfo.InvariantCulture);
+            totalRequestsValue.Text = requests.Count.ToString(CultureInfo.InvariantCulture);
+            awaitingApprovalValue.Text = awaiting.ToString(CultureInfo.InvariantCulture);
             registeredProvidersValue.Text = providers.Count.ToString(CultureInfo.InvariantCulture);
-            totalRevenueValue.Text = $"R{completed.Sum(request => request.FinalCost):N2}";
-            customerMessagesValue.Text = messages.Count.ToString(CultureInfo.InvariantCulture);
+            completedRevenueValue.Text = $"R{requests.Where(request => request.Status == RequestStatus.Completed).Sum(GetRecordedCost):N2}";
+            requestBreakdown.Text =
+                $"Recent requests  ·  {requests.Count(request => request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled)} active  ·  {completed} completed";
 
-            lblSubmitValue.Text = requests.Count(request => request.Status == RequestStatus.Requested).ToString();
-            lblAssignedValue.Text = assigned.ToString();
-            lblScheduledValue.Text = scheduled.ToString();
-            lblProgressValue.Text = inProgress.ToString();
-            lblCompletedValue.Text = completed.Count.ToString();
-
-            UpdateBreakdownBars(activeRequests, awaitingApproval, assigned, scheduled, inProgress, completed.Count);
+            BindServiceSummary(requests);
             BindRecentRequests(requests, providers);
         }
 
-        private void UpdateBreakdownBars(
-            int activeRequests,
-            int submitted,
-            int assigned,
-            int scheduled,
-            int inProgress,
-            int completed)
+        private void BindServiceSummary(IEnumerable<MaintenanceRequest> requests)
         {
-            int maxCount = Math.Max(1, new[] { submitted, assigned, scheduled, inProgress, completed }.Max());
-            int barWidth = 250;
-            panel10.Width = GetBarWidth(submitted, maxCount, barWidth);
-            panel14.Width = GetBarWidth(assigned, maxCount, barWidth);
-            panel12.Width = GetBarWidth(scheduled, maxCount, barWidth);
-            panel13.Width = GetBarWidth(inProgress, maxCount, barWidth);
-            panel11.Width = GetBarWidth(completed, maxCount, barWidth);
-            lblBreakdown.Text = $"Active Request Status Breakdown ({activeRequests} active)";
-        }
+            var counts = requests
+                .GroupBy(request => HomeServiceCatalog.NormalizeCategory(request.ServiceCategory), StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(group => group.Key, group => group.ToList(), StringComparer.OrdinalIgnoreCase);
 
-        private static int GetBarWidth(int count, int maxCount, int maxWidth)
-        {
-            return count == 0 ? 0 : Math.Max(4, (int)Math.Round(maxWidth * count / (double)maxCount));
+            serviceSummaryGrid.DataSource = HomeServiceCatalog.Services
+                .Select(service =>
+                {
+                    counts.TryGetValue(service.Name, out List<MaintenanceRequest>? serviceRequests);
+                    serviceRequests ??= new List<MaintenanceRequest>();
+                    return new
+                    {
+                        Service = service.Name,
+                        Description = service.Description,
+                        EstimatedStartingPrice = $"From R{service.StartingPrice:N2}",
+                        Requests = serviceRequests.Count,
+                        Completed = serviceRequests.Count(request => request.Status == RequestStatus.Completed)
+                    };
+                })
+                .ToList();
         }
 
         private void BindRecentRequests(
@@ -175,6 +337,7 @@ namespace Home_Hero
             IEnumerable<ServiceProvider> providers)
         {
             Dictionary<string, string> providerNames = providers
+                .Where(provider => !string.IsNullOrWhiteSpace(provider.Email))
                 .GroupBy(provider => provider.Email, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(
                     group => group.Key,
@@ -182,8 +345,8 @@ namespace Home_Hero
                     StringComparer.OrdinalIgnoreCase);
 
             recentRequestsGrid.DataSource = requests
-                .Reverse()
-                .Take(10)
+                .OrderByDescending(request => request.PreferredDate)
+                .Take(12)
                 .Select(request => new
                 {
                     Request = request.RequestNumber,
@@ -195,17 +358,16 @@ namespace Home_Hero
                         : IsUnassigned(request)
                             ? "Unassigned"
                             : request.AssignedProviderId,
-                    Cost = request.Status == RequestStatus.Completed
-                        ? $"R{request.FinalCost:N2}"
-                        : $"R{request.EstimatedCost:N2}"
+                    Estimate = $"R{request.EstimatedCost:N2}",
+                    FinalCost = request.Status == RequestStatus.Completed ? $"R{GetRecordedCost(request):N2}" : "—"
                 })
                 .ToList();
         }
 
-        private static bool IsUnassigned(MaintenanceRequest request)
+        private void FocusServiceSummary()
         {
-            return string.IsNullOrWhiteSpace(request.AssignedProviderId) ||
-                   string.Equals(request.AssignedProviderId, "Unassigned", StringComparison.OrdinalIgnoreCase);
+            serviceSummaryGrid.Focus();
+            serviceSummaryGrid.FirstDisplayedScrollingRowIndex = 0;
         }
 
         private void OpenAdminPage(Form page)
@@ -219,44 +381,61 @@ namespace Home_Hero
             page.Show();
         }
 
-        private static Label CreateDashboardValue()
+        private static decimal GetRecordedCost(MaintenanceRequest request)
         {
-            return new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64),
-                Text = "0"
-            };
+            return request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost;
         }
 
-        private static DataGridView CreateRecentRequestsGrid()
+        private static bool IsUnassigned(MaintenanceRequest request)
         {
-            return new DataGridView
-            {
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.None,
-                Location = new Point(12, 52),
-                ReadOnly = true,
-                MultiSelect = false,
-                RowHeadersVisible = false,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                Size = new Size(869, 405),
-                AllowUserToAddRows = false,
-                EnableHeadersVisualStyles = false,
-                ColumnHeadersDefaultCellStyle =
-                {
-                    BackColor = Color.FromArgb(0, 0, 64),
-                    ForeColor = Color.White,
-                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
-                },
-                AlternatingRowsDefaultCellStyle =
-                {
-                    BackColor = Color.FromArgb(245, 247, 251)
-                }
-            };
+            return string.IsNullOrWhiteSpace(request.AssignedProviderId) ||
+                   string.Equals(request.AssignedProviderId, "Unassigned", StringComparison.OrdinalIgnoreCase);
         }
+
+        private void AdminDashboard_Load(object? sender, EventArgs e)
+        {
+            RefreshDashboard();
+        }
+
+        private void btnReports_Click(object? sender, EventArgs e) =>
+            OpenAdminPage(new frmReports());
+
+        private void btnProviders_Click(object? sender, EventArgs e) =>
+            OpenAdminPage(new frmProviderManagement());
+
+        private void btnServices_Click(object? sender, EventArgs e) =>
+            FocusServiceSummary();
+
+        private void lnklblReports_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) =>
+            OpenAdminPage(new frmReports());
+
+        private void lnklblServices_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) =>
+            FocusServiceSummary();
+
+        private void lnklblProviders_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) =>
+            OpenAdminPage(new frmProviderManagement());
+
+        private void lnklblOverView_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) =>
+            RefreshDashboard();
+
+        private void lnklblRequests_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) =>
+            OpenAdminPage(new RequestManagement());
+
+        private void btnExitAdmin_Click(object? sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Log out",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Close();
+                new frmHomeHeroHomepage().Show();
+            }
+        }
+
+        private void panel7_Paint(object? sender, PaintEventArgs e) { }
+        private void panel8_Paint(object? sender, PaintEventArgs e) { }
     }
 }

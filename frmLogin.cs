@@ -1,5 +1,6 @@
 using Home_Hero;
 using HomeHero;
+using System.Net.Mail;
 
 namespace HomeHero_2
 {
@@ -8,11 +9,12 @@ namespace HomeHero_2
         public frmHomeHeroLogin()
         {
             InitializeComponent();
+            AcceptButton = btnLogin;
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
-            string password = txtPassword.Text.Trim();
+            string password = txtPassword.Text;
             bool hasEmptyFields = false;
 
             if (string.IsNullOrWhiteSpace(email))
@@ -41,10 +43,18 @@ namespace HomeHero_2
                 return;
             }
 
-            if (chkRemember.Checked)
+            try
             {
-                string rememberMe = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
-                File.WriteAllText(rememberMe, $"{email}|{password}");
+                if (!string.Equals(new MailAddress(email).Address, email, StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new FormatException();
+                }
+            }
+            catch (FormatException)
+            {
+                ValidationError.SetError(txtEmail, "Enter a valid email address.");
+                MessageBox.Show("Enter a valid email address.", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             foreach (Administrator administrator in AppSettings.DefaultAdministrators)
@@ -53,6 +63,7 @@ namespace HomeHero_2
                     password == administrator.Password)
                 {
                     MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin successfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SaveRememberedEmail(email);
                     frmAdminDashboard adminDashboard = new frmAdminDashboard();
                     this.Hide();
                     adminDashboard.Show();
@@ -64,6 +75,7 @@ namespace HomeHero_2
             if (loggedInCustomer.ReadFromFile(email, password) == "Succesful login")
             {
                 MessageBox.Show("Login successful!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SaveRememberedEmail(email);
                 ClearFields();
                 frmCustomerDashboard customerForm = new frmCustomerDashboard(email);
                 this.Hide();
@@ -75,6 +87,7 @@ namespace HomeHero_2
             if (loggedInServiceProvider != null)
             {
                 MessageBox.Show("Login successful!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SaveRememberedEmail(email);
                 ClearFields();
                 frmServiceProviderDashboard frmService = new frmServiceProviderDashboard(loggedInServiceProvider);
                 this.Hide();
@@ -113,13 +126,30 @@ namespace HomeHero_2
             if (File.Exists(rememberME))
             {
                 string data = File.ReadAllText(rememberME);
-                string[] dataPaths = data.Split("|");
-                if (dataPaths.Length >= 2)
+                string rememberedEmail = data.Split('|')[0].Trim();
+                if (!string.IsNullOrWhiteSpace(rememberedEmail))
                 {
-                    txtEmail.Text = dataPaths[0];
-                    txtPassword.Text = dataPaths[1];
+                    txtEmail.Text = rememberedEmail;
                     chkRemember.Checked = true;
                 }
+
+                if (data.Contains('|'))
+                {
+                    File.WriteAllText(rememberME, rememberedEmail);
+                }
+            }
+        }
+
+        private void SaveRememberedEmail(string email)
+        {
+            string rememberMeFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
+            if (chkRemember.Checked)
+            {
+                File.WriteAllText(rememberMeFile, email);
+            }
+            else if (File.Exists(rememberMeFile))
+            {
+                File.Delete(rememberMeFile);
             }
         }
 

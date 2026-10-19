@@ -87,18 +87,7 @@ namespace Home_Hero
 
         public decimal CalculateEstimatedCost(string category)
         {
-            decimal callOutFee = 250.00m;
-            decimal baseRate = category switch
-            {
-                "Electrical" => 500.00m,
-                "Plumbing" => 400.00m,
-                "Appliance Repair" => 350.00m,
-                "Painting" => 200.00m,
-                "General Maintenance" => 300.00m,
-                _ => 0.00m
-
-            };
-            return callOutFee + baseRate;
+            return HomeServiceCatalog.GetStartingPrice(category);
         }
         public bool TryUpdateStatus(RequestStatus newStatus, out string errorMessage)
         {

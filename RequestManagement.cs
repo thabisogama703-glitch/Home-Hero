@@ -1,4 +1,5 @@
 ﻿using System;
+using HomeHero_2;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,11 +16,46 @@ namespace Home_Hero
 {
     public partial class RequestManagement : Form
     {
+        private readonly ComboBox providerAssignment = new()
+        {
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Location = new Point(510, 987),
+            Size = new Size(270, 43)
+        };
+
         public RequestManagement()
         {
             InitializeComponent();
-            var requests = DataManager.LoadRequests();
-            dgvRequests.DataSource = requests;
+            btnReassign.Text = "Assign provider";
+            btnReassign.Location = new Point(324, 987);
+            btnReassign.Size = new Size(175, 43);
+            Controls.Add(providerAssignment);
+            txtSearchRequests.Enter += (_, _) =>
+            {
+                if (txtSearchRequests.Text == "Search by ID, Customer ...")
+                {
+                    txtSearchRequests.Clear();
+                }
+            };
+            txtSearchRequests.Leave += (_, _) =>
+            {
+                if (string.IsNullOrWhiteSpace(txtSearchRequests.Text))
+                {
+                    txtSearchRequests.Text = "Search by ID, Customer ...";
+                }
+            };
+            LoadProviderChoices();
+            cbxStatus.SelectedIndex = 0;
+            cbxCategory.SelectedIndex = 0;
+            RefreshGrid();
+        }
+
+        private void LoadProviderChoices()
+        {
+            providerAssignment.DisplayMember = nameof(ProviderChoice.DisplayText);
+            providerAssignment.DataSource = CustomerRepository.LoadRegisteredServiceProviders()
+                .Select(provider => new ProviderChoice(provider.Email, $"{provider.FirstName} {provider.LastName}".Trim()))
+                .ToList();
         }
 
         private void btnCancelRequests_Click(object sender, EventArgs e)
@@ -66,9 +102,61 @@ namespace Home_Hero
         }
         private void RefreshGrid()
         {
-            var requests = DataManager.LoadRequests();
+            ApplyFilters();
+        }
+
+        private void ApplyFilters()
+        {
+            string searchText = txtSearchRequests.Text.Trim();
+            if (string.Equals(searchText, "Search by ID, Customer ...", StringComparison.OrdinalIgnoreCase))
+            {
+                searchText = string.Empty;
+            }
+
+            string selectedStatus = cbxStatus.SelectedItem?.ToString() ?? "Status : All";
+            string statusText = selectedStatus.StartsWith("Status : ", StringComparison.OrdinalIgnoreCase)
+                ? selectedStatus["Status : ".Length..].Trim()
+                : selectedStatus.Trim();
+            string selectedCategory = cbxCategory.SelectedItem?.ToString() ?? "Category : All";
+            string categoryText = selectedCategory.StartsWith("Category : ", StringComparison.OrdinalIgnoreCase)
+                ? selectedCategory["Category : ".Length..].Trim()
+                : selectedCategory.Trim();
+
+            IEnumerable<MaintenanceRequest> filtered = DataManager.LoadRequests();
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                filtered = filtered.Where(request =>
+                    (request.RequestNumber?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (request.CustomerId?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false));
+            }
+
+            if (!string.IsNullOrEmpty(statusText) && !string.Equals(statusText, "All", StringComparison.OrdinalIgnoreCase))
+            {
+                RequestStatus? requestedStatus = statusText.ToLowerInvariant() switch
+                {
+                    "submitted" => RequestStatus.Requested,
+                    "assigned" => RequestStatus.ProviderAssigned,
+                    "in progress" => RequestStatus.InProgress,
+                    _ when Enum.TryParse(statusText, true, out RequestStatus parsedStatus) => parsedStatus,
+                    _ => null
+                };
+
+                if (requestedStatus.HasValue)
+                {
+                    filtered = filtered.Where(request => request.Status == requestedStatus.Value);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(categoryText) && !string.Equals(categoryText, "All", StringComparison.OrdinalIgnoreCase))
+            {
+                filtered = filtered.Where(request => string.Equals(
+                    HomeServiceCatalog.NormalizeCategory(request.ServiceCategory),
+                    HomeServiceCatalog.NormalizeCategory(categoryText),
+                    StringComparison.OrdinalIgnoreCase));
+            }
+
             dgvRequests.DataSource = null;
-            dgvRequests.DataSource = requests;
+            dgvRequests.DataSource = filtered.ToList();
         }
 
         private void btnApproveRequests_Click(object sender, EventArgs e)
@@ -114,68 +202,87 @@ namespace Home_Hero
 
         private void txtSearchRequests_TextChanged(object sender, EventArgs e)
         {
-
+            ApplyFilters();
         }
 
         private void btnReassign_Click(object sender, EventArgs e)
         {
+            if (dgvRequests.CurrentRow?.DataBoundItem is not MaintenanceRequest selected)
+            {
+                MessageBox.Show("Select a request to assign.", "No Request Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            if (providerAssignment.SelectedItem is not ProviderChoice provider)
+            {
+                MessageBox.Show("Register a service provider before assigning this request.", "No Provider Available", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            List<MaintenanceRequest> requests = DataManager.LoadRequests();
+            MaintenanceRequest? request = requests.FirstOrDefault(item =>
+                string.Equals(item.RequestNumber, selected.RequestNumber, StringComparison.Ordinal));
+            if (request == null)
+            {
+                MessageBox.Show("The selected request could not be found. Refresh the list and try again.", "Request Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                RefreshGrid();
+                return;
+            }
+
+            if (request.Status == RequestStatus.Requested)
+            {
+                if (!request.TryUpdateStatus(RequestStatus.Approved, out string approvalError))
+                {
+                    MessageBox.Show(approvalError, "Assignment Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else if (request.Status != RequestStatus.Approved &&
+                     request.Status != RequestStatus.ProviderAssigned)
+            {
+                MessageBox.Show(
+                    $"A request in {request.Status} status cannot be assigned or reassigned.",
+                    "Assignment Not Allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (request.Status == RequestStatus.Approved &&
+                !request.TryUpdateStatus(RequestStatus.ProviderAssigned, out string assignmentError))
+            {
+                MessageBox.Show(assignmentError, "Assignment Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            request.AssignedProviderId = provider.Email;
+            if (!DataManager.SaveRequests(requests))
+            {
+                return;
+            }
+
+            RefreshGrid();
+            MessageBox.Show(
+                $"Request assigned to {provider.DisplayText}.",
+                "Provider Assigned",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             txtSearchRequests.Focus();
-            string searchText = txtSearchRequests.Text.Trim();
-
-            if (!string.IsNullOrEmpty(searchText))
-            {
-                var requests = DataManager.LoadRequests();
-
-
-                var filtered = requests
-                    .Where(r => r.CustomerId.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-
-                dgvRequests.DataSource = null;
-                dgvRequests.DataSource = filtered;
-
-                if (filtered.Count == 0)
-                {
-                    MessageBox.Show("No matching customers found.");
-                }
-            }
-            else
-            {
-                dgvRequests.DataSource = null;
-                dgvRequests.DataSource = DataManager.LoadRequests();
-            }
+            ApplyFilters();
         }
 
         private void cbxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxStatus.SelectedIndex >= 0)
-            {
-                string selectedStatus = cbxStatus.SelectedItem.ToString();
-                var requests = DataManager.LoadRequests();
-                if (selectedStatus == "All")
-                {
-                    dgvRequests.DataSource = requests;
-                }
-                else
-                {
-                    RequestStatus statusFilter;
-                    if (Enum.TryParse(selectedStatus, out statusFilter))
-                    {
-                        var filtered = requests.Where(r => r.Status == statusFilter).ToList();
-                        dgvRequests.DataSource = filtered;
-                    }
-                }
-            }
+            ApplyFilters();
         }
 
         private void cbxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ApplyFilters();
         }
 
         private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -208,6 +315,8 @@ namespace Home_Hero
             Hide();
             page.Show();
         }
+
+        private sealed record ProviderChoice(string Email, string DisplayText);
 
         private void btnExitAdmin_Click(object sender, EventArgs e)
         {

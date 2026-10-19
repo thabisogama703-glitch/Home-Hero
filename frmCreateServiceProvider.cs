@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace Home_Hero
 {
@@ -50,8 +51,8 @@ namespace Home_Hero
             string name = txtName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string phoneNumber = txtPhoneNumber.Text.Trim();
-            string password = txtPassword.Text.Trim();
-            string confirmPassword = txtConfirmPassword.Text.Trim();
+            string password = txtPassword.Text;
+            string confirmPassword = txtConfirmPassword.Text;
             string serviceArea = txtServiceArea.Text;
 
             if (string.IsNullOrEmpty(name))
@@ -72,7 +73,7 @@ namespace Home_Hero
                 hasEmptyFields = true;
 
             }
-            else if (!email.Contains("@") || !email.Contains("."))
+            else if (!IsValidEmail(email))
             {
                 ValidationError.SetError(txtEmail, "Please enter a valid email");
                 isValid = false;
@@ -114,6 +115,12 @@ namespace Home_Hero
             else
             {
                 ValidationError.SetError(txtPassword, "");
+            }
+
+            if (!string.IsNullOrEmpty(password) && password.Length < 8)
+            {
+                ValidationError.SetError(txtPassword, "Use at least 8 characters for your password.");
+                isValid = false;
             }
 
             if (string.IsNullOrEmpty(confirmPassword))
@@ -239,6 +246,18 @@ namespace Home_Hero
             chkbxPlumbing.Checked = false;
             chkbxRoofing.Checked = false;
             chkbxWindowsDoors.Checked = false;
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                return string.Equals(new MailAddress(email).Address, email, StringComparison.OrdinalIgnoreCase);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

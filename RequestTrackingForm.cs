@@ -117,7 +117,7 @@ namespace Home_Hero
                 "Assigned Provider: " + selected.AssignedProviderId;
 
             lblEstimatedCost.Text =
-                $"Estimated Cost: R{selected.EstimatedCost:F2}";
+                $"Starting estimate: R{selected.EstimatedCost:F2}";
 
             lblFinalCost.Text =
                 selected.FinalCost > 0

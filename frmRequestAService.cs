@@ -37,7 +37,7 @@ namespace Home_Hero
 
         private void frmRequestAService_Load(object sender, EventArgs e)
         {
-            string selectedService = cbxServices.Text;
+            string selectedService = HomeServiceCatalog.NormalizeCategory(cbxServices.Text);
             string problemDescription = txtProblemDEscription.Text;
             int remainingCharacters = 20;
             int descriptionChars = problemDescription.Count();
