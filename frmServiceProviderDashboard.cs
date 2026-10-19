@@ -64,21 +64,26 @@ namespace Home_Hero
                 Location = new Point(660, 32)
             });
 
-            KryptonButton messagesButton = CreateActionButton("Messages");
-            messagesButton.Location = new Point(1100, 20);
-            messagesButton.Size = new Size(140, 46);
-            messagesButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            FlowLayoutPanel headerActions = new()
+            {
+                AutoSize = true,
+                BackColor = Color.Transparent,
+                FlowDirection = FlowDirection.LeftToRight,
+                Location = new Point(0, 18),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                WrapContents = false
+            };
+            KryptonButton messagesButton = CreateActionButton("Customer messages");
+            messagesButton.Size = new Size(190, 46);
             messagesButton.Click += (_, _) => SelectMessagesTab();
-
             KryptonButton logoutButton = CreateActionButton("Log out");
-            logoutButton.Location = new Point(1250, 20);
             logoutButton.Size = new Size(130, 46);
-            logoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             logoutButton.StateCommon.Back.Color1 = Color.FromArgb(33, 43, 74);
             logoutButton.StateCommon.Back.Color2 = Color.FromArgb(33, 43, 74);
             logoutButton.Click += Logout_Click;
-            header.Controls.Add(messagesButton);
-            header.Controls.Add(logoutButton);
+            headerActions.Controls.Add(messagesButton);
+            headerActions.Controls.Add(logoutButton);
+            header.Controls.Add(headerActions);
 
             Panel workspace = new()
             {
@@ -143,6 +148,7 @@ namespace Home_Hero
 
             approveRequestButton.Location = new Point(18, 405);
             approveRequestButton.Size = new Size(210, 42);
+            approveRequestButton.Enabled = false;
             approveRequestButton.Click += ApproveRequest_Click;
             refreshButton.Location = new Point(1030, 405);
             refreshButton.Size = new Size(190, 42);
@@ -152,6 +158,23 @@ namespace Home_Hero
             refreshButton.Click += (_, _) => LoadRequests();
             requestsTab.Controls.Add(approveRequestButton);
             requestsTab.Controls.Add(refreshButton);
+            requestsTab.Controls.Add(new Label
+            {
+                Text = "Select a request, then accept it to assign the job to your account.",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.DimGray,
+                Location = new Point(238, 416)
+            });
+            availableRequestsGrid.SelectionChanged += (_, _) =>
+                approveRequestButton.Enabled = GetSelectedRequest(availableRequestsGrid) != null;
+            availableRequestsGrid.CellDoubleClick += (_, e) =>
+            {
+                if (e.RowIndex >= 0)
+                {
+                    ApproveRequest_Click(availableRequestsGrid, EventArgs.Empty);
+                }
+            };
 
             finalCostInput.DecimalPlaces = 2;
             finalCostInput.Maximum = 1000000;
@@ -421,6 +444,11 @@ namespace Home_Hero
 
         private void ApproveRequest_Click(object? sender, EventArgs e)
         {
+            if (sender is DataGridView grid && grid.CurrentRow != null)
+            {
+                grid.CurrentRow.Selected = true;
+            }
+
             MaintenanceRequest? selected = GetSelectedRequest(availableRequestsGrid);
             if (selected == null)
             {
@@ -430,17 +458,21 @@ namespace Home_Hero
 
             UpdateRequest(selected, request =>
             {
-                if (request.Status == RequestStatus.Requested)
+                if (request.Status != RequestStatus.Requested &&
+                    request.Status != RequestStatus.Approved)
                 {
-                    if (!request.TryUpdateStatus(RequestStatus.Approved, out string approvalError))
-                    {
-                        return approvalError;
-                    }
+                    return $"This request cannot be accepted because its current status is {request.Status}.";
                 }
 
-                if (request.Status != RequestStatus.Approved)
+                if (!IsUnassigned(request))
                 {
-                    return "This request is no longer available.";
+                    return "This request has already been assigned to another provider.";
+                }
+
+                if (request.Status == RequestStatus.Requested &&
+                    !request.TryUpdateStatus(RequestStatus.Approved, out string approvalError))
+                {
+                    return approvalError;
                 }
 
                 if (!request.TryUpdateStatus(RequestStatus.ProviderAssigned, out string assignmentError))
@@ -546,7 +578,7 @@ namespace Home_Hero
                 MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                Hide();
+                Close();
                 new frmHomeHeroHomepage().Show();
             }
         }

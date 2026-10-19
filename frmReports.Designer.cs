@@ -486,6 +486,7 @@
             lnklblServices.TabStop = true;
             lnklblServices.Text = "Services";
             lnklblServices.TextAlign = ContentAlignment.BottomCenter;
+            lnklblServices.LinkClicked += lnklblServices_LinkClicked;
             // 
             // lnklblProviders
             // 
@@ -731,13 +732,13 @@
             // 
             // clmStatus
             // 
-            clmStatus.HeaderText = "Provider";
+            clmStatus.HeaderText = "Status";
             clmStatus.MinimumWidth = 6;
             clmStatus.Name = "clmStatus";
             // 
             // clmProvider
             // 
-            clmProvider.HeaderText = "Service";
+            clmProvider.HeaderText = "Provider";
             clmProvider.MinimumWidth = 6;
             clmProvider.Name = "clmProvider";
             // 

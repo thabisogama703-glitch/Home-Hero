@@ -104,9 +104,7 @@ namespace Home_Hero
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
-            frmAdminDashboard adminDashboard = new frmAdminDashboard();
-            adminDashboard.Show();
+            Close();
         }
 
         private void RequestManagement_Load(object sender, EventArgs e)
@@ -182,30 +180,33 @@ namespace Home_Hero
 
         private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAdminDashboard frmAdminDashboard = new frmAdminDashboard();
-            this.Hide();
-            frmAdminDashboard.Show();
+            Close();
         }
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmProviderManagement management = new frmProviderManagement();
-            this.Hide();
-            management.Show();
+            OpenAdminPage(new frmProviderManagement());
         }
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmReports reports = new frmReports();
-            this.Hide();
-            reports.Show();
+            OpenAdminPage(new frmReports());
         }
 
         private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            RequestManagement management = new RequestManagement();
-            this.Hide();
-            management.Show();
+            OpenAdminPage(new RequestManagement());
+        }
+
+        private void OpenAdminPage(Form page)
+        {
+            page.FormClosed += (_, _) =>
+            {
+                Show();
+                RefreshGrid();
+            };
+            Hide();
+            page.Show();
         }
 
         private void btnExitAdmin_Click(object sender, EventArgs e)

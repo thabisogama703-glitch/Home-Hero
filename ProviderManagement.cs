@@ -18,6 +18,7 @@ namespace Home_Hero
         {
             InitializeComponent();
             LoadProvidersToGrid(DataManager.LoadServiceProviders());
+            lnklblServices.LinkClicked += (_, _) => OpenAdminPage(new frmReports());
         }
         private void LoadProvidersToGrid(IEnumerable<ServiceProvider> providers)
         {
@@ -139,23 +140,24 @@ namespace Home_Hero
 
         private void lnklblReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmReports reports = new frmReports();
-            this.Hide();
-            reports.Show();
+            OpenAdminPage(new frmReports());
         }
 
         private void lnklblOverView_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAdminDashboard adminDashboard = new frmAdminDashboard();
-            this.Hide();
-            adminDashboard.Show();
+            Close();
         }
 
         private void lnklblRequests_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            RequestManagement requestManagement = new RequestManagement();
-            this.Hide();
-            requestManagement.Show();
+            OpenAdminPage(new RequestManagement());
+        }
+
+        private void OpenAdminPage(Form page)
+        {
+            page.FormClosed += (_, _) => Show();
+            Hide();
+            page.Show();
         }
 
         private void btnExitAdmin_Click(object sender, EventArgs e)

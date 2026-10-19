@@ -57,7 +57,7 @@ namespace Home_Hero
 
         private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenAdminPage(new frmServicesOverview());
+            OpenAdminPage(new frmReports());
         }
 
         private void lnklblProviders_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -190,7 +190,7 @@ namespace Home_Hero
                     Service = request.ServiceCategory,
                     Customer = request.CustomerId,
                     Status = request.Status.ToString(),
-                    Provider = providerNames.TryGetValue(request.AssignedProviderId, out string? name)
+                    Provider = providerNames.TryGetValue(request.AssignedProviderId ?? string.Empty, out string? name)
                         ? name
                         : IsUnassigned(request)
                             ? "Unassigned"
