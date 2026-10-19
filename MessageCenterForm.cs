@@ -8,7 +8,7 @@ namespace Home_Hero
         private readonly string currentEmail;
         private readonly bool isProvider;
         private readonly string providerDisplayName;
-        private readonly List<MaintenanceRequest> requests;
+        private List<MaintenanceRequest> requests;
         private readonly ComboBox cmbRequest = new();
         private readonly ComboBox cmbProvider = new();
         private readonly Label lblProvider = new();
@@ -137,6 +137,23 @@ namespace Home_Hero
             Controls.Add(txtMessage);
             Controls.Add(btnSend);
             selectors.Controls.Add(btnRefresh);
+            Resize += (_, _) => LayoutMessageControls();
+            LayoutMessageControls();
+        }
+
+        private void LayoutMessageControls()
+        {
+            int width = Math.Max(500, ClientSize.Width);
+            int height = Math.Max(360, ClientSize.Height);
+            int composerTop = height - 82;
+            txtConversation.Size = new Size(width - 40, Math.Max(100, composerTop - txtConversation.Top - 14));
+            lblEmpty.Location = new Point(32, txtConversation.Top + 12);
+            txtMessage.Location = new Point(20, composerTop);
+            txtMessage.Size = new Size(Math.Max(100, width - 250), 62);
+            btnSend.Location = new Point(width - 195, composerTop);
+            cmbRequest.Width = Math.Max(260, width - 700);
+            cmbProvider.Width = Math.Max(260, width - 700);
+            btnRefresh.Location = new Point(width - 220, 32);
         }
 
         private void LoadConversationOptions()
@@ -204,6 +221,12 @@ namespace Home_Hero
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        public void RefreshRequests(IEnumerable<MaintenanceRequest> updatedRequests)
+        {
+            requests = updatedRequests.ToList();
+            LoadConversationOptions();
         }
 
         private List<MessageThreadOption> GetProviderThreads()

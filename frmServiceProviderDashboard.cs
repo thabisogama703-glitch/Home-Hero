@@ -12,12 +12,14 @@ namespace Home_Hero
         private readonly Label summaryAvailable = CreateMetricValue();
         private readonly Label summaryAssigned = CreateMetricValue();
         private readonly Label summaryCompleted = CreateMetricValue();
-        private readonly KryptonButton approveRequestButton = CreateActionButton("Approve request");
+        private readonly KryptonButton approveRequestButton = CreateActionButton("Accept request");
         private readonly KryptonButton scheduleRequestButton = CreateActionButton("Schedule");
         private readonly KryptonButton startRequestButton = CreateActionButton("Start work");
         private readonly KryptonButton completeRequestButton = CreateActionButton("Complete job");
         private readonly KryptonButton refreshButton = CreateActionButton("Refresh requests");
         private readonly NumericUpDown finalCostInput = new();
+        private TabControl? providerTabs;
+        private MessageCenterForm? providerMessageCenter;
 
         public frmServiceProviderDashboard(ServiceProvider provider)
         {
@@ -66,15 +68,7 @@ namespace Home_Hero
             messagesButton.Location = new Point(1100, 20);
             messagesButton.Size = new Size(140, 46);
             messagesButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            messagesButton.Click += (_, _) =>
-            {
-                using MessageCenterForm messageCenter = new(
-                    currentProvider.Email,
-                    true,
-                    DataManager.LoadRequests(),
-                    $"{currentProvider.FirstName} {currentProvider.LastName}".Trim());
-                messageCenter.ShowDialog(this);
-            };
+            messagesButton.Click += (_, _) => SelectMessagesTab();
 
             KryptonButton logoutButton = CreateActionButton("Log out");
             logoutButton.Location = new Point(1250, 20);
@@ -137,12 +131,15 @@ namespace Home_Hero
             TabPage requestsTab = new("Customer requests");
             TabPage jobsTab = new("My jobs");
             TabPage completedTab = new("Completed");
-            tabs.TabPages.AddRange(new[] { overviewTab, requestsTab, jobsTab, completedTab });
+            TabPage messagesTab = new("Customer messages");
+            tabs.TabPages.AddRange(new[] { overviewTab, requestsTab, jobsTab, completedTab, messagesTab });
+            providerTabs = tabs;
 
             overviewTab.Controls.Add(CreateOverviewPanel());
             AddGridTab(requestsTab, availableRequestsGrid);
             AddGridTab(jobsTab, assignedRequestsGrid);
             AddGridTab(completedTab, completedRequestsGrid);
+            AddMessageCenter(messagesTab);
 
             approveRequestButton.Location = new Point(18, 405);
             approveRequestButton.Size = new Size(210, 42);
@@ -184,6 +181,30 @@ namespace Home_Hero
             jobsTab.Controls.Add(startRequestButton);
             jobsTab.Controls.Add(completeRequestButton);
             workspace.Controls.Add(tabs);
+        }
+
+        private void AddMessageCenter(TabPage messagesTab)
+        {
+            providerMessageCenter = new MessageCenterForm(
+                currentProvider.Email,
+                true,
+                DataManager.LoadRequests(),
+                $"{currentProvider.FirstName} {currentProvider.LastName}".Trim())
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            messagesTab.Controls.Add(providerMessageCenter);
+            providerMessageCenter.Show();
+        }
+
+        private void SelectMessagesTab()
+        {
+            if (providerTabs != null && providerTabs.TabPages.Count > 4)
+            {
+                providerTabs.SelectedIndex = 4;
+            }
         }
 
         private Control CreateOverviewPanel()
@@ -344,6 +365,7 @@ namespace Home_Hero
             summaryAvailable.Text = available.Count.ToString();
             summaryAssigned.Text = assigned.Count.ToString();
             summaryCompleted.Text = completed.Count.ToString();
+            providerMessageCenter?.RefreshRequests(requests);
         }
 
         private void BindRequestsGrid(DataGridView grid, List<MaintenanceRequest> requests)
