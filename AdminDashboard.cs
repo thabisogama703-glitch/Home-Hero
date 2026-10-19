@@ -15,6 +15,11 @@ namespace Home_Hero
         private FlowLayoutPanel? serviceCardsPanel;
         private Control? serviceSummarySection;
         private TableLayoutPanel? dashboardContent;
+        private HomeHeroDashboardLayout? sharedLayout;
+        private RequestManagement? requestManagement;
+        private frmProviderManagement? providerManagement;
+        private frmReports? reportsPage;
+        private string activeSection = "Overview";
 
         public frmAdminDashboard()
         {
@@ -32,89 +37,30 @@ namespace Home_Hero
             MinimumSize = new Size(1000, 700);
             WindowState = FormWindowState.Maximized;
 
-            Panel header = new()
-            {
-                BackColor = Color.FromArgb(0, 0, 64),
-                Dock = DockStyle.Top,
-                Height = 82,
-                Padding = new Padding(28, 0, 28, 0)
-            };
-            header.Controls.Add(new Label
-            {
-                Text = "HomeHero",
-                AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(28, 18)
-            });
-            header.Controls.Add(new Label
-            {
-                Text = "ADMINISTRATOR PORTAL",
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(255, 174, 82),
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(750, 30)
-            });
+            sharedLayout = new HomeHeroDashboardLayout();
+            sharedLayout.SetIdentity("ADMINISTRATOR PORTAL");
+            sharedLayout.SetHero(
+                "HomeHero Operations Center",
+                "Manage providers, service requests, service information, and platform performance.");
+            sharedLayout.SetNavigation(
+                new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                "Overview");
+            sharedLayout.NavigationRequested += (_, section) => ShowAdminSection(section);
             KryptonButton logoutButton = CreateActionButton("Log out", Color.FromArgb(33, 43, 74));
-            logoutButton.Size = new Size(120, 42);
-            logoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logoutButton.Location = new Point(0, 20);
+            logoutButton.Size = new Size(106, 34);
             logoutButton.Click += btnExitAdmin_Click;
-            header.Controls.Add(logoutButton);
-            header.Resize += (_, _) =>
+            sharedLayout.HeaderPanel.Controls.Add(logoutButton);
+            sharedLayout.HeaderPanel.Resize += (_, _) => logoutButton.Location =
+                new Point(sharedLayout.HeaderPanel.ClientSize.Width - logoutButton.Width - 28, 15);
+            Controls.Add(sharedLayout);
+            FormClosed += (_, _) =>
             {
-                logoutButton.Location = new Point(header.ClientSize.Width - 148, 20);
-                Control? portalLabel = header.Controls.Cast<Control>().FirstOrDefault(control =>
-                    control is Label label && label.Text == "ADMINISTRATOR PORTAL");
-                if (portalLabel != null)
-                {
-                    portalLabel.Location = new Point(Math.Max(350, header.ClientSize.Width - 390), 30);
-                }
+                requestManagement?.DisposeWorkspace();
+                providerManagement?.DisposeWorkspace();
+                reportsPage?.DisposeWorkspace();
             };
-
-            FlowLayoutPanel navigation = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Top,
-                Height = 58,
-                Padding = new Padding(28, 12, 20, 8),
-                WrapContents = false
-            };
-            navigation.Controls.Add(CreateNavLink("Overview", (_, _) => RefreshDashboard()));
-            navigation.Controls.Add(CreateNavLink("Requests", (_, _) => OpenAdminPage(new RequestManagement())));
-            navigation.Controls.Add(CreateNavLink("Providers", (_, _) => OpenAdminPage(new frmProviderManagement())));
-            navigation.Controls.Add(CreateNavLink("Services & estimates", (_, _) => FocusServiceSummary()));
-            navigation.Controls.Add(CreateNavLink("Reports", (_, _) => OpenAdminPage(new frmReports())));
-
-            TableLayoutPanel content = new()
-            {
-                AutoScroll = true,
-                BackColor = Color.FromArgb(246, 248, 252),
-                ColumnCount = 1,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(30, 20, 30, 26),
-                RowCount = 6
-            };
-            dashboardContent = content;
-            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 150F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 330F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
-            content.Controls.Add(CreateHeroBanner(), 0, 0);
-            content.Controls.Add(CreateMetricsPanel(), 0, 1);
-            content.Controls.Add(CreateSectionHeading("Home maintenance services and starting prices"), 0, 2);
-            serviceSummarySection = CreateServicePanel();
-            content.Controls.Add(serviceSummarySection, 0, 3);
-            content.Controls.Add(CreateSectionHeading("Recent service requests"), 0, 4);
-            content.Controls.Add(CreateRecentRequestsPanel(), 0, 5);
-
-            Controls.Add(content);
-            Controls.Add(navigation);
-            Controls.Add(header);
+            UpdateAdminMetrics();
+            ShowAdminSection("Overview");
         }
 
         private Control CreateHeroBanner()
@@ -344,9 +290,100 @@ namespace Home_Hero
             completedJobsValue.Text = completed.ToString(CultureInfo.InvariantCulture);
             requestBreakdown.Text =
                 $"Recent requests  ·  {requests.Count(request => request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled)} active  ·  {completed} completed";
+            UpdateAdminMetrics();
 
             BindServiceSummary(requests);
             BindRecentRequests(requests, providers);
+            if (activeSection == "Overview")
+            {
+                ShowAdminSection("Overview");
+            }
+        }
+
+        private void UpdateAdminMetrics()
+        {
+            if (sharedLayout == null)
+            {
+                return;
+            }
+
+            List<MaintenanceRequest> requests = DataManager.LoadRequests();
+            List<ServiceProvider> providers = CustomerRepository.LoadRegisteredServiceProviders();
+            sharedLayout.SetMetrics(new[]
+            {
+                new DashboardMetric("Total requests", requests.Count.ToString(CultureInfo.InvariantCulture), "All submitted jobs"),
+                new DashboardMetric("Awaiting approval", requests.Count(request => request.Status == RequestStatus.Requested).ToString(CultureInfo.InvariantCulture), "Need review"),
+                new DashboardMetric("Verified providers", providers.Count.ToString(CultureInfo.InvariantCulture), "In provider directory"),
+                new DashboardMetric("Completed jobs", requests.Count(request => request.Status == RequestStatus.Completed).ToString(CultureInfo.InvariantCulture), "All-time completions")
+            });
+        }
+
+        private void ShowAdminSection(string section)
+        {
+            if (sharedLayout == null)
+            {
+                return;
+            }
+
+            activeSection = section;
+            sharedLayout.SetNavigation(
+                new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                section);
+            switch (section)
+            {
+                case "Requests":
+                    requestManagement ??= new RequestManagement();
+                    requestManagement.WorkspaceDataChanged -= OnAdminWorkspaceDataChanged;
+                    requestManagement.WorkspaceDataChanged += OnAdminWorkspaceDataChanged;
+                    requestManagement.RefreshWorkspace();
+                    sharedLayout.ShowContent(requestManagement.DetachWorkspaceContent());
+                    return;
+                case "Providers":
+                    providerManagement ??= new frmProviderManagement();
+                    providerManagement.WorkspaceDataChanged -= OnAdminWorkspaceDataChanged;
+                    providerManagement.WorkspaceDataChanged += OnAdminWorkspaceDataChanged;
+                    providerManagement.RefreshWorkspace();
+                    sharedLayout.ShowContent(providerManagement.DetachWorkspaceContent());
+                    return;
+                case "Reports":
+                    reportsPage ??= new frmReports();
+                    reportsPage.WorkspaceDataChanged -= OnAdminWorkspaceDataChanged;
+                    reportsPage.WorkspaceDataChanged += OnAdminWorkspaceDataChanged;
+                    reportsPage.RefreshWorkspace();
+                    sharedLayout.ShowContent(reportsPage.DetachWorkspaceContent());
+                    return;
+                case "Services":
+                    sharedLayout.ShowContent(CreateServicePanel());
+                    break;
+                default:
+                    sharedLayout.ShowContent(CreateOverviewContent());
+                    break;
+            }
+        }
+
+        private void OnAdminWorkspaceDataChanged(object? sender, EventArgs e) => UpdateAdminMetrics();
+
+        private Control CreateOverviewContent()
+        {
+            TableLayoutPanel overview = new()
+            {
+                AutoScroll = true,
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 4
+            };
+            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 330F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 280F));
+            overview.Controls.Add(CreateSectionHeading("Home maintenance services and starting prices"), 0, 0);
+            serviceSummarySection = CreateServicePanel();
+            overview.Controls.Add(serviceSummarySection, 0, 1);
+            overview.Controls.Add(CreateSectionHeading("Recent service requests"), 0, 2);
+            overview.Controls.Add(CreateRecentRequestsPanel(), 0, 3);
+            dashboardContent = overview;
+            return overview;
         }
 
         private void BindServiceSummary(IEnumerable<MaintenanceRequest> requests)
@@ -458,10 +495,9 @@ namespace Home_Hero
 
         private void FocusServiceSummary()
         {
-            if (serviceSummarySection != null)
+            if (sharedLayout != null)
             {
-                dashboardContent?.ScrollControlIntoView(serviceSummarySection);
-                serviceSummarySection.Focus();
+                ShowAdminSection("Services");
             }
         }
 

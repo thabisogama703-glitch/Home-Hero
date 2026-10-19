@@ -18,8 +18,14 @@ namespace Home_Hero
         private readonly KryptonButton completeRequestButton = CreateActionButton("Complete job");
         private readonly KryptonButton refreshButton = CreateActionButton("Refresh requests");
         private readonly NumericUpDown finalCostInput = new();
-        private TabControl? providerTabs;
+        private HomeHeroDashboardLayout? dashboardLayout;
         private MessageCenterForm? providerMessageCenter;
+        private Panel? messagesContent;
+        private Panel? requestsContent;
+        private Panel? jobsContent;
+        private Panel? completedContent;
+        private Control? analyticsContent;
+        private string currentSection = "Customer Requests";
 
         public frmServiceProviderDashboard(ServiceProvider provider)
         {
@@ -33,139 +39,47 @@ namespace Home_Hero
         {
             Controls.Clear();
             Text = "HomeHero Provider Workspace";
-            BackColor = Color.FromArgb(245, 247, 251);
+            BackColor = Color.FromArgb(246, 248, 251);
             MinimumSize = new Size(1000, 700);
-            Size = new Size(1440, 900);
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
 
-            Panel header = new()
-            {
-                BackColor = Color.FromArgb(0, 0, 64),
-                Dock = DockStyle.Top,
-                Height = 86,
-                Padding = new Padding(28, 0, 28, 0)
-            };
-            header.Controls.Add(new Label
-            {
-                Text = "HomeHero",
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 21F, FontStyle.Bold),
-                AutoSize = true,
-                Location = new Point(26, 22)
-            });
-            header.Controls.Add(new Label
-            {
-                Text = $"PROVIDER WORKSPACE  ·  {currentProvider.FirstName} {currentProvider.LastName}".Trim(),
-                ForeColor = Color.FromArgb(255, 174, 82),
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                AutoSize = true,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(660, 32)
-            });
-
-            FlowLayoutPanel headerActions = new()
-            {
-                AutoSize = true,
-                BackColor = Color.Transparent,
-                FlowDirection = FlowDirection.LeftToRight,
-                Location = new Point(0, 18),
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                WrapContents = false
-            };
-            KryptonButton messagesButton = CreateActionButton("Customer messages");
-            messagesButton.Size = new Size(190, 46);
-            messagesButton.Click += (_, _) => SelectMessagesTab();
+            dashboardLayout = new HomeHeroDashboardLayout();
+            dashboardLayout.SetIdentity($"PROVIDER WORKSPACE  ·  {currentProvider.FirstName} {currentProvider.LastName}".Trim());
+            dashboardLayout.SetHero(
+                $"Welcome back, {currentProvider.FirstName}",
+                "Grow your business by delivering excellent service and keeping every customer informed.");
+            dashboardLayout.SetNavigation(
+                new[] { "Customer Requests", "My Jobs", "Completed Jobs", "Messages", "Analytics" },
+                "Customer Requests");
+            dashboardLayout.NavigationRequested += (_, section) => ShowProviderSection(section);
+            HomeHeroDashboardLayout.StyleTable(availableRequestsGrid);
+            HomeHeroDashboardLayout.StyleTable(assignedRequestsGrid);
+            HomeHeroDashboardLayout.StyleTable(completedRequestsGrid);
             KryptonButton logoutButton = CreateActionButton("Log out");
-            logoutButton.Size = new Size(130, 46);
+            logoutButton.Size = new Size(104, 34);
             logoutButton.StateCommon.Back.Color1 = Color.FromArgb(33, 43, 74);
             logoutButton.StateCommon.Back.Color2 = Color.FromArgb(33, 43, 74);
             logoutButton.Click += Logout_Click;
-            headerActions.Controls.Add(messagesButton);
-            headerActions.Controls.Add(logoutButton);
-            header.Controls.Add(headerActions);
+            dashboardLayout.HeaderPanel.Controls.Add(logoutButton);
+            dashboardLayout.HeaderPanel.Resize += (_, _) => logoutButton.Location =
+                new Point(dashboardLayout.HeaderPanel.ClientSize.Width - logoutButton.Width - 28, 15);
 
-            Panel workspace = new()
-            {
-                Dock = DockStyle.Fill,
-                Padding = new Padding(28, 22, 28, 24),
-                BackColor = Color.FromArgb(245, 247, 251)
-            };
-            Controls.Add(workspace);
-            Controls.Add(header);
+            requestsContent = CreateProviderTableContent("New customer requests", availableRequestsGrid);
+            jobsContent = CreateProviderTableContent("My active jobs", assignedRequestsGrid);
+            completedContent = CreateProviderTableContent("Completed jobs", completedRequestsGrid);
+            analyticsContent = CreateOverviewPanel();
+            messagesContent = new() { Dock = DockStyle.Fill, BackColor = Color.White };
+            AddMessageCenter(messagesContent);
 
-            Label title = new()
-            {
-                Text = "Your service hub",
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64),
-                AutoSize = true,
-                Location = new Point(28, 22)
-            };
-            Label subtitle = new()
-            {
-                Text = "Review customer requests, manage your schedule, and keep every job moving.",
-                Font = new Font("Segoe UI", 10.5F),
-                ForeColor = Color.DimGray,
-                AutoSize = true,
-                Location = new Point(30, 66)
-            };
-            workspace.Controls.Add(title);
-            workspace.Controls.Add(subtitle);
-
-            FlowLayoutPanel metrics = new()
-            {
-                Location = new Point(28, 112),
-                Size = new Size(1260, 112),
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                WrapContents = false
-            };
-            metrics.Controls.Add(CreateMetricCard("New customer requests", summaryAvailable));
-            metrics.Controls.Add(CreateMetricCard("My active jobs", summaryAssigned));
-            metrics.Controls.Add(CreateMetricCard("Completed jobs", summaryCompleted));
-            workspace.Controls.Add(metrics);
-
-            TabControl tabs = new()
-            {
-                Location = new Point(28, 244),
-                Size = new Size(1260, 510),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
-                Font = new Font("Segoe UI", 10F)
-            };
-            TabPage overviewTab = new("Overview");
-            TabPage requestsTab = new("Customer requests");
-            TabPage jobsTab = new("My jobs");
-            TabPage completedTab = new("Completed");
-            TabPage messagesTab = new("Customer messages");
-            tabs.TabPages.AddRange(new[] { overviewTab, requestsTab, jobsTab, completedTab, messagesTab });
-            providerTabs = tabs;
-
-            overviewTab.Controls.Add(CreateOverviewPanel());
-            AddGridTab(requestsTab, availableRequestsGrid);
-            AddGridTab(jobsTab, assignedRequestsGrid);
-            AddGridTab(completedTab, completedRequestsGrid);
-            AddMessageCenter(messagesTab);
-
-            approveRequestButton.Location = new Point(18, 405);
-            approveRequestButton.Size = new Size(210, 42);
+            approveRequestButton.Size = new Size(180, 38);
             approveRequestButton.Enabled = false;
             approveRequestButton.Click += ApproveRequest_Click;
-            refreshButton.Location = new Point(1030, 405);
-            refreshButton.Size = new Size(190, 42);
-            refreshButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            refreshButton.Size = new Size(156, 38);
             refreshButton.StateCommon.Back.Color1 = Color.FromArgb(0, 0, 64);
             refreshButton.StateCommon.Back.Color2 = Color.FromArgb(0, 0, 64);
             refreshButton.Click += (_, _) => LoadRequests();
-            requestsTab.Controls.Add(approveRequestButton);
-            requestsTab.Controls.Add(refreshButton);
-            requestsTab.Controls.Add(new Label
-            {
-                Text = "Select a request, then accept it to assign the job to your account.",
-                AutoSize = true,
-                Font = new Font("Segoe UI", 9F),
-                ForeColor = Color.DimGray,
-                Location = new Point(238, 416)
-            });
+            AddTableActions(requestsContent, approveRequestButton, refreshButton);
             availableRequestsGrid.SelectionChanged += (_, _) =>
                 approveRequestButton.Enabled = GetSelectedRequest(availableRequestsGrid) != null;
             availableRequestsGrid.CellDoubleClick += (_, e) =>
@@ -180,11 +94,7 @@ namespace Home_Hero
             finalCostInput.Maximum = 1000000;
             finalCostInput.Minimum = 0;
             finalCostInput.Size = new Size(150, 38);
-            finalCostInput.Location = new Point(18, 405);
-            finalCostInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            scheduleRequestButton.Location = new Point(185, 405);
-            startRequestButton.Location = new Point(355, 405);
-            completeRequestButton.Location = new Point(525, 405);
+            finalCostInput.Font = new Font("Segoe UI", 10F);
             foreach (KryptonButton button in new[]
                      {
                          scheduleRequestButton,
@@ -192,21 +102,19 @@ namespace Home_Hero
                          completeRequestButton
                      })
             {
-                button.Size = new Size(155, 42);
-                button.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+                button.Size = new Size(140, 38);
             }
 
             scheduleRequestButton.Click += (_, _) => UpdateSelectedRequest(RequestStatus.Scheduled);
             startRequestButton.Click += (_, _) => UpdateSelectedRequest(RequestStatus.InProgress);
             completeRequestButton.Click += CompleteRequest_Click;
-            jobsTab.Controls.Add(finalCostInput);
-            jobsTab.Controls.Add(scheduleRequestButton);
-            jobsTab.Controls.Add(startRequestButton);
-            jobsTab.Controls.Add(completeRequestButton);
-            workspace.Controls.Add(tabs);
+            AddTableActions(jobsContent, finalCostInput, scheduleRequestButton, startRequestButton, completeRequestButton);
+            Controls.Add(dashboardLayout);
+            UpdateProviderMetrics();
+            ShowProviderSection("Customer Requests");
         }
 
-        private void AddMessageCenter(TabPage messagesTab)
+        private void AddMessageCenter(Panel messagesPanel)
         {
             providerMessageCenter = new MessageCenterForm(
                 currentProvider.Email,
@@ -218,16 +126,124 @@ namespace Home_Hero
                 FormBorderStyle = FormBorderStyle.None,
                 Dock = DockStyle.Fill
             };
-            messagesTab.Controls.Add(providerMessageCenter);
+            messagesPanel.Controls.Add(providerMessageCenter);
             providerMessageCenter.Show();
         }
 
-        private void SelectMessagesTab()
+        private void ShowProviderSection(string section)
         {
-            if (providerTabs != null && providerTabs.TabPages.Count > 4)
+            if (dashboardLayout == null)
             {
-                providerTabs.SelectedIndex = 4;
+                return;
             }
+
+            dashboardLayout.SetNavigation(
+                new[] { "Customer Requests", "My Jobs", "Completed Jobs", "Messages", "Analytics" },
+                section);
+            currentSection = section;
+            Control content = section switch
+            {
+                "Customer Requests" => requestsContent!,
+                "My Jobs" => jobsContent!,
+                "Completed Jobs" => completedContent!,
+                "Messages" => messagesContent!,
+                _ => analyticsContent!
+            };
+            dashboardLayout.ShowContent(content);
+        }
+
+        private static Panel CreateProviderTableContent(string title, DataGridView grid)
+        {
+            Panel content = new() { Dock = DockStyle.Fill, BackColor = Color.FromArgb(246, 248, 251) };
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 3
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 56F));
+
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 16F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+
+            Panel tableCard = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(10)
+            };
+            grid.Dock = DockStyle.Fill;
+            tableCard.Controls.Add(grid);
+            layout.Controls.Add(tableCard, 0, 1);
+            FlowLayoutPanel actionBar = new()
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                Padding = new Padding(0, 8, 0, 0),
+                WrapContents = false,
+                Tag = "action-bar"
+            };
+            layout.Controls.Add(actionBar, 0, 2);
+            content.Controls.Add(layout);
+            return content;
+        }
+
+        private static void AddTableActions(Panel content, params Control[] actions)
+        {
+            if (content.Controls.Count == 0 ||
+                content.Controls[0] is not TableLayoutPanel layout ||
+                layout.GetControlFromPosition(0, 2) is not FlowLayoutPanel actionBar)
+            {
+                return;
+            }
+
+            foreach (Control action in actions)
+            {
+                action.Margin = new Padding(0, 0, 10, 0);
+                actionBar.Controls.Add(action);
+            }
+        }
+
+        private void UpdateProviderMetrics()
+        {
+            if (dashboardLayout == null)
+            {
+                return;
+            }
+
+            List<MaintenanceRequest> requests = DataManager.LoadRequests();
+            List<MaintenanceRequest> mine = requests.Where(IsAssignedToCurrentProvider).ToList();
+            int activeJobs = mine.Count(request =>
+                request.Status != RequestStatus.Completed &&
+                request.Status != RequestStatus.Cancelled);
+            int completedJobs = mine.Count(request => request.Status == RequestStatus.Completed);
+            DateTime monthStart = new(DateTime.Today.Year, DateTime.Today.Month, 1);
+            decimal monthlyEarnings = mine
+                .Where(request => request.Status == RequestStatus.Completed &&
+                                  request.PreferredDate >= monthStart &&
+                                  request.PreferredDate <= DateTime.Today)
+                .Sum(request => request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost);
+
+            dashboardLayout.SetMetrics(new[]
+            {
+                new DashboardMetric("New requests", summaryAvailable.Text, "Available to accept"),
+                new DashboardMetric("Active jobs", activeJobs.ToString(), "Accepted and underway"),
+                new DashboardMetric("Completed jobs", completedJobs.ToString(), "All-time completed"),
+                new DashboardMetric("Monthly earnings", $"R{monthlyEarnings:N0}", "Completed this month"),
+                new DashboardMetric("Services offered", (currentProvider.Specialisation?.Count ?? 0).ToString(), "Listed specialties"),
+                new DashboardMetric("Upcoming jobs", mine.Count(request =>
+                    request.Status == RequestStatus.Scheduled && request.PreferredDate.Date >= DateTime.Today).ToString(),
+                    "Scheduled from today")
+            });
         }
 
         private Control CreateOverviewPanel()
@@ -235,45 +251,146 @@ namespace Home_Hero
             Panel overview = new()
             {
                 Dock = DockStyle.Fill,
-                BackColor = Color.White,
-                Padding = new Padding(28)
+                BackColor = Color.FromArgb(246, 248, 251)
             };
-
-            Label overviewTitle = new()
+            TableLayoutPanel layout = new()
             {
-                Text = "Recommended next steps",
-                Font = new Font("Segoe UI", 17F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64),
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                RowCount = 1
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58F));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42F));
+            layout.Controls.Add(CreatePipelinePanel(), 0, 0);
+            layout.Controls.Add(CreateSchedulePanel(), 1, 0);
+            overview.Controls.Add(layout);
+            return overview;
+        }
+
+        private Control CreatePipelinePanel()
+        {
+            Panel card = CreateProviderCard("Job pipeline");
+            FlowLayoutPanel pipeline = new()
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.TopDown,
+                Padding = new Padding(20, 18, 20, 10),
+                WrapContents = false,
+                AutoScroll = true
+            };
+            List<MaintenanceRequest> mine = DataManager.LoadRequests()
+                .Where(IsAssignedToCurrentProvider)
+                .ToList();
+            AddPipelineRow(pipeline, "Accepted", mine.Count(request => request.Status == RequestStatus.ProviderAssigned));
+            AddPipelineRow(pipeline, "Scheduled", mine.Count(request => request.Status == RequestStatus.Scheduled));
+            AddPipelineRow(pipeline, "In progress", mine.Count(request => request.Status == RequestStatus.InProgress));
+            AddPipelineRow(pipeline, "Completed", mine.Count(request => request.Status == RequestStatus.Completed));
+            ((TableLayoutPanel)card.Tag!).Controls.Add(pipeline, 0, 1);
+            return card;
+        }
+
+        private static void AddPipelineRow(FlowLayoutPanel panel, string title, int count)
+        {
+            Panel row = new()
+            {
+                BackColor = Color.FromArgb(246, 248, 251),
+                Margin = new Padding(0, 0, 0, 10),
+                Size = new Size(440, 58)
+            };
+            row.Controls.Add(new Label
+            {
                 AutoSize = true,
-                Location = new Point(28, 26)
-            };
-            overview.Controls.Add(overviewTitle);
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(27, 27, 27),
+                Location = new Point(14, 18),
+                Text = title
+            });
+            row.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 15F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 138, 0),
+                Location = new Point(370, 14),
+                Text = count.ToString()
+            });
+            panel.Controls.Add(row);
+        }
 
-            string[] steps =
+        private Control CreateSchedulePanel()
+        {
+            Panel card = CreateProviderCard("Today's schedule");
+            FlowLayoutPanel schedule = new()
             {
-                "1. Review new requests and accept work that matches your services.",
-                "2. Schedule accepted requests and keep appointment details current.",
-                "3. Start work when you arrive, then record the final cost when finished.",
-                "4. Use Messages to coordinate directly with each customer."
+                AutoScroll = true,
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.TopDown,
+                Padding = new Padding(18, 18, 18, 10),
+                WrapContents = false
             };
-            for (int index = 0; index < steps.Length; index++)
+            List<MaintenanceRequest> todaysJobs = DataManager.LoadRequests()
+                .Where(IsAssignedToCurrentProvider)
+                .Where(request => request.Status == RequestStatus.Scheduled &&
+                                  request.PreferredDate.Date == DateTime.Today)
+                .OrderBy(request => request.PreferredTime)
+                .ToList();
+            if (todaysJobs.Count == 0)
             {
-                overview.Controls.Add(new Label
+                schedule.Controls.Add(new Label
                 {
-                    Text = steps[index],
-                    Font = new Font("Segoe UI", 12F),
-                    ForeColor = Color.FromArgb(45, 52, 70),
                     AutoSize = true,
-                    Location = new Point(32, 92 + index * 56)
+                    Font = new Font("Segoe UI", 10F),
+                    ForeColor = Color.FromArgb(107, 114, 128),
+                    Text = "No appointments scheduled for today."
                 });
             }
+            else
+            {
+                foreach (MaintenanceRequest job in todaysJobs)
+                {
+                    schedule.Controls.Add(new Label
+                    {
+                        AutoEllipsis = true,
+                        Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(27, 27, 27),
+                        Margin = new Padding(0, 0, 0, 12),
+                        Size = new Size(330, 44),
+                        Text = $"{job.PreferredTime}  ·  {job.ServiceCategory}\n{job.CustomerId}"
+                    });
+                }
+            }
+            ((TableLayoutPanel)card.Tag!).Controls.Add(schedule, 0, 1);
+            return card;
+        }
 
-            KryptonButton refreshOverviewButton = CreateActionButton("Refresh dashboard");
-            refreshOverviewButton.Location = new Point(30, 330);
-            refreshOverviewButton.Size = new Size(220, 46);
-            refreshOverviewButton.Click += (_, _) => LoadRequests();
-            overview.Controls.Add(refreshOverviewButton);
-            return overview;
+        private static Panel CreateProviderCard(string title)
+        {
+            Panel card = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0, 0, 14, 0),
+                Padding = new Padding(14)
+            };
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(2, 2, 89),
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            card.Controls.Add(layout);
+            card.Tag = layout;
+            return card;
         }
 
         private static Panel CreateMetricCard(string title, Label valueLabel)
@@ -324,31 +441,31 @@ namespace Home_Hero
 
         private static DataGridView CreateGrid()
         {
-            return new DataGridView
+            DataGridView grid = new()
             {
-                Dock = DockStyle.Top,
-                Height = 355,
+                Dock = DockStyle.Fill,
                 ReadOnly = true,
                 MultiSelect = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
                 AllowUserToAddRows = false,
                 BackgroundColor = Color.White,
                 BorderStyle = BorderStyle.None,
                 RowHeadersVisible = false,
                 EnableHeadersVisualStyles = false,
+                ColumnHeadersHeight = 42,
                 ColumnHeadersDefaultCellStyle =
                 {
-                    BackColor = Color.FromArgb(0, 0, 64),
+                    BackColor = Color.FromArgb(2, 2, 89),
                     ForeColor = Color.White,
                     Font = new Font("Segoe UI", 9F, FontStyle.Bold)
                 },
                 AlternatingRowsDefaultCellStyle =
                 {
-                    BackColor = Color.FromArgb(245, 247, 251)
+                    BackColor = Color.FromArgb(246, 248, 251)
                 }
             };
+            return grid;
         }
 
         private static void AddGridTab(TabPage tab, DataGridView grid)
@@ -389,6 +506,12 @@ namespace Home_Hero
             summaryAssigned.Text = assigned.Count.ToString();
             summaryCompleted.Text = completed.Count.ToString();
             providerMessageCenter?.RefreshRequests(requests);
+            UpdateProviderMetrics();
+            analyticsContent = CreateOverviewPanel();
+            if (currentSection == "Analytics")
+            {
+                ShowProviderSection(currentSection);
+            }
         }
 
         private void BindRequestsGrid(DataGridView grid, List<MaintenanceRequest> requests)

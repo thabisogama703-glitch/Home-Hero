@@ -17,6 +17,9 @@ namespace HomeHero
         private readonly ComboBox statusFilter = new();
         private readonly Label emptyRequestsLabel = new();
         private List<MaintenanceRequest> customerRequests = new();
+        private HomeHeroDashboardLayout? dashboardLayout;
+        private string activeSection = "Overview";
+        private Panel? messagesContent;
 
         public frmCustomerDashboard()
             : this(string.Empty)
@@ -39,87 +42,24 @@ namespace HomeHero
             BackColor = Color.FromArgb(246, 248, 252);
             MinimumSize = new Size(1000, 700);
             WindowState = FormWindowState.Maximized;
-
-            Panel header = new()
-            {
-                BackColor = Color.FromArgb(0, 0, 64),
-                Dock = DockStyle.Top,
-                Height = 82,
-                Padding = new Padding(28, 0, 28, 0)
-            };
-            header.Controls.Add(new Label
-            {
-                Text = "HomeHero",
-                AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(28, 18)
-            });
-            header.Controls.Add(new Label
-            {
-                Text = currentCustomerEmail,
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10F),
-                ForeColor = Color.White,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new Point(760, 30)
-            });
+            dashboardLayout = new HomeHeroDashboardLayout();
+            dashboardLayout.SetIdentity("CUSTOMER DASHBOARD");
+            dashboardLayout.SetHero(
+                "Your Home, Expertly Managed",
+                "Track requests, communicate with providers, and keep your home in perfect condition.");
+            dashboardLayout.SetNavigation(
+                new[] { "Overview", "Request Service", "Active Services", "Track Service", "Service History", "Messages" },
+                "Overview");
+            dashboardLayout.NavigationRequested += (_, section) => ShowCustomerSection(section);
             KryptonButton logoutButton = CreateActionButton("Log out", Color.FromArgb(33, 43, 74));
-            logoutButton.Size = new Size(120, 42);
-            logoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logoutButton.Location = new Point(0, 20);
+            logoutButton.Size = new Size(106, 34);
             logoutButton.Click += btnBackToHome_Click;
-            header.Controls.Add(logoutButton);
-            header.Resize += (_, _) =>
-            {
-                logoutButton.Location = new Point(header.ClientSize.Width - 148, 20);
-                Control? emailLabel = header.Controls.Cast<Control>().FirstOrDefault(control =>
-                    control is Label label && label.Text == currentCustomerEmail);
-                if (emailLabel != null)
-                {
-                    emailLabel.Location = new Point(Math.Max(330, header.ClientSize.Width - 380), 30);
-                }
-            };
-
-            FlowLayoutPanel navigation = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Top,
-                Height = 58,
-                Padding = new Padding(28, 12, 20, 8),
-                WrapContents = false
-            };
-            navigation.Controls.Add(CreateNavLink("Overview", (_, _) => RefreshDashboard()));
-            navigation.Controls.Add(CreateNavLink("New service request", btnNewServiceRequest_Click_1));
-            navigation.Controls.Add(CreateNavLink("Active requests", BtnActiceRequests_Click));
-            navigation.Controls.Add(CreateNavLink("Track a request", btnTrackRequest_Click_1));
-            navigation.Controls.Add(CreateNavLink("Service history", btnServiceHistory_Click));
-            navigation.Controls.Add(CreateNavLink("Messages", (_, _) => OpenMessages()));
-
-            TableLayoutPanel content = new()
-            {
-                AutoScroll = true,
-                BackColor = Color.FromArgb(246, 248, 252),
-                ColumnCount = 1,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(32, 22, 32, 28),
-                RowCount = 5
-            };
-            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 150F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 118F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 106F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            content.Controls.Add(CreateHeroBanner(), 0, 0);
-            content.Controls.Add(CreateMetricsPanel(), 0, 1);
-            content.Controls.Add(CreateProgressPanel(), 0, 2);
-            content.Controls.Add(CreateRequestToolbar(), 0, 3);
-            content.Controls.Add(CreateRequestListPanel(), 0, 4);
-
-            Controls.Add(content);
-            Controls.Add(navigation);
-            Controls.Add(header);
+            dashboardLayout.HeaderPanel.Controls.Add(logoutButton);
+            dashboardLayout.HeaderPanel.Resize += (_, _) => logoutButton.Location =
+                new Point(dashboardLayout.HeaderPanel.ClientSize.Width - logoutButton.Width - 28, 15);
+            Controls.Add(dashboardLayout);
+            UpdateCustomerMetrics();
+            ShowCustomerSection("Overview");
         }
 
         private Control CreateHeroBanner()
@@ -386,6 +326,272 @@ namespace HomeHero
                 .ToList();
         }
 
+        private void ShowCustomerSection(string section)
+        {
+            if (dashboardLayout == null)
+            {
+                return;
+            }
+
+            activeSection = section;
+            dashboardLayout.SetNavigation(
+                new[] { "Overview", "Request Service", "Active Services", "Track Service", "Service History", "Messages" },
+                section);
+            Control content = section switch
+            {
+                "Request Service" => CreateRequestServiceContent(),
+                "Active Services" => CreateRequestsPage("Active services", customerRequests.Where(request =>
+                    request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled).ToList(),
+                    "Active work assigned to you will appear here."),
+                "Track Service" => CreateTrackServiceContent(),
+                "Service History" => CreateRequestsPage("Service history", customerRequests.Where(request =>
+                    request.Status == RequestStatus.Completed || request.Status == RequestStatus.Cancelled).ToList(),
+                    "Completed and cancelled requests will appear here."),
+                "Messages" => GetMessagesContent(),
+                _ => CreateCustomerOverview()
+            };
+            dashboardLayout.ShowContent(content);
+        }
+
+        private Control CreateCustomerOverview()
+        {
+            TableLayoutPanel overview = new()
+            {
+                AutoScroll = true,
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 4
+            };
+            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 250F));
+            string name = currentCustomerEmail.Contains('@')
+                ? currentCustomerEmail[..currentCustomerEmail.IndexOf('@')]
+                : currentCustomerEmail;
+            overview.Controls.Add(CreateSectionHeading($"Welcome back, {name}"), 0, 0);
+            overview.Controls.Add(CreateProgressPanel(), 0, 1);
+            overview.Controls.Add(CreateQuickActions(), 0, 2);
+            overview.Controls.Add(CreateRequestListPanel(), 0, 3);
+            return overview;
+        }
+
+        private Control CreateQuickActions()
+        {
+            FlowLayoutPanel actions = new()
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false,
+                Padding = new Padding(0, 8, 0, 4)
+            };
+            actions.Controls.Add(CreateQuickActionButton("+ Request service", Color.FromArgb(255, 138, 0), btnNewServiceRequest_Click_1));
+            actions.Controls.Add(CreateQuickActionButton("Track request", Color.FromArgb(2, 2, 89), btnTrackRequest_Click_1));
+            actions.Controls.Add(CreateQuickActionButton("Contact provider", Color.FromArgb(2, 2, 89), (_, _) => ShowCustomerSection("Messages")));
+            actions.Controls.Add(CreateQuickActionButton("Service history", Color.FromArgb(2, 2, 89), (_, _) => ShowCustomerSection("Service History")));
+            return actions;
+        }
+
+        private static Button CreateQuickActionButton(string text, Color color, EventHandler onClick)
+        {
+            Button button = new()
+            {
+                BackColor = color,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Margin = new Padding(0, 0, 10, 0),
+                Size = new Size(170, 36),
+                Text = text,
+                UseVisualStyleBackColor = false
+            };
+            button.FlatAppearance.BorderSize = 0;
+            button.Click += onClick;
+            return button;
+        }
+
+        private Control CreateRequestServiceContent()
+        {
+            TableLayoutPanel layout = new()
+            {
+                AutoScroll = true,
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 3
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(CreateSectionHeading("Choose a home service"), 0, 0);
+            Button startRequest = CreateQuickActionButton("Start service request", Color.FromArgb(255, 138, 0), btnNewServiceRequest_Click_1);
+            layout.Controls.Add(startRequest, 0, 1);
+            FlowLayoutPanel services = new()
+            {
+                AutoScroll = false,
+                Dock = DockStyle.Fill,
+                WrapContents = true,
+                Padding = new Padding(0, 8, 0, 8)
+            };
+            foreach (HomeServiceOption service in HomeServiceCatalog.Services)
+            {
+                Panel card = new()
+                {
+                    BackColor = Color.White,
+                    Margin = new Padding(0, 0, 12, 12),
+                    Padding = new Padding(14),
+                    Size = new Size(240, 94)
+                };
+                card.Controls.Add(new Label
+                {
+                    AutoEllipsis = true,
+                    Dock = DockStyle.Top,
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(2, 2, 89),
+                    Height = 25,
+                    Text = service.Name
+                });
+                card.Controls.Add(new Label
+                {
+                    AutoEllipsis = true,
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 9F),
+                    ForeColor = Color.FromArgb(107, 114, 128),
+                    Text = $"{service.Description}\nFrom R{service.StartingPrice:N0}"
+                });
+                services.Controls.Add(card);
+            }
+            layout.Controls.Add(services, 0, 2);
+            return layout;
+        }
+
+        private Control CreateTrackServiceContent()
+        {
+            Panel page = new() { Dock = DockStyle.Fill, BackColor = Color.FromArgb(246, 248, 251) };
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 3
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(CreateSectionHeading("Track a service request"), 0, 0);
+            layout.Controls.Add(CreateQuickActionButton("Open request tracking", Color.FromArgb(255, 138, 0), btnTrackRequest_Click_1), 0, 1);
+            layout.Controls.Add(CreateRequestsGridCard(customerRequests, "Select a request to review its status and provider."), 0, 2);
+            page.Controls.Add(layout);
+            return page;
+        }
+
+        private Control CreateRequestsPage(string title, List<MaintenanceRequest> requests, string emptyMessage)
+        {
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(CreateSectionHeading(title), 0, 0);
+            layout.Controls.Add(CreateRequestsGridCard(requests, emptyMessage), 0, 1);
+            return layout;
+        }
+
+        private Control CreateRequestsGridCard(List<MaintenanceRequest> requests, string emptyMessage)
+        {
+            Panel card = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(10)
+            };
+            DataGridView grid = CreateRequestsGrid();
+            HomeHeroDashboardLayout.StyleTable(grid);
+            List<MaintenanceRequest> snapshot = requests.ToList();
+            grid.DataSource = snapshot.Select(request => new
+            {
+                Request = request.RequestNumber,
+                Service = request.ServiceCategory,
+                Appointment = $"{request.PreferredDate:d} · {request.PreferredTime}",
+                Status = request.Status.ToString(),
+                Progress = $"{request.ProgressPercentage}%",
+                Provider = IsUnassigned(request) ? "Awaiting provider" : request.AssignedProviderId
+            }).ToList();
+            if (snapshot.Count == 0)
+            {
+                card.Controls.Add(new Label
+                {
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(107, 114, 128),
+                    Text = emptyMessage,
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+            }
+            else
+            {
+                card.Controls.Add(grid);
+            }
+
+            return card;
+        }
+
+        private Control GetMessagesContent()
+        {
+            if (messagesContent == null)
+            {
+                messagesContent = new Panel { Dock = DockStyle.Fill, BackColor = Color.White, Padding = new Padding(10) };
+                MessageCenterForm messageCenter = new(currentCustomerEmail, false, GetCustomerRequests())
+                {
+                    TopLevel = false,
+                    FormBorderStyle = FormBorderStyle.None,
+                    Dock = DockStyle.Fill
+                };
+                messagesContent.Controls.Add(messageCenter);
+                messageCenter.Show();
+            }
+            else if (messagesContent.Controls.Count > 0 && messagesContent.Controls[0] is MessageCenterForm messageCenter)
+            {
+                messageCenter.RefreshRequests(GetCustomerRequests());
+            }
+
+            return messagesContent;
+        }
+
+        private static Label CreateSectionHeading(string text) => new()
+        {
+            Dock = DockStyle.Fill,
+            Font = new Font("Segoe UI", 16F, FontStyle.Bold),
+            ForeColor = Color.FromArgb(2, 2, 89),
+            Text = text,
+            TextAlign = ContentAlignment.MiddleLeft
+        };
+
+        private void UpdateCustomerMetrics()
+        {
+            if (dashboardLayout == null)
+            {
+                return;
+            }
+
+            int activeCount = customerRequests.Count(request =>
+                request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled);
+            int inProgressCount = customerRequests.Count(request => request.Status == RequestStatus.InProgress);
+            int completedCount = customerRequests.Count(request => request.Status == RequestStatus.Completed);
+            dashboardLayout.SetMetrics(new[]
+            {
+                new DashboardMetric("Total requests", customerRequests.Count.ToString(), "All requests"),
+                new DashboardMetric("Active services", activeCount.ToString(), "Currently open"),
+                new DashboardMetric("In progress", inProgressCount.ToString(), "Work underway"),
+                new DashboardMetric("Completed", completedCount.ToString(), "Finished services")
+            });
+        }
+
         private void RefreshDashboard()
         {
             customerRequests = GetCustomerRequests();
@@ -404,7 +610,12 @@ namespace HomeHero
             completedValue.Text = completedCount.ToString();
             completionProgress.Value = Math.Clamp(averageProgress, 0, 100);
             progressSummary.Text = $"Average request progress  ·  {averageProgress}%";
+            UpdateCustomerMetrics();
             BindRequestsGrid();
+            if (activeSection == "Overview")
+            {
+                ShowCustomerSection("Overview");
+            }
         }
 
         private void BindRequestsGrid()

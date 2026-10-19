@@ -6,34 +6,146 @@ namespace Home_Hero
     public partial class frmReports : Form
     {
         private readonly DataGridView serviceSummaryGrid = CreateSummaryGrid();
+        private readonly TextBox reportSearch = new();
+        private readonly ComboBox reportStatusFilter = new();
+        private HomeHeroDashboardLayout? dashboardLayout;
+        private Control? workspaceContent;
+
+        public event EventHandler? WorkspaceDataChanged;
 
         public frmReports()
         {
             InitializeComponent();
+            BuildReportsWorkspace();
             ConfigureServiceSummary();
             RefreshReport();
             Activated += (_, _) => RefreshReport();
         }
 
+        private void BuildReportsWorkspace()
+        {
+            Controls.Clear();
+            Text = "HomeHero | Platform reports";
+            BackColor = Color.FromArgb(246, 248, 251);
+            MinimumSize = new Size(1000, 700);
+            WindowState = FormWindowState.Maximized;
+
+            dashboardLayout = new HomeHeroDashboardLayout();
+            dashboardLayout.SetIdentity("ADMINISTRATOR PORTAL");
+            dashboardLayout.SetHero("Platform performance reports", "Review completed work, revenue, request activity, and service demand.");
+            dashboardLayout.SetNavigation(
+                new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                "Reports");
+            dashboardLayout.NavigationRequested += (_, section) => NavigateAdmin(section);
+
+            Button logout = new()
+            {
+                BackColor = Color.FromArgb(33, 43, 74),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Size = new Size(106, 34),
+                Text = "Log out",
+                UseVisualStyleBackColor = false
+            };
+            logout.FlatAppearance.BorderSize = 0;
+            logout.Click += btnExitAdmin_Click;
+            dashboardLayout.HeaderPanel.Controls.Add(logout);
+            dashboardLayout.HeaderPanel.Resize += (_, _) => logout.Location =
+                new Point(dashboardLayout.HeaderPanel.ClientSize.Width - logout.Width - 28, 15);
+
+            reportSearch.Dock = DockStyle.Fill;
+            reportSearch.Font = new Font("Segoe UI", 9.5F);
+            reportSearch.PlaceholderText = "Search requests or providers";
+            reportSearch.TextChanged += (_, _) => ApplyReportFilters();
+            reportStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            reportStatusFilter.Items.AddRange(new object[]
+            {
+                "All statuses", "Requested", "Approved", "ProviderAssigned", "InProgress", "Completed", "Cancelled"
+            });
+            reportStatusFilter.SelectedIndex = 0;
+            reportStatusFilter.Width = 180;
+            reportStatusFilter.SelectedIndexChanged += (_, _) => ApplyReportFilters();
+
+            TableLayoutPanel filters = new()
+            {
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(0, 5, 0, 8),
+                RowCount = 1
+            };
+            filters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            filters.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 195F));
+            filters.Controls.Add(reportSearch, 0, 0);
+            filters.Controls.Add(reportStatusFilter, 1, 0);
+
+            TabControl reportTabs = new()
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 9F)
+            };
+            TabPage activityTab = new("Request activity") { BackColor = Color.White, Padding = new Padding(8) };
+            TabPage servicesTab = new("Service summary") { BackColor = Color.White, Padding = new Padding(8) };
+            HomeHeroDashboardLayout.StyleTable(dgvReports);
+            HomeHeroDashboardLayout.StyleTable(serviceSummaryGrid);
+            dgvReports.Dock = DockStyle.Fill;
+            serviceSummaryGrid.Dock = DockStyle.Fill;
+            activityTab.Controls.Add(dgvReports);
+            servicesTab.Controls.Add(serviceSummaryGrid);
+            reportTabs.TabPages.Add(activityTab);
+            reportTabs.TabPages.Add(servicesTab);
+
+            TableLayoutPanel content = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(0),
+                RowCount = 2
+            };
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
+            content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            content.Controls.Add(filters, 0, 0);
+            Panel card = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(10)
+            };
+            card.Controls.Add(reportTabs);
+            content.Controls.Add(card, 0, 1);
+            workspaceContent = content;
+            dashboardLayout.ShowContent(content);
+            Controls.Add(dashboardLayout);
+        }
+
+        public Control DetachWorkspaceContent()
+        {
+            if (workspaceContent?.Parent is Control parent)
+            {
+                parent.Controls.Remove(workspaceContent);
+            }
+
+            return workspaceContent ?? new Panel { BackColor = Color.FromArgb(246, 248, 251), Dock = DockStyle.Fill };
+        }
+
+        public void DisposeWorkspace()
+        {
+            workspaceContent?.Dispose();
+            workspaceContent = null;
+            Dispose();
+        }
+
+        public void RefreshWorkspace() => RefreshReport();
+
         private void ConfigureServiceSummary()
         {
-            pnlServices.Controls.Clear();
-            serviceSummaryGrid.Dock = DockStyle.Fill;
-            pnlServices.Controls.Add(serviceSummaryGrid);
-            panel5.Dock = DockStyle.Top;
-            panel5.BringToFront();
-            pnlServices.Controls.Add(panel5);
-            pnlServices.BringToFront();
-
             lnklblReports.LinkClicked += (_, _) => RefreshReport();
             dgvReports.AutoGenerateColumns = true;
             dgvReports.Columns.Clear();
             dgvReports.ReadOnly = true;
             dgvReports.AllowUserToAddRows = false;
             dgvReports.RowHeadersVisible = false;
-            dgvReports.EnableHeadersVisualStyles = false;
-            dgvReports.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
-            dgvReports.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
         }
 
         private void RefreshReport()
@@ -71,6 +183,13 @@ namespace Home_Hero
             label5.Text = "Rating";
             label9.Text = "Total Revenue";
             lblRevenue.Text = "Service request activity";
+            dashboardLayout?.SetMetrics(new[]
+            {
+                new DashboardMetric("Total revenue", $"R{totalRevenue:N2}", "Completed work, all time"),
+                new DashboardMetric("Completed jobs", completed.Count.ToString(CultureInfo.InvariantCulture), "All-time completed"),
+                new DashboardMetric("Average job value", completed.Count == 0 ? "R0.00" : $"R{completed.Average(GetRecordedCost):N2}", "Based on completed work"),
+                new DashboardMetric("Customer satisfaction", "N/A", "Ratings are not currently tracked")
+            });
 
             dgvReports.DataSource = requests
                 .OrderByDescending(request => request.PreferredDate)
@@ -92,6 +211,58 @@ namespace Home_Hero
                 .ToList();
 
             BindServiceSummary(requests);
+            ApplyReportFilters();
+            WorkspaceDataChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ApplyReportFilters()
+        {
+            string search = reportSearch.Text.Trim();
+            string status = reportStatusFilter.SelectedItem?.ToString() ?? "All statuses";
+            foreach (DataGridView grid in new[] { dgvReports, serviceSummaryGrid })
+            {
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    if (row.IsNewRow)
+                    {
+                        continue;
+                    }
+
+                    string rowText = string.Join(" ", row.Cells.Cast<DataGridViewCell>()
+                        .Select(cell => cell.Value?.ToString() ?? string.Empty));
+                    bool matchesSearch = string.IsNullOrWhiteSpace(search) ||
+                                         rowText.Contains(search, StringComparison.OrdinalIgnoreCase);
+                    bool matchesStatus = grid != dgvReports ||
+                                         status == "All statuses" ||
+                                         string.Equals(row.Cells["Status"]?.Value?.ToString(), status, StringComparison.OrdinalIgnoreCase);
+                    row.Visible = matchesSearch && matchesStatus;
+                }
+            }
+        }
+
+        private void NavigateAdmin(string section)
+        {
+            switch (section)
+            {
+                case "Overview":
+                    Close();
+                    break;
+                case "Requests":
+                    OpenAdminPage(new RequestManagement());
+                    break;
+                case "Providers":
+                    OpenAdminPage(new frmProviderManagement());
+                    break;
+                case "Services":
+                    OpenAdminPage(new frmAdminDashboard());
+                    break;
+                default:
+                    dashboardLayout?.SetNavigation(
+                        new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                        "Reports");
+                    RefreshReport();
+                    break;
+            }
         }
 
         private void BindServiceSummary(IEnumerable<MaintenanceRequest> requests)

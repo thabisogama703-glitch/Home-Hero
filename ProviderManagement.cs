@@ -11,6 +11,10 @@ namespace Home_Hero
         private readonly Label openJobsValue = CreateMetricValue();
         private List<ServiceProvider> providers = new();
         private List<MaintenanceRequest> requests = new();
+        private HomeHeroDashboardLayout? dashboardLayout;
+        private Control? workspaceContent;
+
+        public event EventHandler? WorkspaceDataChanged;
 
         public frmProviderManagement()
         {
@@ -27,66 +31,79 @@ namespace Home_Hero
             BackColor = Color.FromArgb(246, 248, 252);
             MinimumSize = new Size(1050, 720);
             WindowState = FormWindowState.Maximized;
-
-            Panel header = new()
-            {
-                BackColor = Color.FromArgb(0, 0, 64),
-                Dock = DockStyle.Top,
-                Height = 76,
-                Padding = new Padding(28, 0, 28, 0)
-            };
-            header.Controls.Add(new Label
-            {
-                Text = "HomeHero",
-                AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(28, 15)
-            });
+            dashboardLayout = new HomeHeroDashboardLayout();
+            dashboardLayout.SetIdentity("ADMINISTRATOR PORTAL");
+            dashboardLayout.SetHero("Service provider management", "Manage registered tradespeople, update service details, and add trusted professionals.");
+            dashboardLayout.SetNavigation(
+                new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                "Providers");
+            dashboardLayout.NavigationRequested += (_, section) => NavigateAdmin(section);
+            HomeHeroDashboardLayout.StyleTable(providersGrid);
             Button logoutButton = CreateButton("Log out", Color.FromArgb(33, 43, 74));
-            logoutButton.Size = new Size(120, 42);
-            logoutButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            logoutButton.Location = new Point(0, 17);
+            logoutButton.Size = new Size(106, 34);
             logoutButton.Click += btnExitAdmin_Click;
-            header.Controls.Add(logoutButton);
-            header.Resize += (_, _) => logoutButton.Location =
-                new Point(header.ClientSize.Width - logoutButton.Width - 28, 17);
-
-            FlowLayoutPanel navigation = new()
-            {
-                BackColor = Color.White,
-                Dock = DockStyle.Top,
-                Height = 54,
-                Padding = new Padding(28, 12, 20, 8),
-                WrapContents = false
-            };
-            navigation.Controls.Add(CreateNavLink("Overview", (_, _) => Close()));
-            navigation.Controls.Add(CreateNavLink("Requests", (_, _) => OpenAdminPage(new RequestManagement())));
-            navigation.Controls.Add(CreateNavLink("Providers", (_, _) => RefreshProviders()));
-            navigation.Controls.Add(CreateNavLink("Reports", (_, _) => OpenAdminPage(new frmReports())));
-
+            dashboardLayout.HeaderPanel.Controls.Add(logoutButton);
+            dashboardLayout.HeaderPanel.Resize += (_, _) => logoutButton.Location =
+                new Point(dashboardLayout.HeaderPanel.ClientSize.Width - logoutButton.Width - 28, 15);
             TableLayoutPanel content = new()
             {
-                AutoScroll = true,
-                BackColor = Color.FromArgb(246, 248, 252),
+                BackColor = Color.FromArgb(246, 248, 251),
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
-                Padding = new Padding(28, 20, 28, 24),
-                RowCount = 4
+                RowCount = 2
             };
             content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 154F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 104F));
             content.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
             content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            content.Controls.Add(CreateHeroBanner(), 0, 0);
-            content.Controls.Add(CreateMetricsPanel(), 0, 1);
-            content.Controls.Add(CreateToolbar(), 0, 2);
-            content.Controls.Add(CreateGridPanel(), 0, 3);
+            content.Controls.Add(CreateToolbar(), 0, 0);
+            content.Controls.Add(CreateGridPanel(), 0, 1);
+            workspaceContent = content;
+            dashboardLayout.ShowContent(content);
+            Controls.Add(dashboardLayout);
+        }
 
-            Controls.Add(content);
-            Controls.Add(navigation);
-            Controls.Add(header);
+        public Control DetachWorkspaceContent()
+        {
+            if (workspaceContent?.Parent is Control parent)
+            {
+                parent.Controls.Remove(workspaceContent);
+            }
+
+            return workspaceContent ?? new Panel { BackColor = Color.FromArgb(246, 248, 251), Dock = DockStyle.Fill };
+        }
+
+        public void DisposeWorkspace()
+        {
+            workspaceContent?.Dispose();
+            workspaceContent = null;
+            Dispose();
+        }
+
+        public void RefreshWorkspace() => RefreshProviders();
+
+        private void NavigateAdmin(string section)
+        {
+            switch (section)
+            {
+                case "Overview":
+                    Close();
+                    break;
+                case "Requests":
+                    OpenAdminPage(new RequestManagement());
+                    break;
+                case "Reports":
+                    OpenAdminPage(new frmReports());
+                    break;
+                case "Services":
+                    OpenAdminPage(new frmAdminDashboard());
+                    break;
+                default:
+                    dashboardLayout?.SetNavigation(
+                        new[] { "Overview", "Requests", "Providers", "Services", "Reports" },
+                        "Providers");
+                    RefreshProviders();
+                    break;
+            }
         }
 
         private Control CreateHeroBanner()
@@ -148,7 +165,7 @@ namespace Home_Hero
         {
             TableLayoutPanel toolbar = new()
             {
-                ColumnCount = 3,
+                ColumnCount = 4,
                 Dock = DockStyle.Fill,
                 Padding = new Padding(0, 8, 0, 8),
                 RowCount = 1
@@ -318,7 +335,18 @@ namespace Home_Hero
                 request.Status != RequestStatus.Completed &&
                 request.Status != RequestStatus.Cancelled &&
                 providers.Any(provider => IsAssignedToProvider(request, provider))).ToString();
+            dashboardLayout?.SetMetrics(new[]
+            {
+                new DashboardMetric("Registered providers", providerCountValue.Text, "Active provider accounts"),
+                new DashboardMetric("Services covered", serviceCountValue.Text, "Distinct listed specialties"),
+                new DashboardMetric("Open assigned jobs", openJobsValue.Text, "Not completed or cancelled"),
+                new DashboardMetric("Unassigned requests", requests.Count(request =>
+                    string.IsNullOrWhiteSpace(request.AssignedProviderId) &&
+                    request.Status != RequestStatus.Completed &&
+                    request.Status != RequestStatus.Cancelled).ToString(), "Awaiting provider assignment")
+            });
             BindProviders();
+            WorkspaceDataChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void BindProviders()
@@ -370,7 +398,7 @@ namespace Home_Hero
             }
 
             using AddProvider editForm = new(selectedProvider);
-            if (editForm.ShowDialog(this) == DialogResult.OK)
+            if (editForm.ShowDialog(FindForm()) == DialogResult.OK)
             {
                 RefreshProviders();
             }
@@ -381,7 +409,7 @@ namespace Home_Hero
         private void btnAddProvider__Click(object sender, EventArgs e)
         {
             using AddProvider addProviderForm = new();
-            if (addProviderForm.ShowDialog(this) == DialogResult.OK)
+            if (addProviderForm.ShowDialog(FindForm()) == DialogResult.OK)
             {
                 RefreshProviders();
             }
