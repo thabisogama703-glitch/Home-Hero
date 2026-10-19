@@ -9,10 +9,12 @@ namespace Home_Hero
         private readonly Label totalRequestsValue = CreateMetricValue();
         private readonly Label awaitingApprovalValue = CreateMetricValue();
         private readonly Label registeredProvidersValue = CreateMetricValue();
-        private readonly Label completedRevenueValue = CreateMetricValue();
-        private readonly DataGridView serviceSummaryGrid = CreateGrid();
+        private readonly Label completedJobsValue = CreateMetricValue();
         private readonly DataGridView recentRequestsGrid = CreateGrid();
         private readonly Label requestBreakdown = new();
+        private FlowLayoutPanel? serviceCardsPanel;
+        private Control? serviceSummarySection;
+        private TableLayoutPanel? dashboardContent;
 
         public frmAdminDashboard()
         {
@@ -92,48 +94,62 @@ namespace Home_Hero
                 ColumnCount = 1,
                 Dock = DockStyle.Fill,
                 Padding = new Padding(30, 20, 30, 26),
-                RowCount = 5
+                RowCount = 6
             };
+            dashboardContent = content;
             content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 150F));
             content.RowStyles.Add(new RowStyle(SizeType.Absolute, 112F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
-            content.RowStyles.Add(new RowStyle(SizeType.Percent, 55F));
-            content.RowStyles.Add(new RowStyle(SizeType.Percent, 45F));
-            content.Controls.Add(CreateWelcomePanel(), 0, 0);
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 330F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 300F));
+            content.Controls.Add(CreateHeroBanner(), 0, 0);
             content.Controls.Add(CreateMetricsPanel(), 0, 1);
-            content.Controls.Add(CreateSectionHeading("Home maintenance services and estimated starting prices"), 0, 2);
-            content.Controls.Add(CreateServicePanel(), 0, 3);
-            content.Controls.Add(CreateRecentRequestsPanel(), 0, 4);
+            content.Controls.Add(CreateSectionHeading("Home maintenance services and starting prices"), 0, 2);
+            serviceSummarySection = CreateServicePanel();
+            content.Controls.Add(serviceSummarySection, 0, 3);
+            content.Controls.Add(CreateSectionHeading("Recent service requests"), 0, 4);
+            content.Controls.Add(CreateRecentRequestsPanel(), 0, 5);
 
             Controls.Add(content);
             Controls.Add(navigation);
             Controls.Add(header);
         }
 
-        private Control CreateWelcomePanel()
+        private Control CreateHeroBanner()
         {
-            FlowLayoutPanel welcome = new()
+            Panel banner = new()
             {
+                BackColor = Color.FromArgb(0, 0, 64),
+                BackgroundImage = Properties.Resources.Home_Hero_background_image,
+                BackgroundImageLayout = ImageLayout.Stretch,
                 Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false
+                Margin = new Padding(0, 0, 0, 14),
+                Padding = new Padding(26)
             };
-            welcome.Controls.Add(new Label
+            banner.Paint += (_, e) =>
+            {
+                using SolidBrush overlay = new(Color.FromArgb(185, 0, 0, 64));
+                e.Graphics.FillRectangle(overlay, banner.ClientRectangle);
+            };
+            banner.Controls.Add(new Label
             {
                 Text = "Administrator overview",
                 AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64)
+                Font = new Font("Segoe UI", 24F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(26, 28)
             });
-            welcome.Controls.Add(new Label
+            banner.Controls.Add(new Label
             {
-                Text = "Monitor requests, providers, service pricing, and completed work.",
+                Text = "Manage trusted home services, keep requests moving, and support your provider network.",
                 AutoSize = true,
-                Font = new Font("Segoe UI", 10F),
-                ForeColor = Color.DimGray
+                Font = new Font("Segoe UI", 10.5F),
+                ForeColor = Color.White,
+                Location = new Point(30, 82)
             });
-            return welcome;
+            return banner;
         }
 
         private Control CreateMetricsPanel()
@@ -152,7 +168,7 @@ namespace Home_Hero
             metrics.Controls.Add(CreateMetricCard("Total requests", totalRequestsValue), 0, 0);
             metrics.Controls.Add(CreateMetricCard("Awaiting approval", awaitingApprovalValue), 1, 0);
             metrics.Controls.Add(CreateMetricCard("Registered providers", registeredProvidersValue), 2, 0);
-            metrics.Controls.Add(CreateMetricCard("Completed revenue", completedRevenueValue), 3, 0);
+            metrics.Controls.Add(CreateMetricCard("Completed jobs", completedJobsValue), 3, 0);
             return metrics;
         }
 
@@ -172,8 +188,32 @@ namespace Home_Hero
         private Control CreateServicePanel()
         {
             Panel panel = CreateWhitePanel();
-            serviceSummaryGrid.Dock = DockStyle.Fill;
-            panel.Controls.Add(serviceSummaryGrid);
+            panel.Padding = new Padding(12);
+            TableLayoutPanel content = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            content.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 8.5F, FontStyle.Italic),
+                ForeColor = Color.DimGray,
+                Text = "Prices are starting estimates; the final quote may vary after a service assessment.",
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            serviceCardsPanel = new FlowLayoutPanel
+            {
+                AutoScroll = true,
+                Dock = DockStyle.Fill,
+                WrapContents = true
+            };
+            content.Controls.Add(serviceCardsPanel, 0, 1);
+            panel.Controls.Add(content);
             return panel;
         }
 
@@ -188,11 +228,11 @@ namespace Home_Hero
                 RowCount = 2
             };
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             requestBreakdown.Dock = DockStyle.Fill;
-            requestBreakdown.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            requestBreakdown.ForeColor = Color.FromArgb(0, 0, 64);
+            requestBreakdown.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            requestBreakdown.ForeColor = Color.DimGray;
             requestBreakdown.TextAlign = ContentAlignment.MiddleLeft;
             recentRequestsGrid.Dock = DockStyle.Fill;
             layout.Controls.Add(requestBreakdown, 0, 0);
@@ -301,7 +341,7 @@ namespace Home_Hero
             totalRequestsValue.Text = requests.Count.ToString(CultureInfo.InvariantCulture);
             awaitingApprovalValue.Text = awaiting.ToString(CultureInfo.InvariantCulture);
             registeredProvidersValue.Text = providers.Count.ToString(CultureInfo.InvariantCulture);
-            completedRevenueValue.Text = $"R{requests.Where(request => request.Status == RequestStatus.Completed).Sum(GetRecordedCost):N2}";
+            completedJobsValue.Text = completed.ToString(CultureInfo.InvariantCulture);
             requestBreakdown.Text =
                 $"Recent requests  ·  {requests.Count(request => request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled)} active  ·  {completed} completed";
 
@@ -311,25 +351,77 @@ namespace Home_Hero
 
         private void BindServiceSummary(IEnumerable<MaintenanceRequest> requests)
         {
-            var counts = requests
-                .GroupBy(request => HomeServiceCatalog.NormalizeCategory(request.ServiceCategory), StringComparer.OrdinalIgnoreCase)
-                .ToDictionary(group => group.Key, group => group.ToList(), StringComparer.OrdinalIgnoreCase);
+            if (serviceCardsPanel == null)
+            {
+                return;
+            }
 
-            serviceSummaryGrid.DataSource = HomeServiceCatalog.Services
-                .Select(service =>
-                {
-                    counts.TryGetValue(service.Name, out List<MaintenanceRequest>? serviceRequests);
-                    serviceRequests ??= new List<MaintenanceRequest>();
-                    return new
-                    {
-                        Service = service.Name,
-                        Description = service.Description,
-                        EstimatedStartingPrice = $"From R{service.StartingPrice:N2}",
-                        Requests = serviceRequests.Count,
-                        Completed = serviceRequests.Count(request => request.Status == RequestStatus.Completed)
-                    };
-                })
-                .ToList();
+            serviceCardsPanel.SuspendLayout();
+            foreach (Control existingCard in serviceCardsPanel.Controls.Cast<Control>().ToArray())
+            {
+                existingCard.Dispose();
+            }
+            serviceCardsPanel.Controls.Clear();
+            foreach (HomeServiceOption service in HomeServiceCatalog.Services)
+            {
+                int count = requests.Count(request => string.Equals(
+                    HomeServiceCatalog.NormalizeCategory(request.ServiceCategory),
+                    service.Name,
+                    StringComparison.OrdinalIgnoreCase));
+                serviceCardsPanel.Controls.Add(CreateServiceCard(service, count));
+            }
+            serviceCardsPanel.ResumeLayout();
+        }
+
+        private static Control CreateServiceCard(HomeServiceOption service, int requestCount)
+        {
+            Panel card = new()
+            {
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(6),
+                Size = new Size(310, 128)
+            };
+            card.Controls.Add(new Panel
+            {
+                BackColor = Color.FromArgb(255, 128, 0),
+                Dock = DockStyle.Left,
+                Width = 5
+            });
+            card.Controls.Add(new Label
+            {
+                AutoEllipsis = true,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(0, 0, 64),
+                Location = new Point(18, 12),
+                Size = new Size(276, 24),
+                Text = service.Name
+            });
+            card.Controls.Add(new Label
+            {
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.DimGray,
+                Location = new Point(18, 39),
+                Size = new Size(276, 42),
+                Text = service.Description
+            });
+            card.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 128, 0),
+                Location = new Point(18, 91),
+                Text = $"From R{service.StartingPrice:N0}"
+            });
+            card.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.DimGray,
+                Location = new Point(205, 94),
+                Text = $"{requestCount} requests"
+            });
+            return card;
         }
 
         private void BindRecentRequests(
@@ -358,7 +450,7 @@ namespace Home_Hero
                         : IsUnassigned(request)
                             ? "Unassigned"
                             : request.AssignedProviderId,
-                    Estimate = $"R{request.EstimatedCost:N2}",
+                    StartingEstimate = $"R{request.EstimatedCost:N2}",
                     FinalCost = request.Status == RequestStatus.Completed ? $"R{GetRecordedCost(request):N2}" : "—"
                 })
                 .ToList();
@@ -366,8 +458,11 @@ namespace Home_Hero
 
         private void FocusServiceSummary()
         {
-            serviceSummaryGrid.Focus();
-            serviceSummaryGrid.FirstDisplayedScrollingRowIndex = 0;
+            if (serviceSummarySection != null)
+            {
+                dashboardContent?.ScrollControlIntoView(serviceSummarySection);
+                serviceSummarySection.Focus();
+            }
         }
 
         private void OpenAdminPage(Form page)

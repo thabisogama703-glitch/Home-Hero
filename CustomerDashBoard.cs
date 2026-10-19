@@ -15,6 +15,7 @@ namespace HomeHero
         private readonly ProgressBar completionProgress = new();
         private readonly DataGridView requestsGrid = CreateRequestsGrid();
         private readonly ComboBox statusFilter = new();
+        private readonly Label emptyRequestsLabel = new();
         private List<MaintenanceRequest> customerRequests = new();
 
         public frmCustomerDashboard()
@@ -105,12 +106,12 @@ namespace HomeHero
                 RowCount = 5
             };
             content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            content.RowStyles.Add(new RowStyle(SizeType.Absolute, 150F));
             content.RowStyles.Add(new RowStyle(SizeType.Absolute, 118F));
             content.RowStyles.Add(new RowStyle(SizeType.Absolute, 106F));
             content.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
             content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            content.Controls.Add(CreateWelcomePanel(), 0, 0);
+            content.Controls.Add(CreateHeroBanner(), 0, 0);
             content.Controls.Add(CreateMetricsPanel(), 0, 1);
             content.Controls.Add(CreateProgressPanel(), 0, 2);
             content.Controls.Add(CreateRequestToolbar(), 0, 3);
@@ -121,30 +122,47 @@ namespace HomeHero
             Controls.Add(header);
         }
 
-        private Control CreateWelcomePanel()
+        private Control CreateHeroBanner()
         {
-            FlowLayoutPanel welcome = new()
+            Panel banner = new()
             {
+                BackColor = Color.FromArgb(0, 0, 64),
+                BackgroundImage = Home_Hero.Properties.Resources.Home_Hero_background_image,
+                BackgroundImageLayout = ImageLayout.Stretch,
                 Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false
+                Margin = new Padding(0, 0, 0, 14),
+                Padding = new Padding(26)
             };
-            welcome.Controls.Add(new Label
+            banner.Paint += (_, e) =>
             {
-                Text = "Welcome back",
+                using SolidBrush overlay = new(Color.FromArgb(185, 0, 0, 64));
+                e.Graphics.FillRectangle(overlay, banner.ClientRectangle);
+            };
+            banner.Controls.Add(new Label
+            {
+                Text = "Your home, well cared for.",
                 AutoSize = true,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64)
+                Font = new Font("Segoe UI", 24F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(26, 28)
             });
-            welcome.Controls.Add(new Label
+            banner.Controls.Add(new Label
             {
                 Text = "Manage your home services and follow every request from submission to completion.",
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10.5F),
-                ForeColor = Color.DimGray,
-                Margin = new Padding(3, 2, 3, 0)
+                ForeColor = Color.White,
+                Location = new Point(30, 82)
             });
-            return welcome;
+            KryptonButton requestButton = CreateActionButton("Request a service", Color.FromArgb(255, 128, 0));
+            requestButton.Size = new Size(190, 42);
+            requestButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            requestButton.Location = new Point(0, 82);
+            requestButton.Click += btnNewServiceRequest_Click_1;
+            banner.Controls.Add(requestButton);
+            banner.Resize += (_, _) =>
+                requestButton.Location = new Point(banner.ClientSize.Width - requestButton.Width - 26, 78);
+            return banner;
         }
 
         private Control CreateMetricsPanel()
@@ -212,6 +230,10 @@ namespace HomeHero
         {
             Panel panel = CreateWhitePanel();
             requestsGrid.Dock = DockStyle.Fill;
+            emptyRequestsLabel.Dock = DockStyle.Fill;
+            emptyRequestsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            emptyRequestsLabel.ForeColor = Color.DimGray;
+            emptyRequestsLabel.TextAlign = ContentAlignment.MiddleCenter;
             requestsGrid.CellDoubleClick += (_, e) =>
             {
                 if (e.RowIndex >= 0)
@@ -220,6 +242,7 @@ namespace HomeHero
                 }
             };
             panel.Controls.Add(requestsGrid);
+            panel.Controls.Add(emptyRequestsLabel);
             return panel;
         }
 
@@ -401,7 +424,8 @@ namespace HomeHero
                 filteredRequests = filteredRequests.Where(request => request.Status == RequestStatus.Cancelled);
             }
 
-            requestsGrid.DataSource = filteredRequests
+            List<MaintenanceRequest> visibleRequests = filteredRequests.ToList();
+            requestsGrid.DataSource = visibleRequests
                 .Select(request => new
                 {
                     Request = request.RequestNumber,
@@ -413,6 +437,11 @@ namespace HomeHero
                     Provider = IsUnassigned(request) ? "Awaiting provider" : request.AssignedProviderId
                 })
                 .ToList();
+            requestsGrid.Visible = visibleRequests.Count > 0;
+            emptyRequestsLabel.Visible = visibleRequests.Count == 0;
+            emptyRequestsLabel.Text = customerRequests.Count == 0
+                ? "No service requests yet. Start by booking your first home maintenance service."
+                : "No requests match this filter.";
         }
 
         private static bool IsUnassigned(MaintenanceRequest request)

@@ -53,6 +53,19 @@ namespace Home_Hero
 
             SaveServiceProviders(providers);
         }
+        public static bool DeleteServiceProvider(string email)
+        {
+            List<ServiceProvider> providers = LoadServiceProviders();
+            int removed = providers.RemoveAll(provider =>
+                string.Equals(provider.Email, email, StringComparison.OrdinalIgnoreCase));
+            if (removed == 0)
+            {
+                return false;
+            }
+
+            SaveServiceProviders(providers);
+            return true;
+        }
         public static bool UpdateServiceProvider(
             ServiceProvider updatedProvider)
         {

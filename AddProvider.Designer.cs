@@ -104,7 +104,7 @@
             // chkSpecialization
             // 
             chkSpecialization.FormattingEnabled = true;
-            chkSpecialization.Items.AddRange(new object[] { "Plumbing", "Electrical", "Painting", "HVAC", "Roofing", "Landscaping", "Cleaning", "Gardening", "General Maintenance" });
+            chkSpecialization.Items.AddRange(new object[] { "Windows and Doors", "Plumbing", "Electrical", "HVAC", "Roofing", "Landscaping", "Painting", "Deep Cleaning", "Appliance Repair", "General Maintenance" });
             chkSpecialization.Location = new Point(28, 346);
             chkSpecialization.Name = "chkSpecialization";
             chkSpecialization.Size = new Size(570, 158);

@@ -37,21 +37,8 @@ namespace HomeHero_2
                 }
             }
 
-            string serviceProviderFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
-            if (File.Exists(serviceProviderFile))
-            {
-                foreach (string line in File.ReadAllLines(serviceProviderFile))
-                {
-                    string[] fields = line.Split('|');
-                    if (fields.Length >= 2 &&
-                        string.Equals(fields[1].Trim(), normalizedEmail, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+            return LoadRegisteredServiceProviders().Any(provider =>
+                string.Equals(provider.Email, normalizedEmail, StringComparison.OrdinalIgnoreCase));
         }
 
         public static ServiceProvider? FindServiceProvider(string email, string password)
@@ -65,39 +52,125 @@ namespace HomeHero_2
             foreach (string line in File.ReadAllLines(serviceProviderFile))
             {
                 string[] fields = line.Split('|');
-                if (fields.Length < 6 ||
-                    !string.Equals(fields[1].Trim(), email.Trim(), StringComparison.OrdinalIgnoreCase) ||
-                    !string.Equals(fields[2].Trim(), password.Trim(), StringComparison.Ordinal))
+                bool legacyFormat = fields.Length >= 6 && fields[1].Contains('@');
+                int emailIndex = legacyFormat ? 1 : 2;
+                int passwordIndex = legacyFormat ? 2 : 3;
+                string storedPassword = fields.Length > passwordIndex ? fields[passwordIndex] : string.Empty;
+                bool passwordMatches = legacyFormat
+                    ? string.Equals(storedPassword.Trim(), password.Trim(), StringComparison.Ordinal)
+                    : string.Equals(storedPassword, password, StringComparison.Ordinal);
+                if (fields.Length < (legacyFormat ? 6 : 7) ||
+                    !string.Equals(fields[emailIndex].Trim(), email.Trim(), StringComparison.OrdinalIgnoreCase) ||
+                    !passwordMatches)
                 {
                     continue;
                 }
 
-                List<string> specialisations = fields[5]
+                int specializationIndex = legacyFormat ? 5 : 6;
+                List<string> specialisations = fields[specializationIndex]
                     .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                     .Where(specialisation => !specialisation.StartsWith(
                         "System.Collections.Generic.List",
                         StringComparison.Ordinal))
+                    .Select(HomeServiceCatalog.NormalizeCategory)
                     .ToList();
 
                 return new ServiceProvider(
                     fields[0].Trim(),
-                    "",
-                    fields[1].Trim(),
-                    fields[2].Trim(),
-                    fields[3].Trim(),
-                    fields[4].Trim(),
+                    legacyFormat ? "" : fields[1].Trim(),
+                    fields[emailIndex].Trim(),
+                    fields[passwordIndex],
+                    fields[legacyFormat ? 3 : 4].Trim(),
+                    fields[legacyFormat ? 4 : 5].Trim(),
                     specialisations);
             }
 
             return null;
         }
 
-        public static void SaveServiceProvider(ServiceProvider serviceProvider)
+        public static bool SaveServiceProvider(ServiceProvider serviceProvider)
         {
             string serviceProviderFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
-            string specialisations = string.Join(",", serviceProvider.Specialisation);
-            string record = $"{serviceProvider.FirstName}|{serviceProvider.Email}|{serviceProvider.Password}|{serviceProvider.PhoneNumber}|{serviceProvider.Location}|{specialisations}";
-            File.AppendAllText(serviceProviderFile, record + Environment.NewLine);
+            try
+            {
+                List<string> lines = File.Exists(serviceProviderFile)
+                    ? File.ReadAllLines(serviceProviderFile).ToList()
+                    : new List<string>();
+                string record = string.Join("|", new[]
+                {
+                    serviceProvider.FirstName,
+                    serviceProvider.LastName,
+                    serviceProvider.Email,
+                    serviceProvider.Password,
+                    serviceProvider.PhoneNumber,
+                    serviceProvider.Location,
+                    string.Join(",", serviceProvider.Specialisation)
+                });
+                int existingIndex = lines.FindIndex(line =>
+                {
+                    string[] fields = line.Split('|');
+                    int emailIndex = fields.Length >= 7 ? 2 : 1;
+                    return fields.Length > emailIndex &&
+                           string.Equals(fields[emailIndex].Trim(), serviceProvider.Email, StringComparison.OrdinalIgnoreCase);
+                });
+
+                if (existingIndex >= 0)
+                {
+                    lines[existingIndex] = record;
+                }
+                else
+                {
+                    lines.Add(record);
+                }
+
+                File.WriteAllLines(serviceProviderFile, lines);
+                return true;
+            }
+            catch (IOException exception)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    $"Provider details could not be saved.\n\n{exception.Message}",
+                    "File Error",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+                return false;
+            }
+            catch (UnauthorizedAccessException exception)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    $"Provider details could not be saved.\n\n{exception.Message}",
+                    "File Access Error",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        public static bool DeleteServiceProvider(string email)
+        {
+            string serviceProviderFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
+            if (!File.Exists(serviceProviderFile))
+            {
+                return false;
+            }
+
+            List<string> lines = File.ReadAllLines(serviceProviderFile).ToList();
+            int originalCount = lines.Count;
+            lines.RemoveAll(line =>
+            {
+                string[] fields = line.Split('|');
+                int emailIndex = fields.Length >= 7 ? 2 : 1;
+                return fields.Length > emailIndex &&
+                       string.Equals(fields[emailIndex].Trim(), email, StringComparison.OrdinalIgnoreCase);
+            });
+
+            if (lines.Count == originalCount)
+            {
+                return false;
+            }
+
+            File.WriteAllLines(serviceProviderFile, lines);
+            return true;
         }
 
         public static List<ServiceProvider> LoadRegisteredServiceProviders()
@@ -112,25 +185,28 @@ namespace HomeHero_2
             foreach (string line in File.ReadAllLines(serviceProviderFile))
             {
                 string[] fields = line.Split('|');
-                if (fields.Length < 6)
+                bool legacyFormat = fields.Length >= 6 && fields[1].Contains('@');
+                if (fields.Length < (legacyFormat ? 6 : 7))
                 {
                     continue;
                 }
 
-                List<string> specialisations = fields[5]
+                int specializationIndex = legacyFormat ? 5 : 6;
+                List<string> specialisations = fields[specializationIndex]
                     .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                     .Where(specialisation => !specialisation.StartsWith(
                         "System.Collections.Generic.List",
                         StringComparison.Ordinal))
+                    .Select(HomeServiceCatalog.NormalizeCategory)
                     .ToList();
 
                 providers.Add(new ServiceProvider(
                     fields[0].Trim(),
-                    "",
-                    fields[1].Trim(),
-                    fields[2].Trim(),
-                    fields[3].Trim(),
-                    fields[4].Trim(),
+                    legacyFormat ? "" : fields[1].Trim(),
+                    fields[legacyFormat ? 1 : 2].Trim(),
+                    fields[legacyFormat ? 2 : 3],
+                    fields[legacyFormat ? 3 : 4].Trim(),
+                    fields[legacyFormat ? 4 : 5].Trim(),
                     specialisations));
             }
 

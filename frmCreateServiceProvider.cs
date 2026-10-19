@@ -215,7 +215,11 @@ namespace Home_Hero
             {
                 ValidationError.Clear();
                 ServiceProvider newServiceProvider = new ServiceProvider(name, "", email, password, phoneNumber, serviceArea, Specialisation);
-                CustomerRepository.SaveServiceProvider(newServiceProvider);
+                if (!CustomerRepository.SaveServiceProvider(newServiceProvider))
+                {
+                    return;
+                }
+
                 DialogResult result = MessageBox.Show("Registration successful ! \n Would you like to login right now?", "Account succesfully created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 ClearFields();
                 if (result == DialogResult.Yes)
