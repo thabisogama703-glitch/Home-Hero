@@ -1,5 +1,3 @@
-using Krypton.Toolkit;
-
 namespace Home_Hero
 {
     partial class frmHomeHeroHomepage
@@ -39,9 +37,9 @@ namespace Home_Hero
             lnklblHowItWorks = new LinkLabel();
             lnklblPricings = new LinkLabel();
             pnlServicesButtons = new Panel();
-            btnRequestAService = new KryptonButton();
-            btnCreateAccount = new KryptonButton();
-            btnLogin = new KryptonButton();
+            btnRequestAService = new Button();
+            btnCreateAccount = new Button();
+            btnLogin = new Button();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -49,11 +47,11 @@ namespace Home_Hero
             pnlAboutTheAppAndSearchBar = new Panel();
             lblPopular = new Label();
             lblPopularServices = new Label();
-            btnFindAPro = new KryptonButton();
+            btnFindAPro = new Button();
             txtLiveUpdate = new TextBox();
             pnlSearchBox = new Panel();
             pbxSearchMagnifier = new PictureBox();
-            txtSearchForService = new KryptonTextBox();
+            txtSearchForService = new TextBox();
             flpAboutTheApplication = new FlowLayoutPanel();
             lblDetailedExplaination = new Label();
             flpSlogan = new FlowLayoutPanel();
@@ -210,6 +208,9 @@ namespace Home_Hero
             // 
             btnRequestAService.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRequestAService.AutoSize = true;
+            btnRequestAService.BackColor = Color.FromArgb(255, 128, 0);
+            btnRequestAService.FlatAppearance.BorderColor = Color.Navy;
+            btnRequestAService.FlatStyle = FlatStyle.Popup;
             btnRequestAService.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRequestAService.ForeColor = Color.White;
             btnRequestAService.Location = new Point(431, 29);
@@ -218,12 +219,16 @@ namespace Home_Hero
             btnRequestAService.Size = new Size(176, 46);
             btnRequestAService.TabIndex = 2;
             btnRequestAService.Text = "Request a Service";
+            btnRequestAService.UseVisualStyleBackColor = false;
             btnRequestAService.Click += btnRequestAService_Click;
             // 
             // btnCreateAccount
             // 
             btnCreateAccount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCreateAccount.AutoSize = true;
+            btnCreateAccount.BackColor = Color.FromArgb(0, 0, 64);
+            btnCreateAccount.FlatAppearance.BorderColor = Color.DarkGray;
+            btnCreateAccount.FlatStyle = FlatStyle.Flat;
             btnCreateAccount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCreateAccount.ForeColor = Color.White;
             btnCreateAccount.Location = new Point(272, 29);
@@ -232,11 +237,15 @@ namespace Home_Hero
             btnCreateAccount.Size = new Size(150, 46);
             btnCreateAccount.TabIndex = 1;
             btnCreateAccount.Text = "Create Account";
+            btnCreateAccount.UseVisualStyleBackColor = false;
             btnCreateAccount.Click += btnCreateAccount_Click;
             // 
             // btnLogin
             // 
             btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLogin.BackColor = Color.FromArgb(0, 0, 64);
+            btnLogin.FlatAppearance.BorderColor = Color.DarkGray;
+            btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
             btnLogin.Location = new Point(154, 29);
@@ -245,6 +254,7 @@ namespace Home_Hero
             btnLogin.Size = new Size(111, 46);
             btnLogin.TabIndex = 0;
             btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // pnlHomeHeroLogo
@@ -328,12 +338,16 @@ namespace Home_Hero
             // 
             // btnFindAPro
             // 
+            btnFindAPro.BackColor = Color.FromArgb(255, 128, 0);
+            btnFindAPro.FlatAppearance.BorderColor = Color.LightGray;
+            btnFindAPro.FlatStyle = FlatStyle.Flat;
             btnFindAPro.ForeColor = Color.White;
             btnFindAPro.Location = new Point(60, 558);
             btnFindAPro.Name = "btnFindAPro";
             btnFindAPro.Size = new Size(619, 40);
             btnFindAPro.TabIndex = 5;
             btnFindAPro.Text = "Find a Pro";
+            btnFindAPro.UseVisualStyleBackColor = false;
             btnFindAPro.Click += btnFindAPro_Click;
             // 
             // txtLiveUpdate
@@ -372,10 +386,12 @@ namespace Home_Hero
             // 
             // txtSearchForService
             // 
+            txtSearchForService.BorderStyle = BorderStyle.None;
             txtSearchForService.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearchForService.ForeColor = Color.Gray;
             txtSearchForService.Location = new Point(53, 14);
             txtSearchForService.Name = "txtSearchForService";
+            txtSearchForService.PlaceholderText = " What do you need? e.g leaking pipe, broken Ac...";
             txtSearchForService.Size = new Size(506, 48);
             txtSearchForService.TabIndex = 3;
             // 
@@ -639,9 +655,9 @@ namespace Home_Hero
         private LinkLabel lnklblHowItWorks;
         private LinkLabel lnklblPricings;
         private LinkLabel lnklblHome;
-        private KryptonButton btnLogin;
-        private KryptonButton btnCreateAccount;
-        private KryptonButton btnRequestAService;
+        private Button btnLogin;
+        private Button btnCreateAccount;
+        private Button btnRequestAService;
         private Panel pnlAboutTheAppAndSearchBar;
         private TableLayoutPanel tblpHomeHeroPanel;
         private FlowLayoutPanel flpNavigationTab;
@@ -650,10 +666,10 @@ namespace Home_Hero
         private Label lblDoneRight;
         private FlowLayoutPanel flpAboutTheApplication;
         private Label lblDetailedExplaination;
-        private KryptonTextBox txtSearchForService;
+        private TextBox txtSearchForService;
         private Panel pnlSearchBox;
         private PictureBox pbxSearchMagnifier;
-        private KryptonButton btnFindAPro;
+        private Button btnFindAPro;
         private Label lblPopularServices;
         private TableLayoutPanel tblpStatistics;
         private Label lblPopular;

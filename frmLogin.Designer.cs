@@ -1,5 +1,3 @@
-using Krypton.Toolkit;
-
 namespace HomeHero_2
 {
     partial class frmHomeHeroLogin
@@ -33,15 +31,15 @@ namespace HomeHero_2
             components = new System.ComponentModel.Container();
             lblEmail = new Label();
             lblPassword = new Label();
-            txtEmail = new KryptonTextBox();
-            txtPassword = new KryptonTextBox();
-            btnLogin = new KryptonButton();
+            txtEmail = new TextBox();
+            txtPassword = new TextBox();
+            btnLogin = new Button();
             ValidationError = new ErrorProvider(components);
-            btnShowPassword = new KryptonButton();
+            btnShowPassword = new Button();
             pnlNavigationTab = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             lblName = new Label();
-            btnBack = new KryptonButton();
+            btnBack = new Button();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -53,7 +51,7 @@ namespace HomeHero_2
             pnlDetails = new Panel();
             chkRemember = new CheckBox();
             label2 = new Label();
-            button1 = new KryptonButton();
+            button1 = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
             label3 = new Label();
@@ -91,31 +89,35 @@ namespace HomeHero_2
             // 
             // txtEmail
             // 
-            txtEmail.Font = new Font("Segoe UI", 10F);
-            txtEmail.ForeColor = Color.Black;
+            txtEmail.BorderStyle = BorderStyle.FixedSingle;
             txtEmail.Location = new Point(25, 126);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(577, 42);
+            txtEmail.PlaceholderText = "✉️ johndoe123@gmail.com";
+            txtEmail.Size = new Size(577, 27);
             txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Font = new Font("Segoe UI", 10F);
-            txtPassword.ForeColor = Color.Black;
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
             txtPassword.Location = new Point(25, 250);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(477, 42);
+            txtPassword.PlaceholderText = "🔒Enter your password";
+            txtPassword.Size = new Size(477, 27);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // btnLogin
             // 
+            btnLogin.BackColor = Color.FromArgb(255, 128, 0);
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.ForeColor = Color.White;
             btnLogin.Location = new Point(25, 372);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(577, 42);
+            btnLogin.Size = new Size(577, 37);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // ValidationError
@@ -124,12 +126,16 @@ namespace HomeHero_2
             // 
             // btnShowPassword
             // 
+            btnShowPassword.BackColor = Color.Transparent;
+            btnShowPassword.FlatAppearance.BorderSize = 0;
+            btnShowPassword.FlatStyle = FlatStyle.Popup;
             btnShowPassword.ForeColor = Color.FromArgb(17, 17, 17);
             btnShowPassword.Location = new Point(508, 250);
             btnShowPassword.Name = "btnShowPassword";
-            btnShowPassword.Size = new Size(94, 42);
+            btnShowPassword.Size = new Size(94, 29);
             btnShowPassword.TabIndex = 8;
-            btnShowPassword.Text = "Show";
+            btnShowPassword.Text = "Show password";
+            btnShowPassword.UseVisualStyleBackColor = false;
             btnShowPassword.Click += btnShowPassword_Click;
             // 
             // pnlNavigationTab
@@ -177,6 +183,7 @@ namespace HomeHero_2
             // 
             btnBack.Anchor = AnchorStyles.Left;
             btnBack.AutoSize = true;
+            btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
             btnBack.Location = new Point(972, 29);
@@ -185,6 +192,7 @@ namespace HomeHero_2
             btnBack.Size = new Size(162, 46);
             btnBack.TabIndex = 10;
             btnBack.Text = " ← Back to Home";
+            btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
             // pnlHomeHeroLogo
@@ -317,6 +325,8 @@ namespace HomeHero_2
             // button1
             // 
             button1.BackColor = Color.WhiteSmoke;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
             button1.Location = new Point(220, 450);
@@ -324,6 +334,7 @@ namespace HomeHero_2
             button1.Size = new Size(130, 29);
             button1.TabIndex = 9;
             button1.Text = "Create Account";
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_1;
             // 
             // tableLayoutPanel2
@@ -433,24 +444,24 @@ namespace HomeHero_2
 
         private Label lblEmail;
         private Label lblPassword;
-        private KryptonTextBox txtEmail;
-        private KryptonTextBox txtPassword;
-        private KryptonButton btnLogin;
+        private TextBox txtEmail;
+        private TextBox txtPassword;
+        private Button btnLogin;
         private ErrorProvider ValidationError;
-        private KryptonButton btnShowPassword;
+        private Button btnShowPassword;
         private Panel pnlNavigationTab;
         private Panel pnlHomeHeroLogo;
         private Label lblHero;
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
-        private KryptonButton btnBack;
+        private Button btnBack;
         private Label lblName;
         private Panel panel2;
         private Label lblLog;
         private Label lblWelcome;
         private Panel pnlDetails;
         private Label label2;
-        private KryptonButton button1;
+        private Button button1;
         private CheckBox chkRemember;
         private TableLayoutPanel tableLayoutPanel1;
         private Label lblLoginSummary;

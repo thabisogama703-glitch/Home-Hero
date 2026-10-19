@@ -1,6 +1,5 @@
 using Home_Hero;
 using HomeHero;
-using Krypton.Toolkit;
 
 namespace HomeHero_2
 {
@@ -9,27 +8,6 @@ namespace HomeHero_2
         public frmHomeHeroLogin()
         {
             InitializeComponent();
-            StyleButton(btnLogin, Color.FromArgb(255, 128, 0), Color.White);
-            StyleButton(btnShowPassword, Color.FromArgb(240, 240, 240), Color.FromArgb(17, 17, 17));
-            StyleButton(btnBack, Color.FromArgb(0, 0, 64), Color.White);
-            StyleButton(button1, Color.WhiteSmoke, Color.FromArgb(255, 128, 0));
-            StyleTextBox(txtEmail);
-            StyleTextBox(txtPassword);
-        }
-
-        private static void StyleButton(KryptonButton button, Color backgroundColor, Color foregroundColor)
-        {
-            button.StateCommon.Back.Color1 = backgroundColor;
-            button.StateCommon.Back.Color2 = backgroundColor;
-            button.StateCommon.Content.ShortText.Color1 = foregroundColor;
-            button.StateCommon.Border.Rounding = 8;
-        }
-
-        private static void StyleTextBox(KryptonTextBox textBox)
-        {
-            textBox.StateCommon.Back.Color1 = Color.White;
-            textBox.StateCommon.Border.Color1 = Color.FromArgb(206, 212, 218);
-            textBox.StateCommon.Border.Rounding = 10;
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -120,10 +98,12 @@ namespace HomeHero_2
             if (txtPassword.UseSystemPasswordChar)
             {
                 txtPassword.UseSystemPasswordChar = false;
+                btnShowPassword.Text = "Hide password";
             }
             else
             {
                 txtPassword.UseSystemPasswordChar = true;
+                btnShowPassword.Text = "Show password";
             }
         }
 

@@ -157,7 +157,7 @@ namespace Home_Hero
         }
 
 
-        public static void SaveRequests(List<MaintenanceRequest> requests)
+        public static bool SaveRequests(List<MaintenanceRequest> requests)
         {
             try
             {
@@ -179,6 +179,7 @@ namespace Home_Hero
                             request.FinalCost);
                     }
                 }
+                return true;
             }
             catch (Exception)
             {
@@ -187,6 +188,7 @@ namespace Home_Hero
                     "File Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return false;
             }
         }
 
