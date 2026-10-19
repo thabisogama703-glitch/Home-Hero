@@ -35,8 +35,6 @@ namespace HomeHero_2
             lblPassword = new Label();
             txtEmail = new Guna2TextBox();
             txtPassword = new Guna2TextBox();
-            lblLoginAs = new Label();
-            cmbLoginAs = new ComboBox();
             btnLogin = new Guna2Button();
             ValidationError = new ErrorProvider(components);
             btnShowPassword = new Guna2Button();
@@ -120,32 +118,13 @@ namespace HomeHero_2
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
-            // lblLoginAs
-            // 
-            lblLoginAs.AutoSize = true;
-            lblLoginAs.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLoginAs.Location = new Point(25, 303);
-            lblLoginAs.Name = "lblLoginAs";
-            lblLoginAs.Size = new Size(71, 20);
-            lblLoginAs.TabIndex = 4;
-            lblLoginAs.Text = "Login as ";
-            // 
-            // cmbLoginAs
-            // 
-            cmbLoginAs.FormattingEnabled = true;
-            cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider" });
-            cmbLoginAs.Location = new Point(25, 338);
-            cmbLoginAs.Name = "cmbLoginAs";
-            cmbLoginAs.Size = new Size(252, 28);
-            cmbLoginAs.TabIndex = 5;
-            // 
             // btnLogin
             // 
             btnLogin.BorderRadius = 10;
             btnLogin.FillColor = Color.FromArgb(255, 128, 0);
             btnLogin.ForeColor = Color.White;
             btnLogin.HoverState.FillColor = Color.FromArgb(255, 147, 64);
-            btnLogin.Location = new Point(25, 429);
+            btnLogin.Location = new Point(25, 372);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(577, 42);
             btnLogin.TabIndex = 6;
@@ -321,8 +300,6 @@ namespace HomeHero_2
             pnlDetails.Controls.Add(label2);
             pnlDetails.Controls.Add(button1);
             pnlDetails.Controls.Add(txtEmail);
-            pnlDetails.Controls.Add(cmbLoginAs);
-            pnlDetails.Controls.Add(lblLoginAs);
             pnlDetails.Controls.Add(lblEmail);
             pnlDetails.Controls.Add(lblPassword);
             pnlDetails.Controls.Add(btnShowPassword);
@@ -330,13 +307,13 @@ namespace HomeHero_2
             pnlDetails.Controls.Add(txtPassword);
             pnlDetails.Location = new Point(110, 290);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(669, 574);
+            pnlDetails.Size = new Size(669, 510);
             pnlDetails.TabIndex = 14;
             // 
             // chkRemember
             // 
             chkRemember.AutoSize = true;
-            chkRemember.Location = new Point(25, 372);
+            chkRemember.Location = new Point(25, 320);
             chkRemember.Name = "chkRemember";
             chkRemember.Size = new Size(129, 24);
             chkRemember.TabIndex = 11;
@@ -347,7 +324,7 @@ namespace HomeHero_2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(25, 507);
+            label2.Location = new Point(25, 450);
             label2.Name = "label2";
             label2.Size = new Size(163, 20);
             label2.TabIndex = 10;
@@ -359,7 +336,7 @@ namespace HomeHero_2
             button1.FillColor = Color.WhiteSmoke;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
-            button1.Location = new Point(220, 507);
+            button1.Location = new Point(220, 450);
             button1.Name = "button1";
             button1.Size = new Size(130, 29);
             button1.TabIndex = 9;
@@ -475,8 +452,6 @@ namespace HomeHero_2
         private Label lblPassword;
         private Guna2TextBox txtEmail;
         private Guna2TextBox txtPassword;
-        private Label lblLoginAs;
-        private ComboBox cmbLoginAs;
         private Guna2Button btnLogin;
         private ErrorProvider ValidationError;
         private Guna2Button btnShowPassword;

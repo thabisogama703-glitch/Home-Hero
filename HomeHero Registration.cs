@@ -127,6 +127,13 @@ namespace HomeHero_2
                 return;
             }
 
+            if (CustomerRepository.EmailExists(email))
+            {
+                ValidationError.SetError(txtEmail, "An account with this email already exists.");
+                MessageBox.Show("An account with this email already exists.", "Email Already Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Customer customer = new Customer(
              name,
              "",

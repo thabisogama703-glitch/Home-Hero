@@ -136,46 +136,37 @@ namespace Home_Hero
                 ValidationError.SetError(txtConfirmPassword, "");
             }
             List<string> Specialisation = new List<string>();
-            bool isChecked = false;
             if (chkbxPlumbing.Checked)
             {
                 Specialisation.Add("Plumbing");
-                isChecked = true;
             }
-            else if (chkbxRoofing.Checked)
+            if (chkbxRoofing.Checked)
             {
                 Specialisation.Add("Roofing");
-                isChecked = true;
             }
-            else if (chkbxWindowsDoors.Checked)
+            if (chkbxWindowsDoors.Checked)
             {
                 Specialisation.Add("WindowsDoors");
-                isChecked = true;
             }
-            else if (chkbxPainting.Checked)
+            if (chkbxPainting.Checked)
             {
                 Specialisation.Add("Painting");
-                isChecked = true;
             }
-            else if (chkbxLandscaping.Checked)
+            if (chkbxLandscaping.Checked)
             {
                 Specialisation.Add("Landscaping");
-                isChecked = true;
             }
-            else if (chkbxHVAC.Checked)
+            if (chkbxHVAC.Checked)
             {
                 Specialisation.Add("HVAC");
-                isChecked = true;
             }
-            else if (chkBxElectrical.Checked)
+            if (chkBxElectrical.Checked)
             {
                 Specialisation.Add("Electrical");
-                isChecked = true;
             }
-            else if (chkbxDeepCleaning.Checked)
+            if (chkbxDeepCleaning.Checked)
             {
                 Specialisation.Add("Deep Cleaning");
-                isChecked = true;
             }
             if (string.IsNullOrEmpty(serviceArea))
             {
@@ -186,7 +177,7 @@ namespace Home_Hero
             {
                 ValidationError.SetError(txtServiceArea, "");
             }
-            if (isChecked == false)
+            if (Specialisation.Count == 0)
             {
                 ValidationError.SetError(lblSpecialisation, "Kindly select atleast one work you specialize on");
                 isValid = false;
@@ -206,12 +197,18 @@ namespace Home_Hero
 
                 return;
             }
+            if (CustomerRepository.EmailExists(email))
+            {
+                ValidationError.SetError(txtEmail, "An account with this email already exists.");
+                MessageBox.Show("An account with this email already exists.", "Email Already Registered", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             else
             {
                 ValidationError.Clear();
-                string serviceProvider = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
                 ServiceProvider newServiceProvider = new ServiceProvider(name, "", email, password, phoneNumber, serviceArea, Specialisation);
-                File.AppendAllText(serviceProvider, $"{name}|{email}|{password}|{phoneNumber}|{serviceArea}|{Specialisation}" + Environment.NewLine);
+                CustomerRepository.SaveServiceProvider(newServiceProvider);
                 DialogResult result = MessageBox.Show("Registration successful ! \n Would you like to login right now?", "Account succesfully created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 ClearFields();
                 if (result == DialogResult.Yes)

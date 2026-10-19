@@ -1,6 +1,5 @@
 using Home_Hero;
 using HomeHero;
-using System.ComponentModel.DataAnnotations;
 
 namespace HomeHero_2
 {
@@ -10,37 +9,13 @@ namespace HomeHero_2
         {
             InitializeComponent();
         }
-        List<Administrator> administrators = new List<Administrator>();
-        //Administrator Thabiso = new Administrator();
-        
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string rememberME = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
-            string emilAddress = txtEmail.Text;
-            string password1 = txtPassword.Text;
-
-            if (chkRemember.Checked)
-            {
-                File.WriteAllText(rememberME, $"{emilAddress}|{password1}");
-            }
-            else
-            {
-
-            }
-            string email = txtEmail.Text;
-            string password = txtPassword.Text;
-
-            string selectedUserType = cmbLoginAs.Text;
-
-           
+            string email = txtEmail.Text.Trim();
+            string password = txtPassword.Text.Trim();
             bool hasEmptyFields = false;
 
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 ValidationError.SetError(txtEmail, "Email is required");
                 hasEmptyFields = true;
@@ -50,7 +25,7 @@ namespace HomeHero_2
                 ValidationError.SetError(txtEmail, "");
             }
 
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 ValidationError.SetError(txtPassword, "Password is required");
                 hasEmptyFields = true;
@@ -63,123 +38,52 @@ namespace HomeHero_2
             if (hasEmptyFields)
             {
                 MessageBox.Show("Please fill in all required fields");
-                ClearFields();
                 return;
             }
+
+            if (chkRemember.Checked)
+            {
+                string rememberMe = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
+                File.WriteAllText(rememberMe, $"{email}|{password}");
+            }
+
             foreach (Administrator administrator in AppSettings.DefaultAdministrators)
             {
-                administrators.Add(administrator);
-            }
-
-            bool adminLoggedIn = false;
-
-            foreach (Administrator administrator in administrators)
-            {
-                if (email.Trim().ToLower() == administrator.EmailAdress)
+                if (string.Equals(email, administrator.EmailAdress, StringComparison.OrdinalIgnoreCase) &&
+                    password == administrator.Password)
                 {
-                    if (password.Trim() == administrator.Password)
-                    {
-                        adminLoggedIn = true;
-                        MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin succesfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmAdminDashboard adminDashboard = new frmAdminDashboard();
-                        this.Hide();
-                        adminDashboard.Show();
-                        break;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Incorrect credentials", "Try Again", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show($"Welcome back Mr {administrator.AdminName}", "Admin successfully logged in", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    frmAdminDashboard adminDashboard = new frmAdminDashboard();
+                    this.Hide();
+                    adminDashboard.Show();
+                    return;
                 }
             }
 
-            if (string.IsNullOrEmpty(selectedUserType) && adminLoggedIn == false)
+            Customer loggedInCustomer = new Customer("", "", email, "", password);
+            if (loggedInCustomer.ReadFromFile(email, password) == "Succesful login")
             {
-                MessageBox.Show("Please select a user type.");
+                MessageBox.Show("Login successful!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields();
+                frmCustomerDashboard customerForm = new frmCustomerDashboard();
+                this.Hide();
+                customerForm.Show();
                 return;
             }
 
-            if (selectedUserType == "Customer")
+            ServiceProvider? loggedInServiceProvider = CustomerRepository.FindServiceProvider(email, password);
+            if (loggedInServiceProvider != null)
             {
-
-                Customer loggedInCustomer = new Customer("","",email,"",password); // We create a variable to hold the customer if we find one.
-                string message = loggedInCustomer.ReadFromFile(email, password);
-
-                if (message == "Unsuccesful login")
-                {
-                    MessageBox.Show("Invalid email or password");
-                    ClearFields();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Login successful !", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearFields();
-                    frmCustomerDashboard customerForm = new frmCustomerDashboard();
-                    this.Hide();
-                    customerForm.Show();
-                }
-
-            }
-            else if (selectedUserType == "Service Provider")
-            {
-                string serviceProvider = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
-
-                if (File.Exists(serviceProvider))
-                {
-                    string[] lines = File.ReadAllLines(serviceProvider);
-
-                    foreach (string line in lines)
-                    {
-                        string[] data = line.Split('|');
-
-                        if (data.Length >= 6)
-                        {
-                            string name = data[0];
-                            string emailAddress1 = data[1];
-                            string passWord1 = data[2];
-                            string number = data[3];
-                            string serviceArea = data[4];
-
-                            List<string> specialisation = new List<string>();
-                            specialisation.Add(data[5]);
-
-                            ServiceProvider loggedinServiceProvider =
-                                new ServiceProvider(
-                                    name,
-                                    "",
-                                    emailAddress1,
-                                    passWord1,
-                                    number,
-                                    serviceArea,
-                                    specialisation);
-
-                            if (emailAddress1 == email &&
-                                passWord1 == password)
-                            {
-                                MessageBox.Show("Login successful!",
-                                    "Login Successful",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
-
-                                frmServiceProviderDashboard frmService =
-                                    new frmServiceProviderDashboard(loggedinServiceProvider);
-
-                                this.Hide();
-                                frmService.Show();
-
-                                return; // Stop checking once found
-                            }
-                        }
-                    }
-
-                    MessageBox.Show("Invalid credentials",
-                        "Login Failed",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
-                }
+                MessageBox.Show("Login successful!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields();
+                frmServiceProviderDashboard frmService = new frmServiceProviderDashboard(loggedInServiceProvider);
+                this.Hide();
+                frmService.Show();
+                return;
             }
 
+            MessageBox.Show("Invalid email or password", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ClearFields();
         }
 
         private void ClearFields()
@@ -204,27 +108,15 @@ namespace HomeHero_2
         private void frmHomeHeroLogin_Load(object sender, EventArgs e)
         {
             string rememberME = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
-            string emilAddress = txtEmail.Text;
-            string password = txtPassword.Text;
-
-            //if (chkRemember.Checked)
-            //{
-            //    File.WriteAllText(rememberME, $"{emilAddress}|{password}");
-            //}
-            //else
-            //{
-
-            //}
             if (File.Exists(rememberME))
             {
                 string data = File.ReadAllText(rememberME);
-
                 string[] dataPaths = data.Split("|");
-
-                foreach (string file in dataPaths)
+                if (dataPaths.Length >= 2)
                 {
                     txtEmail.Text = dataPaths[0];
                     txtPassword.Text = dataPaths[1];
+                    chkRemember.Checked = true;
                 }
             }
         }
@@ -246,9 +138,6 @@ namespace HomeHero_2
         {
             txtEmail.Clear();
             txtPassword.Clear();
-            string users =cmbLoginAs.SelectedIndex.ToString();
-            users = "";
-            
 
             frmHomeHeroRegistration registerForm = new frmHomeHeroRegistration();
             this.Hide();
