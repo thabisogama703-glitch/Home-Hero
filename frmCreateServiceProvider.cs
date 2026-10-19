@@ -209,7 +209,7 @@ namespace Home_Hero
             else
             {
                 ValidationError.Clear();
-                string serviceProvider = "Service.txt";
+                string serviceProvider = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
                 ServiceProvider newServiceProvider = new ServiceProvider(name, "", email, password, phoneNumber, serviceArea, Specialisation);
                 File.AppendAllText(serviceProvider, $"{name}|{email}|{password}|{phoneNumber}|{serviceArea}|{Specialisation}" + Environment.NewLine);
                 DialogResult result = MessageBox.Show("Registration successful ! \n Would you like to login right now?", "Account succesfully created", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

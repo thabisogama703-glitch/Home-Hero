@@ -55,13 +55,13 @@ namespace HomeHero_2
 
         public void WriteToFile(string Name,string emailAddress,string phoneNumber,string passWord)
         {
-            string customersFile = "customers.txt";
+            string customersFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.CustomerFileName);
             File.AppendAllText(customersFile, $"{Name} | {emailAddress} | {phoneNumber} | {passWord}\n");
         }
 
         public string ReadFromFile(string emailAddress1,string passWord1)
         {
-            string customersFile = "customers.txt";
+            string customersFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.CustomerFileName);
             if (File.Exists(customersFile))
             {
                 string[] fileContent = File.ReadAllLines(customersFile);

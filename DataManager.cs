@@ -9,10 +9,10 @@ namespace Home_Hero
     public static class DataManager
     {
         private static readonly string filePath =
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "maintenance_requests.txt");
+            AppSettings.GetBaseDirectoryFilePath(AppSettings.MaintenanceRequestsFileName);
 
         private static readonly string providerFile =
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "providers.json");
+            AppSettings.GetBaseDirectoryFilePath(AppSettings.ProvidersFileName);
         public static List<ServiceProvider> LoadServiceProviders()
         {
             if (!File.Exists(providerFile))

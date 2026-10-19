@@ -20,7 +20,7 @@ namespace HomeHero_2
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string rememberME = "Remember.txt";
+            string rememberME = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
             string emilAddress = txtEmail.Text;
             string password1 = txtPassword.Text;
 
@@ -66,17 +66,10 @@ namespace HomeHero_2
                 ClearFields();
                 return;
             }
-            Administrator Thabiso = new Administrator();
-            Thabiso.AdminName = "Thabiso";
-            Thabiso.EmailAdress = "Thabisogama703@gmail.com".ToLower();
-            Thabiso.Password = "@Thandolwami07";
-            administrators.Add(Thabiso);
-
-            Administrator Sibusiso = new Administrator();
-            Sibusiso.AdminName = "Sibusiso";
-            Sibusiso.EmailAdress = "shadowsilver308@gmail.com".ToLower();
-            Sibusiso.Password = "@Thandolwami07";
-            administrators.Add(Sibusiso);
+            foreach (Administrator administrator in AppSettings.DefaultAdministrators)
+            {
+                administrators.Add(administrator);
+            }
 
             bool adminLoggedIn = false;
 
@@ -130,7 +123,7 @@ namespace HomeHero_2
             }
             else if (selectedUserType == "Service Provider")
             {
-                string serviceProvider = "Service.txt";
+                string serviceProvider = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
 
                 if (File.Exists(serviceProvider))
                 {
@@ -210,7 +203,7 @@ namespace HomeHero_2
 
         private void frmHomeHeroLogin_Load(object sender, EventArgs e)
         {
-            string rememberME = "Remember.txt";
+            string rememberME = AppSettings.GetBaseDirectoryFilePath(AppSettings.RememberMeFileName);
             string emilAddress = txtEmail.Text;
             string password = txtPassword.Text;
 

@@ -1,4 +1,6 @@
-﻿namespace Home_Hero
+using Guna.UI2.WinForms;
+
+namespace Home_Hero
 {
     partial class frmHomeHeroHomepage
     {
@@ -37,9 +39,9 @@
             lnklblHowItWorks = new LinkLabel();
             lnklblPricings = new LinkLabel();
             pnlServicesButtons = new Panel();
-            btnRequestAService = new Button();
-            btnCreateAccount = new Button();
-            btnLogin = new Button();
+            btnRequestAService = new Guna2Button();
+            btnCreateAccount = new Guna2Button();
+            btnLogin = new Guna2Button();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -47,11 +49,11 @@
             pnlAboutTheAppAndSearchBar = new Panel();
             lblPopular = new Label();
             lblPopularServices = new Label();
-            btnFindAPro = new Button();
+            btnFindAPro = new Guna2Button();
             txtLiveUpdate = new TextBox();
             pnlSearchBox = new Panel();
             pbxSearchMagnifier = new PictureBox();
-            txtSearchForService = new TextBox();
+            txtSearchForService = new Guna2TextBox();
             flpAboutTheApplication = new FlowLayoutPanel();
             lblDetailedExplaination = new Label();
             flpSlogan = new FlowLayoutPanel();
@@ -208,9 +210,8 @@
             // 
             btnRequestAService.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRequestAService.AutoSize = true;
-            btnRequestAService.BackColor = Color.FromArgb(255, 128, 0);
-            btnRequestAService.FlatAppearance.BorderColor = Color.Navy;
-            btnRequestAService.FlatStyle = FlatStyle.Popup;
+            btnRequestAService.BorderRadius = 10;
+            btnRequestAService.FillColor = Color.FromArgb(255, 128, 0);
             btnRequestAService.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRequestAService.ForeColor = Color.White;
             btnRequestAService.Location = new Point(431, 29);
@@ -219,16 +220,14 @@
             btnRequestAService.Size = new Size(176, 46);
             btnRequestAService.TabIndex = 2;
             btnRequestAService.Text = "Request a Service";
-            btnRequestAService.UseVisualStyleBackColor = false;
             btnRequestAService.Click += btnRequestAService_Click;
             // 
             // btnCreateAccount
             // 
             btnCreateAccount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCreateAccount.AutoSize = true;
-            btnCreateAccount.BackColor = Color.FromArgb(0, 0, 64);
-            btnCreateAccount.FlatAppearance.BorderColor = Color.DarkGray;
-            btnCreateAccount.FlatStyle = FlatStyle.Flat;
+            btnCreateAccount.BorderRadius = 10;
+            btnCreateAccount.FillColor = Color.FromArgb(0, 0, 64);
             btnCreateAccount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCreateAccount.ForeColor = Color.White;
             btnCreateAccount.Location = new Point(272, 29);
@@ -237,15 +236,13 @@
             btnCreateAccount.Size = new Size(150, 46);
             btnCreateAccount.TabIndex = 1;
             btnCreateAccount.Text = "Create Account";
-            btnCreateAccount.UseVisualStyleBackColor = false;
             btnCreateAccount.Click += btnCreateAccount_Click;
             // 
             // btnLogin
             // 
             btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnLogin.BackColor = Color.FromArgb(0, 0, 64);
-            btnLogin.FlatAppearance.BorderColor = Color.DarkGray;
-            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.BorderRadius = 10;
+            btnLogin.FillColor = Color.FromArgb(0, 0, 64);
             btnLogin.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
             btnLogin.Location = new Point(154, 29);
@@ -254,7 +251,6 @@
             btnLogin.Size = new Size(111, 46);
             btnLogin.TabIndex = 0;
             btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // pnlHomeHeroLogo
@@ -338,16 +334,14 @@
             // 
             // btnFindAPro
             // 
-            btnFindAPro.BackColor = Color.FromArgb(255, 128, 0);
-            btnFindAPro.FlatAppearance.BorderColor = Color.LightGray;
-            btnFindAPro.FlatStyle = FlatStyle.Flat;
+            btnFindAPro.BorderRadius = 10;
+            btnFindAPro.FillColor = Color.FromArgb(255, 128, 0);
             btnFindAPro.ForeColor = Color.White;
             btnFindAPro.Location = new Point(60, 558);
             btnFindAPro.Name = "btnFindAPro";
             btnFindAPro.Size = new Size(619, 40);
             btnFindAPro.TabIndex = 5;
             btnFindAPro.Text = "Find a Pro";
-            btnFindAPro.UseVisualStyleBackColor = false;
             btnFindAPro.Click += btnFindAPro_Click;
             // 
             // txtLiveUpdate
@@ -386,13 +380,16 @@
             // 
             // txtSearchForService
             // 
-            txtSearchForService.BorderStyle = BorderStyle.None;
+            txtSearchForService.BorderRadius = 10;
+            txtSearchForService.BorderColor = Color.FromArgb(214, 214, 214);
+            txtSearchForService.FillColor = Color.White;
             txtSearchForService.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearchForService.ForeColor = Color.Gray;
             txtSearchForService.Location = new Point(53, 14);
             txtSearchForService.Name = "txtSearchForService";
-            txtSearchForService.PlaceholderText = " What do you need? e.g leaking pipe, broken Ac...";
-            txtSearchForService.Size = new Size(506, 27);
+            txtSearchForService.PlaceholderForeColor = Color.Gray;
+            txtSearchForService.PlaceholderText = "What do you need? e.g leaking pipe, broken Ac...";
+            txtSearchForService.Size = new Size(506, 48);
             txtSearchForService.TabIndex = 3;
             // 
             // flpAboutTheApplication
@@ -655,9 +652,9 @@
         private LinkLabel lnklblHowItWorks;
         private LinkLabel lnklblPricings;
         private LinkLabel lnklblHome;
-        private Button btnLogin;
-        private Button btnCreateAccount;
-        private Button btnRequestAService;
+        private Guna2Button btnLogin;
+        private Guna2Button btnCreateAccount;
+        private Guna2Button btnRequestAService;
         private Panel pnlAboutTheAppAndSearchBar;
         private TableLayoutPanel tblpHomeHeroPanel;
         private FlowLayoutPanel flpNavigationTab;
@@ -666,10 +663,10 @@
         private Label lblDoneRight;
         private FlowLayoutPanel flpAboutTheApplication;
         private Label lblDetailedExplaination;
-        private TextBox txtSearchForService;
+        private Guna2TextBox txtSearchForService;
         private Panel pnlSearchBox;
         private PictureBox pbxSearchMagnifier;
-        private Button btnFindAPro;
+        private Guna2Button btnFindAPro;
         private Label lblPopularServices;
         private TableLayoutPanel tblpStatistics;
         private Label lblPopular;

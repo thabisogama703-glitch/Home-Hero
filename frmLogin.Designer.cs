@@ -1,4 +1,6 @@
-﻿namespace HomeHero_2
+using Guna.UI2.WinForms;
+
+namespace HomeHero_2
 {
     partial class frmHomeHeroLogin
     {
@@ -31,17 +33,17 @@
             components = new System.ComponentModel.Container();
             lblEmail = new Label();
             lblPassword = new Label();
-            txtEmail = new TextBox();
-            txtPassword = new TextBox();
+            txtEmail = new Guna2TextBox();
+            txtPassword = new Guna2TextBox();
             lblLoginAs = new Label();
             cmbLoginAs = new ComboBox();
-            btnLogin = new Button();
+            btnLogin = new Guna2Button();
             ValidationError = new ErrorProvider(components);
-            btnShowPassword = new Button();
+            btnShowPassword = new Guna2Button();
             pnlNavigationTab = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             lblName = new Label();
-            btnBack = new Button();
+            btnBack = new Guna2Button();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -53,7 +55,7 @@
             pnlDetails = new Panel();
             chkRemember = new CheckBox();
             label2 = new Label();
-            button1 = new Button();
+            button1 = new Guna2Button();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
             label3 = new Label();
@@ -91,19 +93,30 @@
             // 
             // txtEmail
             // 
+            txtEmail.BorderRadius = 10;
+            txtEmail.BorderColor = Color.FromArgb(206, 212, 218);
+            txtEmail.FillColor = Color.White;
+            txtEmail.Font = new Font("Segoe UI", 10F);
+            txtEmail.ForeColor = Color.Black;
             txtEmail.Location = new Point(25, 126);
             txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderText = "✉️ johndoe123@gmail.com";
-            txtEmail.Size = new Size(577, 27);
+            txtEmail.PlaceholderForeColor = Color.Gray;
+            txtEmail.PlaceholderText = "johndoe123@gmail.com";
+            txtEmail.Size = new Size(577, 42);
             txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Font = new Font("Segoe UI", 9F);
+            txtPassword.BorderRadius = 10;
+            txtPassword.BorderColor = Color.FromArgb(206, 212, 218);
+            txtPassword.FillColor = Color.White;
+            txtPassword.Font = new Font("Segoe UI", 10F);
+            txtPassword.ForeColor = Color.Black;
             txtPassword.Location = new Point(25, 250);
             txtPassword.Name = "txtPassword";
-            txtPassword.PlaceholderText = "🔒Enter your password";
-            txtPassword.Size = new Size(477, 27);
+            txtPassword.PlaceholderForeColor = Color.Gray;
+            txtPassword.PlaceholderText = "Enter your password";
+            txtPassword.Size = new Size(477, 42);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
@@ -128,16 +141,15 @@
             // 
             // btnLogin
             // 
-            btnLogin.BackColor = Color.FromArgb(255, 128, 0);
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.BorderRadius = 10;
+            btnLogin.FillColor = Color.FromArgb(255, 128, 0);
             btnLogin.ForeColor = Color.White;
+            btnLogin.HoverState.FillColor = Color.FromArgb(255, 147, 64);
             btnLogin.Location = new Point(25, 429);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(577, 37);
+            btnLogin.Size = new Size(577, 42);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // ValidationError
@@ -146,15 +158,14 @@
             // 
             // btnShowPassword
             // 
-            btnShowPassword.BackColor = Color.Transparent;
-            btnShowPassword.FlatAppearance.BorderSize = 0;
-            btnShowPassword.FlatStyle = FlatStyle.Popup;
+            btnShowPassword.BorderRadius = 8;
+            btnShowPassword.FillColor = Color.FromArgb(240, 240, 240);
+            btnShowPassword.ForeColor = Color.FromArgb(17, 17, 17);
             btnShowPassword.Location = new Point(508, 250);
             btnShowPassword.Name = "btnShowPassword";
-            btnShowPassword.Size = new Size(94, 29);
+            btnShowPassword.Size = new Size(94, 42);
             btnShowPassword.TabIndex = 8;
-            btnShowPassword.Text = "Show password";
-            btnShowPassword.UseVisualStyleBackColor = false;
+            btnShowPassword.Text = "Show";
             btnShowPassword.Click += btnShowPassword_Click;
             // 
             // pnlNavigationTab
@@ -202,7 +213,7 @@
             // 
             btnBack.Anchor = AnchorStyles.Left;
             btnBack.AutoSize = true;
-            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.FillColor = Color.Transparent;
             btnBack.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
             btnBack.Location = new Point(972, 29);
@@ -211,7 +222,6 @@
             btnBack.Size = new Size(162, 46);
             btnBack.TabIndex = 10;
             btnBack.Text = " ← Back to Home";
-            btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
             // 
             // pnlHomeHeroLogo
@@ -346,8 +356,7 @@
             // button1
             // 
             button1.BackColor = Color.WhiteSmoke;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
+            button1.FillColor = Color.WhiteSmoke;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
             button1.Location = new Point(220, 507);
@@ -355,7 +364,6 @@
             button1.Size = new Size(130, 29);
             button1.TabIndex = 9;
             button1.Text = "Create Account";
-            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_1;
             // 
             // tableLayoutPanel2
@@ -465,26 +473,26 @@
 
         private Label lblEmail;
         private Label lblPassword;
-        private TextBox txtEmail;
-        private TextBox txtPassword;
+        private Guna2TextBox txtEmail;
+        private Guna2TextBox txtPassword;
         private Label lblLoginAs;
         private ComboBox cmbLoginAs;
-        private Button btnLogin;
+        private Guna2Button btnLogin;
         private ErrorProvider ValidationError;
-        private Button btnShowPassword;
+        private Guna2Button btnShowPassword;
         private Panel pnlNavigationTab;
         private Panel pnlHomeHeroLogo;
         private Label lblHero;
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
-        private Button btnBack;
+        private Guna2Button btnBack;
         private Label lblName;
         private Panel panel2;
         private Label lblLog;
         private Label lblWelcome;
         private Panel pnlDetails;
         private Label label2;
-        private Button button1;
+        private Guna2Button button1;
         private CheckBox chkRemember;
         private TableLayoutPanel tableLayoutPanel1;
         private Label lblLoginSummary;
