@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+using Krypton.Toolkit;
 
 namespace HomeHero_2
 {
@@ -33,15 +33,15 @@ namespace HomeHero_2
             components = new System.ComponentModel.Container();
             lblEmail = new Label();
             lblPassword = new Label();
-            txtEmail = new Guna2TextBox();
-            txtPassword = new Guna2TextBox();
-            btnLogin = new Guna2Button();
+            txtEmail = new KryptonTextBox();
+            txtPassword = new KryptonTextBox();
+            btnLogin = new KryptonButton();
             ValidationError = new ErrorProvider(components);
-            btnShowPassword = new Guna2Button();
+            btnShowPassword = new KryptonButton();
             pnlNavigationTab = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             lblName = new Label();
-            btnBack = new Guna2Button();
+            btnBack = new KryptonButton();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -53,7 +53,7 @@ namespace HomeHero_2
             pnlDetails = new Panel();
             chkRemember = new CheckBox();
             label2 = new Label();
-            button1 = new Guna2Button();
+            button1 = new KryptonButton();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
             label3 = new Label();
@@ -91,39 +91,26 @@ namespace HomeHero_2
             // 
             // txtEmail
             // 
-            txtEmail.BorderRadius = 10;
-            txtEmail.BorderColor = Color.FromArgb(206, 212, 218);
-            txtEmail.FillColor = Color.White;
             txtEmail.Font = new Font("Segoe UI", 10F);
             txtEmail.ForeColor = Color.Black;
             txtEmail.Location = new Point(25, 126);
             txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderForeColor = Color.Gray;
-            txtEmail.PlaceholderText = "johndoe123@gmail.com";
             txtEmail.Size = new Size(577, 42);
             txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.BorderRadius = 10;
-            txtPassword.BorderColor = Color.FromArgb(206, 212, 218);
-            txtPassword.FillColor = Color.White;
             txtPassword.Font = new Font("Segoe UI", 10F);
             txtPassword.ForeColor = Color.Black;
             txtPassword.Location = new Point(25, 250);
             txtPassword.Name = "txtPassword";
-            txtPassword.PlaceholderForeColor = Color.Gray;
-            txtPassword.PlaceholderText = "Enter your password";
             txtPassword.Size = new Size(477, 42);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // btnLogin
             // 
-            btnLogin.BorderRadius = 10;
-            btnLogin.FillColor = Color.FromArgb(255, 128, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.HoverState.FillColor = Color.FromArgb(255, 147, 64);
             btnLogin.Location = new Point(25, 372);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(577, 42);
@@ -137,8 +124,6 @@ namespace HomeHero_2
             // 
             // btnShowPassword
             // 
-            btnShowPassword.BorderRadius = 8;
-            btnShowPassword.FillColor = Color.FromArgb(240, 240, 240);
             btnShowPassword.ForeColor = Color.FromArgb(17, 17, 17);
             btnShowPassword.Location = new Point(508, 250);
             btnShowPassword.Name = "btnShowPassword";
@@ -192,7 +177,6 @@ namespace HomeHero_2
             // 
             btnBack.Anchor = AnchorStyles.Left;
             btnBack.AutoSize = true;
-            btnBack.FillColor = Color.Transparent;
             btnBack.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBack.ForeColor = Color.White;
             btnBack.Location = new Point(972, 29);
@@ -333,7 +317,6 @@ namespace HomeHero_2
             // button1
             // 
             button1.BackColor = Color.WhiteSmoke;
-            button1.FillColor = Color.WhiteSmoke;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
             button1.Location = new Point(220, 450);
@@ -450,24 +433,24 @@ namespace HomeHero_2
 
         private Label lblEmail;
         private Label lblPassword;
-        private Guna2TextBox txtEmail;
-        private Guna2TextBox txtPassword;
-        private Guna2Button btnLogin;
+        private KryptonTextBox txtEmail;
+        private KryptonTextBox txtPassword;
+        private KryptonButton btnLogin;
         private ErrorProvider ValidationError;
-        private Guna2Button btnShowPassword;
+        private KryptonButton btnShowPassword;
         private Panel pnlNavigationTab;
         private Panel pnlHomeHeroLogo;
         private Label lblHero;
         private Label lblHome;
         private PictureBox pbxHomeHeroLogo;
-        private Guna2Button btnBack;
+        private KryptonButton btnBack;
         private Label lblName;
         private Panel panel2;
         private Label lblLog;
         private Label lblWelcome;
         private Panel pnlDetails;
         private Label label2;
-        private Guna2Button button1;
+        private KryptonButton button1;
         private CheckBox chkRemember;
         private TableLayoutPanel tableLayoutPanel1;
         private Label lblLoginSummary;

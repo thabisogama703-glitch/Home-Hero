@@ -1,4 +1,5 @@
 ﻿using HomeHero_2;
+using Krypton.Toolkit;
 //using ServiceProviderDashboard;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Home_Hero
             currentProvider = provider;
 
             LoadJobs();
+            AddMessagesButton();
         }
 
         private void LoadJobs()
@@ -135,6 +137,31 @@ namespace Home_Hero
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadJobs();
+        }
+
+        private void AddMessagesButton()
+        {
+            KryptonButton messagesButton = new()
+            {
+                Text = "Messages",
+                Location = new Point(1390, 31),
+                Size = new Size(230, 51),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
+            };
+            messagesButton.StateCommon.Back.Color1 = Color.FromArgb(255, 128, 0);
+            messagesButton.StateCommon.Back.Color2 = Color.FromArgb(255, 128, 0);
+            messagesButton.StateCommon.Content.ShortText.Color1 = Color.White;
+            messagesButton.StateCommon.Border.Rounding = 8;
+            messagesButton.Click += (_, _) =>
+            {
+                using MessageCenterForm messageCenter = new(
+                    currentProvider.Email,
+                    true,
+                    DataManager.LoadRequests(),
+                    $"{currentProvider.FirstName} {currentProvider.LastName}".Trim());
+                messageCenter.ShowDialog(this);
+            };
+            pnlNavigationTab.Controls.Add(messagesButton);
         }
 
         private void frmServiceProviderDashboard_Load(object sender, EventArgs e)

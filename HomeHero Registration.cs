@@ -137,8 +137,8 @@ namespace HomeHero_2
             Customer customer = new Customer(
              name,
              "",
-             phoneNumber,
              email,
+             phoneNumber,
              password);
 
             customer.WriteToFile(name, email, phoneNumber, password);

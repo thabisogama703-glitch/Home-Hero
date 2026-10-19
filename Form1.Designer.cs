@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+using Krypton.Toolkit;
 
 namespace Home_Hero
 {
@@ -39,9 +39,9 @@ namespace Home_Hero
             lnklblHowItWorks = new LinkLabel();
             lnklblPricings = new LinkLabel();
             pnlServicesButtons = new Panel();
-            btnRequestAService = new Guna2Button();
-            btnCreateAccount = new Guna2Button();
-            btnLogin = new Guna2Button();
+            btnRequestAService = new KryptonButton();
+            btnCreateAccount = new KryptonButton();
+            btnLogin = new KryptonButton();
             pnlHomeHeroLogo = new Panel();
             lblHero = new Label();
             lblHome = new Label();
@@ -49,11 +49,11 @@ namespace Home_Hero
             pnlAboutTheAppAndSearchBar = new Panel();
             lblPopular = new Label();
             lblPopularServices = new Label();
-            btnFindAPro = new Guna2Button();
+            btnFindAPro = new KryptonButton();
             txtLiveUpdate = new TextBox();
             pnlSearchBox = new Panel();
             pbxSearchMagnifier = new PictureBox();
-            txtSearchForService = new Guna2TextBox();
+            txtSearchForService = new KryptonTextBox();
             flpAboutTheApplication = new FlowLayoutPanel();
             lblDetailedExplaination = new Label();
             flpSlogan = new FlowLayoutPanel();
@@ -210,8 +210,6 @@ namespace Home_Hero
             // 
             btnRequestAService.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRequestAService.AutoSize = true;
-            btnRequestAService.BorderRadius = 10;
-            btnRequestAService.FillColor = Color.FromArgb(255, 128, 0);
             btnRequestAService.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRequestAService.ForeColor = Color.White;
             btnRequestAService.Location = new Point(431, 29);
@@ -226,8 +224,6 @@ namespace Home_Hero
             // 
             btnCreateAccount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCreateAccount.AutoSize = true;
-            btnCreateAccount.BorderRadius = 10;
-            btnCreateAccount.FillColor = Color.FromArgb(0, 0, 64);
             btnCreateAccount.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCreateAccount.ForeColor = Color.White;
             btnCreateAccount.Location = new Point(272, 29);
@@ -241,8 +237,6 @@ namespace Home_Hero
             // btnLogin
             // 
             btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnLogin.BorderRadius = 10;
-            btnLogin.FillColor = Color.FromArgb(0, 0, 64);
             btnLogin.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
             btnLogin.Location = new Point(154, 29);
@@ -334,8 +328,6 @@ namespace Home_Hero
             // 
             // btnFindAPro
             // 
-            btnFindAPro.BorderRadius = 10;
-            btnFindAPro.FillColor = Color.FromArgb(255, 128, 0);
             btnFindAPro.ForeColor = Color.White;
             btnFindAPro.Location = new Point(60, 558);
             btnFindAPro.Name = "btnFindAPro";
@@ -380,15 +372,10 @@ namespace Home_Hero
             // 
             // txtSearchForService
             // 
-            txtSearchForService.BorderRadius = 10;
-            txtSearchForService.BorderColor = Color.FromArgb(214, 214, 214);
-            txtSearchForService.FillColor = Color.White;
             txtSearchForService.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearchForService.ForeColor = Color.Gray;
             txtSearchForService.Location = new Point(53, 14);
             txtSearchForService.Name = "txtSearchForService";
-            txtSearchForService.PlaceholderForeColor = Color.Gray;
-            txtSearchForService.PlaceholderText = "What do you need? e.g leaking pipe, broken Ac...";
             txtSearchForService.Size = new Size(506, 48);
             txtSearchForService.TabIndex = 3;
             // 
@@ -652,9 +639,9 @@ namespace Home_Hero
         private LinkLabel lnklblHowItWorks;
         private LinkLabel lnklblPricings;
         private LinkLabel lnklblHome;
-        private Guna2Button btnLogin;
-        private Guna2Button btnCreateAccount;
-        private Guna2Button btnRequestAService;
+        private KryptonButton btnLogin;
+        private KryptonButton btnCreateAccount;
+        private KryptonButton btnRequestAService;
         private Panel pnlAboutTheAppAndSearchBar;
         private TableLayoutPanel tblpHomeHeroPanel;
         private FlowLayoutPanel flpNavigationTab;
@@ -663,10 +650,10 @@ namespace Home_Hero
         private Label lblDoneRight;
         private FlowLayoutPanel flpAboutTheApplication;
         private Label lblDetailedExplaination;
-        private Guna2TextBox txtSearchForService;
+        private KryptonTextBox txtSearchForService;
         private Panel pnlSearchBox;
         private PictureBox pbxSearchMagnifier;
-        private Guna2Button btnFindAPro;
+        private KryptonButton btnFindAPro;
         private Label lblPopularServices;
         private TableLayoutPanel tblpStatistics;
         private Label lblPopular;

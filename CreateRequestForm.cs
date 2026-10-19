@@ -14,9 +14,17 @@ namespace Home_Hero
 {
     public partial class frmCreateRequest : Form
     {
+        private readonly string customerEmail;
+
         public frmCreateRequest()
+            : this(string.Empty)
+        {
+        }
+
+        public frmCreateRequest(string customerEmail)
         {
             InitializeComponent();
+            this.customerEmail = customerEmail;
             SetupDefaults();
         }
 
@@ -164,9 +172,18 @@ namespace Home_Hero
                 }
             }
 
-            string CurrentCustomerId = "11";
+            if (string.IsNullOrWhiteSpace(customerEmail))
+            {
+                MessageBox.Show(
+                    "Please sign in as a customer before creating a service request.",
+                    "Customer Sign-in Required",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             MaintenanceRequest newRequest = new MaintenanceRequest(
-                CurrentCustomerId,
+                customerEmail,
                 cmbCategory.SelectedItem.ToString(),
                 txtProblemDescription.Text.Trim(),
                 txtAddress.Text.Trim(),
@@ -198,9 +215,7 @@ namespace Home_Hero
 
             if(result == DialogResult.No)
             {
-                frmCustomerDashboard returnToDashBoard = new frmCustomerDashboard();
-                this.Hide();
-                returnToDashBoard.Show();
+                Close();
             }
             else
             {
@@ -241,10 +256,7 @@ namespace Home_Hero
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
-            Customerdashboard.Show();
-            this.Hide();
-            
+            Close();
         }
     }
 }

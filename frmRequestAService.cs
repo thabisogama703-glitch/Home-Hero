@@ -1,4 +1,5 @@
 ﻿using HomeHero;
+using HomeHero_2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +30,9 @@ namespace Home_Hero
 
         private void btnCustomerDashboard_Click(object sender, EventArgs e)
         {
-            frmCustomerDashboard Customerdashboard = new frmCustomerDashboard();
+            frmHomeHeroLogin loginPage = new frmHomeHeroLogin();
             this.Hide();
-            Customerdashboard.Show();
+            loginPage.Show();
         }
 
         private void frmRequestAService_Load(object sender, EventArgs e)
@@ -225,6 +226,24 @@ namespace Home_Hero
             /*After all validations we then show the process was succesfully submitted*/
             if (isValid == true)
             {
+                MaintenanceRequest request = new MaintenanceRequest(
+                    emailAddress,
+                    selectedService,
+                    txtProblemDEscription.Text.Trim(),
+                    physicalAddress,
+                    dateTimePicker1.Value.Date,
+                    preferredTime);
+                if (!request.ValidateRequest(out string errorMessage))
+                {
+                    MessageBox.Show(
+                        errorMessage,
+                        "Invalid Request",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DataManager.AddRequest(request);
                 QuickRequest newQuickRequest = new QuickRequest(selectedService, isChecked, txtProblemDEscription.Text, dateTimePicker1, preferredTime, firstName, lastName, emailAddress, cellphoneNumber, physicalAddress);
                 MessageBox.Show($"Thank you for choosing HomeHero \n{firstName} The maintenance request has been succesfully submitted \nOnce confirmed one of our experienced service provider will keep in touch.","Service Succesfully Requested.",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 firstName.ToLower();

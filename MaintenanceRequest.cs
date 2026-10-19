@@ -27,6 +27,17 @@ namespace Home_Hero
         public decimal EstimatedCost { get; set; }
         public decimal FinalCost { get; set; }
         public object ServiceRequest { get; internal set; }
+        public int ProgressPercentage => Status switch
+        {
+            RequestStatus.Requested => 10,
+            RequestStatus.Approved => 25,
+            RequestStatus.ProviderAssigned => 40,
+            RequestStatus.Scheduled => 55,
+            RequestStatus.InProgress => 75,
+            RequestStatus.Completed => 100,
+            RequestStatus.Cancelled => 0,
+            _ => 0
+        };
 
         public void SetRequestNumber(string requestNumber)
         {
@@ -218,4 +229,3 @@ namespace Home_Hero
 
 
     
-

@@ -12,30 +12,40 @@ namespace HomeHero
 {
     public partial class frmActiveRequest : Form
     {
-        public frmActiveRequest(List<MaintenanceRequest> requests)
+        public frmActiveRequest(IEnumerable<MaintenanceRequest> requests)
         {
             InitializeComponent();
+            StyleRequestGrid();
 
-            if (requests != null && requests.Count > 0)
+            foreach (MaintenanceRequest request in requests.Where(request =>
+                         request.Status != RequestStatus.Completed &&
+                         request.Status != RequestStatus.Cancelled))
             {
-                foreach (MaintenanceRequest request in requests)
-                {
-                    dgvActiveRequests.Rows.Add(
-                        request.RequestNumber,
-                        request.ServiceCategory,
-                        request.ProblemDescription,
-                        request.PreferredDate.ToString("dd/MM/yyyy"),
-                        $"R{request.EstimatedCost}",
-                        request.Status.ToString());
-                }
-
-                return;
+                dgvActiveRequests.Rows.Add(
+                    request.RequestNumber,
+                    request.ServiceCategory,
+                    request.ProblemDescription,
+                    request.PreferredDate.ToString("dd/MM/yyyy"),
+                    $"R{request.EstimatedCost:F2}",
+                    request.Status.ToString(),
+                    $"{request.ProgressPercentage}%");
             }
-
-            foreach (object[] row in AppSettings.DefaultActiveRequests)
+            if (dgvActiveRequests.Rows.Count == 0)
             {
-                dgvActiveRequests.Rows.Add(row);
+                lblActiveRequests.Text = "No active requests yet";
             }
+        }
+
+        private void StyleRequestGrid()
+        {
+            dgvActiveRequests.EnableHeadersVisualStyles = false;
+            dgvActiveRequests.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dgvActiveRequests.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvActiveRequests.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvActiveRequests.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 251);
+            dgvActiveRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvActiveRequests.MultiSelect = false;
+            dgvActiveRequests.RowTemplate.Height = 34;
         }
 
         private void dgvActiveRequests_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -15,7 +15,8 @@ namespace HomeHero_2
     {
         public List<MaintenanceRequest> Requests { get; private set; }
         public List<Review> Reviews { get; protected set; }
-        public Customer(string firstName, string lastName,string email,string phoneNumber, string password) : base(firstName,lastName,email,phoneNumber,password)
+        public Customer(string firstName, string lastName, string email, string phoneNumber, string password)
+            : base(firstName, lastName, phoneNumber, email, password)
         {
             Requests = new List<MaintenanceRequest>();
             Reviews = new List<Review>();

@@ -1,5 +1,6 @@
 using HomeHero;
 using HomeHero_2;
+using Krypton.Toolkit;
 
 namespace Home_Hero
 {
@@ -8,6 +9,21 @@ namespace Home_Hero
         public frmHomeHeroHomepage()
         {
             InitializeComponent();
+            StyleButton(btnRequestAService, Color.FromArgb(255, 128, 0), Color.White);
+            StyleButton(btnCreateAccount, Color.FromArgb(0, 0, 64), Color.White);
+            StyleButton(btnLogin, Color.FromArgb(0, 0, 64), Color.White);
+            StyleButton(btnFindAPro, Color.FromArgb(255, 128, 0), Color.White);
+            txtSearchForService.StateCommon.Back.Color1 = Color.White;
+            txtSearchForService.StateCommon.Border.Color1 = Color.FromArgb(214, 214, 214);
+            txtSearchForService.StateCommon.Border.Rounding = 10;
+        }
+
+        private static void StyleButton(KryptonButton button, Color backgroundColor, Color foregroundColor)
+        {
+            button.StateCommon.Back.Color1 = backgroundColor;
+            button.StateCommon.Back.Color2 = backgroundColor;
+            button.StateCommon.Content.ShortText.Color1 = foregroundColor;
+            button.StateCommon.Border.Rounding = 10;
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {

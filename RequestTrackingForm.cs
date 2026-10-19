@@ -17,7 +17,7 @@ namespace Home_Hero
         private string currentCustomerId;
 
         public frmRequestTracking()
-            : this("11")
+            : this(string.Empty)
         {
         }
 
@@ -26,6 +26,13 @@ namespace Home_Hero
             InitializeComponent();
 
             currentCustomerId = customerId;
+            dgvRequests.EnableHeadersVisualStyles = false;
+            dgvRequests.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dgvRequests.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvRequests.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvRequests.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 251);
+            dgvRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRequests.MultiSelect = false;
 
             Load += RequestTrackingForm_Load;
             dgvRequests.SelectionChanged += dgvRequests_SelectionChanged;
@@ -38,7 +45,10 @@ namespace Home_Hero
             List<MaintenanceRequest> allRequests = DataManager.LoadRequests();
 
             customerRequests = allRequests
-                .Where(request => request.CustomerId == currentCustomerId)
+                .Where(request => string.Equals(
+                    request.CustomerId,
+                    currentCustomerId,
+                    StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             RefreshGrid();
@@ -85,6 +95,12 @@ namespace Home_Hero
             if (dgvRequests.Columns["Status"] != null)
                 dgvRequests.Columns["Status"].HeaderText = "Status";
 
+            if (dgvRequests.Columns["ProgressPercentage"] != null)
+            {
+                dgvRequests.Columns["ProgressPercentage"].HeaderText = "Progress";
+                dgvRequests.Columns["ProgressPercentage"].DefaultCellStyle.Format = "0'%'";
+            }
+
             if (dgvRequests.Columns["ServiceRequest"] != null)
                 dgvRequests.Columns["ServiceRequest"].Visible = false;
         }
@@ -95,7 +111,7 @@ namespace Home_Hero
 
             lblCategory.Text = "Service: " + selected.ServiceCategory;
 
-            lblStatus.Text = "Status: " + GetStatusText(selected.Status);
+            lblStatus.Text = $"Status: {GetStatusText(selected.Status)} · {selected.ProgressPercentage}%";
 
             lblAssignedProvider.Text =
                 "Assigned Provider: " + selected.AssignedProviderId;
@@ -128,7 +144,10 @@ namespace Home_Hero
             List<MaintenanceRequest> allRequests = DataManager.LoadRequests();
 
             customerRequests = allRequests
-                .Where(request => request.CustomerId == currentCustomerId)
+                .Where(request => string.Equals(
+                    request.CustomerId,
+                    currentCustomerId,
+                    StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             RefreshGrid();
@@ -154,10 +173,7 @@ namespace Home_Hero
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmCustomerDashboard backtoHome = new frmCustomerDashboard();
-            this.Hide();
-            backtoHome.Show();
-
+            Close();
         }
         private string GetStatusText(RequestStatus status)
         {
@@ -195,4 +211,3 @@ namespace Home_Hero
         }
     }
 }
-

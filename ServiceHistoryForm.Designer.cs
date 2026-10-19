@@ -87,7 +87,7 @@
             // CompletedDate
             // 
             CompletedDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            CompletedDate.HeaderText = "Completed Date";
+            CompletedDate.HeaderText = "Service Date";
             CompletedDate.MinimumWidth = 6;
             CompletedDate.Name = "CompletedDate";
             CompletedDate.ReadOnly = true;

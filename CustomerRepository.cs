@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Linq;
 using Home_Hero;
 
 namespace HomeHero_2
@@ -97,6 +98,46 @@ namespace HomeHero_2
             string specialisations = string.Join(",", serviceProvider.Specialisation);
             string record = $"{serviceProvider.FirstName}|{serviceProvider.Email}|{serviceProvider.Password}|{serviceProvider.PhoneNumber}|{serviceProvider.Location}|{specialisations}";
             File.AppendAllText(serviceProviderFile, record + Environment.NewLine);
+        }
+
+        public static List<ServiceProvider> LoadRegisteredServiceProviders()
+        {
+            string serviceProviderFile = AppSettings.GetBaseDirectoryFilePath(AppSettings.ServiceProviderFileName);
+            if (!File.Exists(serviceProviderFile))
+            {
+                return new List<ServiceProvider>();
+            }
+
+            List<ServiceProvider> providers = new List<ServiceProvider>();
+            foreach (string line in File.ReadAllLines(serviceProviderFile))
+            {
+                string[] fields = line.Split('|');
+                if (fields.Length < 6)
+                {
+                    continue;
+                }
+
+                List<string> specialisations = fields[5]
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    .Where(specialisation => !specialisation.StartsWith(
+                        "System.Collections.Generic.List",
+                        StringComparison.Ordinal))
+                    .ToList();
+
+                providers.Add(new ServiceProvider(
+                    fields[0].Trim(),
+                    "",
+                    fields[1].Trim(),
+                    fields[2].Trim(),
+                    fields[3].Trim(),
+                    fields[4].Trim(),
+                    specialisations));
+            }
+
+            return providers
+                .GroupBy(provider => provider.Email, StringComparer.OrdinalIgnoreCase)
+                .Select(group => group.First())
+                .ToList();
         }
     }
 }
