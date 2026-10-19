@@ -77,7 +77,7 @@ namespace Home_Hero
 
             Panel hero = new()
             {
-                BackColor = Color.FromArgb(2, 2, 89),
+                BackColor = HomeHeroTheme.Navy,
                 BackgroundImage = Properties.Resources.BackG_image,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 Dock = DockStyle.Fill,
@@ -85,14 +85,14 @@ namespace Home_Hero
             };
             hero.Paint += (_, e) =>
             {
-                using SolidBrush overlay = new(Color.FromArgb(162, 2, 2, 89));
+                using SolidBrush overlay = new(Color.FromArgb(190, HomeHeroTheme.Navy));
                 e.Graphics.FillRectangle(overlay, hero.ClientRectangle);
             };
             hero.Controls.Add(new Label
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(255, 174, 82),
+                ForeColor = HomeHeroTheme.Orange,
                 Location = new Point(32, 24),
                 Text = "HOMEHERO  /  SERVICE BOOKING"
             });
@@ -115,7 +115,7 @@ namespace Home_Hero
             Button back = new()
             {
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                BackColor = Color.FromArgb(255, 138, 0),
+                BackColor = HomeHeroTheme.Orange,
                 FlatStyle = FlatStyle.Flat,
                 ForeColor = Color.White,
                 Size = new Size(150, 38),
@@ -136,8 +136,7 @@ namespace Home_Hero
             TableLayoutPanel cards = new()
             {
                 ColumnCount = 2,
-                Dock = DockStyle.Top,
-                Height = 564,
+                Dock = DockStyle.Fill,
                 RowCount = 2
             };
             cards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -163,7 +162,7 @@ namespace Home_Hero
             btnSubmitRequest.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblEstimatedCost.AutoSize = true;
             lblEstimatedCost.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblEstimatedCost.ForeColor = Color.FromArgb(2, 2, 89);
+            lblEstimatedCost.ForeColor = HomeHeroTheme.Navy;
             lblEstimatedCost.Margin = new Padding(0, 8, 20, 0);
             footer.Controls.Add(btnSubmitRequest);
             footer.Controls.Add(lblEstimatedCost);
@@ -281,7 +280,7 @@ namespace Home_Hero
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 13F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(2, 2, 89),
+                ForeColor = HomeHeroTheme.Navy,
                 Text = title,
                 TextAlign = ContentAlignment.MiddleLeft
             }, 0, 0);

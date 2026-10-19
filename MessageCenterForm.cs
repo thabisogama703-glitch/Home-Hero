@@ -37,91 +37,110 @@ namespace Home_Hero
         {
             Text = "HomeHero Messages";
             StartPosition = FormStartPosition.CenterParent;
-            MinimumSize = new Size(1100, 600);
+            MinimumSize = new Size(0, 0);
             Size = new Size(1100, 720);
-            BackColor = Color.FromArgb(245, 247, 251);
+            BackColor = HomeHeroTheme.Canvas;
 
             Panel header = new()
             {
-                BackColor = Color.FromArgb(0, 0, 64),
-                Dock = DockStyle.Top,
-                Height = 76
+                BackColor = HomeHeroTheme.Navy,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(24, 0, 24, 0)
             };
             header.Controls.Add(new Label
             {
                 Text = isProvider ? "Customer messages" : "Message your service provider",
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 18F, FontStyle.Bold),
-                AutoSize = true,
-                Location = new Point(24, 20)
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft
             });
 
-            Panel selectors = new()
+            TableLayoutPanel root = new()
             {
-                Dock = DockStyle.Top,
-                Height = 78,
-                Padding = new Padding(20, 12, 20, 8),
-                BackColor = Color.White
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 4
             };
-            selectors.Controls.Add(new Label
+            root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));
+            root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 86F));
+            TableLayoutPanel selectorLayout = new()
             {
-                Text = isProvider ? "Conversation" : "Request",
-                AutoSize = true,
-                Location = new Point(20, 8)
-            });
+                BackColor = Color.White,
+                ColumnCount = 3,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(20, 8, 20, 8),
+                RowCount = 1
+            };
+            selectorLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
+            selectorLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45F));
+            selectorLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+            selectorLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            Control requestField = CreateSelectorField(isProvider ? "Conversation" : "Service request", cmbRequest);
+            Control providerField = CreateSelectorField("Service provider", cmbProvider);
+            providerField.Visible = !isProvider;
+            if (isProvider)
+            {
+                selectorLayout.SetColumnSpan(requestField, 2);
+            }
+            selectorLayout.Controls.Add(requestField, 0, 0);
+            selectorLayout.Controls.Add(providerField, 1, 0);
+            selectorLayout.Controls.Add(btnRefresh, 2, 0);
+
             cmbRequest.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRequest.Location = new Point(20, 32);
-            cmbRequest.Size = new Size(400, 30);
+            cmbRequest.Dock = DockStyle.Fill;
+            cmbRequest.Font = new Font("Segoe UI", 10F);
             cmbRequest.SelectedIndexChanged += (_, _) => RefreshConversation();
-            selectors.Controls.Add(cmbRequest);
-
-            lblProvider.Text = "Service provider";
-            lblProvider.AutoSize = true;
-            lblProvider.Location = new Point(450, 8);
-            selectors.Controls.Add(lblProvider);
-
             cmbProvider.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbProvider.Location = new Point(450, 32);
-            cmbProvider.Size = new Size(400, 30);
+            cmbProvider.Dock = DockStyle.Fill;
+            cmbProvider.Font = new Font("Segoe UI", 10F);
             cmbProvider.SelectedIndexChanged += (_, _) => RefreshConversation();
-            selectors.Controls.Add(cmbProvider);
+            lblProvider.Visible = true;
 
             txtConversation.ReadOnly = true;
             txtConversation.BackColor = Color.White;
-            txtConversation.BorderStyle = BorderStyle.FixedSingle;
+            txtConversation.BorderStyle = BorderStyle.None;
             txtConversation.Font = new Font("Segoe UI", 10F);
-            txtConversation.Location = new Point(20, 174);
-            txtConversation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtConversation.Size = new Size(1040, 425);
+            txtConversation.Dock = DockStyle.Fill;
+            Panel conversationCard = new()
+            {
+                BackColor = Color.White,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(20, 14, 20, 14),
+                Padding = new Padding(18)
+            };
+            conversationCard.Controls.Add(txtConversation);
 
             lblEmpty.Text = "Choose a request and provider to start a conversation.";
-            lblEmpty.ForeColor = Color.DimGray;
-            lblEmpty.AutoSize = true;
-            lblEmpty.Location = new Point(32, 186);
+            lblEmpty.ForeColor = HomeHeroTheme.Muted;
+            lblEmpty.Font = new Font("Segoe UI", 10F);
+            lblEmpty.AutoSize = false;
+            lblEmpty.Dock = DockStyle.Fill;
+            lblEmpty.TextAlign = ContentAlignment.MiddleCenter;
             lblEmpty.Visible = false;
+            conversationCard.Controls.Add(lblEmpty);
+            lblEmpty.BringToFront();
 
             txtMessage.Multiline = true;
-            txtMessage.Location = new Point(20, 620);
-            txtMessage.Size = new Size(850, 62);
-            txtMessage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtMessage.Dock = DockStyle.Fill;
+            txtMessage.Margin = new Padding(0, 0, 12, 0);
             txtMessage.StateCommon.Border.Rounding = 8;
 
             btnSend.Text = "Send message";
-            btnSend.Location = new Point(885, 620);
-            btnSend.Size = new Size(175, 62);
-            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSend.StateCommon.Back.Color1 = Color.FromArgb(255, 128, 0);
-            btnSend.StateCommon.Back.Color2 = Color.FromArgb(255, 128, 0);
+            btnSend.Dock = DockStyle.Fill;
+            btnSend.StateCommon.Back.Color1 = HomeHeroTheme.Orange;
+            btnSend.StateCommon.Back.Color2 = HomeHeroTheme.Orange;
             btnSend.StateCommon.Content.ShortText.Color1 = Color.White;
             btnSend.StateCommon.Border.Rounding = 8;
             btnSend.Click += BtnSend_Click;
-
             btnRefresh.Text = "Refresh";
-            btnRefresh.Location = new Point(880, 32);
-            btnRefresh.Size = new Size(160, 30);
-            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRefresh.StateCommon.Back.Color1 = Color.FromArgb(0, 0, 64);
-            btnRefresh.StateCommon.Back.Color2 = Color.FromArgb(0, 0, 64);
+            btnRefresh.Dock = DockStyle.Fill;
+            btnRefresh.Margin = new Padding(8, 16, 0, 0);
+            btnRefresh.StateCommon.Back.Color1 = HomeHeroTheme.Navy;
+            btnRefresh.StateCommon.Back.Color2 = HomeHeroTheme.Navy;
             btnRefresh.StateCommon.Content.ShortText.Color1 = Color.White;
             btnRefresh.StateCommon.Border.Rounding = 6;
             btnRefresh.Click += (_, _) =>
@@ -130,30 +149,50 @@ namespace Home_Hero
                 LoadConversationOptions();
             };
 
-            Controls.Add(header);
-            Controls.Add(selectors);
-            Controls.Add(txtConversation);
-            Controls.Add(lblEmpty);
-            Controls.Add(txtMessage);
-            Controls.Add(btnSend);
-            selectors.Controls.Add(btnRefresh);
-            Resize += (_, _) => LayoutMessageControls();
-            LayoutMessageControls();
+            TableLayoutPanel composer = new()
+            {
+                BackColor = HomeHeroTheme.Canvas,
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(20, 8, 20, 12),
+                RowCount = 1
+            };
+            composer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            composer.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 180F));
+            composer.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            composer.Controls.Add(txtMessage, 0, 0);
+            composer.Controls.Add(btnSend, 1, 0);
+
+            root.Controls.Add(header, 0, 0);
+            root.Controls.Add(selectorLayout, 0, 1);
+            root.Controls.Add(conversationCard, 0, 2);
+            root.Controls.Add(composer, 0, 3);
+            Controls.Add(root);
         }
 
-        private void LayoutMessageControls()
+        private static Control CreateSelectorField(string title, Control selector)
         {
-            int width = Math.Max(500, ClientSize.Width);
-            int height = Math.Max(360, ClientSize.Height);
-            int composerTop = height - 82;
-            txtConversation.Size = new Size(width - 40, Math.Max(100, composerTop - txtConversation.Top - 14));
-            lblEmpty.Location = new Point(32, txtConversation.Top + 12);
-            txtMessage.Location = new Point(20, composerTop);
-            txtMessage.Size = new Size(Math.Max(100, width - 250), 62);
-            btnSend.Location = new Point(width - 195, composerTop);
-            cmbRequest.Width = Math.Max(260, width - 700);
-            cmbProvider.Width = Math.Max(260, width - 700);
-            btnRefresh.Location = new Point(width - 220, 32);
+            TableLayoutPanel field = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0, 0, 12, 0),
+                RowCount = 2
+            };
+            field.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            field.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            field.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            field.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = HomeHeroTheme.Navy,
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            selector.Margin = new Padding(0, 2, 0, 0);
+            field.Controls.Add(selector, 0, 1);
+            return field;
         }
 
         private void LoadConversationOptions()

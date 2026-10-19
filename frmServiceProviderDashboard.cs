@@ -39,7 +39,7 @@ namespace Home_Hero
         {
             Controls.Clear();
             Text = "HomeHero Provider Workspace";
-            BackColor = Color.FromArgb(246, 248, 251);
+            BackColor = HomeHeroTheme.Canvas;
             MinimumSize = new Size(1000, 700);
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
@@ -74,8 +74,8 @@ namespace Home_Hero
             approveRequestButton.Enabled = false;
             approveRequestButton.Click += ApproveRequest_Click;
             refreshButton.Size = new Size(156, 38);
-            refreshButton.StateCommon.Back.Color1 = Color.FromArgb(0, 0, 64);
-            refreshButton.StateCommon.Back.Color2 = Color.FromArgb(0, 0, 64);
+            refreshButton.StateCommon.Back.Color1 = HomeHeroTheme.Navy;
+            refreshButton.StateCommon.Back.Color2 = HomeHeroTheme.Navy;
             refreshButton.Click += (_, _) => LoadRequests();
             AddTableActions(requestsContent, approveRequestButton, refreshButton);
             availableRequestsGrid.SelectionChanged += (_, _) =>
@@ -206,28 +206,88 @@ namespace Home_Hero
         {
             TableLayoutPanel overview = new()
             {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(246, 248, 251),
-                ColumnCount = 3,
-                RowCount = 2,
+                ColumnCount = 2,
+                RowCount = 4,
                 Padding = new Padding(0)
             };
-            for (int column = 0; column < 3; column++)
+            for (int column = 0; column < 2; column++)
             {
-                overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.333F));
+                overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             }
-            for (int row = 0; row < 2; row++)
+            for (int row = 0; row < 4; row++)
             {
-                overview.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+                overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 190F));
             }
 
             overview.Controls.Add(CreateSchedulePanel(), 0, 0);
-            overview.Controls.Add(CreateUpcomingJobsPanel(), 1, 0);
-            overview.Controls.Add(CreateRevenuePanel(), 2, 0);
-            overview.Controls.Add(CreateRatingPanel(), 0, 1);
-            overview.Controls.Add(CreateRecentMessagesPanel(), 1, 1);
-            overview.Controls.Add(CreatePipelinePanel(), 2, 1);
+            overview.Controls.Add(CreateIncomingRequestsPanel(), 1, 0);
+            overview.Controls.Add(CreateCurrentJobsPanel(), 0, 1);
+            overview.Controls.Add(CreateUpcomingJobsPanel(), 1, 1);
+            overview.Controls.Add(CreateRevenuePanel(), 0, 2);
+            overview.Controls.Add(CreateRatingPanel(), 1, 2);
+            overview.Controls.Add(CreateRecentMessagesPanel(), 0, 3);
+            overview.Controls.Add(CreatePipelinePanel(), 1, 3);
             return overview;
+        }
+
+        private Control CreateIncomingRequestsPanel()
+        {
+            HomeHeroCard card = CreateProviderCard("Incoming requests");
+            FlowLayoutPanel list = CreateCardList();
+            List<MaintenanceRequest> incoming = DataManager.LoadRequests()
+                .Where(request => (request.Status == RequestStatus.Requested ||
+                                   request.Status == RequestStatus.Approved) &&
+                                  IsUnassigned(request))
+                .OrderBy(request => request.PreferredDate)
+                .Take(3)
+                .ToList();
+            if (incoming.Count == 0)
+            {
+                list.Controls.Add(CreateEmptyState("No unassigned customer requests."));
+            }
+            else
+            {
+                foreach (MaintenanceRequest request in incoming)
+                {
+                    list.Controls.Add(CreateProviderDetail(
+                        $"{request.ServiceCategory}  ·  {request.PreferredDate:d}",
+                        $"{request.CustomerId}  ·  R{request.EstimatedCost:N0} estimate"));
+                }
+            }
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
+        }
+
+        private Control CreateCurrentJobsPanel()
+        {
+            HomeHeroCard card = CreateProviderCard("Current jobs");
+            FlowLayoutPanel list = CreateCardList();
+            List<MaintenanceRequest> jobs = DataManager.LoadRequests()
+                .Where(IsAssignedToCurrentProvider)
+                .Where(request => request.Status != RequestStatus.Completed &&
+                                  request.Status != RequestStatus.Cancelled)
+                .OrderBy(request => request.PreferredDate)
+                .Take(3)
+                .ToList();
+            if (jobs.Count == 0)
+            {
+                list.Controls.Add(CreateEmptyState("Accepted jobs will appear here."));
+            }
+            else
+            {
+                foreach (MaintenanceRequest job in jobs)
+                {
+                    list.Controls.Add(CreateProviderDetail(
+                        $"{job.ServiceCategory}  ·  {job.Status}",
+                        $"{job.PreferredDate:d}  ·  {job.CustomerId}"));
+                }
+            }
+            ((TableLayoutPanel)card.Tag!).Controls.Add(list, 0, 1);
+            return card;
         }
 
         private Control CreatePipelinePanel()
@@ -279,7 +339,7 @@ namespace Home_Hero
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(255, 138, 0),
+                ForeColor = HomeHeroTheme.Orange,
                 Text = count.ToString(),
                 TextAlign = ContentAlignment.MiddleCenter
             }, 1, 0);
@@ -327,6 +387,13 @@ namespace Home_Hero
                     });
                 }
             }
+            schedule.SizeChanged += (_, _) =>
+            {
+                foreach (Control item in schedule.Controls)
+                {
+                    item.Width = Math.Max(0, schedule.ClientSize.Width - schedule.Padding.Horizontal);
+                }
+            };
             ((TableLayoutPanel)card.Tag!).Controls.Add(schedule, 0, 1);
             return card;
         }
@@ -420,13 +487,21 @@ namespace Home_Hero
 
         private static FlowLayoutPanel CreateCardList()
         {
-            return new FlowLayoutPanel
+            FlowLayoutPanel list = new()
             {
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.TopDown,
                 Padding = new Padding(14, 8, 14, 6),
                 WrapContents = false
             };
+            list.SizeChanged += (_, _) =>
+            {
+                foreach (Control item in list.Controls)
+                {
+                    item.Width = Math.Max(0, list.ClientSize.Width - list.Padding.Horizontal);
+                }
+            };
+            return list;
         }
 
         private static Control CreateProviderDetail(string heading, string detail)
@@ -436,7 +511,8 @@ namespace Home_Hero
                 ColumnCount = 1,
                 Margin = new Padding(0, 0, 0, 6),
                 RowCount = 2,
-                Size = new Size(250, 54)
+                Dock = DockStyle.Top,
+                Height = 54
             };
             item.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             item.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
@@ -446,7 +522,7 @@ namespace Home_Hero
                 AutoEllipsis = true,
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(2, 2, 89),
+                ForeColor = HomeHeroTheme.Navy,
                 Text = heading,
                 TextAlign = ContentAlignment.MiddleLeft
             }, 0, 0);
@@ -481,7 +557,7 @@ namespace Home_Hero
             HomeHeroCard card = new()
             {
                 Dock = DockStyle.Fill,
-                Margin = new Padding(8),
+                Margin = new Padding(10),
                 Padding = new Padding(20)
             };
             TableLayoutPanel layout = new()
@@ -497,7 +573,7 @@ namespace Home_Hero
             {
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 14F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(2, 2, 89),
+                ForeColor = HomeHeroTheme.Navy,
                 Text = title,
                 TextAlign = ContentAlignment.MiddleLeft
             }, 0, 0);
@@ -533,7 +609,7 @@ namespace Home_Hero
             return new Label
             {
                 Text = "0",
-                ForeColor = Color.FromArgb(255, 128, 0),
+                ForeColor = HomeHeroTheme.Orange,
                 Font = new Font("Segoe UI", 23F, FontStyle.Bold),
                 AutoSize = true
             };
@@ -545,8 +621,8 @@ namespace Home_Hero
             {
                 Text = text
             };
-            button.StateCommon.Back.Color1 = Color.FromArgb(255, 128, 0);
-            button.StateCommon.Back.Color2 = Color.FromArgb(255, 128, 0);
+            button.StateCommon.Back.Color1 = HomeHeroTheme.Orange;
+            button.StateCommon.Back.Color2 = HomeHeroTheme.Orange;
             button.StateCommon.Content.ShortText.Color1 = Color.White;
             button.StateCommon.Border.Rounding = 8;
             return button;
@@ -569,7 +645,7 @@ namespace Home_Hero
                 ColumnHeadersHeight = 42,
                 ColumnHeadersDefaultCellStyle =
                 {
-                    BackColor = Color.FromArgb(2, 2, 89),
+                    BackColor = HomeHeroTheme.Navy,
                     ForeColor = Color.White,
                     Font = new Font("Segoe UI", 9F, FontStyle.Bold)
                 },

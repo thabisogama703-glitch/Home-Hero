@@ -15,7 +15,6 @@ namespace HomeHero
         private readonly ProgressBar completionProgress = new();
         private readonly DataGridView requestsGrid = CreateRequestsGrid();
         private readonly ComboBox statusFilter = new();
-        private readonly Label emptyRequestsLabel = new();
         private List<MaintenanceRequest> customerRequests = new();
         private HomeHeroDashboardLayout? dashboardLayout;
         private string activeSection = "Overview";
@@ -40,10 +39,11 @@ namespace HomeHero
         {
             Controls.Clear();
             Text = "HomeHero | Customer dashboard";
-            BackColor = Color.FromArgb(246, 248, 252);
+            BackColor = HomeHeroTheme.Canvas;
             MinimumSize = new Size(1000, 700);
             WindowState = FormWindowState.Maximized;
             dashboardLayout = new HomeHeroDashboardLayout();
+            dashboardLayout.SetHeaderHeights(89, 77);
             dashboardLayout.SetIdentity("CUSTOMER DASHBOARD");
             dashboardLayout.SetHero(
                 "Your Home, Expertly Managed",
@@ -68,7 +68,7 @@ namespace HomeHero
         {
             Panel banner = new()
             {
-                BackColor = Color.FromArgb(0, 0, 64),
+                BackColor = HomeHeroTheme.Navy,
                 BackgroundImage = Home_Hero.Properties.Resources.Home_Hero_background_image,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 Dock = DockStyle.Fill,
@@ -96,7 +96,7 @@ namespace HomeHero
                 ForeColor = Color.White,
                 Location = new Point(30, 82)
             });
-            KryptonButton requestButton = CreateActionButton("Request a service", Color.FromArgb(255, 128, 0));
+            KryptonButton requestButton = CreateActionButton("Request a service", HomeHeroTheme.Orange);
             requestButton.Size = new Size(190, 42);
             requestButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             requestButton.Location = new Point(0, 82);
@@ -133,7 +133,7 @@ namespace HomeHero
             HomeHeroCard panel = new() { Padding = new Padding(20) };
             progressSummary.AutoSize = true;
             progressSummary.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            progressSummary.ForeColor = Color.FromArgb(0, 0, 64);
+            progressSummary.ForeColor = HomeHeroTheme.Navy;
             progressSummary.Dock = DockStyle.Top;
             completionProgress.Dock = DockStyle.Bottom;
             completionProgress.Height = 22;
@@ -152,7 +152,7 @@ namespace HomeHero
                 Text = "Your recent requests",
                 AutoSize = true,
                 Font = new Font("Segoe UI", 15F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 0, 64),
+                ForeColor = HomeHeroTheme.Navy,
                 Location = new Point(0, 10)
             });
             statusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -169,13 +169,12 @@ namespace HomeHero
 
         private Control CreateRequestListPanel()
         {
-            requestsTableCard = new HomeHeroDataGridCard("Your recent requests", requestsGrid);
+            requestsTableCard = new HomeHeroDataGridCard("Recent requests", requestsGrid)
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(10)
+            };
             requestsTableCard.AddToolbarControl(statusFilter);
-            emptyRequestsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            emptyRequestsLabel.ForeColor = Color.DimGray;
-            emptyRequestsLabel.AutoSize = true;
-            emptyRequestsLabel.Margin = new Padding(0, 0, 0, 8);
-            requestsTableCard.AddActionControl(emptyRequestsLabel);
             statusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             statusFilter.Items.Clear();
             statusFilter.Items.AddRange(new object[] { "All requests", "Active", "Completed", "Cancelled" });
@@ -226,7 +225,7 @@ namespace HomeHero
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 23F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(255, 128, 0),
+                ForeColor = HomeHeroTheme.Orange,
                 Text = "0"
             };
         }
@@ -238,7 +237,7 @@ namespace HomeHero
                 AutoSize = true,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 LinkBehavior = LinkBehavior.NeverUnderline,
-                LinkColor = Color.FromArgb(0, 0, 64),
+                LinkColor = HomeHeroTheme.Navy,
                 Margin = new Padding(0, 5, 28, 0),
                 Text = text
             };
@@ -272,7 +271,7 @@ namespace HomeHero
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 ColumnHeadersDefaultCellStyle =
                 {
-                    BackColor = Color.FromArgb(0, 0, 64),
+                    BackColor = HomeHeroTheme.Navy,
                     ForeColor = Color.White,
                     Font = new Font("Segoe UI", 9F, FontStyle.Bold)
                 },
@@ -363,24 +362,280 @@ namespace HomeHero
         {
             TableLayoutPanel overview = new()
             {
-                AutoScroll = true,
-                ColumnCount = 1,
+                ColumnCount = 2,
                 Dock = DockStyle.Fill,
-                RowCount = 4
+                RowCount = 2
             };
-            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 250F));
+            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58F));
+            overview.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            overview.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             string name = currentCustomerEmail.Contains('@')
                 ? currentCustomerEmail[..currentCustomerEmail.IndexOf('@')]
                 : currentCustomerEmail;
-            overview.Controls.Add(CreateSectionHeading($"Welcome back, {name}"), 0, 0);
-            overview.Controls.Add(CreateProgressPanel(), 0, 1);
-            overview.Controls.Add(CreateQuickActions(), 0, 2);
-            overview.Controls.Add(CreateRequestListPanel(), 0, 3);
+
+            Label welcome = (Label)CreateSectionHeading($"Welcome back, {name}");
+            welcome.Margin = new Padding(10, 0, 0, 0);
+            overview.Controls.Add(welcome, 0, 0);
+            Control quickActions = CreateQuickActions();
+            quickActions.Margin = new Padding(0);
+            overview.Controls.Add(quickActions, 1, 0);
+
+            TableLayoutPanel leftColumn = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0),
+                RowCount = 3
+            };
+            leftColumn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            leftColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 52F));
+            leftColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 24F));
+            leftColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 24F));
+            leftColumn.Controls.Add(CreateRequestListPanel(), 0, 0);
+            leftColumn.Controls.Add(CreateRequestGridCard(
+                "Service history",
+                customerRequests.Where(request =>
+                    request.Status == RequestStatus.Completed || request.Status == RequestStatus.Cancelled).ToList(),
+                "No completed or cancelled services yet."), 0, 1);
+            leftColumn.Controls.Add(CreateOverviewInfoCard(
+                "Activity feed",
+                GetActivityItems(),
+                "No request activity yet. Your service updates will appear here.",
+                "Create a request",
+                btnNewServiceRequest_Click_1), 0, 2);
+            overview.Controls.Add(leftColumn, 0, 1);
+
+            TableLayoutPanel rightColumn = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Margin = new Padding(0),
+                RowCount = 3
+            };
+            rightColumn.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            rightColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 34F));
+            rightColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 33F));
+            rightColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 33F));
+            rightColumn.Controls.Add(CreateOverviewInfoCard(
+                "Upcoming visits",
+                GetAppointmentItems(true),
+                "No upcoming visits. Schedule a service to see it here.",
+                "Book a service",
+                btnNewServiceRequest_Click_1), 0, 0);
+            rightColumn.Controls.Add(CreateRequestGridCard(
+                "Active services",
+                customerRequests.Where(request =>
+                    request.Status != RequestStatus.Completed && request.Status != RequestStatus.Cancelled).ToList(),
+                "No active services. New and in-progress requests will appear here."), 0, 1);
+            rightColumn.Controls.Add(CreateOverviewInfoCard(
+                "Recent messages",
+                GetRecentMessageItems(),
+                "Messages from service providers will appear here.",
+                "Open messages",
+                (_, _) => ShowCustomerSection("Messages")), 0, 2);
+            overview.Controls.Add(rightColumn, 1, 1);
             return overview;
+        }
+
+        private Control CreateRequestGridCard(
+            string title,
+            List<MaintenanceRequest> requests,
+            string emptyMessage)
+        {
+            DataGridView grid = CreateRequestsGrid();
+            grid.DataSource = requests.Select(request => new
+            {
+                Request = request.RequestNumber,
+                Service = request.ServiceCategory,
+                Date = request.PreferredDate.ToString("d"),
+                Status = request.Status.ToString(),
+                Cost = request.Status == RequestStatus.Completed
+                    ? $"R{(request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost):N2}"
+                    : $"R{request.EstimatedCost:N2}"
+            }).ToList();
+
+            HomeHeroDataGridCard card = new(title, grid)
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(10)
+            };
+            card.SetEmptyState(
+                emptyMessage,
+                title == "Service history" ? "Request a service" : "View requests",
+                title == "Service history"
+                    ? (_, _) => btnNewServiceRequest_Click_1(this, EventArgs.Empty)
+                    : (_, _) => ShowCustomerSection("Active Services"));
+            return card;
+        }
+
+        private static HomeHeroCard CreateOverviewInfoCard(
+            string title,
+            IEnumerable<(string Heading, string Detail)> entries,
+            string emptyMessage,
+            string actionText,
+            EventHandler action)
+        {
+            HomeHeroCard card = new() { Dock = DockStyle.Fill, Margin = new Padding(10) };
+            List<(string Heading, string Detail)> items = entries.Take(3).ToList();
+            TableLayoutPanel layout = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                ForeColor = HomeHeroTheme.Navy,
+                Text = title,
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+
+            if (items.Count == 0)
+            {
+                TableLayoutPanel empty = new()
+                {
+                    ColumnCount = 1,
+                    Dock = DockStyle.Fill,
+                    RowCount = 2
+                };
+                empty.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                empty.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+                empty.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+                empty.Controls.Add(new Label
+                {
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 9F),
+                    ForeColor = HomeHeroTheme.Muted,
+                    Text = emptyMessage,
+                    TextAlign = ContentAlignment.MiddleLeft
+                }, 0, 0);
+                Button button = new()
+                {
+                    BackColor = HomeHeroTheme.Navy,
+                    Dock = DockStyle.Left,
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
+                    ForeColor = Color.White,
+                    Text = actionText,
+                    Width = 165,
+                    UseVisualStyleBackColor = false
+                };
+                button.FlatAppearance.BorderSize = 0;
+                button.Click += action;
+                empty.Controls.Add(button, 0, 1);
+                layout.Controls.Add(empty, 0, 1);
+            }
+            else
+            {
+                FlowLayoutPanel list = new()
+                {
+                    Dock = DockStyle.Fill,
+                    FlowDirection = FlowDirection.TopDown,
+                    Padding = new Padding(2, 4, 2, 0),
+                    WrapContents = false
+                };
+                foreach ((string heading, string detail) in items)
+                {
+                    TableLayoutPanel item = new()
+                    {
+                        ColumnCount = 1,
+                        Height = 46,
+                        Margin = new Padding(0, 0, 0, 4),
+                        RowCount = 2
+                    };
+                    item.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                    item.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
+                    item.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+                    item.Controls.Add(new Label
+                    {
+                        AutoEllipsis = true,
+                        Dock = DockStyle.Fill,
+                        Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                        ForeColor = HomeHeroTheme.Text,
+                        Text = heading,
+                        TextAlign = ContentAlignment.MiddleLeft
+                    }, 0, 0);
+                    item.Controls.Add(new Label
+                    {
+                        AutoEllipsis = true,
+                        Dock = DockStyle.Fill,
+                        Font = new Font("Segoe UI", 8.5F),
+                        ForeColor = HomeHeroTheme.Muted,
+                        Text = detail,
+                        TextAlign = ContentAlignment.MiddleLeft
+                    }, 0, 1);
+                    list.Controls.Add(item);
+                    item.Width = Math.Max(0, list.ClientSize.Width - 8);
+                    list.SizeChanged += (_, _) => item.Width = Math.Max(0, list.ClientSize.Width - 8);
+                }
+                layout.Controls.Add(list, 0, 1);
+            }
+            card.Controls.Add(layout);
+            return card;
+        }
+
+        private IEnumerable<(string Heading, string Detail)> GetAppointmentItems(bool upcomingOnly)
+        {
+            IEnumerable<MaintenanceRequest> appointments = customerRequests
+                .Where(request => request.Status == RequestStatus.Scheduled)
+                .Where(request => upcomingOnly
+                    ? request.PreferredDate.Date > DateTime.Today
+                    : request.PreferredDate.Date == DateTime.Today)
+                .OrderBy(request => request.PreferredDate)
+                .ThenBy(request => request.PreferredTime);
+
+            return appointments.Select(request => (
+                $"{request.PreferredDate:ddd, d MMM}  ·  {request.PreferredTime}",
+                $"{request.ServiceCategory}  ·  {request.Status}"));
+        }
+
+        private IEnumerable<(string Heading, string Detail)> GetRecommendedServiceItems()
+        {
+            return HomeServiceCatalog.Services
+                .Where(service => new[] { "Electrical", "Plumbing", "Painting" }
+                    .Contains(service.Name, StringComparer.OrdinalIgnoreCase))
+                .Select(service => (service.Name, $"Home maintenance from R{service.StartingPrice:N0}"));
+        }
+
+        private IEnumerable<(string Heading, string Detail)> GetRecentMessageItems()
+        {
+            return MessageRepository.LoadMessages()
+                .Where(message => string.Equals(
+                    message.CustomerEmail,
+                    currentCustomerEmail,
+                    StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(message => message.SentAt)
+                .Take(3)
+                .Select(message => (
+                    $"{message.ProviderEmail}  ·  {message.SentAt:g}",
+                    message.Body.Length > 72 ? $"{message.Body[..69]}..." : message.Body));
+        }
+
+        private IEnumerable<(string Heading, string Detail)> GetHistoryItems()
+        {
+            return customerRequests
+                .Where(request => request.Status == RequestStatus.Completed)
+                .OrderByDescending(request => request.PreferredDate)
+                .Take(3)
+                .Select(request => (
+                    $"{request.ServiceCategory}  ·  {request.PreferredDate:d}",
+                    $"Completed · R{(request.FinalCost > 0 ? request.FinalCost : request.EstimatedCost):N2}"));
+        }
+
+        private IEnumerable<(string Heading, string Detail)> GetActivityItems()
+        {
+            return customerRequests
+                .OrderByDescending(request => request.PreferredDate)
+                .Take(3)
+                .Select(request => (
+                    $"{request.ServiceCategory} request {request.Status.ToString().ToLowerInvariant()}",
+                    $"{request.RequestNumber}  ·  {request.PreferredDate:d}"));
         }
 
         private Control CreateQuickActions()
@@ -392,10 +647,10 @@ namespace HomeHero
                 WrapContents = false,
                 Padding = new Padding(0, 8, 0, 4)
             };
-            actions.Controls.Add(CreateQuickActionButton("+ Request service", Color.FromArgb(255, 138, 0), btnNewServiceRequest_Click_1));
-            actions.Controls.Add(CreateQuickActionButton("Track request", Color.FromArgb(2, 2, 89), btnTrackRequest_Click_1));
-            actions.Controls.Add(CreateQuickActionButton("Contact provider", Color.FromArgb(2, 2, 89), (_, _) => ShowCustomerSection("Messages")));
-            actions.Controls.Add(CreateQuickActionButton("Service history", Color.FromArgb(2, 2, 89), (_, _) => ShowCustomerSection("Service History")));
+            actions.Controls.Add(CreateQuickActionButton("+ Request service", HomeHeroTheme.Orange, btnNewServiceRequest_Click_1));
+            actions.Controls.Add(CreateQuickActionButton("Track request", HomeHeroTheme.Navy, btnTrackRequest_Click_1));
+            actions.Controls.Add(CreateQuickActionButton("Contact provider", HomeHeroTheme.Navy, (_, _) => ShowCustomerSection("Messages")));
+            actions.Controls.Add(CreateQuickActionButton("Service history", HomeHeroTheme.Navy, (_, _) => ShowCustomerSection("Service History")));
             return actions;
         }
 
@@ -431,7 +686,7 @@ namespace HomeHero
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layout.Controls.Add(CreateSectionHeading("Choose a home service"), 0, 0);
-            Button startRequest = CreateQuickActionButton("Start service request", Color.FromArgb(255, 138, 0), btnNewServiceRequest_Click_1);
+            Button startRequest = CreateQuickActionButton("Start service request", HomeHeroTheme.Orange, btnNewServiceRequest_Click_1);
             layout.Controls.Add(startRequest, 0, 1);
             FlowLayoutPanel services = new()
             {
@@ -450,8 +705,25 @@ namespace HomeHero
                     "General Maintenance" => service with { Name = "Repairs" },
                     _ => service
                 };
-                services.Controls.Add(new HomeHeroServiceCard(featured, HomeHeroServiceCard.ImageFor(featured.Name)));
+                HomeHeroServiceCard card = new(featured)
+                {
+                    Margin = new Padding(10),
+                    Height = 210
+                };
+                services.Controls.Add(card);
             }
+            void ResizeCards()
+            {
+                int columns = services.ClientSize.Width >= 1000 ? 3 : services.ClientSize.Width >= 620 ? 2 : 1;
+                int available = services.ClientSize.Width - services.Padding.Horizontal - 20 * columns;
+                int width = Math.Max(230, available / columns);
+                foreach (Control card in services.Controls)
+                {
+                    card.Width = width;
+                }
+            }
+            services.SizeChanged += (_, _) => ResizeCards();
+            ResizeCards();
             layout.Controls.Add(services, 0, 2);
             return layout;
         }
@@ -470,7 +742,7 @@ namespace HomeHero
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layout.Controls.Add(CreateSectionHeading("Track a service request"), 0, 0);
-            layout.Controls.Add(CreateQuickActionButton("Open request tracking", Color.FromArgb(255, 138, 0), btnTrackRequest_Click_1), 0, 1);
+            layout.Controls.Add(CreateQuickActionButton("Open request tracking", HomeHeroTheme.Orange, btnTrackRequest_Click_1), 0, 1);
             layout.Controls.Add(CreateRequestsGridCard(customerRequests, "Select a request to review its status and provider."), 0, 2);
             page.Controls.Add(layout);
             return page;
@@ -509,19 +781,10 @@ namespace HomeHero
             {
                 Dock = DockStyle.Fill
             };
-            if (snapshot.Count == 0)
-            {
-                card.AddActionControl(new Label
-                {
-                    AutoEllipsis = true,
-                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(107, 114, 128),
-                    Height = 32,
-                    Text = emptyMessage,
-                    TextAlign = ContentAlignment.MiddleCenter
-                });
-            }
-
+            card.SetEmptyState(
+                emptyMessage,
+                "Request a service",
+                (_, _) => btnNewServiceRequest_Click_1(this, EventArgs.Empty));
             return card;
         }
 
@@ -551,7 +814,7 @@ namespace HomeHero
         {
             Dock = DockStyle.Fill,
             Font = new Font("Segoe UI", 16F, FontStyle.Bold),
-            ForeColor = Color.FromArgb(2, 2, 89),
+            ForeColor = HomeHeroTheme.Navy,
             Text = text,
             TextAlign = ContentAlignment.MiddleLeft
         };
@@ -632,12 +895,19 @@ namespace HomeHero
                     Provider = IsUnassigned(request) ? "Awaiting provider" : request.AssignedProviderId
                 })
                 .ToList();
+            requestsTableCard?.SetEmptyState(
+                customerRequests.Count == 0
+                    ? "No service requests yet. Create your first request to get started."
+                    : "No requests match the selected search or status filter.",
+                customerRequests.Count == 0 ? "New request" : "Clear filters",
+                customerRequests.Count == 0
+                    ? (_, _) => btnNewServiceRequest_Click_1(this, EventArgs.Empty)
+                    : (_, _) =>
+                    {
+                        statusFilter.SelectedIndex = 0;
+                        requestsTableCard?.SearchBox.Clear();
+                    });
             requestsTableCard?.ApplyCurrentSearch();
-            requestsGrid.Visible = visibleRequests.Count > 0;
-            emptyRequestsLabel.Visible = visibleRequests.Count == 0;
-            emptyRequestsLabel.Text = customerRequests.Count == 0
-                ? "No service requests yet. Start by booking your first home maintenance service."
-                : "No requests match this filter.";
         }
 
         private static bool IsUnassigned(MaintenanceRequest request)

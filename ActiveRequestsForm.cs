@@ -34,6 +34,72 @@ namespace HomeHero
             {
                 lblActiveRequests.Text = "No active requests yet";
             }
+            BuildWorkspaceLayout();
+        }
+
+        private void BuildWorkspaceLayout()
+        {
+            dgvActiveRequests.Parent?.Controls.Remove(dgvActiveRequests);
+            btnBack.Parent?.Controls.Remove(btnBack);
+            lblActiveRequests.Parent?.Controls.Remove(lblActiveRequests);
+            Controls.Clear();
+            BackColor = HomeHeroTheme.Canvas;
+            MinimumSize = new Size(900, 600);
+            WindowState = FormWindowState.Maximized;
+            Text = "HomeHero | Active requests";
+
+            Panel header = new()
+            {
+                BackColor = HomeHeroTheme.Navy,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(28, 0, 28, 0)
+            };
+            TableLayoutPanel headerLayout = new()
+            {
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                RowCount = 1
+            };
+            headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            headerLayout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 19F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Text = "Your active service requests",
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            HomeHeroTheme.StyleButton(btnBack, true);
+            btnBack.Dock = DockStyle.Fill;
+            btnBack.Text = "Back to dashboard";
+            btnBack.Margin = new Padding(8, 12, 0, 12);
+            headerLayout.Controls.Add(btnBack, 1, 0);
+            header.Controls.Add(headerLayout);
+
+            HomeHeroDataGridCard tableCard = new("Active requests", dgvActiveRequests)
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(22)
+            };
+            lblActiveRequests.Dock = DockStyle.Fill;
+            lblActiveRequests.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblActiveRequests.ForeColor = HomeHeroTheme.Muted;
+            tableCard.AddActionControl(lblActiveRequests);
+
+            TableLayoutPanel root = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            root.Controls.Add(header, 0, 0);
+            root.Controls.Add(tableCard, 0, 1);
+            Controls.Add(root);
         }
 
         private void StyleRequestGrid()

@@ -326,6 +326,14 @@ namespace Home_Hero
             dgvRequests.DataSource = null;
             List<MaintenanceRequest> visibleRequests = filtered.ToList();
             dgvRequests.DataSource = visibleRequests;
+            requestTableCard?.SetEmptyState(
+                allRequests.Count == 0
+                    ? "No service requests have been submitted yet."
+                    : "No requests match the selected search and filters.",
+                allRequests.Count == 0 ? "Refresh queue" : "Clear filters",
+                allRequests.Count == 0
+                    ? (_, _) => RefreshGrid()
+                    : (_, _) => ClearRequestFilters());
             requestTableCard?.ApplyCurrentSearch();
             dashboardLayout?.SetMetrics(new[]
             {
@@ -334,6 +342,21 @@ namespace Home_Hero
                 new DashboardMetric("Filtered results", visibleRequests.Count.ToString(), "Matching current filters"),
                 new DashboardMetric("Assigned providers", CustomerRepository.LoadRegisteredServiceProviders().Count.ToString(), "Available to assign")
             });
+        }
+
+        private void ClearRequestFilters()
+        {
+            if (cbxStatus.Items.Count > 0)
+            {
+                cbxStatus.SelectedIndex = 0;
+            }
+            if (cbxCategory.Items.Count > 0)
+            {
+                cbxCategory.SelectedIndex = 0;
+            }
+            requestTableCard?.SearchBox.Clear();
+            txtSearchRequests.Clear();
+            ApplyFilters();
         }
 
         private void btnApproveRequests_Click(object sender, EventArgs e)

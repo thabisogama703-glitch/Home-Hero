@@ -34,10 +34,126 @@ namespace Home_Hero
             dgvRequests.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRequests.MultiSelect = false;
 
+            BuildTrackingWorkspace();
             Load += RequestTrackingForm_Load;
             dgvRequests.SelectionChanged += dgvRequests_SelectionChanged;
         }
 
+        private void BuildTrackingWorkspace()
+        {
+            Control[] retained =
+            {
+                dgvRequests, lblRequestNum, lblCategory, lblStatus, lblAssignedProvider,
+                lblAppointment, lblEstimatedCost, lblFinalCost, btnRefresh, button1
+            };
+            foreach (Control control in retained)
+            {
+                control.Parent?.Controls.Remove(control);
+            }
+            Controls.Clear();
+            BackColor = HomeHeroTheme.Canvas;
+            MinimumSize = new Size(1000, 700);
+            WindowState = FormWindowState.Maximized;
+            Text = "HomeHero | Request tracking";
+
+            Panel header = new()
+            {
+                BackColor = HomeHeroTheme.Navy,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(28, 0, 28, 0)
+            };
+            TableLayoutPanel headerLayout = new()
+            {
+                ColumnCount = 2,
+                Dock = DockStyle.Fill,
+                RowCount = 1
+            };
+            headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            headerLayout.Controls.Add(new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 19F, FontStyle.Bold),
+                ForeColor = Color.White,
+                Text = "Track your service request",
+                TextAlign = ContentAlignment.MiddleLeft
+            }, 0, 0);
+            HomeHeroTheme.StyleButton(button1, true);
+            button1.Dock = DockStyle.Fill;
+            button1.Text = "Close";
+            button1.Margin = new Padding(8, 12, 0, 12);
+            headerLayout.Controls.Add(button1, 1, 0);
+            header.Controls.Add(headerLayout);
+
+            HomeHeroCard detailsCard = new()
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(22, 16, 22, 8),
+                Padding = new Padding(18)
+            };
+            TableLayoutPanel details = new()
+            {
+                ColumnCount = 3,
+                Dock = DockStyle.Fill,
+                RowCount = 3
+            };
+            for (int column = 0; column < 3; column++)
+            {
+                details.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.333F));
+            }
+            for (int row = 0; row < 3; row++)
+            {
+                details.RowStyles.Add(new RowStyle(SizeType.Percent, 33.333F));
+            }
+            Label[] detailLabels =
+            {
+                lblRequestNum, lblCategory, lblStatus, lblAssignedProvider,
+                lblAppointment, lblEstimatedCost, lblFinalCost
+            };
+            foreach (Label label in detailLabels)
+            {
+                label.Dock = DockStyle.Fill;
+                label.Margin = new Padding(6);
+                label.Padding = new Padding(12);
+                label.BackColor = HomeHeroTheme.Canvas;
+                label.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+                label.ForeColor = HomeHeroTheme.Navy;
+                label.AutoEllipsis = true;
+                label.TextAlign = ContentAlignment.MiddleLeft;
+            }
+            for (int index = 0; index < detailLabels.Length; index++)
+            {
+                details.Controls.Add(detailLabels[index], index % 3, index / 3);
+            }
+            detailsCard.Controls.Add(details);
+
+            HomeHeroDataGridCard requestsCard = new("All requests", dgvRequests)
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(22, 8, 22, 20)
+            };
+            HomeHeroTheme.StyleButton(btnRefresh, true);
+            btnRefresh.Text = "Refresh requests";
+            btnRefresh.Width = 180;
+            btnRefresh.Height = 38;
+            requestsCard.AddActionControl(btnRefresh);
+
+            TableLayoutPanel root = new()
+            {
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                RowCount = 3
+            };
+            root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 210F));
+            root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            root.Controls.Add(header, 0, 0);
+            root.Controls.Add(detailsCard, 0, 1);
+            root.Controls.Add(requestsCard, 0, 2);
+            Controls.Add(root);
+        }
 
 
         private void RequestTrackingForm_Load(object sender, EventArgs e)
