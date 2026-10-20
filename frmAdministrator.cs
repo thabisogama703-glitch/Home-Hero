@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class frmAdministrator : Form
+    public partial class frmAdministrator : FitForm
     {
         public frmAdministrator()
         {

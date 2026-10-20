@@ -163,6 +163,30 @@ namespace Home_Hero
             return false;
         }
 
+        /// <summary>
+        /// Administrator override: a cancelled request may be brought back and given a new status
+        /// (used when the admin reassigns a cancelled request to a provider).
+        /// </summary>
+        public bool TryReinstate(RequestStatus newStatus, out string errorMessage)
+        {
+            errorMessage = "";
+
+            if (Status != RequestStatus.Cancelled)
+            {
+                errorMessage = "Only a cancelled request can be reinstated.";
+                return false;
+            }
+
+            if (newStatus == RequestStatus.Cancelled || newStatus == RequestStatus.Completed)
+            {
+                errorMessage = "A reinstated request cannot go straight to " + newStatus + ".";
+                return false;
+            }
+
+            Status = newStatus;
+            return true;
+        }
+
         public bool ValidateRequest(out string errorMessage)
         {
             errorMessage = "";

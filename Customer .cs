@@ -15,7 +15,7 @@ namespace HomeHero_2
     {
         public List<MaintenanceRequest> Requests { get; private set; }
         public List<Review> Reviews { get; protected set; }
-        public Customer(string firstName, string lastName,string email,string phoneNumber, string password) : base(firstName,lastName,email,phoneNumber,password)
+        public Customer(string firstName, string lastName, string email, string phoneNumber, string password) : base(firstName, lastName, phoneNumber, email, password)
         {
             Requests = new List<MaintenanceRequest>();
             Reviews = new List<Review>();
@@ -55,13 +55,13 @@ namespace HomeHero_2
 
         public void WriteToFile(string Name,string emailAddress,string phoneNumber,string passWord)
         {
-            string customersFile = "customers.txt";
+            string customersFile = AppPaths.DataFile("customers.txt");
             File.AppendAllText(customersFile, $"{Name} | {emailAddress} | {phoneNumber} | {passWord}\n");
         }
 
         public string ReadFromFile(string emailAddress1,string passWord1)
         {
-            string customersFile = "customers.txt";
+            string customersFile = AppPaths.DataFile("customers.txt");
             if (File.Exists(customersFile))
             {
                 string[] fileContent = File.ReadAllLines(customersFile);
@@ -69,6 +69,7 @@ namespace HomeHero_2
                 foreach(string data in fileContent)
                 {
                     string[] eachPart = data.Split('|');
+                    if (eachPart.Length < 4) continue;
 
                     string emailAddress = eachPart[1];
                     string password = eachPart[3];

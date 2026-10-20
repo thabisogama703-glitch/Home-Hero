@@ -1,18 +1,21 @@
-using Home_Hero;
+﻿using Home_Hero;
 using HomeHero_2;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace HomeHero
 {
-    public partial class frmCustomerDashboard : Form
+    public partial class frmCustomerDashboard : FitForm
     {
         List<MaintenanceRequest> serviceRequests = new List<MaintenanceRequest>();
 
         public frmCustomerDashboard()
         {
             InitializeComponent();
+            ScrollWholeForm = false;   // this page scrolls its own body under a fixed header
+            BuildModernUi();
 
         }
 
@@ -36,7 +39,11 @@ namespace HomeHero
 
         private void BtnActiceRequests_Click(object sender, EventArgs e)
         {
-            List<MaintenanceRequest> requests = new List<MaintenanceRequest>();
+            // Only this customer's own requests
+            string customerId = CustomerSession.CustomerId;
+            List<MaintenanceRequest> requests = DataManager.LoadRequests()
+                .Where(r => r.CustomerId == customerId)
+                .ToList();
             frmActiveRequest activeRequest = new frmActiveRequest(requests);
             activeRequest.ShowDialog();
         }
@@ -49,7 +56,8 @@ namespace HomeHero
 
         private void frmCustomerDashboard_Load(object sender, EventArgs e)
         {
-
+            // greeting, live numbers, recent activity and the entrance animation
+            StartAnimations();
         }
 
         private void btnBackToHome_Click(object sender, EventArgs e)
@@ -57,9 +65,7 @@ namespace HomeHero
             DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logging Out", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                frmHomeHeroHomepage frmHomeHeroHomepage = new frmHomeHeroHomepage();
-                this.Hide();
-                frmHomeHeroHomepage.Show();
+                Home_Hero.AdminUi.SignOutAndGoHome(this);
             }
             else
             {

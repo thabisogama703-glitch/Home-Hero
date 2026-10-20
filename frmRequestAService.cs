@@ -1,4 +1,5 @@
 ﻿using HomeHero;
+using HomeHero_2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,14 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Home_Hero
 {
-    public partial class frmRequestAService : Form
+    public partial class frmRequestAService : FitForm
     {
         public frmRequestAService()
         {
             InitializeComponent();
+            ApplyModernStyle();
+            AcceptButton = btnSubmitRequest;
         }
 
         private void btnBackHome_Click(object sender, EventArgs e)
@@ -36,25 +40,28 @@ namespace Home_Hero
 
         private void frmRequestAService_Load(object sender, EventArgs e)
         {
-            string selectedService = cbxServices.Text;
-            string problemDescription = txtProblemDEscription.Text;
-            int remainingCharacters = 20;
-            int descriptionChars = problemDescription.Count();
-
-            if (descriptionChars! > 20)
-            {
-                remainingCharacters = remainingCharacters - descriptionChars;
-            }
-            else
-            {
-
-            }
-            lblMinimumCharacters.Text = $"{descriptionChars} chars ({remainingCharacters} more needed)";
+            UpdateDescriptionHelper();
         }
 
         private void pnlServiceRequest_Paint(object sender, PaintEventArgs e)
         {
-
+            // navy gradient header with a soft glow and an orange accent line
+            Rectangle all = pnlServiceRequest.ClientRectangle;
+            if (all.Width < 10 || all.Height < 10) return;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            using (var back = new System.Drawing.Drawing2D.LinearGradientBrush(all, Theme.NavyDeep, Theme.NavyLight, 0f))
+                g.FillRectangle(back, all);
+            using (var back = new System.Drawing.Drawing2D.LinearGradientBrush(all, Color.FromArgb(170, Theme.NavyDeep), Color.FromArgb(110, Theme.NavyLight), 0f))
+                g.FillRectangle(back, all);
+            using (var glow = new SolidBrush(Color.FromArgb(18, 255, 255, 255)))
+            {
+                g.FillEllipse(glow, all.Width - 420, -190, 520, 520);
+                g.FillEllipse(glow, all.Width - 220, 60, 300, 300);
+            }
+            Rectangle line = new Rectangle(0, all.Height - 5, all.Width, 5);
+            using (var accent = new System.Drawing.Drawing2D.LinearGradientBrush(line, Theme.Orange, Color.FromArgb(255, 176, 96), 0f))
+                g.FillRectangle(accent, line);
         }
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
@@ -131,8 +138,8 @@ namespace Home_Hero
             //Validating the last section (4. Your information)
 
             string firstName = txtFirstName.Text.Trim();
-            string lastName = txtLastName.Text.Trim().ToLower();
-            string emailAddress = txtEmailAddress.Text.Trim().ToLower();
+            string lastName = txtLastName.Text.Trim();
+            string emailAddress = txtEmailAddress.Text.Trim().ToLowerInvariant();
             string cellphoneNumber = txtPhoneNumber.Text.Trim();
 
             //First name validation
@@ -173,7 +180,7 @@ namespace Home_Hero
                 ValidationError.SetError(txtEmailAddress, "Kindly provide with your email address to proceed");
                 isValid = false;
             }
-            else if (!emailAddress.Contains("@"))
+            else if (!IsValidEmail(emailAddress))
             {
                 ValidationError.SetError(txtEmailAddress, "Email address is not valid");
                 isValid = false;
@@ -222,21 +229,96 @@ namespace Home_Hero
                 ValidationError.SetError(txtPropertyAddress, "");
             }
 
-            /*After all validations we then show the process was succesfully submitted*/
-            if (isValid == true)
+            if (!isValid) return;
+
+            string temporaryPassword = CreateTemporaryPassword();
+            Customer customer = new Customer(firstName, lastName, emailAddress, cellphoneNumber, temporaryPassword);
+            if (!AccountDirectory.TryRegisterCustomer(customer, out AccountKinds duplicateKinds, out string accountError))
             {
-                QuickRequest newQuickRequest = new QuickRequest(selectedService, isChecked, txtProblemDEscription.Text, dateTimePicker1, preferredTime, firstName, lastName, emailAddress, cellphoneNumber, physicalAddress);
-                MessageBox.Show($"Thank you for choosing HomeHero \n{firstName} The maintenance request has been succesfully submitted \nOnce confirmed one of our experienced service provider will keep in touch.","Service Succesfully Requested.",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                firstName.ToLower();
-                newQuickRequest.WriteToFile();
-                ClearAllFields();
-            }
-            else
-            {
+                if (duplicateKinds != AccountKinds.None)
+                {
+                    ValidationError.SetError(txtEmailAddress, "This email address is already registered");
+                    MessageBox.Show("This email address is already linked to a HomeHero account. Please log in to submit your request.",
+                        "Email already registered", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show(accountError, "Customer account could not be created", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return;
             }
 
+            MaintenanceRequest request = new MaintenanceRequest(
+                emailAddress,
+                selectedService,
+                txtProblemDEscription.Text.Trim(),
+                physicalAddress.Trim(),
+                dateTimePicker1.Value.Date,
+                preferredTime);
 
+            if (!DataManager.AddRequest(request))
+            {
+                bool rolledBack = AccountDirectory.TryRemoveCustomer(customer, out string rollbackError);
+                string message = rolledBack
+                    ? "Your request could not be saved, so no customer account was created. Please try again."
+                    : "Your request could not be saved. Your customer account may still be active; please contact HomeHero support and quote " + request.RequestNumber + ".\n\n" + rollbackError;
+                MessageBox.Show(message, "Request could not be saved", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!rolledBack)
+                {
+                    using (CredentialsDialog credentials = new CredentialsDialog(
+                        (firstName + " " + lastName).Trim(), emailAddress, temporaryPassword, false, "customer"))
+                        credentials.ShowDialog(this);
+                }
+                return;
+            }
+
+            try
+            {
+                QuickRequest newQuickRequest = new QuickRequest(selectedService, isChecked, txtProblemDEscription.Text,
+                    dateTimePicker1, preferredTime, firstName, lastName, emailAddress, cellphoneNumber, physicalAddress);
+                newQuickRequest.WriteToFile();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("The request is saved, but its legacy quick-request record could not be written.\n\n" + ex.Message,
+                    "Request saved with a warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show("The request is saved, but HomeHero does not have permission to write its legacy quick-request record.\n\n" + ex.Message,
+                    "Request saved with a warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            using (CredentialsDialog credentials = new CredentialsDialog(
+                (firstName + " " + lastName).Trim(), emailAddress, temporaryPassword, false, "customer"))
+            {
+                credentials.ShowDialog(this);
+            }
+            ClearAllFields();
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                System.Net.Mail.MailAddress address = new System.Net.Mail.MailAddress(email);
+                return string.Equals(address.Address, email, StringComparison.OrdinalIgnoreCase)
+                    && address.Address.Contains('@')
+                    && address.Address.Substring(address.Address.IndexOf('@')).Contains('.');
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        private static string CreateTemporaryPassword()
+        {
+            const string alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+            char[] password = new char[12];
+            for (int i = 0; i < password.Length; i++)
+                password[i] = alphabet[System.Security.Cryptography.RandomNumberGenerator.GetInt32(alphabet.Length)];
+            return "HH-" + new string(password);
         }
 
         public void ClearAllFields()

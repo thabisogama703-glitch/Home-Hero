@@ -33,8 +33,7 @@
             lblPassword = new Label();
             txtEmail = new TextBox();
             txtPassword = new TextBox();
-            lblLoginAs = new Label();
-            cmbLoginAs = new ComboBox();
+            lblRoleHint = new Label();
             btnLogin = new Button();
             ValidationError = new ErrorProvider(components);
             btnShowPassword = new Button();
@@ -54,6 +53,7 @@
             chkRemember = new CheckBox();
             label2 = new Label();
             button1 = new Button();
+            btnJoinProvider = new Button();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
             label3 = new Label();
@@ -73,7 +73,7 @@
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(25, 69);
+            lblEmail.Location = new Point(16, 39);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(105, 20);
             lblEmail.TabIndex = 0;
@@ -83,7 +83,7 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPassword.Location = new Point(25, 198);
+            lblPassword.Location = new Point(16, 161);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(80, 20);
             lblPassword.TabIndex = 1;
@@ -91,40 +91,32 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(25, 126);
+            txtEmail.Location = new Point(16, 80);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "✉️ johndoe123@gmail.com";
-            txtEmail.Size = new Size(577, 27);
+            txtEmail.Size = new Size(625, 27);
             txtEmail.TabIndex = 2;
+            txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // txtPassword
             // 
             txtPassword.Font = new Font("Segoe UI", 9F);
-            txtPassword.Location = new Point(25, 250);
+            txtPassword.Location = new Point(16, 207);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "🔒Enter your password";
-            txtPassword.Size = new Size(477, 27);
+            txtPassword.Size = new Size(525, 27);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
-            // lblLoginAs
+            // lblRoleHint
             // 
-            lblLoginAs.AutoSize = true;
-            lblLoginAs.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLoginAs.Location = new Point(25, 303);
-            lblLoginAs.Name = "lblLoginAs";
-            lblLoginAs.Size = new Size(71, 20);
-            lblLoginAs.TabIndex = 4;
-            lblLoginAs.Text = "Login as ";
-            // 
-            // cmbLoginAs
-            // 
-            cmbLoginAs.FormattingEnabled = true;
-            cmbLoginAs.Items.AddRange(new object[] { "Customer", "Service Provider" });
-            cmbLoginAs.Location = new Point(25, 338);
-            cmbLoginAs.Name = "cmbLoginAs";
-            cmbLoginAs.Size = new Size(252, 28);
-            cmbLoginAs.TabIndex = 5;
+            lblRoleHint.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRoleHint.ForeColor = Color.Gray;
+            lblRoleHint.Location = new Point(16, 122);
+            lblRoleHint.Name = "lblRoleHint";
+            lblRoleHint.Size = new Size(504, 38);
+            lblRoleHint.TabIndex = 4;
+            lblRoleHint.Text = "We'll take you to the right dashboard automatically.";
             // 
             // btnLogin
             // 
@@ -132,9 +124,9 @@
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(25, 429);
+            btnLogin.Location = new Point(16, 309);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(577, 37);
+            btnLogin.Size = new Size(625, 51);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
@@ -149,7 +141,7 @@
             btnShowPassword.BackColor = Color.Transparent;
             btnShowPassword.FlatAppearance.BorderSize = 0;
             btnShowPassword.FlatStyle = FlatStyle.Popup;
-            btnShowPassword.Location = new Point(508, 250);
+            btnShowPassword.Location = new Point(547, 205);
             btnShowPassword.Name = "btnShowPassword";
             btnShowPassword.Size = new Size(94, 29);
             btnShowPassword.TabIndex = 8;
@@ -166,7 +158,7 @@
             pnlNavigationTab.Location = new Point(0, 0);
             pnlNavigationTab.Name = "pnlNavigationTab";
             pnlNavigationTab.RightToLeft = RightToLeft.Yes;
-            pnlNavigationTab.Size = new Size(1705, 108);
+            pnlNavigationTab.Size = new Size(1682, 108);
             pnlNavigationTab.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -177,7 +169,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 622F));
             tableLayoutPanel1.Controls.Add(lblName, 1, 0);
             tableLayoutPanel1.Controls.Add(btnBack, 0, 0);
-            tableLayoutPanel1.Location = new Point(522, 0);
+            tableLayoutPanel1.Location = new Point(511, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -287,9 +279,9 @@
             panel2.Controls.Add(lblLoginSummary);
             panel2.Controls.Add(lblLog);
             panel2.Controls.Add(lblWelcome);
-            panel2.Location = new Point(110, 144);
+            panel2.Location = new Point(28, 139);
             panel2.Name = "panel2";
-            panel2.Size = new Size(669, 226);
+            panel2.Size = new Size(694, 149);
             panel2.TabIndex = 12;
             // 
             // lblLoginSummary
@@ -310,23 +302,23 @@
             pnlDetails.Controls.Add(chkRemember);
             pnlDetails.Controls.Add(label2);
             pnlDetails.Controls.Add(button1);
+            pnlDetails.Controls.Add(btnJoinProvider);
             pnlDetails.Controls.Add(txtEmail);
-            pnlDetails.Controls.Add(cmbLoginAs);
-            pnlDetails.Controls.Add(lblLoginAs);
+            pnlDetails.Controls.Add(lblRoleHint);
             pnlDetails.Controls.Add(lblEmail);
             pnlDetails.Controls.Add(lblPassword);
             pnlDetails.Controls.Add(btnShowPassword);
             pnlDetails.Controls.Add(btnLogin);
             pnlDetails.Controls.Add(txtPassword);
-            pnlDetails.Location = new Point(110, 290);
+            pnlDetails.Location = new Point(28, 285);
             pnlDetails.Name = "pnlDetails";
-            pnlDetails.Size = new Size(669, 574);
+            pnlDetails.Size = new Size(694, 510);
             pnlDetails.TabIndex = 14;
             // 
             // chkRemember
             // 
             chkRemember.AutoSize = true;
-            chkRemember.Location = new Point(25, 372);
+            chkRemember.Location = new Point(16, 254);
             chkRemember.Name = "chkRemember";
             chkRemember.Size = new Size(129, 24);
             chkRemember.TabIndex = 11;
@@ -337,7 +329,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(25, 507);
+            label2.Location = new Point(16, 378);
             label2.Name = "label2";
             label2.Size = new Size(163, 20);
             label2.TabIndex = 10;
@@ -350,13 +342,28 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.FromArgb(255, 128, 0);
-            button1.Location = new Point(220, 507);
+            button1.Location = new Point(16, 410);
             button1.Name = "button1";
-            button1.Size = new Size(130, 29);
+            button1.Size = new Size(317, 60);
             button1.TabIndex = 9;
-            button1.Text = "Create Account";
+            button1.Text = "🏠 Sign up as Customer";
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_1;
+            // 
+            // btnJoinProvider
+            // 
+            btnJoinProvider.BackColor = Color.WhiteSmoke;
+            btnJoinProvider.FlatAppearance.BorderSize = 0;
+            btnJoinProvider.FlatStyle = FlatStyle.Flat;
+            btnJoinProvider.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnJoinProvider.ForeColor = Color.FromArgb(0, 0, 64);
+            btnJoinProvider.Location = new Point(339, 410);
+            btnJoinProvider.Name = "btnJoinProvider";
+            btnJoinProvider.Size = new Size(302, 60);
+            btnJoinProvider.TabIndex = 12;
+            btnJoinProvider.Text = "🛠 Join as a Service Provider";
+            btnJoinProvider.UseVisualStyleBackColor = false;
+            btnJoinProvider.Click += btnJoinProvider_Click;
             // 
             // tableLayoutPanel2
             // 
@@ -372,11 +379,11 @@
             tableLayoutPanel2.Controls.Add(label3, 2, 0);
             tableLayoutPanel2.Controls.Add(lblEasyBook, 1, 0);
             tableLayoutPanel2.Controls.Add(label4, 3, 0);
-            tableLayoutPanel2.Location = new Point(0, 868);
+            tableLayoutPanel2.Location = new Point(0, 835);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(1705, 109);
+            tableLayoutPanel2.Size = new Size(1682, 98);
             tableLayoutPanel2.TabIndex = 15;
             // 
             // label1
@@ -385,7 +392,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(83, 26);
+            label1.Location = new Point(80, 21);
             label1.Name = "label1";
             label1.Size = new Size(260, 56);
             label1.TabIndex = 0;
@@ -397,7 +404,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(972, 26);
+            label3.Location = new Point(957, 21);
             label3.Name = "label3";
             label3.Size = new Size(185, 56);
             label3.TabIndex = 1;
@@ -409,7 +416,7 @@
             lblEasyBook.AutoSize = true;
             lblEasyBook.Font = new Font("Segoe UI", 12F);
             lblEasyBook.ForeColor = Color.White;
-            lblEasyBook.Location = new Point(521, 26);
+            lblEasyBook.Location = new Point(512, 21);
             lblEasyBook.Name = "lblEasyBook";
             lblEasyBook.Size = new Size(235, 56);
             lblEasyBook.TabIndex = 1;
@@ -421,7 +428,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(1296, 26);
+            label4.Location = new Point(1275, 21);
             label4.Name = "label4";
             label4.Size = new Size(391, 56);
             label4.TabIndex = 1;
@@ -434,7 +441,7 @@
             AutoSize = true;
             BackgroundImage = Home_Hero.Properties.Resources.BackG_image;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1705, 971);
+            ClientSize = new Size(1682, 935);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(pnlDetails);
             Controls.Add(panel2);
@@ -467,8 +474,7 @@
         private Label lblPassword;
         private TextBox txtEmail;
         private TextBox txtPassword;
-        private Label lblLoginAs;
-        private ComboBox cmbLoginAs;
+        private Label lblRoleHint;
         private Button btnLogin;
         private ErrorProvider ValidationError;
         private Button btnShowPassword;
@@ -485,6 +491,7 @@
         private Panel pnlDetails;
         private Label label2;
         private Button button1;
+        private Button btnJoinProvider;
         private CheckBox chkRemember;
         private TableLayoutPanel tableLayoutPanel1;
         private Label lblLoginSummary;

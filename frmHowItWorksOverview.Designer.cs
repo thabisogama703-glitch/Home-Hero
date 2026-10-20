@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHowItWorksOverview));
             pnlHomeHero = new Panel();
             tblpHomeHeroPanel = new TableLayoutPanel();
             flpNavigationTab = new FlowLayoutPanel();
@@ -314,7 +315,7 @@
             // 
             pnlHowHomeHeroWorks.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlHowHomeHeroWorks.BackColor = Color.MidnightBlue;
-            pnlHowHomeHeroWorks.BackgroundImage = Properties.Resources._715579828291516585;
+            pnlHowHomeHeroWorks.BackgroundImage = (Image)resources.GetObject("pnlHowHomeHeroWorks.BackgroundImage");
             pnlHowHomeHeroWorks.BackgroundImageLayout = ImageLayout.Stretch;
             pnlHowHomeHeroWorks.Controls.Add(tableLayoutPanel2);
             pnlHowHomeHeroWorks.Controls.Add(tableLayoutPanel1);
@@ -535,7 +536,7 @@
             tableLayoutPanel1.Controls.Add(panel4, 0, 1);
             tableLayoutPanel1.Controls.Add(panel3, 0, 2);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
-            tableLayoutPanel1.Location = new Point(63, 318);
+            tableLayoutPanel1.Location = new Point(62, 288);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
@@ -747,6 +748,7 @@
             lblOnePla.Size = new Size(632, 46);
             lblOnePla.TabIndex = 0;
             lblOnePla.Text = "One Platform, Two ways to get started";
+            lblOnePla.Click += lblOnePla_Click;
             // 
             // lblSimpleProcess
             // 

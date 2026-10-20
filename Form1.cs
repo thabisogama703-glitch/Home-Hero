@@ -1,13 +1,25 @@
 using HomeHero;
 using HomeHero_2;
+using System.Globalization;
+using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class frmHomeHeroHomepage : Form
+    public partial class frmHomeHeroHomepage : FitForm
     {
+        private readonly StatisticsService statisticsService = new StatisticsService();
+        private readonly System.Windows.Forms.Timer statisticsRefreshTimer = new System.Windows.Forms.Timer();
+
         public frmHomeHeroHomepage()
         {
             InitializeComponent();
+            statisticsRefreshTimer.Interval = 15000;
+            statisticsRefreshTimer.Tick += delegate
+            {
+                if (Visible) UpdateStatistics();
+            };
+            Activated += delegate { UpdateStatistics(); };
+            FormClosed += delegate { statisticsRefreshTimer.Dispose(); };
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -40,7 +52,19 @@ namespace Home_Hero
 
         private void frmHomeHeroHomepage_Load(object sender, EventArgs e)
         {
+            lblAverageRating.Text = "Active Service Categories";
+            lblAvgResponseTime.Text = "Total Customers Served";
+            UpdateStatistics();
+            statisticsRefreshTimer.Start();
+        }
 
+        private void UpdateStatistics()
+        {
+            HomePageStatistics statistics = statisticsService.GetHomePageStatistics();
+            lblJobsCompletedValue.Text = statistics.CompletedJobs.ToString("N0", CultureInfo.CurrentCulture);
+            lblVerifiedprosValue.Text = statistics.VerifiedProviders.ToString("N0", CultureInfo.CurrentCulture);
+            lblAvgRatingValue.Text = statistics.ActiveServiceCategories.ToString("N0", CultureInfo.CurrentCulture);
+            lblAverageResponseTimeValue.Text = statistics.TotalCustomersServed.ToString("N0", CultureInfo.CurrentCulture);
         }
 
         private void lnklblServices_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

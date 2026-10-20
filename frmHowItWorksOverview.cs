@@ -79,5 +79,10 @@ namespace Home_Hero
         {
 
         }
+
+        private void lblOnePla_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

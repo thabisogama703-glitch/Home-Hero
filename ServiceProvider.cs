@@ -11,6 +11,7 @@ namespace HomeHero_2
         public List<string> Specialisation { get; private set; }
         public List<Job> Assignedjobs { get; private set; }
         public string Location { get; private set; }
+        public bool IsVerified { get; set; }
 
 
         public ServiceProvider(string firstName, string lastName, string email, string password, string phoneNumber, string location, List<string> specialisation ) : base(firstName, lastName, phoneNumber,email, password)

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             pnlAddProvider = new Panel();
-            btnAddProvider = new Button();
-            btnCancel = new Button();
+            btnAddProvider = new ModernButton();
+            btnCancel = new ModernButton();
             chkSpecialization = new CheckedListBox();
             txtSeaviceArea = new TextBox();
             txtPhone = new TextBox();
@@ -46,7 +46,7 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
-            pnlNavigationAdminPanl = new Panel();
+            pnlNavigationAdminPanl = new GradientPanel();
             btnExitAdmin = new Button();
             lblHero = new Label();
             lblHome = new Label();
@@ -328,9 +328,9 @@
         private TextBox txtEmail;
         private TextBox txtLastName;
         private TextBox txtFirstName;
-        private Button btnAddProvider;
-        private Button btnCancel;
-        private Panel pnlNavigationAdminPanl;
+        private ModernButton btnAddProvider;
+        private ModernButton btnCancel;
+        private GradientPanel pnlNavigationAdminPanl;
         private Button btnExitAdmin;
         private Label lblHero;
         private Label lblHome;

@@ -322,9 +322,9 @@
             lbCustomer.ForeColor = Color.FromArgb(255, 128, 0);
             lbCustomer.Location = new Point(12, 9);
             lbCustomer.Name = "lbCustomer";
-            lbCustomer.Size = new Size(181, 23);
+            lbCustomer.Size = new Size(157, 23);
             lbCustomer.TabIndex = 11;
-            lbCustomer.Text = "👤Customer Account";
+            lbCustomer.Text = "Customer Account";
             // 
             // pnlDetails
             // 

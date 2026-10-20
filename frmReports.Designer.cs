@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReports));
-            pnlNavigationAdminPanl = new Panel();
+            pnlNavigationAdminPanl = new GradientPanel();
             lblAdminPortal = new Label();
-            btnExitAdmin = new Button();
+            btnExitAdmin = new ModernButton();
             pictureBox1 = new PictureBox();
             lblHero = new Label();
             lblHome = new Label();
@@ -868,7 +868,7 @@
 
         #endregion
 
-        private Panel pnlNavigationAdminPanl;
+        private GradientPanel pnlNavigationAdminPanl;
         private Label lblAdminPortal;
         private Button btnExitAdmin;
         private PictureBox pictureBox1;

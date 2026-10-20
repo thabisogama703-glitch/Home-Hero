@@ -35,7 +35,7 @@
             lnklblHome = new LinkLabel();
             lnklblServices = new LinkLabel();
             lnklblHowItWorks = new LinkLabel();
-            lnklblPricings = new LinkLabel();
+            lnklblProviders = new LinkLabel();
             pnlServicesButtons = new Panel();
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
@@ -129,7 +129,7 @@
             flpNavigationTab.Controls.Add(lnklblHome);
             flpNavigationTab.Controls.Add(lnklblServices);
             flpNavigationTab.Controls.Add(lnklblHowItWorks);
-            flpNavigationTab.Controls.Add(lnklblPricings);
+            flpNavigationTab.Controls.Add(lnklblProviders);
             flpNavigationTab.Location = new Point(407, 38);
             flpNavigationTab.Name = "flpNavigationTab";
             flpNavigationTab.Size = new Size(611, 31);
@@ -179,20 +179,20 @@
             lnklblHowItWorks.Text = "How it works";
             lnklblHowItWorks.LinkClicked += lnklblHowItWorks_LinkClicked;
             // 
-            // lnklblPricings
+            // lnklblProviders
             // 
-            lnklblPricings.AutoSize = true;
-            lnklblPricings.Font = new Font("Segoe UI", 13.8F);
-            lnklblPricings.LinkBehavior = LinkBehavior.NeverUnderline;
-            lnklblPricings.LinkColor = Color.LightGray;
-            lnklblPricings.Location = new Point(491, 0);
-            lnklblPricings.Margin = new Padding(25, 0, 25, 0);
-            lnklblPricings.Name = "lnklblPricings";
-            lnklblPricings.Size = new Size(95, 31);
-            lnklblPricings.TabIndex = 3;
-            lnklblPricings.TabStop = true;
-            lnklblPricings.Text = "Pricings";
-            lnklblPricings.LinkClicked += lnklblProviders_LinkClicked;
+            lnklblProviders.AutoSize = true;
+            lnklblProviders.Font = new Font("Segoe UI", 13.8F);
+            lnklblProviders.LinkBehavior = LinkBehavior.NeverUnderline;
+            lnklblProviders.LinkColor = Color.LightGray;
+            lnklblProviders.Location = new Point(491, 0);
+            lnklblProviders.Margin = new Padding(25, 0, 25, 0);
+            lnklblProviders.Name = "lnklblProviders";
+            lnklblProviders.Size = new Size(95, 31);
+            lnklblProviders.TabIndex = 3;
+            lnklblProviders.TabStop = true;
+            lnklblProviders.Text = "Pricings";
+            lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
             // 
             // pnlServicesButtons
             // 
@@ -448,8 +448,7 @@
             // 
             // tblpStatistics
             // 
-            tblpStatistics.Anchor = AnchorStyles.None;
-            tblpStatistics.BackColor = Color.Transparent;
+            tblpStatistics.BackColor = Color.FromArgb(0, 0, 64);
             tblpStatistics.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tblpStatistics.ColumnCount = 4;
             tblpStatistics.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 485F));
@@ -460,11 +459,13 @@
             tblpStatistics.Controls.Add(pnlVerifiedPros, 2, 0);
             tblpStatistics.Controls.Add(pnlAverageRating, 1, 0);
             tblpStatistics.Controls.Add(pnlMoreInfo, 0, 0);
-            tblpStatistics.Location = new Point(-19, 865);
+            tblpStatistics.Dock = DockStyle.Bottom;
+            tblpStatistics.ForeColor = Color.White;
+            tblpStatistics.Location = new Point(0, 878);
             tblpStatistics.Name = "tblpStatistics";
             tblpStatistics.RowCount = 1;
             tblpStatistics.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblpStatistics.Size = new Size(1903, 125);
+            tblpStatistics.Size = new Size(1886, 117);
             tblpStatistics.TabIndex = 8;
             // 
             // pnlAvgResponseTime
@@ -473,7 +474,7 @@
             pnlAvgResponseTime.Controls.Add(lblAverageResponseTimeValue);
             pnlAvgResponseTime.Location = new Point(1462, 4);
             pnlAvgResponseTime.Name = "pnlAvgResponseTime";
-            pnlAvgResponseTime.Size = new Size(479, 117);
+            pnlAvgResponseTime.Size = new Size(479, 87);
             pnlAvgResponseTime.TabIndex = 4;
             // 
             // lblAvgResponseTime
@@ -481,18 +482,18 @@
             lblAvgResponseTime.Anchor = AnchorStyles.None;
             lblAvgResponseTime.AutoSize = true;
             lblAvgResponseTime.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAvgResponseTime.Location = new Point(127, 80);
+            lblAvgResponseTime.Location = new Point(127, 65);
             lblAvgResponseTime.Name = "lblAvgResponseTime";
-            lblAvgResponseTime.Size = new Size(218, 28);
+            lblAvgResponseTime.Size = new Size(216, 28);
             lblAvgResponseTime.TabIndex = 1;
-            lblAvgResponseTime.Text = "Average Response Time";
+            lblAvgResponseTime.Text = "Total Customers Served";
             // 
             // lblAverageResponseTimeValue
             // 
             lblAverageResponseTimeValue.Anchor = AnchorStyles.None;
             lblAverageResponseTimeValue.AutoSize = true;
             lblAverageResponseTimeValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAverageResponseTimeValue.Location = new Point(157, 18);
+            lblAverageResponseTimeValue.Location = new Point(157, 3);
             lblAverageResponseTimeValue.Name = "lblAverageResponseTimeValue";
             lblAverageResponseTimeValue.Size = new Size(118, 62);
             lblAverageResponseTimeValue.TabIndex = 0;
@@ -504,7 +505,7 @@
             pnlVerifiedPros.Controls.Add(lblVerifiedprosValue);
             pnlVerifiedPros.Location = new Point(976, 4);
             pnlVerifiedPros.Name = "pnlVerifiedPros";
-            pnlVerifiedPros.Size = new Size(479, 117);
+            pnlVerifiedPros.Size = new Size(479, 87);
             pnlVerifiedPros.TabIndex = 9;
             // 
             // lblVerifiedPros2
@@ -512,7 +513,7 @@
             lblVerifiedPros2.Anchor = AnchorStyles.None;
             lblVerifiedPros2.AutoSize = true;
             lblVerifiedPros2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblVerifiedPros2.Location = new Point(164, 80);
+            lblVerifiedPros2.Location = new Point(164, 65);
             lblVerifiedPros2.Name = "lblVerifiedPros2";
             lblVerifiedPros2.Size = new Size(121, 28);
             lblVerifiedPros2.TabIndex = 1;
@@ -523,7 +524,7 @@
             lblVerifiedprosValue.Anchor = AnchorStyles.None;
             lblVerifiedprosValue.AutoSize = true;
             lblVerifiedprosValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblVerifiedprosValue.Location = new Point(151, 14);
+            lblVerifiedprosValue.Location = new Point(151, -1);
             lblVerifiedprosValue.Name = "lblVerifiedprosValue";
             lblVerifiedprosValue.Size = new Size(54, 62);
             lblVerifiedprosValue.TabIndex = 0;
@@ -535,7 +536,7 @@
             pnlAverageRating.Controls.Add(lblAvgRatingValue);
             pnlAverageRating.Location = new Point(490, 4);
             pnlAverageRating.Name = "pnlAverageRating";
-            pnlAverageRating.Size = new Size(479, 117);
+            pnlAverageRating.Size = new Size(479, 87);
             pnlAverageRating.TabIndex = 9;
             // 
             // lblAverageRating
@@ -543,18 +544,18 @@
             lblAverageRating.Anchor = AnchorStyles.None;
             lblAverageRating.AutoSize = true;
             lblAverageRating.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAverageRating.Location = new Point(164, 76);
+            lblAverageRating.Location = new Point(164, 61);
             lblAverageRating.Name = "lblAverageRating";
-            lblAverageRating.Size = new Size(146, 28);
+            lblAverageRating.Size = new Size(231, 28);
             lblAverageRating.TabIndex = 1;
-            lblAverageRating.Text = "Average Rating";
+            lblAverageRating.Text = "Active Service Categories";
             // 
             // lblAvgRatingValue
             // 
             lblAvgRatingValue.Anchor = AnchorStyles.None;
             lblAvgRatingValue.AutoSize = true;
             lblAvgRatingValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAvgRatingValue.Location = new Point(185, 14);
+            lblAvgRatingValue.Location = new Point(185, -1);
             lblAvgRatingValue.Name = "lblAvgRatingValue";
             lblAvgRatingValue.Size = new Size(94, 62);
             lblAvgRatingValue.TabIndex = 0;
@@ -566,7 +567,7 @@
             pnlMoreInfo.Controls.Add(lblJobsCompletedValue);
             pnlMoreInfo.Location = new Point(4, 4);
             pnlMoreInfo.Name = "pnlMoreInfo";
-            pnlMoreInfo.Size = new Size(479, 117);
+            pnlMoreInfo.Size = new Size(479, 87);
             pnlMoreInfo.TabIndex = 2;
             // 
             // lblJobsCompleted2
@@ -574,7 +575,7 @@
             lblJobsCompleted2.Anchor = AnchorStyles.None;
             lblJobsCompleted2.AutoSize = true;
             lblJobsCompleted2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblJobsCompleted2.Location = new Point(137, 80);
+            lblJobsCompleted2.Location = new Point(137, 65);
             lblJobsCompleted2.Name = "lblJobsCompleted2";
             lblJobsCompleted2.Size = new Size(153, 28);
             lblJobsCompleted2.TabIndex = 1;
@@ -585,7 +586,7 @@
             lblJobsCompletedValue.Anchor = AnchorStyles.None;
             lblJobsCompletedValue.AutoSize = true;
             lblJobsCompletedValue.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblJobsCompletedValue.Location = new Point(120, 18);
+            lblJobsCompletedValue.Location = new Point(120, 3);
             lblJobsCompletedValue.Name = "lblJobsCompletedValue";
             lblJobsCompletedValue.Size = new Size(54, 62);
             lblJobsCompletedValue.TabIndex = 0;
@@ -653,7 +654,7 @@
         private Panel pnlHomeHero;
         private LinkLabel lnklblServices;
         private LinkLabel lnklblHowItWorks;
-        private LinkLabel lnklblPricings;
+        private LinkLabel lnklblProviders;
         private LinkLabel lnklblHome;
         private Button btnLogin;
         private Button btnCreateAccount;

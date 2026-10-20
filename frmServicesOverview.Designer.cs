@@ -34,7 +34,7 @@
             lnklblHome = new LinkLabel();
             lnklblServices = new LinkLabel();
             lnklblHowItWorks = new LinkLabel();
-            lnklblPricings = new LinkLabel();
+            lnklblProviders = new LinkLabel();
             pnlServicesButtons = new Panel();
             btnRequestAService = new Button();
             btnCreateAccount = new Button();
@@ -103,7 +103,7 @@
             flpNavigationTab.Controls.Add(lnklblHome);
             flpNavigationTab.Controls.Add(lnklblServices);
             flpNavigationTab.Controls.Add(lnklblHowItWorks);
-            flpNavigationTab.Controls.Add(lnklblPricings);
+            flpNavigationTab.Controls.Add(lnklblProviders);
             flpNavigationTab.Location = new Point(407, 38);
             flpNavigationTab.Name = "flpNavigationTab";
             flpNavigationTab.Size = new Size(611, 31);
@@ -154,20 +154,20 @@
             lnklblHowItWorks.Text = "How it works";
             lnklblHowItWorks.LinkClicked += lnklblHowItWorks_LinkClicked;
             // 
-            // lnklblPricings
+            // lnklblProviders
             // 
-            lnklblPricings.AutoSize = true;
-            lnklblPricings.Font = new Font("Segoe UI", 13.8F);
-            lnklblPricings.LinkBehavior = LinkBehavior.NeverUnderline;
-            lnklblPricings.LinkColor = Color.LightGray;
-            lnklblPricings.Location = new Point(491, 0);
-            lnklblPricings.Margin = new Padding(25, 0, 25, 0);
-            lnklblPricings.Name = "lnklblPricings";
-            lnklblPricings.Size = new Size(95, 31);
-            lnklblPricings.TabIndex = 3;
-            lnklblPricings.TabStop = true;
-            lnklblPricings.Text = "Pricings";
-            lnklblPricings.LinkClicked += lnklblProviders_LinkClicked;
+            lnklblProviders.AutoSize = true;
+            lnklblProviders.Font = new Font("Segoe UI", 13.8F);
+            lnklblProviders.LinkBehavior = LinkBehavior.NeverUnderline;
+            lnklblProviders.LinkColor = Color.LightGray;
+            lnklblProviders.Location = new Point(491, 0);
+            lnklblProviders.Margin = new Padding(25, 0, 25, 0);
+            lnklblProviders.Name = "lnklblProviders";
+            lnklblProviders.Size = new Size(95, 31);
+            lnklblProviders.TabIndex = 3;
+            lnklblProviders.TabStop = true;
+            lnklblProviders.Text = "Pricings";
+            lnklblProviders.LinkClicked += lnklblProviders_LinkClicked;
             // 
             // pnlServicesButtons
             // 
@@ -465,7 +465,7 @@
         private FlowLayoutPanel flpNavigationTab;
         private LinkLabel lnklblServices;
         private LinkLabel lnklblHowItWorks;
-        private LinkLabel lnklblPricings;
+        private LinkLabel lnklblProviders;
         private LinkLabel lnklblHome;
         private Panel pnlServicesButtons;
         private Button btnRequestAService;

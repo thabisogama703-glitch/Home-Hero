@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             dgvProviders = new DataGridView();
-            btnAddProvider_ = new Button();
-            btnRemoveProvider = new Button();
+            btnAddProvider_ = new ModernButton();
+            btnRemoveProvider = new ModernButton();
             label3 = new Label();
             txtSearchProvider = new TextBox();
-            btnSearch = new Button();
-            pnlNavigationAdminPanl = new Panel();
+            btnSearch = new ModernButton();
+            pnlNavigationAdminPanl = new GradientPanel();
             lblAdminPortal = new Label();
-            btnExitAdmin = new Button();
+            btnExitAdmin = new ModernButton();
             pictureBox1 = new PictureBox();
             lblHero = new Label();
             lblHome = new Label();
@@ -372,12 +372,12 @@
         #endregion
 
         private DataGridView dgvProviders;
-        private Button btnAddProvider_;
-        private Button btnRemoveProvider;
+        private ModernButton btnAddProvider_;
+        private ModernButton btnRemoveProvider;
         private Label label3;
         private TextBox txtSearchProvider;
-        private Button btnSearch;
-        private Panel pnlNavigationAdminPanl;
+        private ModernButton btnSearch;
+        private GradientPanel pnlNavigationAdminPanl;
         private Label lblAdminPortal;
         private Button btnExitAdmin;
         private PictureBox pictureBox1;

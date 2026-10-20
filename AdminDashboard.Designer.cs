@@ -44,9 +44,9 @@
             pictureBox3 = new PictureBox();
             label9 = new Label();
             label4 = new Label();
-            pnlNavigationAdminPanl = new Panel();
+            pnlNavigationAdminPanl = new GradientPanel();
             lblAdminPortal = new Label();
-            btnExitAdmin = new Button();
+            btnExitAdmin = new ModernButton();
             pictureBox1 = new PictureBox();
             lblHero = new Label();
             lblHome = new Label();
@@ -801,7 +801,7 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private Panel pnlNavigationAdminPanl;
+        private GradientPanel pnlNavigationAdminPanl;
         private Panel panel8;
         private Label label6;
         private Label label7;

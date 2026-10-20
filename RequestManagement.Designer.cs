@@ -30,16 +30,16 @@
         {
             label1 = new Label();
             txtSearchRequests = new TextBox();
-            btnApproveRequests = new Button();
-            btnCancelRequests = new Button();
+            btnApproveRequests = new ModernButton();
+            btnCancelRequests = new ModernButton();
             cbxCategory = new ComboBox();
             dgvRequests = new DataGridView();
-            btnSearch = new Button();
+            btnSearch = new ModernButton();
             cbxStatus = new ComboBox();
-            btnReassign = new Button();
-            pnlNavigationAdminPanl = new Panel();
+            btnReassign = new ModernButton();
+            pnlNavigationAdminPanl = new GradientPanel();
             lblAdminPortal = new Label();
-            btnExitAdmin = new Button();
+            btnExitAdmin = new ModernButton();
             pictureBox1 = new PictureBox();
             lblHero = new Label();
             lblHome = new Label();
@@ -427,14 +427,14 @@
 
         private Label label1;
         private TextBox txtSearchRequests;
-        private Button btnApproveRequests;
-        private Button btnCancelRequests;
+        private ModernButton btnApproveRequests;
+        private ModernButton btnCancelRequests;
         private ComboBox cbxCategory;
         private DataGridView dgvRequests;
-        private Button btnSearch;
+        private ModernButton btnSearch;
         private ComboBox cbxStatus;
-        private Button btnReassign;
-        private Panel pnlNavigationAdminPanl;
+        private ModernButton btnReassign;
+        private GradientPanel pnlNavigationAdminPanl;
         private Label lblAdminPortal;
         private Button btnExitAdmin;
         private PictureBox pictureBox1;

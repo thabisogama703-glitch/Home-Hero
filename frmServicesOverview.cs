@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Home_Hero
 {
-    public partial class frmServicesOverview : Form
+    public partial class frmServicesOverview : FitForm
     {
         public frmServicesOverview()
         {

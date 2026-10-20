@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Home_Hero
 {
-    public partial class frmJobDetails : Form
+    public partial class frmJobDetails : FitForm
     {
         private Job currentJob;
         private ServiceProvider currentProvider;
@@ -20,6 +21,8 @@ namespace Home_Hero
 
         {
             InitializeComponent();
+            BackgroundImage = UiAssets.GetImage("715579828291516585");
+            BackgroundImageLayout = ImageLayout.Stretch;
 
         }
         private void LoadJobDetails()
